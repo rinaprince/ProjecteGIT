@@ -7,4 +7,9 @@ import './bootstrap.js';
  */
 import './styles/app.css'
 
+// Bootstrap 5 imports
+import 'bootstrap/dist/css/bootsrap.min.css'
+import 'bootstrap'
+import '@popperjs/core'
+
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉')

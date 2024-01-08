@@ -1,0 +1,110 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\ProfessionalRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: ProfessionalRepository::class)]
+class Professional
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $cif = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $managerNif = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $LOPDdoc = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $bussinessName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $constitutionWriting = null;
+
+    #[ORM\Column]
+    private ?bool $subscription = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCif(): ?string
+    {
+        return $this->cif;
+    }
+
+    public function setCif(string $cif): static
+    {
+        $this->cif = $cif;
+
+        return $this;
+    }
+
+    public function getManagerNif(): ?string
+    {
+        return $this->managerNif;
+    }
+
+    public function setManagerNif(string $managerNif): static
+    {
+        $this->managerNif = $managerNif;
+
+        return $this;
+    }
+
+    public function getLOPDdoc(): ?string
+    {
+        return $this->LOPDdoc;
+    }
+
+    public function setLOPDdoc(string $LOPDdoc): static
+    {
+        $this->LOPDdoc = $LOPDdoc;
+
+        return $this;
+    }
+
+    public function getBussinessName(): ?string
+    {
+        return $this->bussinessName;
+    }
+
+    public function setBussinessName(string $bussinessName): static
+    {
+        $this->bussinessName = $bussinessName;
+
+        return $this;
+    }
+
+    public function getConstitutionWriting(): ?string
+    {
+        return $this->constitutionWriting;
+    }
+
+    public function setConstitutionWriting(string $constitutionWriting): static
+    {
+        $this->constitutionWriting = $constitutionWriting;
+
+        return $this;
+    }
+
+    public function isSubscription(): ?bool
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(bool $subscription): static
+    {
+        $this->subscription = $subscription;
+
+        return $this;
+    }
+}

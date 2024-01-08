@@ -39,6 +39,10 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash
 
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
+#Installing node and namp
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&\
+ apt-get install -y nodejs
+
 # docker-compose exec web-server composer install \
 # docker-compose exec web-server /bin/bash
 # docker-compose exec web-server symfony ....

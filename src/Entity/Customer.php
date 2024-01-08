@@ -8,8 +8,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "customer_type", type: "string")]
+#[ORM\DiscriminatorMap([self::DISCRIMINATOR_PROFESSIONAL => Professional::class, self::DISCRIMINATOR_PRIVATE => PrivateCustomer::class])]
 class Customer
 {
+
+    const DISCRIMINATOR_PROFESSIONAL = 'professional';
+    const DISCRIMINATOR_PRIVATE = 'private';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

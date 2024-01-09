@@ -1,10 +1,16 @@
+DOCKER_PREFIX = docker-compose exec web-server
+
 PHP_CMD = docker-compose exec web-server php
 COMPOSER_CMD = docker-compose exec web-server composer
+NPM_CMD = $(DOCKER_PREFIX) npm
 #COMPOSER_CMD = compose
 #PHP_CMD = php
 .DEFAULT_GOAL:=help
 rebuild:
 	-$(COMPOSER_CMD) install
+
+	-$(NPM_CMD) install
+	-$(NPM_CMD) run dev
 
 	@ echo "Esborrant la base de dades..."
 	-$(PHP_CMD) bin/console doctrine:database:drop -n --force

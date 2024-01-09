@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BackOffice{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('equip3/Normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('equip3/grid.css') }}">
+    <link rel="stylesheet" href="{{ asset('equip3/variables.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('equip3/squeleton-back.css') }}">
+    {% endblock %}
+    <script src="{{ asset('equip3/js/menu_aside.js') }}"></script>
+    <script src="{{ asset('equip3/js/menu-burguer.js') }}"></script>
+    <script src="{{ asset('equip3/js/modal.js') }}"></script>
+</head>
+
+<body>
+<!-- Secció de capçalera -->
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Secció de logotip i navegació -->
+                <div class="logo">
+                    <!-- Enllaç del logotip -->
+                    <a href="#logo">
+                        <!-- Imatge del logotip -->
+                        <img src="{{ asset('equip3/img/logoBHEC.png') }}" class="img-logo-header">
+                    </a>
+                    <!-- Navegació amb icona d'usuari -->
+                    <nav class="grup-icones">
+                        <ul>
+                            <li>
+                                <!-- Enllaç de l'ícona d'usuari -->
+                                <a href="#usuari">
+                                    <!-- Imatge de l'ícona d'usuari -->
+                                    <img src="{{asset('equip3/img/usuari-Groc.png')}}">
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Secció de contingut principal -->
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            {% include '_aside_back.html.twig' %}
+            <div class="col-10">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="footerContent">
+                    <img src="{{asset('equip3/img/logoBHEC.png')}}" alt="logoFooter">
+                    <h2>BHEC</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

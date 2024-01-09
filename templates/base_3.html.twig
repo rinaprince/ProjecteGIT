@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Front Office{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link  href="{{ asset('equip3/Normalize.css') }}" rel="stylesheet">
+    <link  href="{{ asset('equip3/grid.css') }} " rel="stylesheet">
+    <link  href="{{ asset('equip3/variables.css') }}" rel="stylesheet">
+    <link  href="{{ asset('equip3/squeleton-frontend.css') }}" rel="stylesheet">
+    <script src="{{ asset('equip3/burger.js') }}" defer ></script>
+    <script src="{{ asset('equip3/searchBar.js') }}" defer ></script>
+
+</head>
+<body>
+<header class="container-fluid">
+    <div class="row div-header">
+        <div class="col-12">
+            <nav class="first-nav">
+                <img src="{{ asset('equip3/img/logoBHEC.png') }}" alt="logo BEHC" width="50px"/>
+                <ul class="hidden">
+                    <li>
+                        <a href="/catalogue_list.php">Catàleg</a>
+                    </li>
+                    <li>
+                        <a href="#">Contacte</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="searcher-header hidden">
+                <div>
+                    <input type="text" class="input-searcher-header" placeholder="Buscar...">
+                    <button class="button-searcher-header"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <nav class="header-icons">
+                <ul>
+                    <li class="hidden-desktop">
+                        <a href="#">
+                            <img src="{{ asset('equip3/img/busqueda-Groc.png') }}" alt="Imatge Lupa" id="busqueda">
+                        </a>
+                    </li>
+                    <li class="hidden">
+                        <a href="#">
+                            <img src="{{ asset('equip3/img/notificacio-Groc.png') }}" alt="Imatge Notificació" id="notificacio">
+                        </a>
+                    </li>
+                    <li class="hidden">
+                        <a href="#">
+                            <img src="{{ asset('equip3/img/llistaDeDesitjos-Groc.png') }}" alt="Imatge Llista De Dessitjos"
+                                 id="desitjos"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/garage_list.php">
+                            <img src="{{ asset('equip3/img/garatge-Groc.png') }}" alt="Imatge Garatge" id="garatge">
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="{{ asset('equip3/img/usuari-Groc.png') }}" alt="Imatge Usuari" id="usuari">
+                        </a>
+                    </li>
+                    <li>
+                        <nav id="menu-mobile">
+                            <div id="burger">
+                                <span class="line1"></span>
+                                <span class="line2"></span>
+                                <span class="line3"></span>
+                            </div>
+                            <div class="ocultMenu">
+                                <nav id="main-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="/catalogue_list.php">
+                                                Catàleg
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/contacte.html">
+                                                Contacte
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/contacte.html">
+                                                Notificacions
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </nav>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- L'estrctura que segueix és la mateixa que deuríen seguir tots, el grid. Un container conté rows i cada row conté columns.
+    Jo recomane crear un div dins del column ja que et permetrà controlar el contingut sense alterar els estils del grid  -->
+{% block body %}
+{% endblock %}
+<!-- Container-fluid ocupa el 100% de l'amplaria de la pàgina -->
+<footer class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <!-- Div per controlar tot el contingut sense aplicar classes i id's a column -->
+            <div class="self-container">
+                <!-- Div per estructurar el logo i el nom de l'empresa -->
+                <div class="nom-logo">
+                    <img src="{{ asset('equip3/img/logoBHEC.png') }}" alt="Logotip Empresa" width="50px">
+                    <h3>BHEC</h3>
+                </div>
+                <!-- Línia separadora -->
+                <hr class="separator"/>
+
+                <!-- Llista amb els enllaços corresponents -->
+                <ul class="footer-menu">
+                    <li>
+                        <a href="#">FAQ</a>
+                    </li>
+                    <li>
+                        <a href="#">Terminis i Condicions</a>
+                    </li>
+                    <li>
+                        <a href="#">Política de Privacitat</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

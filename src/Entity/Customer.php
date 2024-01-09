@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "customer_type", type: "string")]
 #[ORM\DiscriminatorMap([self::DISCRIMINATOR_PROFESSIONAL => Professional::class, self::DISCRIMINATOR_PRIVATE => PrivateCustomer::class])]
-class Customer
+abstract  class Customer
 {
 
     const DISCRIMINATOR_PROFESSIONAL = 'professional';

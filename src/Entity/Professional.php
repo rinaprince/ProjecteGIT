@@ -6,12 +6,8 @@ use App\Repository\ProfessionalRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProfessionalRepository::class)]
-class Professional
+class Professional extends Customer
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column(length: 20)]
     private ?string $cif = null;
@@ -31,10 +27,7 @@ class Professional
     #[ORM\Column]
     private ?bool $subscription = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+
 
     public function getCif(): ?string
     {

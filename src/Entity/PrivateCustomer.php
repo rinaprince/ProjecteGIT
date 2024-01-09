@@ -6,15 +6,7 @@ use App\Repository\PrivateCustomerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PrivateCustomerRepository::class)]
-class PrivateCustomer
+class PrivateCustomer extends Customer
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 }

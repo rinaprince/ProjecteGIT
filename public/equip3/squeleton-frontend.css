@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Playfair+Display&display=swap');
+
 /* Importació de la font de lletra DM Sans */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap');
 
@@ -10,7 +12,7 @@
 
 body {
     background-color: #e7e7e9ff;
-    font-family: 'DM Sans', 'Courier New', Courier, monospace;
+    font-family: var(--primary-fontFamily), 'Courier New', Courier, monospace;
 }
 
 /*  ----------------------------------------------- MENU DE NAVEGACIÓ Y HEADER-----------------------------------------------  */
@@ -20,7 +22,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: var(--primary-color);
-    font-family: 'Playfair Display', serif;
+    font-family: var(--primary-fontFamily), serif;
     font-size: 28px;
     padding: 15px 0;
 }
@@ -111,7 +113,7 @@ body {
     background-color: #aa8e31ff;
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
-    border: 1px solid #aa8e31ff;
+    border: 1px solid var(--primary-color);
     border-radius: 0 40px 40px 0;
     height: 40px;
     width: 64px;
@@ -182,68 +184,85 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-}
-
-/* SearchBar Settings */
-.search-bar-container {
-    display: flex;
     align-items: center;
-    width: 45vw;
-    height: auto;
-    border-radius: 50px;
-    position: relative;
-    transition: width 1.5s, background-color 0s;
-    background-color: white;
-}
-
-.magnifier {
-    width: 25px;
-    cursor: pointer;
-    position: absolute;
-    left: 20px;
-}
-
-.mic-icon {
-    width: 30px;
-    position: absolute;
-    right: 10px;
-    transition: width 0.4s;
-    transition-delay: 1s;
-}
-
-.input-searcher {
-    background-color: transparent;
-    border: none;
-    margin: 10px 50px;
-    width: 100%;
-    outline: none;
-    color: rgb(100, 100, 100);
-    transition: width 1s;
-    transition-delay: 0.5s;
-    font-size: 0.6em;
-}
-
-.active.search-bar-container {
-    width: 50px;
-    background-color: transparent;
-    transition: width 1.5s, background-color 1.5s;
-}
-
-.active .input {
-    width: 0;
-}
-
-.active .mic-icon {
-    width: 0;
 }
 
 .header-icons ul li{
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
+/**
+* Arxius css per donar-li estils al footer
+*/
+/*  ----------------------------------------------- FOOTER Y MENU NAVEGACIÓ FOOTER -----------------------------------------------  */
 
+/* Div controlador <div class="self-container"> */
+.self-container {
+    background-color:var(--primary-color);
+    font-family: var(--primary-fontFamily), serif;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Llista d'enllaços <ul class="footer-menu"> */
+.footer-menu {
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    font-size: 1.1em;
+    padding: 1em .5em;
+    display: flex;
+}
+
+/* Llista d'enllaços <ul class="footer-menu">
+                        <li></li> */
+.footer-menu li {
+    list-style: none;
+    display: inline-block;
+    padding: 0 1em;
+}
+
+/* Llista d'enllaços <ul class="footer-menu">
+                        <li><a href="#"></a></li> */
+.footer-menu li a {
+    text-decoration: none;
+    color: var(--secundary-color);
+}
+
+.footer-menu li a:hover{
+    color: var(--tertiary-color);
+    transition: ease-in .2s;
+}
+
+/* Div que conté el logotip i nom de l'empresa  <div class="nom-logo"> */
+.nom-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.nom-logo h3 {
+    color: var(--secundary-color);
+    font-size: 1.7em;
+    margin: .2em;
+}
+
+.nom-logo img {
+    width: 2em;
+}
+
+/* Linía que s'encarrega de separar el contingut <hr class="separator"> */
+.separator {
+    border: 1px solid #e7d381ff;
+    align-self: center;
+    width: 97%;
+}
+
+footer .col-12{
+    padding: 0;
+}
 @media (max-width: 770px) {
 
     #menu-desktop {
@@ -286,95 +305,13 @@ body {
     #main-menu li:hover{
         background-color: var(--tertiary-color);
     }
-}
 
-/* Footer -------------------------------------------------------------------------------- */
+    .footer-menu{
+        flex-direction: column;
+    }
 
-:root{
-    --primary-color: #181d33ff;
-    --secundary-color:#e7d381ff;
-    --tertiary-color:#aa8e31ff;
-    --quaternary-color:#e7e7e9;
-    --primary-fontFamily:'DM Sans';
-}
+    .footer-menu li{
+        margin: .5em 0;
+    }
 
-/*  ----------------------------------------------- FOOTER Y MENU NAVEGACIÓ FOOTER -----------------------------------------------  */
-
-/* Div controlador <div class="self-container"> */
-.self-container {
-    background-color:var(--primary-color);
-    font-family: var(--primary-fontFamily), serif;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.footer-div{
-    background-color: var(--primary-color);
-}
-
-/* Llista d'enllaços <ul class="footer-menu"> */
-.footer-menu {
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primary-color);
-    font-size: 18px;
-    padding: 15px 0;
-}
-
-.footer-menu{
-    display: flex;
-    justify-content: left;
-    align-items: center;
-}
-
-/* Llista d'enllaços <ul class="footer-menu">
-                        <li></li> */
-.footer-menu li {
-    list-style: none;
-    display: inline-block;
-    padding: 0 10px;
-}
-
-.footer-menu li:first-child {
-    padding-left: 30px;
-}
-
-/* Llista d'enllaços <ul class="footer-menu">
-                        <li><a href="#"></a></li> */
-.footer-menu li a {
-    text-decoration: none;
-    color: var(--secundary-color);
-    font-weight: bold;
-}
-
-.footer-menu li a:hover{
-    color: var(--tertiary-color);
-    transition: ease-in .2s;
-}
-
-/* Div que conté el logotip i nom de l'empresa  <div class="nom-logo"> */
-.nom-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-}
-
-.nom-logo h3 {
-    color: var(--secundary-color);
-    font-weight: bold;
-    font-size: 28px;
-    margin: 5px;
-}
-
-.nom-logo img {
-    width: 30px;
-}
-
-/* Linía que s'encarrega de separar el contingut <hr class="separator"> */
-.separator {
-    border: 1px solid #e7d381ff;
-    align-self: center;
-    width: 97%;
 }

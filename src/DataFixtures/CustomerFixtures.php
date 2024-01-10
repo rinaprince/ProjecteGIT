@@ -33,7 +33,7 @@ class CustomerFixtures extends Fixture
 
             $customer->setName($this->faker->firstNameMale());
             $customer->setLastname($this->faker->lastName());
-            $customer->setAddress($this->faker->regexify('/^\d{8}[A-Z]$/'));
+            $customer->setAddress($this->faker->address());
             $customer->setDni($this->faker->dni());
             $customer->setPhone($this->faker->phoneNumber());
             $customer->setEmail($this->faker->email());
@@ -41,9 +41,9 @@ class CustomerFixtures extends Fixture
             if ($customer instanceof Professional) {
                 $customer->setCif($this->faker->regexify('/^[A-Z0-9]{9}$/'));
                 $customer->setManagerNif($this->faker->dni());
-                $customer->setLOPDdoc($this->faker->boolean);           // No es correcte, necessitariem fer algo per a assignar una ruta
+                $customer->setLOPDdoc($this->faker->word . '.pdf');           // No es correcte, necessitariem fer algo per a assignar una ruta
                 $customer->setBussinessName($this->faker->company);
-                $customer->setConstitutionWriting($this->faker->text);
+                $customer->setConstitutionWriting($this->faker->word . '.pdf');
                 $customer->setSubscription($this->faker->boolean);
             }
 

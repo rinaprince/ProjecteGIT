@@ -19,7 +19,7 @@ rebuild:
 	$(PHP_CMD) bin/console doctrine:database:create -n
 
 	@ echo "Creant l'estructura..."
-	$(PHP_CMD) bin/console doctrine:schema:create -n
+	$(PHP_CMD) bin/console doctrine:migrations:migrate -n
 
 
 	@ echo "Carregant les dades..."

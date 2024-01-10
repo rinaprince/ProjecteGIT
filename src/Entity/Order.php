@@ -19,15 +19,16 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
-    #[ORM\OneToOne(mappedBy: 'customerOrder', cascade: ['persist', 'remove'])]
-    private ?Invoice $invoice = null;
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'],  inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Customer $customer = null;
 
     #[ORM\OneToMany(mappedBy: 'vehicleOrder', targetEntity: Vehicle::class, orphanRemoval: true)]
     private Collection $vehicles;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Invoice $customer = null;
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Invoice $invoice = null;
 
     public function __construct()
     {
@@ -98,12 +99,12 @@ class Order
         return $this;
     }
 
-    public function getCustomer(): ?Invoice
+    public function getCustomer(): ?Customer
     {
         return $this->customer;
     }
 
-    public function setCustomer(Invoice $customer): static
+    public function setCustomer(Customer $customer): static
     {
         $this->customer = $customer;
 

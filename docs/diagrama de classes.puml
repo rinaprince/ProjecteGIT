@@ -25,6 +25,7 @@ class Vehicle {
 
 class Provider {
 - id : int
+- bussinessName: string
 - email : string
 - phone : string
 - dni : string

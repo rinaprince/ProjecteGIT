@@ -64,7 +64,7 @@ class Vehicle
     #[ORM\OneToMany(mappedBy: 'vehicle', targetEntity: Document::class, orphanRemoval: true)]
     private Collection $documents;
 
-    #[ORM\OneToOne(inversedBy: 'vehicle', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'vehicles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Model $model = null;
 
@@ -73,7 +73,7 @@ class Vehicle
     private ?Provider $provider = null;
 
     #[ORM\ManyToOne(inversedBy: 'vehicles')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Order $vehicleOrder = null;
 
 

@@ -8,8 +8,8 @@
     <link  href="{{ asset('equip3/grid.css') }} " rel="stylesheet">
     <link  href="{{ asset('equip3/variables.css') }}" rel="stylesheet">
     <link  href="{{ asset('equip3/squeleton-frontend.css') }}" rel="stylesheet">
-    <script src="{{ asset('equip3/burger.js') }}" defer ></script>
-    <script src="{{ asset('equip3/searchBar.js') }}" defer ></script>
+    <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer ></script>
+    <script src="{{ asset('equip3/js/searchbar.js') }}" defer ></script>
 
 </head>
 <body>
@@ -38,9 +38,13 @@
             <nav class="header-icons">
                 <ul>
                     <li class="hidden-desktop">
-                        <a href="#">
-                            <img src="{{ asset('equip3/img/busqueda-Groc.png') }}" alt="Imatge Lupa" id="busqueda">
-                        </a>
+                        <div class="search-bar-container active">
+                            <img src="{{ asset('equip3/img/busqueda-Groc.png') }}" alt="magnifier"
+                                 class="magnifier" />
+                            <input type="text" class="input-searcher" placeholder="Search ..." />
+                            <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-25-512.png" alt="mic-icon"
+                                 class="mic-icon" />
+                        </div>
                     </li>
                     <li class="hidden">
                         <a href="#">
@@ -63,38 +67,38 @@
                             <img src="{{ asset('equip3/img/usuari-Groc.png') }}" alt="Imatge Usuari" id="usuari">
                         </a>
                     </li>
-                    <li>
-                        <nav id="menu-mobile">
-                            <div id="burger">
-                                <span class="line1"></span>
-                                <span class="line2"></span>
-                                <span class="line3"></span>
-                            </div>
-                            <div class="ocultMenu">
-                                <nav id="main-menu">
-                                    <ul>
-                                        <li>
-                                            <a href="/catalogue_list.php">
-                                                Catàleg
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/contacte.html">
-                                                Contacte
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/contacte.html">
-                                                Notificacions
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </nav>
-                    </li>
                 </ul>
+                <nav id="menu-mobile">
+                    <div id="burger">
+                        <span class="line1"></span>
+                        <span class="line2"></span>
+                        <span class="line3"></span>
+                    </div>
+                    <div class="ocultMenu">
+                        <nav id="main-menu">
+                            <ul>
+                                <li>
+                                    <a href="/catalogue_list.php">
+                                        Catàleg
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/contacte.html">
+                                        Contacte
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/contacte.html">
+                                        Notificacions
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </nav>
             </nav>
+
+
         </div>
     </div>
 </header>
@@ -104,7 +108,7 @@
 {% endblock %}
 <!-- Container-fluid ocupa el 100% de l'amplaria de la pàgina -->
 <footer class="container-fluid">
-    <div class="row">
+    <div class="row footer-div">
         <div class="col-12">
             <!-- Div per controlar tot el contingut sense aplicar classes i id's a column -->
             <div class="self-container">
@@ -114,7 +118,7 @@
                     <h3>BHEC</h3>
                 </div>
                 <!-- Línia separadora -->
-                <hr class="separator"/>
+                <hr class="separator" />
 
                 <!-- Llista amb els enllaços corresponents -->
                 <ul class="footer-menu">
@@ -122,13 +126,12 @@
                         <a href="#">FAQ</a>
                     </li>
                     <li>
-                        <a href="#">Terminis i Condicions</a>
+                        <a href="#">Terms & Conditions</a>
                     </li>
                     <li>
-                        <a href="#">Política de Privacitat</a>
+                        <a href="#">Privacy Policy</a>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>

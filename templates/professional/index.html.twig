@@ -1,0 +1,57 @@
+{% extends 'base_back_3.html.twig' %}
+
+{% block title %}Professional index{% endblock %}
+
+{% block body %}
+    <h1>Professional index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Address</th>
+                <th>Dni</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Cif</th>
+                <th>ManagerNif</th>
+                <th>LOPDdoc</th>
+                <th>BussinessName</th>
+                <th>ConstitutionWriting</th>
+                <th>Subscription</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for professional in professionals %}
+            <tr>
+                <td>{{ professional.id }}</td>
+                <td>{{ professional.name }}</td>
+                <td>{{ professional.lastname }}</td>
+                <td>{{ professional.address }}</td>
+                <td>{{ professional.dni }}</td>
+                <td>{{ professional.phone }}</td>
+                <td>{{ professional.email }}</td>
+                <td>{{ professional.cif }}</td>
+                <td>{{ professional.managerNif }}</td>
+                <td>{{ professional.LOPDdoc }}</td>
+                <td>{{ professional.bussinessName }}</td>
+                <td>{{ professional.constitutionWriting }}</td>
+                <td>{{ professional.subscription ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_professional_show', {'id': professional.id}) }}">show</a>
+                    <a href="{{ path('app_professional_edit', {'id': professional.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_professional_new') }}">Create new</a>
+{% endblock %}

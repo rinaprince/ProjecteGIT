@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PrivateCustomer{% endblock %}
+
+{% block body %}
+    <h1>PrivateCustomer</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ private_customer.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ private_customer.name }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ private_customer.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ private_customer.address }}</td>
+            </tr>
+            <tr>
+                <th>Dni</th>
+                <td>{{ private_customer.dni }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ private_customer.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ private_customer.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_private_customer_index') }}">back to list</a>
+
+    <a href="{{ path('app_private_customer_edit', {'id': private_customer.id}) }}">edit</a>
+
+    {{ include('private_customer/_delete_form.html.twig') }}
+{% endblock %}

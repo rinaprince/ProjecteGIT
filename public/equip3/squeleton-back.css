@@ -83,42 +83,26 @@ a:hover {
     display: none;
 }
 
-/* ----------------------------------- SECCIÓ POSTERIOR ----------------------------*/
-
-/* Estils de la secció */
-section {
-    font-family: var(--primary-fontFamily), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+.aside{
+    padding: 0%;
+    background-color: #aa8e31;
+    border: solid 1px;
 }
 
-/* Estils del títol */
-.title {
-    width: 100%;
-
-    text-align: center;
-}
-
-/*  ----------------------------------------------- ASIDE -----------------------------------------------  */
-
-.aside {
-    padding: 0;
-    background-color: var(--tertiary-color);
-    position: relative;
-}
-
-#main-menu li {
+#main-menu li{
     padding: 8% 0% 8% 15%;
     list-style: none;
     text-align: left;
     font-size: 1em;
 }
 
-#main-menu li a {
+#main-menu li a{
     color: white;
     text-decoration: none;
 }
 
-#main-menu li:hover {
-    background-color: #6e5c20;
+#main-menu li:hover{
+    background-color: #8b7428
 }
 
 #main-menu .submenu-content {
@@ -135,25 +119,22 @@ section {
     color: #e7d381ff;
 }
 
-#main-menu .submenu:hover .submenu-content {
-    display: block;
-}
-
 #main-menu .fas {
     margin-right: 0.5em;
 }
 
-.fa-chevron-right {
+.fa-chevron-right{
     font-size: 12px;
     width: 15%;
 }
 
-.fa-chevron-down {
+.fa-chevron-down{
     font-size: 12px;
     width: 15%;
 }
 
-/*  ----------------------------------------------- FOOTER -----------------------------------------------  */
+/*  ----------------------------------------------- FOOTER Y MENU NAVEGACIÓ FOOTER -----------------------------------------------  */
+
 
 footer {
     padding: 1em 0;
@@ -162,7 +143,7 @@ footer {
 
 .footerContent>h2 {
     margin: 0 0.5em;
-    color: var(--secondary-color);
+    color: var(--secundary-color);
     font-family: var(--primary-fontFamily);
 }
 
@@ -175,7 +156,6 @@ footer {
 .footerContent>img {
     width: 35px;
 }
-
 
 /* --------------------------------------------------------------------- MOVIL --------------------------------------------------------------------- */
 
@@ -214,7 +194,9 @@ footer {
         padding: 10px 15px;
     }
 
-    aside {
+    aside{
         display: none;
     }
 }
+
+

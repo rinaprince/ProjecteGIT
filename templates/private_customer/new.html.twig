@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PrivateCustomer{% endblock %}
+
+{% block body %}
+    <h1>Create new PrivateCustomer</h1>
+
+    {{ include('private_customer/_form.html.twig') }}
+
+    <a href="{{ path('app_private_customer_index') }}">back to list</a>
+{% endblock %}

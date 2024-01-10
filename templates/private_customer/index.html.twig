@@ -1,0 +1,45 @@
+{% extends 'base_back_3.html.twig' %}
+
+{% block title %}PrivateCustomer index{% endblock %}
+
+{% block body %}
+    <h1>PrivateCustomer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Address</th>
+                <th>Dni</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for private_customer in private_customers %}
+            <tr>
+                <td>{{ private_customer.id }}</td>
+                <td>{{ private_customer.name }}</td>
+                <td>{{ private_customer.lastname }}</td>
+                <td>{{ private_customer.address }}</td>
+                <td>{{ private_customer.dni }}</td>
+                <td>{{ private_customer.phone }}</td>
+                <td>{{ private_customer.email }}</td>
+                <td>
+                    <a href="{{ path('app_private_customer_show', {'id': private_customer.id}) }}">show</a>
+                    <a href="{{ path('app_private_customer_edit', {'id': private_customer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_private_customer_new') }}">Create new</a>
+{% endblock %}

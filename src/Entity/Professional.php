@@ -4,27 +4,53 @@ namespace App\Entity;
 
 use App\Repository\ProfessionalRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProfessionalRepository::class)]
 class Professional extends Customer
 {
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank]
+    #[Assert\Type(type :'string')]
+    #[Assert\Length(max: 20)]
     private ?string $cif = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank]
+    #[Assert\Type(type :'string')]
+    #[Assert\Length(max: 20)]
     private ?string $managerNif = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
+    #[Assert\File(
+        maxSize: '10M',
+        mimeTypes: '{"application/pdf", "application/x-pdf"}',
+        maxSizeMessage: 'Per favor, puja un fitxer PDF vàlid.'
+    )]
     private ?string $LOPDdoc = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Type(type :'string')]
+    #[Assert\Length(max: 255)]
     private ?string $bussinessName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
+    #[Assert\File(
+        maxSize: '10M',
+        mimeTypes: '{"application/pdf", "application/x-pdf"}',
+        maxSizeMessage: 'Per favor, puja un fitxer PDF vàlid.'
+    )]
     private ?string $constitutionWriting = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Type(type:'bool')]
     private ?bool $subscription = null;
 
 

@@ -24,7 +24,8 @@ class ProviderFixtures extends Fixture
 
         for ($i = 0 ; $i < 10 ; $i++) {
             $provider = new Provider();
-            $provider->setEmail($this->faker->email);
+            $provider->setBussinessName($this->faker->domainWord);
+            $provider->setEmail($this->faker->companyEmail());
             $provider->setPhone($this->faker->phoneNumber);
             $provider->setDni($this->faker->dni());
             $provider->setCif($this->faker->regexify('/^[0-9]{8}[A-Z]{1}$/'));

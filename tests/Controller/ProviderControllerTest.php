@@ -18,6 +18,7 @@ class ProviderControllerTest extends WebTestCase
     protected function setUp(): void
     {
         $this->client = static::createClient();
+        $this->client->catchExceptions(false);
         $this->manager = static::getContainer()->get('doctrine')->getManager();
         $this->repository = $this->manager->getRepository(Provider::class);
 
@@ -41,7 +42,7 @@ class ProviderControllerTest extends WebTestCase
 
     public function testNew(): void
     {
-        $this->markTestIncomplete();
+        //$this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
@@ -58,7 +59,7 @@ class ProviderControllerTest extends WebTestCase
             'provider[constitutionArticle]' => 'Testing',
         ]);
 
-        self::assertResponseRedirects('/sweet/food/');
+        self::assertResponseRedirects($this->path);
 
         self::assertSame(1, $this->getRepository()->count([]));
     }

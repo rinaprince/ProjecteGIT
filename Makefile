@@ -25,5 +25,24 @@ rebuild:
 	@ echo "Carregant les dades..."
 	$(PHP_CMD) bin/console doctrine:fixtures:load -n
 
+rebuild-test:
+	-$(COMPOSER_CMD) install
+
+	-$(NPM_CMD) install
+	-$(NPM_CMD) run dev
+
+	@ echo "Esborrant la base de dades..."
+	-$(PHP_CMD) bin/console doctrine:database:drop -n --force --env=test
+
+	@ echo "Creant-la de nous..."
+	$(PHP_CMD) bin/console doctrine:database:create -n --env=test
+
+	@ echo "Creant l'estructura..."
+	$(PHP_CMD) bin/console doctrine:migrations:migrate -n --env=test
+
+
+	@ echo "Carregant les dades..."
+	$(PHP_CMD) bin/console doctrine:fixtures:load -n --env=test
+
 help:
-	@ echo "Utilitza 'make rebuild' per a regenerar les dades"
+	@ echo "Utilitza 'make rebuild' per a regenerar les dades o 'make rebuild-test'"

@@ -5,27 +5,46 @@ namespace App\Tests\Validator;
 use App\Validator\Dni;
 use App\Validator\DniValidator;
 use Doctrine\DBAL\Exception\ConstraintViolationException;
-use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class DniValidatorTest extends TestCase
+class DniValidatorTest extends ConstraintValidatorTestCase
 {
-    public function testSomething(): void
+    public function testValidDNINotRaiseViolation(): void
     {
-        $validator = new DniValidator();
+
         $dni = new Dni();
-        $validator->validate("12345678Z", $dni);
+        $this->validator->validate("12345678Z", $dni);
 
-
-        $this->assertTrue(true);
+        $this->assertNoViolation();
     }
 
-    public function testFailsIfOnlyCharacters(): void
+    public function testViolationRaisedIfOnlyCharacters(): void
     {
-        $validator = new DniValidator();
+        $dniToTest = "ABCDEFGHI";
+        $this->validator->validate($dniToTest, new Dni(message: 'Invalid DNI'));
 
-        $this->expectException(ConstraintViolationException::class);
-        $dni = new Dni();
-        $validator->validate("12345688Z", $dni);
+        $this->buildViolation('Invalid DNI')
+            ->setParameter('{{ string }}', $dniToTest)
+            ->assertRaised();
+    }
 
+
+    public function testViolationRaisedIfCharIsWrong(): void
+    {
+        $dniToTest = "12345678B";
+        $this->validator->validate($dniToTest, new Dni(message: 'Invalid DNI'));
+
+        $this->buildViolation('Invalid DNI')
+            ->setParameter('{{ string }}', $dniToTest)
+            ->assertRaised();
+    }
+
+    /**
+     * @return ConstraintValidatorInterface
+     */
+    protected function createValidator(): ConstraintValidatorInterface
+    {
+        return new DniValidator();
     }
 }

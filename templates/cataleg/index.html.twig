@@ -1,0 +1,33 @@
+{% extends 'base_3.html.twig' %}
+{% block title %} Cataleg {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('equip3/cataleg.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="vehicle-container">
+        {% for vehicle in vehicles %}
+            {% if loop.index0 % 4 == 0 %}
+                <div class="vehicle-row">
+            {% endif %}
+
+            <div class="vehicle">
+                <div class="img-vehicle">
+                    <img src="{{ asset('equip3/img/vehicles/audi-a4.jpg') }}" alt="image audi"/>
+                </div>
+                <div class="des-vehicle">
+                    <p class="name-vehicle">{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</p>
+                    <div class="data-vehicle">
+                        <div><p class="price-vehicle">{{ vehicle.sellPrice }}€</p></div>
+                        <div><p class="km-vehicle"> {{ vehicle.kilometers }}km</p></div>
+                    </div>
+                </div>
+            </div>
+
+            {% if loop.index % 4 == 0 or loop.last %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

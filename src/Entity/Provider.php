@@ -15,7 +15,6 @@ class Provider
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\NotBlank]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -25,7 +24,6 @@ class Provider
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
-    #[Assert\Type(type: 'integer')]
     #[Assert\NotBlank]
     private ?string $phone = null;
 
@@ -66,7 +64,7 @@ class Provider
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    private ?string $bussinessName = null;
+    private ?string $businessName = null;
 
     public function __construct()
     {
@@ -216,14 +214,14 @@ class Provider
         return $this;
     }
 
-    public function getBussinessName(): ?string
+    public function getBusinessName(): ?string
     {
-        return $this->bussinessName;
+        return $this->businessName;
     }
 
-    public function setBussinessName(string $bussinessName): static
+    public function setBusinessName(string $businessName): static
     {
-        $this->bussinessName = $bussinessName;
+        $this->businessName = $businessName;
 
         return $this;
     }

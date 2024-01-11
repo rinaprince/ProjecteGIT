@@ -44,24 +44,26 @@ class ProviderControllerTest extends WebTestCase
     {
         //$this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
+        $this->client->catchExceptions(false);
 
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
-            'provider[email]' => 'Testing',
-            'provider[phone]' => 'Testing',
-            'provider[dni]' => 'Testing',
-            'provider[cif]' => 'Testing',
+            'provider[businessName]' => 'proves@gmail.com',
+            'provider[email]' => 'proves@gmail.com',
+            'provider[phone]' => '666666666',
+            'provider[dni]' => '12345678Z',
+            'provider[cif]' => 'B12345678',
             'provider[address]' => 'Testing',
             'provider[bankTitle]' => 'Testing',
-            'provider[managerNif]' => 'Testing',
+            'provider[managerNif]' => '12345678Z',
             'provider[LOPDdoc]' => 'Testing',
             'provider[constitutionArticle]' => 'Testing',
         ]);
 
         self::assertResponseRedirects($this->path);
 
-        self::assertSame(1, $this->getRepository()->count([]));
+        self::assertSame(1, $this->repository->count([]));
     }
 
     public function testShow(): void

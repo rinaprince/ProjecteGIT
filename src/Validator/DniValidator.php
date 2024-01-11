@@ -8,7 +8,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class DniValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         /* @var App\Validator\Dni $constraint */
 

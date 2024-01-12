@@ -6,6 +6,7 @@ use App\Validator\Dni;
 use App\Validator\DniValidator;
 use Doctrine\DBAL\Exception\ConstraintViolationException;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class DniValidatorTest extends ConstraintValidatorTestCase
@@ -40,15 +41,20 @@ class DniValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /*public function testViolationRaisedIfNull(): void
+    public function testViolationNotRaisedIfNull(): void
     {
         $dniToTest = null;
         $this->validator->validate($dniToTest, new Dni(message: 'Invalid DNI'));
+        $this->assertNoViolation();
+    }
 
-        $this->buildViolation('Invalid DNI')
-            ->setParameter('{{ string }}', $dniToTest)
-            ->assertRaised();
-    }*/
+    public function testExceptionRaisedIfNotAString(): void
+    {
+        $this->expectException(UnexpectedValueException::class);
+        $dniToTest = 123;
+        $this->validator->validate($dniToTest, new Dni(message: 'Invalid DNI'));
+
+    }
 
 
 

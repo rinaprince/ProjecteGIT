@@ -12,6 +12,9 @@ class DniValidator extends ConstraintValidator
     public function validate(mixed $value, Constraint $constraint): void
     {
 
+        if (!is_string($value))
+            return;
+
         if (!preg_match(self::DNI_REGEX, $value)) {
             $this->context->buildViolation($constraint->message)->setParameter('{{ string }}', $value)->addViolation();
             return;

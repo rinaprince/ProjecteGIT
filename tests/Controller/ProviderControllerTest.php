@@ -66,6 +66,36 @@ class ProviderControllerTest extends WebTestCase
         self::assertSame(1, $this->repository->count([]));
     }
 
+    public function testNewFailsIfNoDataSent(): void
+    {
+        //$this->markTestIncomplete();
+        $this->client->request('GET', sprintf('%snew', $this->path));
+        $this->client->catchExceptions(false);
+
+        self::assertResponseStatusCodeSame(200);
+
+        $this->client->submitForm('Save', [
+            'provider[businessName]' => '',
+            'provider[email]' => '',
+            'provider[phone]' => '',
+            'provider[dni]' => '',
+            'provider[cif]' => '',
+            'provider[address]' => '',
+            'provider[bankTitle]' => '',
+            'provider[managerNif]' => '',
+            'provider[LOPDdoc]' => '',
+            'provider[constitutionArticle]' => '',
+        ]);
+
+
+        self::assertSelectorExists("#provider_email.is-invalid");
+        self::assertSelectorExists("#provider_businessName.is-invalid");
+        self::assertSelectorExists("input[name=\"provider[dni]\"].is-invalid");
+
+        //self::assertSame(1, $this->repository->count([]));
+    }
+
+
     public function testShow(): void
     {
         $this->markTestIncomplete();

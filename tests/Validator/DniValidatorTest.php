@@ -40,6 +40,18 @@ class DniValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
+    /*public function testViolationRaisedIfNull(): void
+    {
+        $dniToTest = null;
+        $this->validator->validate($dniToTest, new Dni(message: 'Invalid DNI'));
+
+        $this->buildViolation('Invalid DNI')
+            ->setParameter('{{ string }}', $dniToTest)
+            ->assertRaised();
+    }*/
+
+
+
     /**
      * @return ConstraintValidatorInterface
      */

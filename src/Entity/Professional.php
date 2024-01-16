@@ -121,4 +121,9 @@ class Professional extends Customer
 
         return $this;
     }
+
+    public function getType(): string
+    {
+        return "professional";
+    }
 }

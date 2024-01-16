@@ -13,6 +13,7 @@ class CatalegController extends AbstractController
     public function index(VehicleRepository $vehicleRepository): Response
     {
         $vehicles = $vehicleRepository ->findAll();
+
         return $this->render('cataleg/index.html.twig', [
             'vehicles' => $vehicles,
         ]);

@@ -13,7 +13,7 @@ rebuild:
 	-$(NPM_CMD) run dev
 
 	@ echo "Esborrant imatges..."
-	rm -r public/equip3/img/vehicles/*.jpg
+	-rm -r public/equip3/img/vehicles/*.jpg
 
 	@ echo "Esborrant la base de dades..."
 	-$(PHP_CMD) bin/console doctrine:database:drop -n --force

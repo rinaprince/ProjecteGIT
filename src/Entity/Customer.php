@@ -208,4 +208,7 @@ abstract  class Customer
 
         return $this;
     }
+
+    abstract public function getType(): string;
+
 }

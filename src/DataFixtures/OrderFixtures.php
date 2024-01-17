@@ -32,15 +32,13 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
         $orders = [];
         $vehicles = $this->vehicleRepository->findAll();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $order = new Order();
             $order->setState($this->faker->randomElement(['In process', 'Completed']));
             //$vehicle = $vehicles[array_rand($vehicles)];
 
-            /* Asigna a todos los vehiculos una orden, si no se comenta cada vez
-               que se quiera hacer un Fix se debe hacer un rebuild */
-
-            //$order->addVehicle(array_pop($vehicles));
+           // $order->addVehicle(array_pop($vehicles));
+           //Funciona pero asocia todas las ordenes a vehiculos
 
             $customers = $this->privateCustomerRepository->findAll();
             $customer = $customers[array_rand($customers)];

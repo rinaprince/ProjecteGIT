@@ -19,8 +19,15 @@ class OrderType extends AbstractType
 
             ->add('customer', EntityType::class, [
                 'class' => Customer::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
+
+            ->add('vehicles', EntityType::class, [
+                'class' => Vehicle::class,
+                'choice_label' => 'brand.name',
+                'multiple' => true,
+            ])
+
             ->add('vehicles', EntityType::class, [
                 'class' => Vehicle::class,
                 'choice_label' => 'model.name',

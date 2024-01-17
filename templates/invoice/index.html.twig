@@ -2,23 +2,24 @@
 
 {% block title %}Invoice index{% endblock %}
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('equip3/css/Personal.css') }}">
 {% endblock %}
 
 {% block body %}
 
-    <article class="col-10">
         <section class="contingut col-10">
 
             <h1>Lista de Facturas</h1>
 
             <div id="div-table">
-                <div class="table-searcher">
-                    <input type="text" class="table-searcher-input" placeholder="Buscar...">
-                    <button class="table-searcher-button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+                <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input name="q" type="search" class="form-control text-bg-light" placeholder="Search..."
+                           aria-label="Search">
+                </form>
+                {% if q %}
+                    <p class="pt-3"> Se ha buscado el numero de factura: {{ q }}</p>
+                {% endif %}
                 <table id="backoffice-table">
                     <thead>
                     <tr>
@@ -30,7 +31,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for invoice in invoices %}
+                    {% for invoice in pagination %}
                     <tr>
                         <td data-title="Id:">{{ invoice.id }}</td>
                         <td data-title="Numero:">{{ invoice.number }}</td>
@@ -56,7 +57,10 @@
                 </table>
             </div>
         </section>
-    </article>
 
-    <a href="{{ path('app_invoice_new') }}">Create new</a>
+    <a href="{{ path('app_invoice_new') }}"><button>Create new</button></a>
+
+    <div class="navigation d-flex justify-content-center mt-3">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}

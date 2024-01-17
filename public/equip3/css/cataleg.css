@@ -109,3 +109,17 @@
     background-color: #dcdcdc; /* Color del borde */
     margin: 10px 0; /* Espacio entre el borde y el contenido */
 }
+
+
+.vehicle-add {
+    text-align: center;
+    padding: 20px 0px 20px 0px;
+}
+
+.vehicle-add-button {
+    background-color: #cea12a;
+    padding: 4px 10px 4px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+}

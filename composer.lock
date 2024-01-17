@@ -4,9 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-
-    "content-hash": "e5ab08bdcec6c10b397bac4605d1691e",
-
+    "content-hash": "5243d476f0696c518e32054506414009",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -325,10 +323,7 @@
             "autoload": {
                 "psr-4": {
                     "Doctrine\\DBAL\\": "src"
-                }    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-
-    {% endblock %}
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -454,10 +449,7 @@
                 "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/4089f1424b724786c062aea50aae5f773449b94b",
                 "reference": "4089f1424b724786c062aea50aae5f773449b94b",
                 "shasum": ""
-            },    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-
-    {% endblock %}
+            },
             "require": {
                 "doctrine/cache": "^1.11 || ^2.0",
                 "doctrine/dbal": "^3.7.0 || ^4.0",
@@ -747,16 +739,16 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "f9301a5b2fb1216b2b08f02ba04dc45423db6bff"
+                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/f9301a5b2fb1216b2b08f02ba04dc45423db6bff",
-                "reference": "f9301a5b2fb1216b2b08f02ba04dc45423db6bff",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/2930cd5ef353871c821d5c43ed030d39ac8cfe65",
+                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +810,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/inflector/issues",
-                "source": "https://github.com/doctrine/inflector/tree/2.0.8"
+                "source": "https://github.com/doctrine/inflector/tree/2.0.9"
             },
             "funding": [
                 {
@@ -834,7 +826,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-16T13:40:37+00:00"
+            "time": "2024-01-15T18:05:13+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -1187,10 +1179,7 @@
             },
             "time": "2023-12-20T21:47:52+00:00"
         },
-        {    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-
-    {% endblock %}
+        {
             "name": "doctrine/persistence",
             "version": "3.2.0",
             "source": {
@@ -1378,10 +1367,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-
-    {% endblock %}
+            "license": [
                 "MIT"
             ],
             "authors": [
@@ -1665,10 +1651,7 @@
                     "Knp\\Bundle\\PaginatorBundle\\": "src"
                 }
             },
-            "notification-url"    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-
-    {% endblock %}: "https://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2015,16 +1998,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.7.3",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "3219c6ee25c9ea71e3d9bbaf39c67c9ebd499419"
+                "reference": "fad452781b3d774e3337b0c0b245dd8e5a4455fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/3219c6ee25c9ea71e3d9bbaf39c67c9ebd499419",
-                "reference": "3219c6ee25c9ea71e3d9bbaf39c67c9ebd499419",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/fad452781b3d774e3337b0c0b245dd8e5a4455fc",
+                "reference": "fad452781b3d774e3337b0c0b245dd8e5a4455fc",
                 "shasum": ""
             },
             "require": {
@@ -2067,9 +2050,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.7.3"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.8.0"
             },
-            "time": "2023-08-12T11:01:26+00:00"
+            "time": "2024-01-11T11:49:22+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",

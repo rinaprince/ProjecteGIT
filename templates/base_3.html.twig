@@ -11,8 +11,12 @@
     <script src="{{ asset('equip3/js/burger.js') }}" defer ></script>
     <script src="{{ asset('equip3/js/searchBar.js') }}" defer ></script>
     {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
     {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
 
+    {% endblock %}
 </head>
 <body>
 <header class="container-fluid">

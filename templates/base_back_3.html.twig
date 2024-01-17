@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('equip3/css/squeleton-back.css') }}">
     {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
     {% endblock %}
     <script src="{{ asset('equip3/js/menu_aside.js') }}"></script>
     <script src="{{ asset('equip3/js/menu-burguer.js') }}"></script>

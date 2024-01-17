@@ -3,9 +3,21 @@
 {% block title %}Hello CustomerController!{% endblock %}
 
 {% block body %}
-    <h1>CustomerController index</h1>
+    <h1>Customer index</h1>
 
-    <table class="table">
+    <form method="GET" class="col-12 col-lg-auto my-3 mb-lg-0 me-lg-3" role="search">
+        <div class="input-group">
+            <div class="form-outline" data-mdb-input-init>
+                <input type="search" id="form1" class="form-control" placeholder="Search..."/>
+            </div>
+            <button type="button" class="btn btn-primary" data-mdb-ripple-init>
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+
+
+    <table class="table mt-3">
         <thead>
         <tr>
             <th>Name</th>
@@ -46,4 +58,7 @@
         </tbody>
     </table>
 
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(customers) }}
+    </div>
 {% endblock %}

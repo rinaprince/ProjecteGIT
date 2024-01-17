@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Model;
 use App\Entity\Vehicle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
@@ -33,14 +34,17 @@ class VehicleRepository extends ServiceEntityRepository
      */
     public function findByTextQuery(string $value): array
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.content LIKE :val')
+        return $this->createQueryBuilder('v')
+            ->join('v.model', 'm')
+            ->join('m.brand', 'b')
+            ->where('m.name LIKE :val')
+            ->orWhere('b.name LIKE :val')
             ->setParameter('val', "%$value%")
-            ->orderBy('p.model.name', 'ASC')
+            ->orderBy('m.name', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
 
 //    public function findOneBySomeField($value): ?VehicleFixtures

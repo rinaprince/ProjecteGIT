@@ -12,8 +12,14 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
+
     <link  href="{{ asset('equip3/css/squeleton-frontend.css') }}" rel="stylesheet">
 
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+
+
+    {% endblock %}
 </head>
 <body>
 <header class="container-fluid">

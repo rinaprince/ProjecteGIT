@@ -1,5 +1,6 @@
 {% extends 'base_3.html.twig' %}
 {% block title %} Cataleg {% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('equip3/css/cataleg.css') }}">
@@ -38,6 +39,7 @@
         {% endfor %}
     </div>
     <div class="navigation d-flex justify-content-center mt-lg-3">
+
         {{ knp_pagination_render(pagination) }}
     </div>
 

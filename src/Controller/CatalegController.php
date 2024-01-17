@@ -16,23 +16,27 @@ use Knp\Component\Pager\PaginatorInterface;
 
 class CatalegController extends AbstractController
 {
-    #[Route('/cataleg', name: 'app_cataleg')]
+    #[Route('/catalogue', name: 'app_cataleg')]
     public function index(VehicleRepository $vehicleRepository, PaginatorInterface $paginator, Request $request): Response
     {
-
         $q = $request->query->get('q', '');
+        if( empty($q))
+            $query = $vehicleRepository->findAllQuery();
+        else
+            $query = $vehicleRepository->findByTextQuery($q);
 
-        $vehiclesQuery = $vehicleRepository->findAllQuery();
+        //$vehiclesQuery = $vehicleRepository->findAllQuery();
 
         $pagination = $paginator->paginate(
-            $vehiclesQuery,
+            $query,
             $request->query->getInt('page', 1),
-            12
+            16
         );
 
         return $this->render('cataleg/index.html.twig', [
             'vehicles' => $pagination,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'q'=>$q
         ]);
     }
 

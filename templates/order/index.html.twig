@@ -23,6 +23,15 @@
                     <a href="{{ path('app_order_edit', {'id': order.id}) }}">edit</a>
                 </td>
             </tr>
+
+            {% for vehicle in order.vehicles %}
+                <tr>
+                    <td>
+                {{ vehicle.model.name  }}
+                    </td>
+                </tr>
+            {% endfor %}
+
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>

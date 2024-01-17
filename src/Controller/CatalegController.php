@@ -19,6 +19,7 @@ class CatalegController extends AbstractController
     #[Route('/cataleg', name: 'app_cataleg')]
     public function index(VehicleRepository $vehicleRepository, PaginatorInterface $paginator, Request $request): Response
     {
+
         $q = $request->query->get('q', '');
 
         $vehiclesQuery = $vehicleRepository->findAllQuery();

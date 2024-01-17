@@ -1,0 +1,49 @@
+{% extends 'base_back_3.html.twig' %}
+
+{% block title %}Hello CustomerController!{% endblock %}
+
+{% block body %}
+    <h1>CustomerController index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Address</th>
+            <th>Dni</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Customer_type</th>
+            <th>Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.lastname }}</td>
+                <td>{{ customer.address }}</td>
+                <td>{{ customer.dni }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.type }}</td>
+                <td>
+                    {% if customer.type == "private" %}
+                        <a href="{{ path('app_private_customer_show', {'id': customer.id}) }}">show</a>
+                        <a href="{{ path('app_private_customer_edit', {'id': customer.id}) }}">edit</a>
+                    {% elseif customer.type == "professional" %}
+                        <a href="{{ path('app_professional_show', {'id': customer.id}) }}">show</a>
+                        <a href="{{ path('app_professional_edit', {'id': customer.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

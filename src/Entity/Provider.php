@@ -32,13 +32,11 @@ class Provider
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
-
     #[Dni]
     private ?string $dni = null;
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
-
     private ?string $cif = null;
 
     #[ORM\Column(length: 255)]
@@ -53,7 +51,6 @@ class Provider
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
-
     private ?string $managerNif = null;
 
     #[Vich\UploadableField(mapping: 'providers_documents', fileNameProperty: 'LOPDdoc')]

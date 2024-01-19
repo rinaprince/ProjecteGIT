@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\InvoiceRepository;
+use DateTime;
+use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
-class Invoice
+class Invoice implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -103,5 +105,15 @@ class Invoice
         $this->customerOrder = $customerOrder;
 
         return $this;
+    }
+    function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'number' => $this->number,
+            'price' => $this->price,
+            'date' => $this->date,
+            'customer' => $this->customer
+        ];
     }
 }

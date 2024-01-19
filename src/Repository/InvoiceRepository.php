@@ -36,7 +36,7 @@ class InvoiceRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.number LIKE :val')
-            ->setParameter('val', $value)
+            ->setParameter('val', "%$value%")
             ->orderBy('i.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()

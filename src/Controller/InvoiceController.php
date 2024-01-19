@@ -32,6 +32,7 @@ class InvoiceController extends AbstractController
             5
         );
         return $this->render('invoice/index.html.twig', [
+            'invoices' => $paginator->getItems(),
             'pagination' => $paginator,
             'q' => $q
         ]);
@@ -83,7 +84,7 @@ class InvoiceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_invoice_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST'])]
     public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) {

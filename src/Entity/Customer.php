@@ -210,13 +210,20 @@ abstract  class Customer implements  JsonSerializable
         return $this;
     }
 
-
     abstract public function getType(): string;
-
 
     function jsonSerialize(): mixed
     {
-        return ['name' => $this->name];
+        return ['id' => $this->id,
+                'name' => $this->name,
+                'lastname' => $this->lastname,
+                'address' => $this->address,
+                'dni' => $this->dni,
+                'phone' => $this->phone,
+                'email' => $this->email,
+                'type' => $this->getType()
+
+            ];
     }
 
 }

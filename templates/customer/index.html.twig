@@ -6,7 +6,17 @@
 
     <div {{ vue_component('CustomerList_component', { 'customers': customers }) }}></div>
 
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(pagination) }}
+    </div
+
 {% endblock %}
+
+
+
+
+
+
 
 {#
 

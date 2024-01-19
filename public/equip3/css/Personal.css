@@ -54,6 +54,7 @@ table {
 }
 
 .contingut th {
+    text-align: center;
     background-color: #aa8e31;
     color: #181d33;
 }

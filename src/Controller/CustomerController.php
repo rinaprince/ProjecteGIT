@@ -24,6 +24,7 @@ class CustomerController extends AbstractController
 
         return $this->render('customer/index.html.twig', [
             'pagination' => $pagination,
+
             'customers' => $pagination->getItems(),
             'q' => $q
         ]);

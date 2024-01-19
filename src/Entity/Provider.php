@@ -32,13 +32,11 @@ class Provider
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
-
     #[Dni]
     private ?string $dni = null;
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
-
     private ?string $cif = null;
 
     #[ORM\Column(length: 255)]
@@ -53,7 +51,6 @@ class Provider
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
-
     private ?string $managerNif = null;
 
     #[Vich\UploadableField(mapping: 'providers_documents', fileNameProperty: 'LOPDdoc')]
@@ -200,7 +197,7 @@ class Provider
         return $this->bankTitle;
     }
 
-    public function setBankTitle(string $bankTitle): static
+    public function setBankTitle(?string $bankTitle): static
     {
         $this->bankTitle = $bankTitle;
 
@@ -224,7 +221,7 @@ class Provider
         return $this->LOPDdoc;
     }
 
-    public function setLOPDdoc(string $LOPDdoc): static
+    public function setLOPDdoc(?string $LOPDdoc): static
     {
         $this->LOPDdoc = $LOPDdoc;
 
@@ -236,7 +233,7 @@ class Provider
         return $this->constitutionArticle;
     }
 
-    public function setConstitutionArticle(string $constitutionArticle): static
+    public function setConstitutionArticle(?string $constitutionArticle): static
     {
         $this->constitutionArticle = $constitutionArticle;
 

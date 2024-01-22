@@ -37,7 +37,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
             $order->setState($this->faker->randomElement(['In process', 'Completed']));
             //$vehicle = $vehicles[array_rand($vehicles)];
 
-           // $order->addVehicle(array_pop($vehicles));
+           $order->addVehicle(array_pop($vehicles));
            //Funciona pero asocia todas las ordenes a vehiculos
 
             $customers = $this->privateCustomerRepository->findAll();

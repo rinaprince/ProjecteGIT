@@ -7,13 +7,14 @@ use App\Validator\Dni;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProviderRepository::class)]
 #[Vich\Uploadable]
-class Provider
+class Provider implements  JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,42 +23,53 @@ class Provider
 
     #[ORM\Column(length: 255)]
     #[Assert\Type(type: 'string')]
-
+    #[Assert\NotBlank]
     private ?string $email = null;
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
-
+    #[Assert\NotBlank]
     private ?string $phone = null;
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
+    #[Assert\NotBlank]
     #[Dni]
     private ?string $dni = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank]
     #[Assert\Length(max: 9)]
     private ?string $cif = null;
 
     #[ORM\Column(length: 255)]
-
+    #[Assert\NotBlank]
     private ?string $address = null;
 
+    #[Assert\NotBlank]
+    #[Assert\File(mimeTypes: "application/pdf" )]
     #[Vich\UploadableField(mapping: 'providers_documents', fileNameProperty: 'bankTitle')]
     private ?File $bankTitleFile = null;
 
     #[ORM\Column(length: 255)]
     private ?string $bankTitle = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 9)]
+    #[Dni]
     private ?string $managerNif = null;
 
+    #[Assert\NotBlank]
+    #[Assert\File(mimeTypes: "application/pdf" )]
     #[Vich\UploadableField(mapping: 'providers_documents', fileNameProperty: 'LOPDdoc')]
     private ?File $LOPDdocFile = null;
+
     #[ORM\Column(length: 255)]
     private ?string $LOPDdoc = null;
 
+    #[Assert\File(mimeTypes: "application/pdf" )]
+    #[Assert\NotBlank]
     #[Vich\UploadableField(mapping: 'providers_documents', fileNameProperty: 'constitutionArticle')]
     private ?File $constitutionArticleFile = null;
 
@@ -71,7 +83,7 @@ class Provider
     private Collection $vehicles;
 
     #[ORM\Column(length: 255)]
-
+    #[Assert\NotBlank]
     private ?string $businessName = null;
 
     public function __construct()
@@ -282,7 +294,22 @@ class Provider
         return $this;
     }
 
-
+    function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'businessName' => $this->businessName,
+            'phone' => $this->phone,
+            'dni' => $this->dni,
+            'cif' => $this->cif,
+            'address' => $this->address,
+            'bankTitle' => $this->bankTitle,
+            'managerNif' => $this->managerNif,
+            'LOPDdoc' => $this->LOPDdoc,
+            'constitutionArticle' => $this->constitutionArticle
+        ];
+    }
 
 
 }

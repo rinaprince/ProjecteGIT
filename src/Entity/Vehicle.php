@@ -351,4 +351,25 @@ class Vehicle
 
         return $this;
     }
+
+    function jsonSerialize(): mixed
+    {
+        return ['id' => $this->id,
+            'plate' => $this->plate,
+            'observedDamages' => $this->observedDamages,
+            'kilometers' => $this->kilometers,
+            'buyPrice' => $this->buyPrice,
+            'sellPrice' => $this->sellPrice,
+            'fuel' => $this->fuel,
+            'iva' => $this->iva,
+            'description' => $this->description,
+            'chassisNumber' => $this->chassisNumber,
+            'gearShit' => $this->gearShit,
+            'isNew' => $this->isNew,
+            'transportIncluded' => $this->transportIncluded,
+            'color' => $this->color,
+            'registrationDate' => $this->registrationDate
+        ];
+    }
+
 }

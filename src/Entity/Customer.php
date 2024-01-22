@@ -66,6 +66,10 @@ abstract  class Customer implements  JsonSerializable
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Invoice::class, orphanRemoval: true)]
     private Collection $invoices;
 
+    #[ORM\OneToOne(inversedBy: 'customer', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Login $login = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -224,6 +228,18 @@ abstract  class Customer implements  JsonSerializable
                 'type' => $this->getType()
 
             ];
+    }
+
+    public function getLogin(): ?Login
+    {
+        return $this->login;
+    }
+
+    public function setLogin(Login $login): static
+    {
+        $this->login = $login;
+
+        return $this;
     }
 
 }

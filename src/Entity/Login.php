@@ -27,6 +27,9 @@ class Login implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'login', cascade: ['persist', 'remove'])]
     private ?Employee $employee = null;
 
+    #[ORM\OneToOne(mappedBy: 'login', cascade: ['persist', 'remove'])]
+    private ?Customer $customer = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,6 +99,23 @@ class Login implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->employee = $employee;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(Customer $customer): static
+    {
+        // set the owning side of the relation if necessary
+        if ($customer->getLogin() !== $this) {
+            $customer->setLogin($this);
+        }
+
+        $this->customer = $customer;
 
         return $this;
     }

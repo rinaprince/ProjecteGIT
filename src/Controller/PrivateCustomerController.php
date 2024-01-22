@@ -27,10 +27,12 @@ class PrivateCustomerController extends AbstractController
     {
         $privateCustomer = new PrivateCustomer();
         $form = $this->createForm(PrivateCustomerType::class, $privateCustomer);
+
+        if ($request->getMethod() === 'POST')
+            $form->submit($request->request->all());
+
         $form->handleRequest($request);
 
-        dump($form);
-        dump($form->isSubmitted());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($privateCustomer);

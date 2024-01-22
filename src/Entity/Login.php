@@ -24,6 +24,9 @@ class Login implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $role = null;
 
+    #[ORM\OneToOne(mappedBy: 'login', cascade: ['persist', 'remove'])]
+    private ?Employee $employee = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,5 +81,22 @@ class Login implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->getUsername();
+    }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(Employee $employee): static
+    {
+        // set the owning side of the relation if necessary
+        if ($employee->getLogin() !== $this) {
+            $employee->setLogin($this);
+        }
+
+        $this->employee = $employee;
+
+        return $this;
     }
 }

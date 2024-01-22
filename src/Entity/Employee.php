@@ -30,6 +30,10 @@ class Employee
     #[Assert\NotBlank]
     private ?string $type = null;
 
+    #[ORM\OneToOne(inversedBy: 'employee', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Login $login = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,6 +71,18 @@ class Employee
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getLogin(): ?Login
+    {
+        return $this->login;
+    }
+
+    public function setLogin(Login $login): static
+    {
+        $this->login = $login;
 
         return $this;
     }

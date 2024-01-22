@@ -24,10 +24,10 @@ class OrderRepository extends ServiceEntityRepository
 
     public function findByText(string $value): array
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.content LIKE :val')
+        return $this->createQueryBuilder('o')
+            ->andWhere('p.state LIKE :val')
             ->setParameter('val', "%$value%")
-            ->orderBy('p.state', 'DESC')
+            ->orderBy('o.state', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -41,7 +41,7 @@ class OrderRepository extends ServiceEntityRepository
     public function findByTextQuery(string $value): Query
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.content LIKE :val')
+            ->andWhere('o.state LIKE :val')
             ->setParameter('val', "%$value%")
             ->orderBy('o.state', 'DESC')
             ->getQuery()

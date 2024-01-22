@@ -23,90 +23,19 @@
 
 
     {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-
+        {{ encore_entry_script_tags('app') }} {# Carga todos los componentes de VUE #}
     {% endblock %}
 </head>
 
 <body>
-<!-- Secció de capçalera -->
-<header>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <!-- Secció de logotip i navegació -->
-                <div class="logo">
-                    <!-- Enllaç del logotip -->
-                    <a href="{{ path('templates') }}">
-                        <!-- Imatge del logotip -->
-                        <img src="{{ asset('equip3/img/logoBHEC.png')}}" class="img-logo-header">
-                    </a>
-                    <!-- Navegació amb icona d'usuari -->
-                    <nav class="grup-icones">
-                        <ul>
-                            <li>
-                                <!-- Enllaç de l'ícona d'usuari -->
-                                <a>
-                                    <!-- Imatge de l'ícona d'usuari -->
-                                    <img src="{{ asset('equip3/img/usuari-Groc.png')}}"  alt="usuari" onclick=openMenuModal()>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <nav id="menu-mobile">
-                        <div onclick=burguer() id="burger" class="">
-                            <span class="line1"></span>
-                            <span class="line2"></span>
-                            <span class="line3"></span>
-                        </div>
-                        <div class="ocultMenu">
-                            <nav id="main-menu">
-                                <ul>
-                                    <li class="submenu"><a><i class="fas fa-file-invoice"></i> Factures <i class="fas fa-chevron-right"></i></a>
-                                        <ul class="submenu-content">
-                                            <li><a {{ path('app_invoice_index')}}>Visualitzar Factures</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="submenu"><a><i class="fas fa-users"></i> Clients <i class="fas fa-chevron-right"></i></a>
-                                        <ul class="submenu-content">
-                                            <li><a href="#">Alta de Client</a></li>
-                                            <li><a href="#">Visualitzar Clients</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="submenu"><a><i class="fas fa-user-tie"></i> Empleats </a><i class="fas fa-chevron-right"></i>
-                                        <ul class="submenu-content">
-                                            <li><a href="{{ path('app_provider_new')}}">Alta Proveïdor</a></li>
-                                            <li><a href="{{ path('app_provider_index')}}">Visualitzar Proveïdors</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="submenu">
-                                        <a><i class="fas fa-shopping-cart"></i> Comandes <i class="fas fa-chevron-right"></i></a>
-                                        <ul class="submenu-content">
-                                            <li><a href="{{ path('app_order_index')}}">Visualitzar Comandes</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="submenu">
-                                        <a><i class="fas fa-car"></i> Vehicles <i class="fas fa-chevron-right"></i></a>
-                                        <ul class="submenu-content">
-                                            <li><a href="#">Alta Vehicle</a></li>
-                                            <li><a href="{{ path('app_cataleg')}}">Visualitzar Vehicles</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+{# Header #}
+{% include '_header_back_3.html.twig' %}
 
-<!-- Secció de contingut principal -->
+{# Secció de contingut principal #}
 <main>
     <div class="container-fluid">
         <div class="row">
-            {% include '_aside_back.html.twig' %}
+            {% include '_aside_back_3.html.twig' %} {# Aside de Back #}
             <article class="col-10">
                 {% block body %}
                 {% endblock %}
@@ -128,12 +57,12 @@
         </div>
         <ul class="menu-links">
             <ul class="dropdown">
-                <li><a href="/compres/compres.html">Comandes</a></li>
-                <li><a href="#">Novetats</a></li>
+                <li><a href="{{ path('app_front_office') }}">Entrar a Front</a></li>
                 <li><a href="{{ path('templates') }}">Entrar Backoffice</a></li>
+                <li><a href="{{ path('app_cataleg') }}">Catalogo(temporal)</a></li>
             </ul>
             <ul class="dropdown">
-                <li><a href="#" onclick=openAdmin()>Administració</a></li>
+                <li onclick=openAdmin()>Administració</li>
                 <ul class="dropdown-content" id="administration-menu">
                     <li><a href="#">Configuració del compter usuari</a></li>
                     <li><a href="#">Configuració del compter administrador</a></li>
@@ -158,19 +87,9 @@
     </div>
 </div>
 
+{# Footer #}
+{% include '_footer_back_3.html.twig' %}
 
-<footer>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="footerContent">
-                    <img src="{{ asset('equip3/img/logoBHEC.png') }}" alt="logoFooter">
-                    <h2>BHEC</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
 </body>
 
 </html>

@@ -2,6 +2,28 @@
 
 {% block title %}Order index{% endblock %}
 
+{% block body %}
+
+    <h1>Order index</h1>
+
+    <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 mb-lg-1" role="search">
+        <input name="q" type="search" class="form-control form-control-light text-dark" placeholder="Buscar..." aria-label="Search">
+    </form>
+
+    <div {{ vue_component('OrderList_component', { 'orders': orders }) }}></div>
+
+    <div class="navigation pt-3">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+{% endblock %}
+
+
+{#
+{% extends 'base_back_3.html.twig' %}
+
+{% block title %}Order index{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('equip3/css/Personal.css') }}">
@@ -68,3 +90,4 @@
 </article>
 
 {% endblock %}
+#}

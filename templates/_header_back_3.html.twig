@@ -1,0 +1,71 @@
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Secció de logotip i navegació -->
+                <div class="logo">
+                    <!-- Enllaç del logotip -->
+                    <a href="{{ path('templates') }}">
+                        <!-- Imatge del logotip -->
+                        <img src="{{ asset('equip3/img/logoBHEC.png')}}" class="img-logo-header">
+                    </a>
+                    <!-- Navegació amb icona d'usuari -->
+                    <nav class="grup-icones">
+                        <ul>
+                            <li>
+                                <!-- Enllaç de l'ícona d'usuari -->
+                                <a>
+                                    <!-- Imatge de l'ícona d'usuari -->
+                                    <img src="{{ asset('equip3/img/usuari-Groc.png')}}"  alt="usuari" onclick=openMenuModal()>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <nav id="menu-mobile">
+                        <div onclick=burguer() id="burger" class="">
+                            <span class="line1"></span>
+                            <span class="line2"></span>
+                            <span class="line3"></span>
+                        </div>
+                        <div class="ocultMenu">
+                            <nav id="main-menu">
+                                <ul>
+                                    <li class="submenu"><a><i class="fas fa-file-invoice"></i> Factures <i class="fas fa-chevron-right"></i></a>
+                                        <ul class="submenu-content">
+                                            <li><a {{ path('app_invoice_index')}}>Visualitzar Factures</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="submenu"><a><i class="fas fa-users"></i> Clients <i class="fas fa-chevron-right"></i></a>
+                                        <ul class="submenu-content">
+                                            <li><a href="#">Alta de Client</a></li>
+                                            <li><a href="#">Visualitzar Clients</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="submenu"><a><i class="fas fa-user-tie"></i> Empleats </a><i class="fas fa-chevron-right"></i>
+                                        <ul class="submenu-content">
+                                            <li><a href="{{ path('app_provider_new')}}">Alta Proveïdor</a></li>
+                                            <li><a href="{{ path('app_provider_index')}}">Visualitzar Proveïdors</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="submenu">
+                                        <a><i class="fas fa-shopping-cart"></i> Comandes <i class="fas fa-chevron-right"></i></a>
+                                        <ul class="submenu-content">
+                                            <li><a href="{{ path('app_order_index')}}">Visualitzar Comandes</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="submenu">
+                                        <a><i class="fas fa-car"></i> Vehicles <i class="fas fa-chevron-right"></i></a>
+                                        <ul class="submenu-content">
+                                            <li><a href="#">Alta Vehicle</a></li>
+                                            <li><a href="{{ path('app_cataleg')}}">Visualitzar Vehicles</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

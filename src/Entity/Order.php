@@ -6,10 +6,11 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
-class Order
+class Order implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -109,5 +110,15 @@ class Order
         $this->customer = $customer;
 
         return $this;
+    }
+
+    function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'state' => $this->state,
+            'customer' => $this->getCustomer(),
+            'vehicles' => $this->getVehicles()
+        ];
     }
 }

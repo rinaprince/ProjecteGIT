@@ -35,11 +35,13 @@ class OrderController extends AbstractController
         );
 
         return $this->render('order/index.html.twig', [
-            'orders' => $pagination,
+            'pagination' => $pagination,
+            'orders' => $pagination->getItems(),
             'q' => $q
             //'orders' => $orderRepository->findAll(),
         ]);
     }
+
 
     #[Route('/new', name: 'app_order_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

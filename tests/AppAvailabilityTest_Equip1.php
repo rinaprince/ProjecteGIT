@@ -18,7 +18,7 @@ class AppAvailabilityTest_Equip1 extends WebTestCase
     {
         $client = static::createClient();
         $client->catchExceptions(false);
-        $crawler = $client->request('GET', $uri);
+        $crawler = $client->request('HEAD', $uri);
 
 
         $this->assertResponseStatusCodeSame($expectedStatusCode);

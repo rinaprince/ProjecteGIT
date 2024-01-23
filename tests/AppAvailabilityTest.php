@@ -18,7 +18,8 @@ class AppAvailabilityTest extends WebTestCase
     public function testAccess($uri, $expectedStatusCode): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', $uri);
+        $client->catchExceptions(false);
+        $crawler = $client->request('HEAD', $uri);
 
 
         $this->assertResponseStatusCodeSame($expectedStatusCode);

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Customer;
+use App\Entity\Login;
 use App\Entity\PrivateCustomer;
 use App\Entity\Professional;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -41,14 +42,83 @@ class CustomerFixtures extends Fixture
             if ($customer instanceof Professional) {
                 $customer->setCif($this->faker->regexify('/^[A-Z0-9]{9}$/'));
                 $customer->setManagerNif($this->faker->dni());
-                $customer->setLOPDdoc($this->faker->word . '.pdf');           // No es correcte, necessitariem fer algo per a assignar una ruta
+                $customer->setLOPDdoc($this->faker->word . '.pdf');
                 $customer->setBussinessName($this->faker->company);
                 $customer->setConstitutionWriting($this->faker->word . '.pdf');
                 $customer->setSubscription($this->faker->boolean);
             }
 
+            $login = new Login();
+            $login->setUsername($this->faker->userName);
+            $login->setPassword($this->hasher->hashPassword($login, "1234"));
+
+            if ($isPrivateCustomer)
+                $login->setRole("ROLE_PRIVATE");
+            else
+                $login->setRole("ROLE_PROFESSIONAL");
+
+            $customer->setLogin($login);
+
+            $manager->persist($login);
             $manager->persist($customer);
         }
+
+
+            // Crea la instancia del client
+            $customer = new Professional();
+
+            $customer->setName("Client");
+            $customer->setLastname("Professional");
+            $customer->setAddress($this->faker->address());
+            $customer->setDni($this->faker->dni());
+            $customer->setPhone($this->faker->phoneNumber());
+            $customer->setEmail($this->faker->email());
+
+            if ($customer instanceof Professional) {
+                $customer->setCif($this->faker->regexify('/^[A-Z0-9]{9}$/'));
+                $customer->setManagerNif($this->faker->dni());
+                $customer->setLOPDdoc($this->faker->word . '.pdf');
+                $customer->setBussinessName($this->faker->company);
+                $customer->setConstitutionWriting($this->faker->word . '.pdf');
+                $customer->setSubscription($this->faker->boolean);
+            }
+
+        $login = new Login();
+        $login->setUsername("professional");
+        $login->setPassword($this->hasher->hashPassword($login, "professional"));
+        $login->setRole("ROLE_PROFESSIONAL");
+
+        $customer->setLogin($login);
+
+        $manager->persist($login);
+        $manager->persist($customer);
+
+
+        // Crea la instancia del client
+        $customer = new PrivateCustomer();
+
+        $customer->setName("Client");
+        $customer->setLastname("Private");
+        $customer->setAddress($this->faker->address());
+        $customer->setDni($this->faker->dni());
+        $customer->setPhone($this->faker->phoneNumber());
+        $customer->setEmail($this->faker->email());
+
+        $login = new Login();
+        $login->setUsername("private");
+        $login->setPassword($this->hasher->hashPassword($login, "private"));
+        $login->setRole("ROLE_PRIVATE");
+
+        $customer->setLogin($login);
+
+        $manager->persist($login);
+        $manager->persist($customer);
+
+
+
+
         $manager->flush();
     }
 }
+
+

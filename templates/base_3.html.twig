@@ -3,114 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Front Office{% endblock %}</title>
+
+    {# <--- Estilos ---> #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link  href="{{ asset('equip3/css/Normalize.css') }}" rel="stylesheet">
     <link  href="{{ asset('equip3/css/grid.css') }} " rel="stylesheet">
     <link  href="{{ asset('equip3/css/variables.css') }}" rel="stylesheet">
-    <script src="{{ asset('equip3/js/menu_aside.js') }}" defer ></script>
-    <script src="{{ asset('equip3/js/burger.js') }}" defer ></script>
-    <script src="{{ asset('equip3/js/searchBar.js') }}" defer ></script>
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
-
+    <link rel="stylesheet" href="{{ asset('equip3/css/modal.css') }}">
     <link  href="{{ asset('equip3/css/squeleton-frontend.css') }}" rel="stylesheet">
 
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-    {% endblock %}
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+
+    {# <--- Scripts ---> #}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer></script>
+  {#<script src="{{ asset('equip3/js/searchbar.js') }}" defer ></script>#}
+    <script src="{{ asset('equip3/js/modal.js') }}" defer ></script>
+
+    {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
 </head>
 <body>
-<header class="container-fluid">
-    <div class="row div-header">
-        <div class="col-12">
-            <nav class="first-nav">
-                <img src="{{ asset('equip3/img/logoBHEC.png') }}" alt="logo BEHC" width="50px"/>
-                <ul class="hidden">
-                    <li>
-                        <a href="/cataleg">Catàleg</a>
-                    </li>
-                    <li>
-                        <a href="#">Contacte</a>
-                    </li>
-                </ul>
-            </nav>
+{% include '_header_front_3.html.twig' %}
 
-            <div class="searcher-header hidden">
-                <div>
-                    <input type="text" class="input-searcher-header" placeholder="Buscar...">
-                    <button class="button-searcher-header"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-
-            <nav class="header-icons">
-                <ul>
-                    <li class="hidden-desktop">
-                        <a href="#">
-                            <img src="{{ asset('equip3/img/busqueda-Groc.png') }}" alt="Imatge Lupa" id="busqueda">
-                        </a>
-                    </li>
-                    <li class="hidden">
-                        <a href="#">
-                            <img src="{{ asset('equip3/img/notificacio-Groc.png') }}" alt="Imatge Notificació" id="notificacio">
-                        </a>
-                    </li>
-                    <li class="hidden">
-                        <a href="#">
-                            <img src="{{ asset('equip3/img/llistaDeDesitjos-Groc.png') }}" alt="Imatge Llista De Dessitjos"
-                                 id="desitjos"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/garage">
-                            <img src="{{ asset('equip3/img/garatge-Groc.png') }}" alt="Imatge Garatge" id="garatge">
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <img src="{{ asset('equip3/img/usuari-Groc.png') }}" alt="Imatge Usuari" id="usuari">
-                        </a>
-                    </li>
-                    <li>
-                        <nav id="menu-mobile">
-                            <div id="burger">
-                                <span class="line1"></span>
-                                <span class="line2"></span>
-                                <span class="line3"></span>
-                            </div>
-                            <div class="ocultMenu">
-                                <nav id="main-menu">
-                                    <ul>
-                                        <li>
-                                            <a href="/cataleg">
-                                                Catàleg
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/contacte.html">
-                                                Contacte
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/contacte.html">
-                                                Notificacions
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </nav>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</header>
-<!-- L'estrctura que segueix és la mateixa que deuríen seguir tots, el grid. Un container conté rows i cada row conté columns.
-    Jo recomane crear un div dins del column ja que et permetrà controlar el contingut sense alterar els estils del grid  -->
 {% block body %}
 {% endblock %}
-<!-- Container-fluid ocupa el 100% de l'amplaria de la pàgina -->
+
 <footer class="container-fluid">
     <div class="row">
         <div class="col-12">

@@ -1,0 +1,85 @@
+<header class="container-fluid">
+    <div class="row div-header">
+        <div class="col-12">
+            <nav class="first-nav">
+                <img src="{{ asset('equip3/img/logoBHEC.png') }}" alt="logo BHEC" width="50px"/>
+                <ul class="hidden">
+                    <li>
+                        <a href="{{ path('app_catalogue_index') }}">Catàleg</a>
+                    </li>
+                    <li>
+                        <a href="#">Contacte</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="searcher-header hidden">
+                <div>
+                    <input type="text" class="input-searcher-header" placeholder="Buscar...">
+                    <button class="button-searcher-header"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <nav class="header-icons">
+                <ul>
+                    <li class="hidden-desktop">
+                        <a href="#">
+                            <img src="{{ asset('equip3/img/busqueda-Groc.png') }}" alt="Imatge Lupa" id="busqueda">
+                        </a>
+                    </li>
+                    <li class="hidden">
+                        <a href="#">
+                            <img src="{{ asset('equip3/img/notificacio-Groc.png') }}" alt="Imatge Notificació" id="notificacio">
+                        </a>
+                    </li>
+                    <li class="hidden">
+                        <a href="#">
+                            <img src="{{ asset('equip3/img/llistaDeDesitjos-Groc.png') }}" alt="Imatge Llista De Dessitjos"
+                                 id="desitjos"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_garage_index') }}">
+                            <img src="{{ asset('equip3/img/garatge-Groc.png') }}" alt="Imatge Garatge" id="garatge">
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="{{ asset('equip3/img/usuari-Groc.png') }}" alt="Imatge Usuari" onclick=openMenuModal()>
+                        </a>
+                    </li>
+                    <li>
+                        <nav id="menu-mobile">
+                            <div id="burger">
+                                <span class="line1"></span>
+                                <span class="line2"></span>
+                                <span class="line3"></span>
+                            </div>
+                            <div class="ocultMenu">
+                                <nav id="main-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('app_catalogue_index') }}">
+                                                Catàleg
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/contacte.html">
+                                                Contacte
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/contacte.html">
+                                                Notificacions
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </nav>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

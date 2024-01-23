@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DataFixtures\VehicleFixtures;
 use App\Entity\Model;
 use App\Entity\Vehicle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -32,18 +33,36 @@ class VehicleRepository extends ServiceEntityRepository
     /**
      * @return VehicleFixtures[] Returns an array of VehicleFixtures objects
      */
-    public function findByTextQuery(string $value): array
+    public function findByText(string $value): array
     {
         return $this->createQueryBuilder('v')
-            ->join('v.model', 'm')
-            ->join('m.brand', 'b')
-            ->where('m.name LIKE :val')
-            ->orWhere('b.name LIKE :val')
+            ->andWhere('v.color LIKE :val')
+            ->orWhere('v.plate LIKE :val')
+            ->orWhere('v.fuel LIKE :val')
+            ->orWhere('v.gearShit LIKE :val')
+            ->orWhere('v.buyPrice LIKE :val')
             ->setParameter('val', "%$value%")
-            ->orderBy('m.name', 'ASC')
+            ->orderBy('v.id', 'ASC')
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function findByTextQuery(string $value): Query
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.color LIKE :val')
+            ->orWhere('v.plate LIKE :val')
+            ->orWhere('v.fuel LIKE :val')
+            ->orWhere('v.gearShit LIKE :val')
+            ->orWhere('v.buyPrice LIKE :val')
+            ->setParameter('val', "%$value%")
+            ->orderBy('v.id', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ;
+
     }
 
 //    public function findOneBySomeField($value): ?VehicleFixtures

@@ -3,7 +3,23 @@
 {% block title %}Vehicle index{% endblock %}
 
 {% block body %}
+    {# {{ dump (vehicles) }} #}
+    <div {{ vue_component('VehiclesList_component', { 'vehicles': vehicles }) }}></div>
+
+<div class="navigation d-flex justify-content-center">
+    {{ knp_pagination_render(pagination) }}
+</div>
+{% endblock %}
+
+
+{#
+{% block body %}
     <h1>Vehicle index</h1>
+
+    <form method="get" role="search">
+        <input type="search" name="q" placeholder="Search..." aria-label="Search">
+        <button type="submit">Search</button>
+    </form>
 
     <table class="table">
         <thead>
@@ -59,3 +75,4 @@
 
     <a href="{{ path('app_vehicle_new') }}">Create new</a>
 {% endblock %}
+#}

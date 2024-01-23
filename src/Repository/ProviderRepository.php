@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Provider;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -24,17 +25,17 @@ class ProviderRepository extends ServiceEntityRepository
 //    /**
 //     * @return Provider[] Returns an array of Provider objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByEmail(string $value): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.email = :val')
+            ->setParameter('val', "%$value%")
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Provider
 //    {
@@ -45,4 +46,21 @@ class ProviderRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    public function findByTextQuery(string $value): Query{
+
+        return $this->createQueryBuilder('p')
+            ->where('p.email LIKE :val')
+            ->setParameter('val', "%$value%")
+            ->orderBy('p.email', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery();
+    }
+
+
+    public function findAllQuery(): Query{
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery();}
 }

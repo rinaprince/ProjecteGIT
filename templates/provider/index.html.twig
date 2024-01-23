@@ -3,6 +3,9 @@
 {% block title %}Provider index{% endblock %}
 
 {% block body %}
-    <h1>Provider index</h1>
-    <div {{ vue_component('ProvidersList_component', { 'providers': providers }) }}></div>
+    <h1>Providers</h1>
+    <div {{ vue_component('ProvidersList_component', { 'providers': providers, 'q':q }) }}></div>
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}

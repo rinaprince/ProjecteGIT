@@ -6,6 +6,7 @@ use App\Entity\Provider;
 use App\Form\ProviderType;
 use App\Repository\ProviderRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProviderController extends AbstractController
 {
     #[Route('/', name: 'app_provider_index', methods: ['GET'])]
-    public function index(ProviderRepository $providerRepository): Response
+    public function index(ProviderRepository $providerRepository,PaginatorInterface $paginator, Request $request): Response
     {
+        $q = $request->query->get('q','');
+
+        if (empty($q))
+            $query = $providerRepository->findAllQuery();
+        else
+            $query = $providerRepository->findByTextQuery($q);
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10
+        );
+
         return $this->render('provider/index.html.twig', [
-            'providers' => $providerRepository->findAll(),
+            'pagination' => $pagination,
+            'q' => $q,
+            'providers' => $pagination->getItems()
         ]);
     }
 

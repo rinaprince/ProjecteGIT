@@ -48,6 +48,18 @@ class CustomerRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+
+    public function findByText($value): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.name LIKE :val')
+            ->setParameter('val', "%$value%")
+            ->orderBy('c.name', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findAllQuery(): Query
     {
         return $this->createQueryBuilder('c')

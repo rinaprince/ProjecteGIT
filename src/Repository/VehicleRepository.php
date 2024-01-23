@@ -41,7 +41,6 @@ class VehicleRepository extends ServiceEntityRepository
             ->orWhere('b.name LIKE :val')
             ->setParameter('val', "%$value%")
             ->orderBy('m.name', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
             ;

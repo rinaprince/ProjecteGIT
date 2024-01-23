@@ -1,5 +1,6 @@
 
 <template>
+  <!--
   <section>
     <h2>Nou vehicle</h2>
     <p v-if="flashMessage.message" class="message">{{ flashMessage.message }}</p>
@@ -176,7 +177,7 @@
   };
   </script>-->
 <script>
-import axios from 'axios';
+/**import axios from 'axios';
 import datosVehiculos from './datosVehiculos.json';
 
 export default {
@@ -212,7 +213,7 @@ export default {
    providers: [{"id": 1, "name": "ProveedorA"},
        {"id": 2, "name": "ProveedorB"},
        {"id": 3, "name": "ProveedorC"}],
-   */
+   
     };
   },
   methods: {

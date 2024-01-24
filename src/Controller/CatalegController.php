@@ -14,9 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
+#[Route('/catalogue')]
 class CatalegController extends AbstractController
 {
-    #[Route('/catalogue', name: 'app_cataleg')]
+    #[Route('/', name: 'app_catalogue_index')]
     public function index(VehicleRepository $vehicleRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $q = $request->query->get('q', '');
@@ -33,14 +34,14 @@ class CatalegController extends AbstractController
             16
         );
 
-        return $this->render('cataleg/index.html.twig', [
+        return $this->render('catalogue/index.html.twig', [
             'vehicles' => $pagination,
             'pagination' => $pagination,
             'q'=>$q
         ]);
     }
 
-    #[Route('/add/{id}', name: 'app_add_vehicle', methods: ['GET', 'POST'])]
+    #[Route('/add/{id}', name: 'app_catalogue_add_vehicle', methods: ['GET', 'POST'])]
     public function new($id, Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): Response {
         $customers = $customerRepository->findAll();
         $customer = $customers[0];
@@ -75,7 +76,7 @@ class CatalegController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_cataleg', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_catalogue_index', [], Response::HTTP_SEE_OTHER);
     }
 }
 

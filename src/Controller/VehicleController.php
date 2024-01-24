@@ -20,14 +20,13 @@ class VehicleController extends AbstractController
     {
         $q = $request->query->get('q', '');
 
-
-        /*if (empty($q))
-            $vehicles = $vehicleRepository->findAllQuery();
+        if (empty($q))
+            $query = $vehicleRepository->findAllQuery();
         else
-            $vehicles = $vehicleRepository->findByTextQuery($q);*/
+            $query = $vehicleRepository->findByTextQuery($q);
 
         $pagination = $paginator->paginate(
-            $vehicles = $vehicleRepository->findAllQuery(),
+            $query,
             $request->query->getInt('page', 1),
             10
         );

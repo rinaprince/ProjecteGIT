@@ -50,8 +50,14 @@ class ProviderRepository extends ServiceEntityRepository
 
     public function findByTextQuery(string $value): Query{
 
+
         return $this->createQueryBuilder('p')
-            ->where('p.email LIKE :val')
+            ->andWhere('p.email LIKE :val')
+            ->orWhere('p.phone LIKE :val')
+            ->orWhere('p.businessName LIKE :val')
+            ->orWhere('p.dni LIKE :val')
+            ->orWhere('p.cif LIKE :val')
+            ->orWhere('p.managerNif LIKE :val')
             ->setParameter('val', "%$value%")
             ->orderBy('p.email', 'ASC')
             ->setMaxResults(10)

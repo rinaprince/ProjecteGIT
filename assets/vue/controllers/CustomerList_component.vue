@@ -1,7 +1,6 @@
+
 <template>
   <div>
-    <h1>Customer index</h1>
-
     <div id="div-table">
       <table class="table mt-3 contingut">
         <thead>
@@ -57,4 +56,5 @@ const professionalShowPath = (id) => `/professional/${id}`;
 const professionalEditPath = (id) => `/professional/${id}/edit`;
 
 </script>
+
 

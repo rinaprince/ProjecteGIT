@@ -16,15 +16,20 @@ class CustomerController extends AbstractController
     {
         $q = $request->query->get('q', '');
 
+        if(empty($q))
+            $customerQ = $customerRepository->findAllQuery();
+        else{
+            $customerQ = $customerRepository->findByText($q);
+        }
+
         $pagination = $paginator->paginate(
-            $customerRepository->findAllQuery(),
+            $customerQ,
             $request->query->getInt('page', 1),
             5
         );
 
         return $this->render('customer/index.html.twig', [
             'pagination' => $pagination,
-
             'customers' => $pagination->getItems(),
             'q' => $q
         ]);

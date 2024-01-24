@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Login;
 use App\Entity\PrivateCustomer;
 use App\Form\PrivateCustomerType;
 use App\Repository\PrivateCustomerRepository;
@@ -22,6 +23,8 @@ class PrivateCustomerController extends AbstractController
         ]);
     }
 
+
+/**
     #[Route('/new', name: 'app_private_customer_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -45,7 +48,44 @@ class PrivateCustomerController extends AbstractController
             'private_customer' => $privateCustomer,
             'form' => $form,
         ]);
+    } */
+
+
+    #[Route('/new', name: 'app_private_customer_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $privateCustomer = new PrivateCustomer();
+        $form = $this->createForm(PrivateCustomerType::class, $privateCustomer);
+
+        if ($request->getMethod() === 'POST' && $request->getContent()) {
+            $data = $request->toArray();
+
+            $form->submit($data);
+            dump($data);
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $login = new Login();
+            $login->setUsername($data["username"]);
+            $login->setPassword($data["password"]);
+            $login->setRole("ROLE_PRIVATE");
+            $entityManager->persist($login);
+            $privateCustomer->setLogin($login);
+            $entityManager->persist($privateCustomer);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_private_customer_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('private_customer/new.html.twig', [
+            'private_customer' => $privateCustomer,
+            'form' => $form,
+        ]);
     }
+
+
 
     #[Route('/{id}', name: 'app_private_customer_show', methods: ['GET'])]
     public function show(PrivateCustomer $privateCustomer): Response

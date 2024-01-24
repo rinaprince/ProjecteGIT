@@ -54,8 +54,13 @@
         <div class="user-info">
             <img src="{{ asset('equip3/img/usuari.png') }}" alt="Imagen de perfil">
             <div class="user-details">
+                {% if app.user %}
+                <h3>Juan</h3>
+                <p>correo@example.com</p>
+                {% else %}
                 <h3>Tu Nombre</h3>
                 <p>correo@example.com</p>
+                {% endif %}
             </div>
         </div>
         <ul class="menu-links">
@@ -85,7 +90,12 @@
 
     <div id="div-sessio">
         <ul>
-            <li id="tancar-sessio"><a href="#">Tancar Sessió</a></li>
+
+            {% if not app.user %}
+            <li id="tancar-sessio"><a href="{{ path('app_login') }}">Iniciar Sessió</a></li>
+            {% else %}
+            <li id="tancar-sessio"><a href="{{ path('app_logout') }}">Tancar Sessió</a></li>
+            {% endif %}
         </ul>
     </div>
 </div>

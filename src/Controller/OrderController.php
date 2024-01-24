@@ -18,7 +18,7 @@ class OrderController extends AbstractController
 {
 
 
-    #[Route('/', name: 'app_order_index', methods: ['GET'])]
+    #[Route('', name: 'app_order_index', methods: ['GET'])]
     public function index(OrderRepository $orderRepository, PaginatorInterface $paginator, Request $request) : Response
     {
         $q = $request->query->get('q', '');

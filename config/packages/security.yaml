@@ -40,7 +40,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMINISTRATIVE }
         # - { path: ^/profile, roles: ROLE_USER }
         # - { path: ^/orders, roles: ROLE_LOGIN }
-        # - { path: ^/invoice, roles: ROLE_LOGIN }
+        - { path: ^/invoice, roles: ROLE_ADMINISTRATIVE }
         # - { path: ^/, }
 
 when@test:

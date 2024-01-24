@@ -1,0 +1,173 @@
+/* ------------------------------------- Títol Cotxe -------------------------------------- */
+.carName > h1 {
+    font-size: 3rem;
+}
+
+
+
+/* Estilos adicionales para botones de imágenes */
+.imgButtons {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+    padding: 0 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.8;
+    z-index: 10;
+}
+
+.imgButtons > a {
+    background-color: aliceblue;
+    border-radius: 50%;
+    padding: 1em;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.imgButtons > a:hover {
+    opacity: 0.7;
+}
+
+
+#payment {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+#totalCost {
+    font-size: 3rem;
+}
+
+#separatorPayment-div {
+    margin: 1em;
+}
+
+.priceInfo {
+    font-size: 1.3rem;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    padding: 0 .3em;
+}.actions > button,
+ #addWish,
+ #addGarage {
+     border-radius: 0.5em; /* Reducido el radio del borde para un aspecto más moderno */
+     padding: 0.8em 1.5em; /* Ajustado el relleno para un tamaño más equilibrado */
+     font-size: 1.4rem; /* Ligeramente reducido el tamaño del texto */
+     margin-top: 1em; /* Incrementado el espacio superior para mejorar el diseño */
+     color: white;
+     background-color: #cea12a;
+     border: 0.1em solid #cea12a;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     cursor: pointer;
+     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+ }
+
+.actions > button:hover,
+#addWish:hover,
+#addGarage:hover {
+    background-color: #181d34;
+    color: white;
+    border-color: #181d34;
+}
+
+
+
+
+
+/**------------------------------ Caracteristiques --------------------------*/
+.carCaracteristics {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 0;
+    flex: auto;
+}
+
+.caracteristic {
+    text-align: center;
+    border-radius: .7em;
+    padding: 1em 1em;
+    flex: 1;
+}
+
+.caracteristic:hover {
+    background-color: rgba(24, 29, 52, 0.135);
+    cursor: pointer;
+}
+
+.caracteristicName,
+.caracteristicInfo {
+    padding: .5em 0;
+}
+
+/**--------------------- Desplegable que mostra més caracteristiques -------------------*/
+#moreInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 2em 0;
+}
+
+#dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 55%;
+}
+
+#dropdown:hover {
+    opacity: 100%;
+    transition: .3s;
+}
+
+#dropdown > p {
+    margin: 0 .2em;
+    font-size: 2rem;
+}
+
+#additionalInfo {
+    align-self: center;
+    width: 75%;
+}
+
+#dropdown:hover {
+    cursor: pointer;
+}
+
+#additionalInfo > table td,
+#additionalInfo > table th {
+    padding: 1em 1em;
+    font-size: 1.2rem;
+}
+
+#additionalInfo > .caracteristic {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+#additionalInfo > .caracteristic * {
+    padding: .2em 1em;
+}
+
+
+/* Estilo del carrusel */
+.carousel {
+    height: 27rem;
+
+    box-sizing: border-box;
+}
+
+/* Estilo de la imagen dentro del carrusel */
+.carousel-inner img {
+    height: 27rem;
+    transition: transform 0.3s ease-in-out;
+}

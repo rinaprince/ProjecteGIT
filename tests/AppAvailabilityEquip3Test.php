@@ -49,5 +49,8 @@ class AppAvailabilityEquip3Test extends WebTestCase
         yield "Garage delete" => ['/garage/delete/1', Response::HTTP_OK];
         yield "Garage close" => ['/garage/close', Response::HTTP_OK];
         yield "Garage cancel" => ['/garage/cancel', Response::HTTP_OK];
+
+        //Detail
+        yield "Detail index" => ['/details/1', Response::HTTP_OK];
     }
 }

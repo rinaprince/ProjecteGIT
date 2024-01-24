@@ -48,21 +48,21 @@ class VehicleRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
-
-    public function findByTextQuery(string $value): Query
+    /**
+     * @return VehicleFixtures[] Returns an array of VehicleFixtures objects
+     */
+    public function findByTextQuery(string $value): array
     {
         return $this->createQueryBuilder('v')
-            ->andWhere('v.color LIKE :val')
-            ->orWhere('v.plate LIKE :val')
-            ->orWhere('v.fuel LIKE :val')
-            ->orWhere('v.gearShit LIKE :val')
-            ->orWhere('v.buyPrice LIKE :val')
+            ->join('v.model', 'm')
+            ->join('m.brand', 'b')
+            ->where('m.name LIKE :val')
+            ->orWhere('b.name LIKE :val')
             ->setParameter('val', "%$value%")
-            ->orderBy('v.id', 'ASC')
-            //->setMaxResults(10)
+            ->orderBy('m.name', 'ASC')
             ->getQuery()
+            ->getResult()
             ;
-
     }
 
 //    public function findOneBySomeField($value): ?VehicleFixtures

@@ -6,8 +6,7 @@ use Generator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-
-class AppAvailabilityTest_Equip3 extends WebTestCase
+class AppAvailability_Equip3_Test extends WebTestCase
 {
 
     /**

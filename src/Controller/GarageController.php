@@ -13,10 +13,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[Route('/garage')]
 class GarageController extends AbstractController
 {
-    #[Route('/garage', name: 'app_garage')]
+    #[Route('/', name: 'app_garage_index')]
     public function index(VehicleRepository $vehicleRepository, ModelRepository $modelRepository, BrandRepository $brandRepository, OrderRepository $orderRepository): Response {
         $vehicles = $vehicleRepository->findAll();
 
@@ -25,7 +25,7 @@ class GarageController extends AbstractController
         ]);
     }
 
-    #[Route('/remove/{id}', name: 'remove_order')]
+    #[Route('/delete/{id}', name: 'app_garage_delete_vehicle')]
     public function remove($id, VehicleRepository $vehicleRepository, EntityManagerInterface $entityManager): Response {
         $vehicleId = $id;
         $vehicle = $vehicleRepository->find($vehicleId);
@@ -34,10 +34,10 @@ class GarageController extends AbstractController
         $entityManager->persist($vehicle);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_garage', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_garage_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/close', name: 'close_order')]
+    #[Route('/close', name: 'app_garage_close_order')]
     public function close(OrderRepository $orderRepository, EntityManagerInterface $entityManager, InvoiceRepository $invoiceRepository): Response {
         $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent']);
 
@@ -65,10 +65,10 @@ class GarageController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_garage', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_garage_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/cancel', name: 'cancel_order')]
+    #[Route('/cancel', name: 'app_garage_cancel_order')]
     public function cancel(CustomerRepository $customerRepository, VehicleRepository $vehicleRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response {
         $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent']);
 
@@ -83,7 +83,7 @@ class GarageController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_garage', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_garage_index', [], Response::HTTP_SEE_OTHER);
     }
 
 }

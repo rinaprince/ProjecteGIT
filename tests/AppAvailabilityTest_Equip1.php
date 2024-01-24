@@ -34,7 +34,7 @@ class AppAvailabilityTest_Equip1 extends WebTestCase
         yield "Employee new" => ['/employees/new', Response::HTTP_OK];
         yield "Employee show" => ['/employees/2', Response::HTTP_OK];
         yield "Employee edit" => ['/employees/2/edit', Response::HTTP_OK];
-        yield "Employee edit" => ['/employees/2/delete', Response::HTTP_OK];
+        yield "Employee delete" => ['/employees/2/delete', Response::HTTP_OK];
 
         // Customer
         yield "Customer index" => ['/customers', Response::HTTP_OK];

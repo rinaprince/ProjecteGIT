@@ -49,8 +49,8 @@ class ProviderControllerTest extends WebTestCase
 
 
         $uploadedFile = new UploadedFile(
-            __DIR__.'/../../resources/files/demo.odt',
-            'demo.odt'
+            __DIR__.'/../../resources/files/demo.pdf',
+            'demo.pdf'
         );
 
         self::assertResponseStatusCodeSame(200);

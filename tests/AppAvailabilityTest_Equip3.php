@@ -6,6 +6,7 @@ use Generator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+
 class AppAvailabilityTest_Equip3 extends WebTestCase
 {
 
@@ -19,7 +20,7 @@ class AppAvailabilityTest_Equip3 extends WebTestCase
     {
         $client = static::createClient();
         $client->catchExceptions(false);
-        $crawler = $client->request('HEAD', '/');
+        $crawler = $client->request('HEAD', $uri);
 
 
         $this->assertResponseStatusCodeSame($expectedStatusCode);
@@ -41,11 +42,11 @@ class AppAvailabilityTest_Equip3 extends WebTestCase
         yield "Orders edit" => ['/orders/1/edit', Response::HTTP_OK];
 
         //Catalogue
-        yield "Catalogue index" => ['/catalogue/', Response::HTTP_OK];
+        yield "Catalogue index" => ['/catalogue', Response::HTTP_OK];
         yield "Catalogue add vehicle" => ['/catalogue/add/1', Response::HTTP_OK];
 
         //Garage
-        yield "Garage index" => ['/garage/', Response::HTTP_OK];
+        yield "Garage index" => ['/garage', Response::HTTP_OK];
         yield "Garage delete" => ['/garage/delete/1', Response::HTTP_OK];
         yield "Garage close" => ['/garage/close', Response::HTTP_OK];
         yield "Garage cancel" => ['/garage/cancel', Response::HTTP_OK];

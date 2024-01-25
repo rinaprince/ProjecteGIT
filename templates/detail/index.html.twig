@@ -1,0 +1,135 @@
+{% extends 'base_3.html.twig' %}
+{% block title %} Especificacions {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('equip3/css/especificacions.css') }}">
+{% endblock %}
+{% block body %}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="carName">
+                        <h1>{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div>
+                        <div id="CarrouselDetails{{ vehicle.model.brand.name }}" class="carousel slide">
+                            <div class="carousel-inner">
+                                {% for key, image in images %}
+                                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                        <img src="{{ asset("/equip3/img/vehicles/" ~ image.filename) }}"
+                                             class="d-block w-100 object-fit-cover rounded-top"
+                                             alt="image {{ vehicle.model.name }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#CarrouselDetails{{ vehicle.model.brand.name }}"
+                                    data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#CarrouselDetails{{ vehicle.model.brand.name }}"
+                                    data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div id="payment">
+                        <div class="prices">
+                            <p id="totalCost">{{ vehicle.sellPrice }}€</p>
+                            <div id="separatorPayment-div">
+                                <hr class="separator">
+                            </div>
+                            <div class="priceInfo">
+                                <p id="feeTime">Quota / 24 mesos</p>
+                                <p id="pricePerMonth">8.333,33€ / Mes</p>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <a id="addGarage" href="{{ path('app_garage_index', {'id': vehicle.id })}}">Al
+                                Garatge
+                            </a>
+
+                            <button id="addWish">Desitje <img
+                                        src="{{ asset("/equip3/img/icones/llistaDeDesitjos-GrocOscur.png") }}"
+                                        alt="wishlist"></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="carCaracteristics">
+                        <div class="caracteristic">
+                            <img src="{{ asset("/equip3/img/icones/canvi-GrocOscur.png") }}" alt="gearShift"
+                                 class="caracteristicImg">
+                            <h3 class="caracteristicName">Marxes</h3>
+                            <p class="caracteristicInfo">{{ vehicle.gearShit }}</p>
+                        </div>
+                        <div class="caracteristic">
+                            <img src="{{ asset("/equip3/img/icones/color-GrocOscur.png") }}" alt="gearShift"
+                                 class="caracteristicImg">
+                            <h3 class="caracteristicName">Color</h3>
+                            <p class="caracteristicInfo">{{ vehicle.color }}</p>
+                        </div>
+                        <div class="caracteristic">
+                            <img src="{{ asset("/equip3/img/icones/combustible-GrocOscur.png") }}" alt="gearShift"
+                                 class="caracteristicImg">
+                            <h3 class="caracteristicName">Carburant</h3>
+                            <p class="caracteristicInfo">{{ vehicle.fuel }}</p>
+                        </div>
+                        <div class="caracteristic">
+                            <img src="{{ asset("/equip3/img/icones/matricula-GrocOscur.png") }}" alt="gearShift"
+                                 class="caracteristicImg">
+                            <h3 class="caracteristicName">Matriculació</h3>
+                            <p class="caracteristicInfo">{{ vehicle.registrationDate|date('Y') }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="moreInfo">
+                        <div id="dropdown">
+                            <p>Més informació</p>
+                            <img src="{{ asset("equip3/img/icones/flecha-derecha-dropdown.png") }}" alt="dropdown"
+                                 id="dropdownImg">
+                        </div>
+                        <div id="additionalInfo">
+                            <div class="caracteristic">
+                                <img src="{{ asset("/equip3/img/icones/matricula-GrocOscur.png") }}" alt="plate">
+                                <h3 class="caracteristicsName">Matricula</h3>
+                                <p class="caracteristicInfo">{{ vehicle.plate }}</p>
+                            </div>
+                            <div class="caracteristic">
+                                <img src="{{ asset("/equip3/img/icones/descripcio-GrocOscur.png") }}" alt="description"
+                                     class="caracteristicImg">
+                                <h3 class="caracteristicsName">Descripció</h3>
+                                <p class="caracteristicInfo">{{ vehicle.description }}</p>
+                            </div>
+                            <div class="caracteristic">
+                                <img src="{{ asset("/equip3/img/icones/estat-GrocOscur.png") }}" alt="state"
+                                     class="caracteristicImg">
+                                <h3 class="caracteristicsName">Estat</h3>
+                                <p class="caracteristicInfo">{% if vehicle.isNew %}
+                                        Nou{% else %}
+                                        Seminou{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

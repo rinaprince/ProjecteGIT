@@ -19,6 +19,8 @@ class InvoiceController extends AbstractController
     public function index(InvoiceRepository $InvoiceRepository, PaginatorInterface $paginator, Request $request): Response
 
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
+            null, 'Accés restringit, soles administratius');
         $q = $request->query->get('q', '');
 
         if(empty($q))

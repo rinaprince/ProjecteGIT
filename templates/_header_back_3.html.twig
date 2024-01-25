@@ -90,23 +90,39 @@
             <ul class="menu-links">
                 <ul class="dropdown">
                     {% if not app.user %}
-                    <li id="tancar-sessio"><a href="{{ path('app_login') }}">Iniciar Sessió</a></li>
-                    {% endif %}
+                    <li id="tancar-sessio"><a href="{{ path('app_login') }}"  class="fs-4">Iniciar Sessió</a></li>
+                    <li><a href="">Mi Perfil</a></li>
+                    <li><a href="">Mis Compras</a></li>
+                    <li><a href="">Domicilio</a></li>
+                    {% else %}
                     {% if app.user.customer %}
                     <li><a href="">Mi Perfil</a></li>
                     <li><a href="{{ path('app_garage_index') }}">Mis Compras</a></li>
                     <li><a href="">Domicilio</a></li>
-                    {% endif %}
                 </ul>
                 <ul class="dropdown">
-                    <li onclick=openAdmin()>Administració</li>
+                    <li onclick=openAdmin()>Configuracio</li>
                     <ul class="dropdown-content" id="administration-menu">
-                        <li><a href="#">Configuració del compter usuari</a></li>
-                        <li><a href="#">Configuració del compter administrador</a></li>
+                        <li><a href="#">Configuració del compte</a></li>
                         <li><a href="#">Cookies</a></li>
                     </ul>
                 </ul>
             </ul>
+            {% else %}
+                <ul>
+                <li><a href="{{ path('app_front_office') }}">Pagina Principal</a></li>
+                <li><a href="{{ path('app_back_office') }}">Pagina de Administració</a></li>
+                </ul>
+                <ul class="dropdown">
+                    <li onclick=openAdmin()>Configuracio</li>
+                    <ul class="dropdown-content" id="administration-menu">
+                        <li><a href="#">Configuració del compte</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </ul>
+                </ul>
+            {% endif %}
+            {% endif %}
         </div>
         <div id="banda-amb-logo">
             <div id="rectangle-blau">
@@ -121,7 +137,7 @@
             <ul>
 
                 {% if app.user %}
-                    <li id="tancar-sessio"><a href="{{ path('app_logout') }}">Tancar Sessió</a></li>
+                    <li id="tancar-sessio"><a href="{{ path('app_logout') }}" class="fs-4">Tancar Sessió</a></li>
                 {% endif %}
             </ul>
         </div>

@@ -18,6 +18,8 @@ class ProviderController extends AbstractController
     #[Route('/', name: 'app_provider_index', methods: ['GET'])]
     public function index(ProviderRepository $providerRepository,PaginatorInterface $paginator, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
+            null, 'Accés restringit, soles administratius');
         $q = $request->query->get('q','');
 
         if (empty($q))

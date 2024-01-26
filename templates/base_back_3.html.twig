@@ -48,48 +48,6 @@
 </main>
 
 
-<div id="menu-modal" class="menu-modal">
-    <div class="menu-content">
-        <a href="#" class="close-button" onclick="closeMenuModal()">&times;</a>
-        <div class="user-info">
-            <img src="{{ asset('equip3/img/usuari.png') }}" alt="Imagen de perfil">
-            <div class="user-details">
-                <h3>Tu Nombre</h3>
-                <p>correo@example.com</p>
-            </div>
-        </div>
-        <ul class="menu-links">
-            <ul class="dropdown">
-                <li><a href="{{ path('app_front_office') }}">Entrar a Front</a></li>
-                <li><a href="{{ path('templates') }}">Entrar Backoffice</a></li>
-                <li><a href="{{ path('app_catalogue_index') }}">Catalogo(temporal)</a></li>
-            </ul>
-            <ul class="dropdown">
-                <li onclick=openAdmin()>Administració</li>
-                <ul class="dropdown-content" id="administration-menu">
-                    <li><a href="#">Configuració del compter usuari</a></li>
-                    <li><a href="#">Configuració del compter administrador</a></li>
-                    <li><a href="#">Cookies</a></li>
-                </ul>
-            </ul>
-        </ul>
-    </div>
-    <div id="banda-amb-logo">
-        <div id="rectangle-blau">
-            <p id="titol-rectangle">BHEC</p>
-            <div id="cercle-gris">
-                <img src="{{ asset('equip3/img/logoBHEC.png') }}" alt="Imagen del semicírculo">
-            </div>
-        </div>
-    </div>
-
-    <div id="div-sessio">
-        <ul>
-            <li id="tancar-sessio"><a href="#">Tancar Sessió</a></li>
-        </ul>
-    </div>
-</div>
-
 {# Footer #}
 {% include '_footer_back_3.html.twig' %}
 

@@ -15,10 +15,12 @@ use Knp\Component\Pager\PaginatorInterface;
 #[Route('/invoices')]
 class InvoiceController extends AbstractController
 {
-    #[Route('/', name: 'app_invoice_index', methods: ['GET'])]
+    #[Route('', name: 'app_invoice_index', methods: ['GET'])]
     public function index(InvoiceRepository $InvoiceRepository, PaginatorInterface $paginator, Request $request): Response
 
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
+            null, 'Accés restringit, soles administratius');
         $q = $request->query->get('q', '');
 
         if(empty($q))

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/garage')]
 class GarageController extends AbstractController
 {
-    #[Route('/', name: 'app_garage_index')]
+    #[Route('', name: 'app_garage_index')]
     public function index(VehicleRepository $vehicleRepository, ModelRepository $modelRepository, BrandRepository $brandRepository, OrderRepository $orderRepository): Response {
         $vehicles = $vehicleRepository->findAll();
 

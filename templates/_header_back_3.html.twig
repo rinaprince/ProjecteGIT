@@ -68,4 +68,78 @@
             </div>
         </div>
     </div>
+
+
+    <div id="menu-modal" class="menu-modal">
+        <div class="menu-content">
+            <a href="#" class="close-button" onclick="closeMenuModal()">&times;</a>
+            <div class="user-info">
+                <img src="{{ asset('equip3/img/usuari.png') }}" alt="Imagen de perfil">
+                <div class="user-details">
+                    {% if app.user %}
+                        <h3>{{ app.user.username }}</h3>
+                        {% if app.user.customer %}
+                            <p>{{ app.user.customer.email }}</p>
+                        {% endif %}
+                    {% else %}
+                        <h3>Tu Nombre</h3>
+                        <p>correo@example.com</p>
+                    {% endif %}
+                </div>
+            </div>
+            <ul class="menu-links">
+                <ul class="dropdown">
+                    {% if not app.user %}
+                    <li id="tancar-sessio"><a href="{{ path('app_login') }}"  class="fs-4">Iniciar Sessió</a></li>
+                    <li><a href="">Mi Perfil</a></li>
+                    <li><a href="">Mis Compras</a></li>
+                    <li><a href="">Domicilio</a></li>
+                    {% else %}
+                    {% if app.user.customer %}
+                    <li><a href="">Mi Perfil</a></li>
+                    <li><a href="{{ path('app_garage_index') }}">Mis Compras</a></li>
+                    <li><a href="">Domicilio</a></li>
+                </ul>
+                <ul class="dropdown">
+                    <li onclick=openAdmin()>Configuracio</li>
+                    <ul class="dropdown-content" id="administration-menu">
+                        <li><a href="#">Configuració del compte</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </ul>
+            </ul>
+            {% else %}
+                <ul>
+                <li><a href="{{ path('app_front_office') }}">Pagina Principal</a></li>
+                <li><a href="{{ path('app_back_office') }}">Pagina de Administració</a></li>
+                </ul>
+                <ul class="dropdown">
+                    <li onclick=openAdmin()>Configuracio</li>
+                    <ul class="dropdown-content" id="administration-menu">
+                        <li><a href="#">Configuració del compte</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </ul>
+                </ul>
+            {% endif %}
+            {% endif %}
+        </div>
+        <div id="banda-amb-logo">
+            <div id="rectangle-blau">
+                <p id="titol-rectangle">BHEC</p>
+                <div id="cercle-gris">
+                    <img src="{{ asset('equip3/img/logoBHEC.png') }}" alt="Imagen del semicírculo">
+                </div>
+            </div>
+        </div>
+
+        <div id="div-sessio">
+            <ul>
+
+                {% if app.user %}
+                    <li id="tancar-sessio"><a href="{{ path('app_logout') }}" class="fs-4">Tancar Sessió</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 </header>

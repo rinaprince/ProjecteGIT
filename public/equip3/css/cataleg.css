@@ -4,6 +4,7 @@
     transition: transform 0.3s ease-in-out; /* Agregué una transición suave al hover */
     background-color: #fff; /* Fondo blanco */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 300px;
 }
 
 /* Estilo de la imagen */
@@ -71,50 +72,7 @@
     margin: 10px 0; /* Espacio entre el borde y el  contenido */
 }
 
-/* Estilos específicos para dispositivos móviles */
-@media (max-width: 2500px) {
-    .vehicle {
-        width: calc(16.55%); /* Cambia a 2 columnas en dispositivos más pequeños */
-    }
-}
-
-@media (max-width: 1620px) {
-    .vehicle {
-        width: calc(20% - 20px); /* Cambia a 2 columnas en dispositivos más pequeños */
-    }
-}
-
-@media (max-width: 1340px) {
-    .vehicle {
-        width: calc(25% - 20px); /* Cambia a 2 columnas en dispositivos más pequeños */
-    }
-}
-
-@media (max-width: 1135px) {
-    .vehicle {
-        width: calc(33% - 20px); /* Cambia a 2 columnas en dispositivos más pequeños */
-    }
-}
-
-@media (max-width: 850px) {
-    .vehicle {
-        width: calc(50% - 20px); /* Cambia a 2 columnas en dispositivos más pequeños */
-    }
-}
-
-@media (max-width: 600px) {
-    .vehicle {
-        width: calc(100% - 20px); /* Cambia a 1 columna en dispositivos aún más pequeños */
-    }
-}
-
-@media (max-width: 400px) {
-    .data-vehicle {
-        flex-direction: column;
-    }
-}
-
-.vehicle-add-button {
+.vehicle-add-button, .vehicle-details-button {
     background-color: #cea12a;
     color: white;
 }

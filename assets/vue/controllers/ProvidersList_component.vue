@@ -11,7 +11,7 @@
     <tr>
       <th>Email</th>
       <th>Telèfon</th>
-      <th>Dni</th>
+      <th class="d-sm-none">Dni</th>
       <th class="d-sm-none">Cif</th>
       <th>Nom de l'empresa</th>
       <th class="d-sm-none d-md-none">Adreça</th>
@@ -31,7 +31,7 @@
       <td>{{ provider.businessName }}</td>
       <td class="d-sm-none d-md-none">{{ provider.address }}</td>
       <td class="d-sm-none d-md-none">{{ provider.bankTitle }}</td>
-      <td>{{ provider.managerNif }}</td>
+      <td class="d-sm-none">{{ provider.managerNif }}</td>
       <td class="d-sm-none d-md-none">{{ provider.LOPDdocFile }}</td>
       <td class="d-sm-none d-md-none">{{ provider.constitutionArticle }}</td>
       <td>

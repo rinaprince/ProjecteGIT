@@ -8,10 +8,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CustomerController extends AbstractController
 {
     #[Route('/customer', name: 'app_customer')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(CustomerRepository $customerRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $q = $request->query->get('q', '');

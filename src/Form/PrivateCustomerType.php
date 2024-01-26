@@ -18,6 +18,8 @@ class PrivateCustomerType extends AbstractType
             ->add('dni')
             ->add('phone')
             ->add('email')
+            ->add('login', LoginType::class)
+
         ;
     }
 

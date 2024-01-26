@@ -3,9 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Employee;
+use App\Entity\Login;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class EmployeeType extends AbstractType
 {
@@ -14,7 +18,13 @@ class EmployeeType extends AbstractType
         $builder
             ->add('name')
             ->add('lastname')
-            ->add('type')
+            ->add('type', ChoiceType::class, [
+                'choices'  => [
+                    'Administratiu' => 'administrative',
+                    'Administrador' => 'administrator'
+                ],
+            ])
+            ->add('login', LoginType::class)
         ;
     }
 

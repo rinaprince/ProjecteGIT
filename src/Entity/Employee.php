@@ -4,15 +4,15 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
-class Employee
+ class Employee implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\NotBlank]
     #[Assert\Type('integer')]
     private ?int $id = null;
 
@@ -33,6 +33,7 @@ class Employee
     #[ORM\OneToOne(inversedBy: 'employee', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Login $login = null;
+
 
     public function getId(): ?int
     {
@@ -86,4 +87,16 @@ class Employee
 
         return $this;
     }
+
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'lastname' => $this->lastname,
+            'type' => $this->type,
+        ];
+    }
+
 }

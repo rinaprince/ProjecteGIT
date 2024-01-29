@@ -14,13 +14,13 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 <template>
   <h1>Vehicle index</h1>
 
-  <div class="d-flex justify-content-between align-items-center">
-    <form method="get" role="search">
-      <input type="search" name="q" placeholder="Search..." aria-label="Search">
-      <button type="submit">Search</button>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <form method="get" role="search" class="d-flex">
+      <input type="search" class="form-control" name="q" placeholder="Search..." aria-label="Search">
+      <button type="submit" class="btn btn-outline-dark">Search</button>
     </form>
     <a :href="vehiclesCreatePath">
-      <button>Create new</button>
+      <button class="btn btn-warning">Create new</button>
     </a>
   </div>
 
@@ -39,7 +39,7 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
       <th>ChassisNumber</th>
       <th>GearShit</th>
       <th>IsNew</th>
-      <th>TransportIncluded</th>
+      <th class="d-none">TransportIncluded</th>
       <th>Color</th>
       <th>RegistrationDate</th>
       <th>actions</th>
@@ -59,15 +59,15 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
       <td>{{ vehicle.chassisNumber }}</td>
       <td>{{ vehicle.gearShit }}</td>
       <td>{{ vehicle.isNew ? 'Yes' : 'No' }}</td>
-      <td>{{ vehicle.transportIncluded ? 'Yes' : 'No' }}</td>
+      <td class="d-none">{{ vehicle.transportIncluded ? 'Yes' : 'No' }}</td>
       <td>{{ vehicle.color }}</td>
       <td>{{ vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : '' }}</td>
-      <td>
+      <td class="d-flex">
         <a :href="vehiclesShowPath(vehicle.id)">
-          <button class="details-button"><i class="fas fa-eye"></i></button>
+          <button class="btn btn-primary details-button me-2"><i class="fas fa-eye"></i></button>
         </a>
         <a :href="vehiclesEditPath(vehicle.id)">
-          <button class="edit-button"><i class="fas fa-pencil-alt"></i></button>
+          <button class="btn btn-success edit-button"><i class="fas fa-pencil-alt"></i></button>
         </a>
       </td>
     </tr>

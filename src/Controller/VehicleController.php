@@ -18,6 +18,8 @@ class VehicleController extends AbstractController
     #[Route('/', name: 'app_vehicle_index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, VehicleRepository $vehicleRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
+            null, 'Accés restringit, soles administratius');
         $q = $request->query->get('q', '');
 
         if (empty($q))

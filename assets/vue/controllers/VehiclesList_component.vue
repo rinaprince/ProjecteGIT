@@ -9,6 +9,8 @@ const vehiclesShowPath = (id) => `/vehicles/${id}`;
 
 const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 
+const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
+
 </script>
 
 <template>
@@ -58,8 +60,9 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
       <td>{{ vehicle.color }}</td>
       <td>{{ vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : '' }}</td>
       <td>
-        <a :href="vehiclesShowPath(vehicle.id)"><button class="details-button"><i class="fas fa-eye"></i></button></a>
-        <a :href="vehiclesEditPath(vehicle.id)"><button class="edit-button"><i class="fas fa-pencil-alt"></i></button></a>
+        <a :href="vehiclesShowPath(vehicle.id)"><button class="btn btn-primary"><i class="fas fa-eye"></i></button></a>
+        <a :href="vehiclesEditPath(vehicle.id)"><button class="btn btn-success"><i class="fas fa-pencil-alt"></i></button></a>
+        <a :href="vehiclesAddImagePath(vehicle.id)"><button class="btn btn-danger"><i class="fa-regular fa-image"></i></button></a>
       </td>
     </tr>
     </tbody>

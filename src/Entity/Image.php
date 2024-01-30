@@ -4,14 +4,24 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
+#[Vich\Uploadable]
 class Image
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+
+    #[Assert\NotBlank]
+    #[Assert\File(mimeTypes: ["image/*"])]
+    #[Vich\UploadableField(mapping: 'vehicles_images', fileNameProperty: 'filename')]
+    private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
     private ?string $filename = null;
@@ -48,4 +58,16 @@ class Image
 
         return $this;
     }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
+
 }

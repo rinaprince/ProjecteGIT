@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Image;
 use App\Entity\Model;
 use App\Entity\Order;
 use App\Entity\Provider;
@@ -10,8 +11,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
-class Vehicle1Type extends AbstractType
+class VehicleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

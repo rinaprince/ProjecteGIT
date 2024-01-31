@@ -29,12 +29,13 @@ class EmployeeController extends AbstractController
 
             $pagination = $paginator->paginate(
                 $employees,
-                $request->query->getInt('page',1),10 /*llimit d'elements per pàgina*/
+                $request->query->getInt('page',1),10
             );
 
             return $this->render('employee/index.html.twig', [
                 'pagination' => $pagination,
-                'q' => $q
+                'employees' => $pagination->getItems(),
+                'e' => $q
         ]);
     }
 

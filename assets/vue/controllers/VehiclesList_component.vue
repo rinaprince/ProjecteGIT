@@ -16,27 +16,32 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 <template>
   <h1>Vehicle index</h1>
 
-  <form method="get" role="search">
-    <input type="search" name="q" placeholder="Search..." aria-label="Search">
-    <button type="submit">Search</button>
-  </form>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <form method="get" role="search" class="d-flex">
+      <input type="search" class="form-control" name="q" placeholder="Search..." aria-label="Search">
+      <button type="submit" class="btn btn-outline-dark">Search</button>
+    </form>
+    <a :href="vehiclesCreatePath">
+      <button class="btn btn-warning">Create new</button>
+    </a>
+  </div>
 
   <table class="table">
     <thead>
     <tr>
-      <th>Id</th>
+      <th class="d-none">Id</th>
       <th>Plate</th>
-      <th>ObservedDamages</th>
+      <th class="d-none">ObservedDamages</th>
       <th>Kilometers</th>
       <th>BuyPrice</th>
       <th>SellPrice</th>
       <th>Fuel</th>
       <th>Iva</th>
-      <th>Description</th>
+      <th class="d-none">Description</th>
       <th>ChassisNumber</th>
       <th>GearShit</th>
       <th>IsNew</th>
-      <th>TransportIncluded</th>
+      <th class="d-none">TransportIncluded</th>
       <th>Color</th>
       <th>RegistrationDate</th>
       <th>actions</th>
@@ -44,19 +49,19 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
     </thead>
     <tbody>
     <tr v-for="vehicle in vehicles">
-      <td>{{ vehicle.id }}</td>
+      <td class="d-none">{{ vehicle.id }}</td>
       <td>{{ vehicle.plate }}</td>
-      <td>{{ vehicle.observedDamages }}</td>
+      <td class="d-none">{{ vehicle.observedDamages }}</td>
       <td>{{ vehicle.kilometers }}</td>
       <td>{{ vehicle.buyPrice }}</td>
       <td>{{ vehicle.sellPrice }}</td>
       <td>{{ vehicle.fuel }}</td>
       <td>{{ vehicle.iva }}</td>
-      <td>{{ vehicle.description }}</td>
+      <td class="d-none">{{ vehicle.description }}</td>
       <td>{{ vehicle.chassisNumber }}</td>
       <td>{{ vehicle.gearShit }}</td>
       <td>{{ vehicle.isNew ? 'Yes' : 'No' }}</td>
-      <td>{{ vehicle.transportIncluded ? 'Yes' : 'No' }}</td>
+      <td class="d-none">{{ vehicle.transportIncluded ? 'Yes' : 'No' }}</td>
       <td>{{ vehicle.color }}</td>
       <td>{{ vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : '' }}</td>
       <td>
@@ -67,8 +72,4 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
     </tr>
     </tbody>
   </table>
-
-  <a :href="vehiclesCreatePath">
-    <button>Create new</button>
-  </a>
 </template>

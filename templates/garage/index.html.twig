@@ -36,7 +36,7 @@
                                 <td>{{ vehicle.model.name }}</td>
                                 <td>{{ vehicle.plate }}</td>
                                 <td>{{ vehicle.sellPrice }}</td>
-                                <td><a class="remove-vehicle" href="/remove/{{ vehicle.id }}">Eliminar</a></td>
+                                <td><a class="remove-vehicle" href="{{ path('app_garage_delete_vehicle', {'id': vehicle.id }) }}">Eliminar</a></td>
                             </tr>
                         {% endif %}
                     {% endfor %}
@@ -48,8 +48,8 @@
                     </tbody>
                 </table>
                 <div class="buttons-container">
-                    <a class="cancel-order-button" href="/cancel">Cancel·lar</a>
-                    <a class="close-order-button" href="/close">Tancar</a>
+                    <a class="cancel-order-button" href="{{ path('app_garage_cancel_order') }}">Cancel·lar</a>
+                    <a class="close-order-button" href="{{ path('app_garage_close_order') }}">Tancar</a>
                 </div>
             {% else %}
                 <div class="no-order-message">

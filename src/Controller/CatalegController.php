@@ -37,7 +37,7 @@ class CatalegController extends AbstractController
         return $this->render('catalogue/index.html.twig', [
             'vehicles' => $pagination,
             'pagination' => $pagination,
-            'q'=>$q
+            'q' => $q
         ]);
     }
 
@@ -47,6 +47,9 @@ class CatalegController extends AbstractController
         $customer = $customers[0];
 
         $existingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
+
+        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
+            null, 'Accés restringit, soles administratius');
 
         if (!$existingOrder) {
             $order = new Order();

@@ -1,10 +1,11 @@
 {% extends 'base_3.html.twig' %}
 {% block title %} Garage {% endblock %}
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('equip3/css/garage.css') }}">
 {% endblock %}
 {% block body %}
-    <h1>Garatge</h1>
+    <h1 class="text-center">Garatge</h1>
 
     <div class="garage-container">
         <div>
@@ -19,6 +20,7 @@
                 <table>
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Model</th>
                         <th>Brand</th>
                         <th>Plate</th>
@@ -32,24 +34,27 @@
                         {% if vehicle.vehicleOrder != null and vehicle.vehicleOrder.state == 'Pendent' %}
                             {% set totalPrice = totalPrice + vehicle.sellPrice %}
                             <tr>
+                                <td>
+                                    <img class="rounded" src="{{ asset("/equip3/img/vehicles/0ac9b191-907e-3306-9833-318a85159dee.jpg" ) }}" alt="pepe">
+                                </td>
                                 <td>{{ vehicle.model.brand.name }}</td>
                                 <td>{{ vehicle.model.name }}</td>
                                 <td>{{ vehicle.plate }}</td>
-                                <td>{{ vehicle.sellPrice }}</td>
-                                <td><a class="remove-vehicle" href="/remove/{{ vehicle.id }}">Eliminar</a></td>
+                                <td>{{ vehicle.sellPrice | number_format(2, ',', '.')}} €</td>
+                                <td><a class="remove-vehicle" href="{{ path('app_garage_delete_vehicle', {'id': vehicle.id }) }}">Eliminar</a></td>
                             </tr>
                         {% endif %}
                     {% endfor %}
                     <tr>
-                        <td colspan="2"></td>
+                        <td colspan="3"></td>
                         <td>Total price:</td>
-                        <td>{{ totalPrice }}</td>
+                        <td>{{ totalPrice | number_format(2, ',', '.') }} €</td>
                     </tr>
                     </tbody>
                 </table>
-                <div class="buttons-container">
-                    <a class="cancel-order-button" href="/cancel">Cancel·lar</a>
-                    <a class="close-order-button" href="/close">Tancar</a>
+                <div class="buttons-container text-center">
+                    <a class="cancel-order-button" href="{{ path('app_garage_cancel_order') }}">Cancel·lar</a>
+                    <a class="close-order-button" href="{{ path('app_garage_close_order') }}">Pagar</a>
                 </div>
             {% else %}
                 <div class="no-order-message">
@@ -58,4 +63,35 @@
             {% endif %}
         </div>
     </div>
+
+    <h1 class="pt-5 text-center">Comandes anteriors</h1>
+    <div class="text-center">
+        {% if invoices is not empty %}
+            <table class="table table-borderless">
+                <thead>
+                <tr>
+                    <th>Invoice Number</th>
+                    <th>Invoice Date</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for invoice in invoices %}
+                    <tr>
+                        <td>{{ invoice.number }}</td>
+                        <td>{{ invoice.date | date('d/m/Y') }}</td>
+                        <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm">Detalls</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay facturas disponibles.</p>
+        {% endif %}
+    </div>
+
 {% endblock %}

@@ -3,6 +3,8 @@ defineProps({
   vehicles: Array
 });
 
+/*const { vehicles } = defineProps(['vehicles']);*/
+
 const vehiclesCreatePath = `/vehicles/new`;
 
 const vehiclesShowPath = (id) => `/vehicles/${id}`;

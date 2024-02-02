@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/private/customer')]
+#[Route('/private/customers')]
 class PrivateCustomerController extends AbstractController
 {
     #[Route('/', name: 'app_private_customer_index', methods: ['GET'])]

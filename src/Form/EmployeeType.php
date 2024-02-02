@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Employee;
 use App\Entity\Login;
+use Faker\Provider\Text;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -24,7 +25,7 @@ class EmployeeType extends AbstractType
                     'Administrador' => 'administrator'
                 ],
             ])
-            ->add('login', LoginType::class)
+            ->add('login', LoginType::class,['label' => 'Credencials'] )
         ;
     }
 

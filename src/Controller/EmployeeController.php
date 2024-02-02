@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Employee;
+use App\Entity\Login;
 use App\Form\EmployeeType;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/employee')]
+#[Route('/employees')]
 class EmployeeController extends AbstractController
 {
     #[Route('/', name: 'app_employee_index', methods: ['GET'])]
@@ -47,6 +48,19 @@ class EmployeeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getViewData());
+            dump($employee);
+            if ($employee->getType() == 'administrative') {
+                $login = $employee->getLogin();
+                $login->setRole('ROLE_ADMINISTRATIVE');
+                dump('administratiu');
+            }
+            else if ($employee->getType()== 'administrator') {
+                $login = $employee->getLogin();
+                $login->setRole('ROLE_ADMIN');
+                $employee->setLogin($login);
+                dump('admin');
+            }
             $entityManager->persist($employee);
             $entityManager->flush();
 
@@ -85,7 +99,7 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_employee_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_employee_delete', methods: ['POST'])]
     public function delete(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$employee->getId(), $request->request->get('_token'))) {

@@ -1,6 +1,34 @@
 <script setup>
-defineProps({
+/*defineProps({
   vehicles: Array
+});*/
+
+const { vehicles } = defineProps(['vehicles']);
+
+import { ref, onMounted, computed } from 'vue';
+
+//Tipus de filtració
+const filters = ref({
+  global: { value: null, matchMode: 'CONTAINS' },
+  kilometers: { value: null, matchMode: 'CONTAINS' },
+  ChassisNumber: { value: null, matchMode: 'IN' },
+  date: { value: null, matchMode: 'EQUALS' },
+});
+
+//Filtrador
+const applyFilters = (data, filters) => {
+  return data.filter((vehicle) => {
+    return (
+        (!filters.global.value || JSON.stringify(vehicle).toLowerCase().includes(filters.global.value.toLowerCase())) &&
+        (!filters.kilometers.value || vehicle.kilometers.toLowerCase().includes(filters.kilometers.value.toLowerCase())) &&
+        (!filters.ChassisNumber.value || filters.ChassisNumber.value.includes(vehicle.ChassisNumber.toString())) &&
+        (!filters.date.value || vehicle.date.date.substring(0, 10) === filters.date.value)
+    );
+  });
+};
+
+const filteredVehicles = computed(() => {
+  return applyFilters(vehicles, filters.value);
 });
 
 const vehiclesCreatePath = `/vehicles/new`;
@@ -14,15 +42,16 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 </script>
 
 <template>
-  <h1>Vehicle index</h1>
+  <h1>Index de Vehicles</h1>
 
   <div class="d-flex justify-content-between align-items-center mb-2">
     <form method="get" role="search" class="d-flex">
-      <input type="search" class="form-control" name="q" placeholder="Search..." aria-label="Search">
+      <input type="search" class="form-control" name="q" placeholder="Matrícula, combustible, color..." aria-label="Search">
       <button type="submit" class="btn btn-outline-dark">Search</button>
     </form>
+    <input type="search" class="border border-0 rounded p-1" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Kilòmetres, data..."/>
     <a :href="vehiclesCreatePath">
-      <button class="btn btn-warning">Create new</button>
+      <button class="btn btn-warning">Crea nou</button>
     </a>
   </div>
 
@@ -48,7 +77,7 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
     </tr>
     </thead>
     <tbody>
-    <tr v-for="vehicle in vehicles">
+    <tr v-for="vehicle in filteredVehicles" :key="vehicle.id">
       <td class="d-none">{{ vehicle.id }}</td>
       <td>{{ vehicle.plate }}</td>
       <td class="d-none">{{ vehicle.observedDamages }}</td>

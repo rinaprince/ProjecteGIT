@@ -26,8 +26,6 @@ class CatalegController extends AbstractController
         else
             $query = $vehicleRepository->findByTextQuery($q);
 
-        //$vehiclesQuery = $vehicleRepository->findAllQuery();
-
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
@@ -43,13 +41,13 @@ class CatalegController extends AbstractController
 
     #[Route('/add/{id}', name: 'app_catalogue_add_vehicle', methods: ['GET', 'POST'])]
     public function new($id, Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): Response {
-        $customers = $customerRepository->findAll();
-        $customer = $customers[0];
+        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
+            null, 'Accés restringit');
+
+        $userId = $this->getUser()->getId();
+        $customer = $customerRepository->find($userId);
 
         $existingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
-
-        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
-            null, 'Accés restringit, soles administratius');
 
         if (!$existingOrder) {
             $order = new Order();
@@ -82,6 +80,3 @@ class CatalegController extends AbstractController
         return $this->redirectToRoute('app_catalogue_index', [], Response::HTTP_SEE_OTHER);
     }
 }
-
-//$customerId = 2;
-//$customer = $entityManager->getRepository(Customer::class)->find($customerId);

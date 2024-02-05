@@ -49,6 +49,9 @@
       <td>
         <a :href="providerEditPath(provider.id)" class="btn btn-primary">Editar</a>
       </td>
+      <td>
+        <button class="btn btn-dark" @click="deleteProvider(provider.id, token)">Borrar</button>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -58,7 +61,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Provider</h5>
-          <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
+          <button type="button" class="btn-close" @click.stop="hideModal" data-bs-dismiss="modal"
                   aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -68,12 +71,7 @@
           <div class="modal-confirmation"></div>
         </div>
         <div class="modal-footer">
-          <!-- Fer que borre -->
-          <form method="post" action="{{ path('app_provider_delete', {'id': provider.id}) }}"
-                onsubmit="return confirm('Are you sure you want to delete this item?');">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete', provider.id) }}">
-            <button class="btn btn-danger" id="deleteProvider">Delete</button>
-          </form>
+
         </div>
       </div>
     </div>
@@ -82,13 +80,18 @@
 
 <script setup>
 import axios from 'axios';
-import {ref, computed} from 'vue';
+import {ref, computed, watch} from 'vue';
 
-const props = defineProps(['providers', 'q']);
+const props = defineProps(['providers', 'q', 'token']);
+
+const providerIdToDelete = ref(null);
 
 const providerShowPath = (id) => `/providers/${id}`;
 const providerEditPath = (id) => `/providers/${id}/edit`;
 const providerNewPath = `/providers/new`;
+const providerDeletePath = (id) => `/providers/${id}/delete`;
+
+/* Filtratge dels camps de la taula */
 
 const filters = ref( {
   global: { value: null, matchMode: 'CONSTRAINS' },
@@ -115,7 +118,7 @@ const applyFilters = (data, filters) => {
 
 // Hacer la solicitud Axios aquí
 function showModal(id) {
-  axios.get('/providers/' + id)
+  axios.post('/providers/' + id)
       .then(response => {
         // Actualizar el contenido del modal
         const modalBody = document.querySelector('.modal-body');
@@ -135,4 +138,20 @@ function hideModal() {
   const myModal = document.querySelector('.modal');
   myModal.style.display = 'none';
 }
+
+/* Funció per a eliminar al proveïdor */
+function deleteProvider(providerId, token) {
+  axios.post(`/providers/${providerId}/delete`, {
+    id: providerId,
+    token: token
+  })
+      .then(function (response) {
+        console.log('id: ' +  providerId)
+        console.log(token);
+      })
+      .catch(function (error) {
+        console.error('Error deleting provider:', error);
+      });
+}
+
 </script>

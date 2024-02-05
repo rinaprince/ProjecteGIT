@@ -16,6 +16,10 @@ rebuild:
 	@ echo "Esborrant imatges..."
 	-rm -r public/equip3/img/vehicles/*.jpg
 
+	@ echo "Creant directori images"
+	-$(DOCKER_PREFIX) mkdir public/equip3/img/vehicles -p
+	-$(DOCKER_PREFIX) umask 0002 public/equip3
+	-$(DOCKER_PREFIX) chgrp www-data public/equip3
 
 	@ echo "Creació del la carpeta mèdia amb els permisos corresponents"
 	-$(DOCKER_PREFIX) mkdir public/media -p

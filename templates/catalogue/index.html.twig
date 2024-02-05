@@ -41,10 +41,13 @@
                                     <div class="carousel-inner">
                                         {% for image in vehicle.images %}
                                             <div class="carousel-item{{ loop.first ? ' active' }}">
-                                                <img src="{{ asset("/equip3/img/vehicles/" ~ image.filename | imagine_filter('vehicle_thumb')) }}"
-                                                     data-src="{{ asset("/equip3/img/vehicles/" ~ image.filename)  }}"
+                                                <img src="{{ asset("/equip3/no-photo.png") }}"
+                                                        {{  stimulus_controller('symfony/ux-lazy-image/lazy-image', {
+                                                                src: asset("/equip3/img/vehicles/" ~ image.filename)
+                                                            }) }}
+
                                                      class="d-block w-100 object-fit-cover rounded-top"
-                                                     alt="image {{ vehicle.model.name }}"{{ stimulus_controller('symfony/ux-lazy-image/lazy-image') }}>
+                                                     alt="image {{ vehicle.model.name }}">
                                             </div>
                                         {% endfor %}
 

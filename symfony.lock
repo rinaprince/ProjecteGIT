@@ -273,6 +273,9 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/ux-lazy-image": {
+        "version": "v2.14.0"
+    },
     "symfony/ux-turbo": {
         "version": "v2.13.2"
     },

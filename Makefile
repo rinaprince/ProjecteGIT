@@ -18,12 +18,13 @@ rebuild:
 
 	@ echo "Creant directori images"
 	-$(DOCKER_PREFIX) mkdir public/equip3/img/vehicles -p
-	-$(DOCKER_PREFIX) umask 0002 public/equip3
+	-umask 0002 public/equip3
 	-$(DOCKER_PREFIX) chgrp www-data public/equip3
 
 	@ echo "Creació del la carpeta mèdia amb els permisos corresponents"
 	-$(DOCKER_PREFIX) mkdir public/media -p
-	-$(DOCKER_PREFIX) umask 0002 public/media
+	-$(DOCKER_PREFIX) chmod 777 public/media
+	-umask 0002 public/media
 	-$(DOCKER_PREFIX) chgrp www-data public/media
 
 	@ echo "Esborrant la base de dades..."

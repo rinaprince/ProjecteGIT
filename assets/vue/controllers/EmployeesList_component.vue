@@ -55,16 +55,16 @@ defineProps({
   e: String
 });
 
-const employeeShowPath = (id) => `/employee/${id}/details`;
-const employeeEditPath = (id) => `/employee/${id}/edit`;
-const employeeNewPath = `/employee/new`;
-const employeeDeletePath = (id) => `/employee/${id}`;
+const employeeShowPath = (id) => `/employees/${id}/details`;
+const employeeEditPath = (id) => `/employees/${id}/edit`;
+const employeeNewPath = `/employees/new`;
+const employeeDeletePath = (id) => `/employees/${id}`;
 
 
 // ... (resto del código)
 // Hacer la solicitud Axios aquí
 function showModal(id) {
-  axios.get('/employee/'+id+'/details')
+  axios.get('/employees/'+id+'/details')
       .then(response => {
         // Actualizar el contenido del modal
         const modalBody = document.querySelector('.modal-body');
@@ -91,7 +91,7 @@ function hideModal(){
 }
 
 function modalNewEmployee(){
-  axios.get('/employee/new')
+  axios.get('/employees/new')
       .then(response => {
         // Actualizar el contenido del modal
         const modalBody = document.querySelector('.modal-body');

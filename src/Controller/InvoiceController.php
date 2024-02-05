@@ -26,12 +26,10 @@ class InvoiceController extends AbstractController
         $invoices = $InvoiceRepository->findAll();
 
         $arrayInvoices = $invoicesQ->getResult(AbstractQuery::HYDRATE_ARRAY);
+
         for ($i = 0; $i < count($arrayInvoices) ; $i++) {
-
-
             $arrayInvoices[$i]['date'] = $arrayInvoices[$i]['date']->format('d/m/Y');;
         }
-
 
         $config = array(
             "number" => "Numero",

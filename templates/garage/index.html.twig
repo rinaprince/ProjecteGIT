@@ -1,23 +1,20 @@
 {% extends 'base_3.html.twig' %}
-{% block title %} Garage {% endblock %}
+
+{% block title %}Garage{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('equip3/css/garage.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 {% endblock %}
+
 {% block body %}
-    <h1 class="text-center">Garatge</h1>
+    <div class="container mt-5">
+        <h1 class="text-center">Garatge</h1>
 
-    <div class="garage-container">
-        <div>
-            {% set hasPendingOrder = false %}
-            {% for vehicle in vehicles %}
-                {% if vehicle.vehicleOrder != null and vehicle.vehicleOrder.state == 'Pendent' %}
-                    {% set hasPendingOrder = true %}
-                {% endif %}
-            {% endfor %}
-
-            {% if hasPendingOrder %}
-                <table>
+        <div class="text-center">
+            {% set pendingVehicles = vehicles|filter(vehicle => vehicle.vehicleOrder != null and vehicle.vehicleOrder.state == 'Pendent') %}
+            {% if pendingVehicles %}
+                <table class="table table-borderless">
                     <thead>
                     <tr>
                         <th></th>
@@ -30,31 +27,30 @@
                     </thead>
                     <tbody>
                     {% set totalPrice = 0 %}
-                    {% for vehicle in vehicles %}
-                        {% if vehicle.vehicleOrder != null and vehicle.vehicleOrder.state == 'Pendent' %}
-                            {% set totalPrice = totalPrice + vehicle.sellPrice %}
-                            <tr>
-                                <td>
-                                    <img class="rounded" src="{{ asset("/equip3/img/vehicles/0ac9b191-907e-3306-9833-318a85159dee.jpg" ) }}" alt="pepe">
-                                </td>
-                                <td>{{ vehicle.model.brand.name }}</td>
-                                <td>{{ vehicle.model.name }}</td>
-                                <td>{{ vehicle.plate }}</td>
-                                <td>{{ vehicle.sellPrice | number_format(2, ',', '.')}} €</td>
-                                <td><a class="remove-vehicle" href="{{ path('app_garage_delete_vehicle', {'id': vehicle.id }) }}">Eliminar</a></td>
-                            </tr>
-                        {% endif %}
+                    {% for vehicle in pendingVehicles %}
+                        {% set totalPrice = totalPrice + vehicle.sellPrice %}
+                        <tr>
+                            <td>
+                                <img class="rounded" src="{{ asset("/equip3/img/vehicles/0ac9b191-907e-3306-9833-318a85159dee.jpg") }}" alt="pepe" style="max-height: 50px;">
+                            </td>
+                            <td>{{ vehicle.model.brand.name }}</td>
+                            <td>{{ vehicle.model.name }}</td>
+                            <td>{{ vehicle.plate }}</td>
+                            <td>{{ vehicle.sellPrice | number_format(2, ',', '.') }} €</td>
+                            <td><a class="btn btn-danger btn-sm" href="{{ path('app_garage_delete_vehicle', {'id': vehicle.id }) }}">Eliminar</a></td>
+                        </tr>
                     {% endfor %}
                     <tr>
                         <td colspan="3"></td>
                         <td>Total price:</td>
                         <td>{{ totalPrice | number_format(2, ',', '.') }} €</td>
+                        <td></td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="buttons-container text-center">
-                    <a class="cancel-order-button" href="{{ path('app_garage_cancel_order') }}">Cancel·lar</a>
-                    <a class="close-order-button" href="{{ path('app_garage_close_order') }}">Pagar</a>
+                    <a class="btn btn-primary cancel-order-button btn-sm" href="{{ path('app_garage_cancel_order') }}">Cancel·lar</a>
+                    <a class="btn btn-warning close-order-button btn-sm" href="{{ path('app_garage_close_order') }}">Pagar</a>
                 </div>
             {% else %}
                 <div class="no-order-message">
@@ -62,36 +58,35 @@
                 </div>
             {% endif %}
         </div>
-    </div>
 
-    <h1 class="pt-5 text-center">Comandes anteriors</h1>
-    <div class="text-center">
-        {% if invoices is not empty %}
-            <table class="table table-borderless">
-                <thead>
-                <tr>
-                    <th>Invoice Number</th>
-                    <th>Invoice Date</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for invoice in invoices %}
+        <h1 class="pt-5 text-center">Comandes anteriors</h1>
+        <div class="text-center">
+            {% if invoices %}
+                <table class="table table-borderless">
+                    <thead>
                     <tr>
-                        <td>{{ invoice.number }}</td>
-                        <td>{{ invoice.date | date('d/m/Y') }}</td>
-                        <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
-                        <td>
-                            <a class="btn btn-primary btn-sm">Detalls</a>
-                        </td>
+                        <th>Invoice Number</th>
+                        <th>Invoice Date</th>
+                        <th>Price</th>
+                        <th></th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No hay facturas disponibles.</p>
-        {% endif %}
+                    </thead>
+                    <tbody>
+                    {% for invoice in invoices %}
+                        <tr>
+                            <td>{{ invoice.number }}</td>
+                            <td>{{ invoice.date | date('d/m/Y') }}</td>
+                            <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" href="#">Detalls</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No hay facturas disponibles.</p>
+            {% endif %}
+        </div>
     </div>
-
 {% endblock %}

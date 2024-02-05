@@ -1,15 +1,13 @@
-{% extends 'base_back_3.html.twig' %}
+{% extends 'base_back_1.html.twig' %}
 
 {% block title %}Employee index{% endblock %}
 
-
 {% block body %}
-
 
     <h1>Employee index</h1>
 
-    <form method="GET" role="search">
-        <input type="search" name="e">
+    <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg3" role="search">
+        <input name="e" type="search" class="form-control" placeholder="Search..." aria-label="Search">
     </form>
 
     <table class="table">
@@ -47,7 +45,7 @@
         </tbody>
     </table>
 
-    <div class="navigation">
+    <div class="navigation d-flex justify-content-center">
         {{ knp_pagination_render(pagination) }}
     </div>
 

@@ -81,7 +81,7 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_employee_show', methods: ['GET'])]
+    #[Route('/{id}/details', name: 'app_employee_show', methods: ['GET'])]
     #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function show(Employee $employee): Response
     {
@@ -111,6 +111,7 @@ class EmployeeController extends AbstractController
 
 
     #[Route('/{id}/delete', name: 'app_employee_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$employee->getId(), $request->request->get('_token'))) {

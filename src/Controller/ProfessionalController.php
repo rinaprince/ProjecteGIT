@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/professional/customers')]
 class ProfessionalController extends AbstractController
@@ -51,6 +52,7 @@ class ProfessionalController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_professional_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Professional $professional, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProfessionalType::class, $professional);

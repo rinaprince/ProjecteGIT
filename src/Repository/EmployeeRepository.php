@@ -45,7 +45,7 @@ class EmployeeRepository extends ServiceEntityRepository
     public function findByTextQuery(string $value): Query
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.content LIKE :val')
+            ->andWhere('e.name  LIKE :val')
             ->setParameter('val', $value)
             ->orderBy('e.name', 'DESC')
             ->getQuery()

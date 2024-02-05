@@ -30,8 +30,8 @@
 </template>
 
 <script setup>
-defineProps({
-  orders: Array,
-  vehicles: Array,
+const props = defineProps({
+  orders: Array
 });
+console.log(props.orders);
 </script>

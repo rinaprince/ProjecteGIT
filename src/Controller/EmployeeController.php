@@ -16,20 +16,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/employees')]
 class EmployeeController extends AbstractController
 {
 
-    public function __construct(private UserPasswordHasherInterface $hasher)
-    {
-        $this->faker = Factory::create('es_ES');
-    }
-
-    #[Route('/', name: 'app_employee_index', methods: ['GET'])]
+    #[Route('', name: 'app_employee_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function index(EmployeeRepository $employeeRepository,PaginatorInterface $paginator, Request $request): Response
     {
-            $q = $request->query->get('q','');
+            $q = $request->query->get('e','');
 
 
             if (empty($q))
@@ -39,7 +36,7 @@ class EmployeeController extends AbstractController
 
             $pagination = $paginator->paginate(
                 $employees,
-                $request->query->getInt('page',1),10
+                $request->query->getInt('page',1),7
             );
 
             return $this->render('employee/index.html.twig', [
@@ -49,6 +46,7 @@ class EmployeeController extends AbstractController
         ]);
     }
     #[Route('/new', name: 'app_employee_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $employee = new Employee();
@@ -83,7 +81,8 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/details', name: 'app_employee_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_employee_show', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function show(Employee $employee): Response
     {
         return $this->render('employee/show.html.twig', [
@@ -92,6 +91,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_employee_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EmployeeType::class, $employee);
@@ -108,6 +108,7 @@ class EmployeeController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}/delete', name: 'app_employee_delete', methods: ['POST'])]
     public function delete(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\CustomerRepository;
+use App\Repository\EmployeeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,4 +34,11 @@ class LoginController extends AbstractController
     {
 
     }
+
+    #[Route('/profile', name: 'app_profile')]
+    public function edit(CustomerRepository $customerRepository, EmployeeRepository $employeeRepository): Response
+    {
+        return $this->render('profile/profile.html.twig');
+    }
+
 }

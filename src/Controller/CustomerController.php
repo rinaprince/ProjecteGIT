@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CustomerRepository;
+use Doctrine\ORM\AbstractQuery;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +31,24 @@ class CustomerController extends AbstractController
             5
         );
 
+        $arrayItem = $customerQ->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+        $config = [
+            "name" => "Nom",
+            "lastname" => "Cognoms",
+            "address" => "Direcció",
+            "dni" => "DNI",
+            "phone" => "Telèfon",
+            "email" => "Correu Electrònic",
+            "customer_type" => "Tipus"
+        ];
+
         return $this->render('customer/index.html.twig', [
             'pagination' => $pagination,
             'customers' => $pagination->getItems(),
+            'customs' => $arrayItem,
+            'config' => $config,
+            'routes' => $config,
             'q' => $q
         ]);
     }

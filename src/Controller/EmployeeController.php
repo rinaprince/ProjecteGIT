@@ -8,15 +8,24 @@ use App\Form\EmployeeType;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 /* docker-compose exec web-server composer require knplabs/knp-paginator-bundle*/
+
+use Faker\Factory;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/employees')]
 class EmployeeController extends AbstractController
 {
+
+    public function __construct(private UserPasswordHasherInterface $hasher)
+    {
+        $this->faker = Factory::create('es_ES');
+    }
+
     #[Route('/', name: 'app_employee_index', methods: ['GET'])]
     public function index(EmployeeRepository $employeeRepository,PaginatorInterface $paginator, Request $request): Response
     {
@@ -52,14 +61,16 @@ class EmployeeController extends AbstractController
             dump($employee);
             if ($employee->getType() == 'administrative') {
                 $login = $employee->getLogin();
+                $passwd = $login->getPassword();
+                $login->setPassword($this->hasher->hashPassword($login,$passwd ));
                 $login->setRole('ROLE_ADMINISTRATIVE');
-                dump('administratiu');
             }
             else if ($employee->getType()== 'administrator') {
                 $login = $employee->getLogin();
+                $passwd = $login->getPassword();
+                $login->setPassword($this->hasher->hashPassword($login,$passwd ));
                 $login->setRole('ROLE_ADMIN');
                 $employee->setLogin($login);
-                dump('admin');
             }
             $entityManager->persist($employee);
             $entityManager->flush();

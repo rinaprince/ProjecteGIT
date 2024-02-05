@@ -20,6 +20,12 @@ class ApiController extends AbstractController
             $totalVehicles = count($pendingOrder->getVehicles());
         }
 
+        //  [
+        //      "status" => "success",
+        //      "data" => ["count_number" => $totalVehicles]
+        //      "message" => null
+        // ]
+
         $response = $this->json(['count_number' => $totalVehicles]);
         return $response;
     }

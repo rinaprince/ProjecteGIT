@@ -16,6 +16,12 @@ rebuild:
 	@ echo "Esborrant imatges..."
 	-rm -r public/equip3/img/vehicles/*.jpg
 
+
+	@ echo "Creació del la carpeta mèdia amb els permisos corresponents"
+	-$(DOCKER_PREFIX) mkdir public/media -p
+	-$(DOCKER_PREFIX) umask 0002 public/media
+	-$(DOCKER_PREFIX) chgrp www-data public/media
+
 	@ echo "Esborrant la base de dades..."
 	-$(PHP_CMD) bin/console doctrine:database:drop -n --force
 

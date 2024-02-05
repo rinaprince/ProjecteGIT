@@ -191,6 +191,11 @@ body {
     display: flex;
 }
 
+#garage-count {
+    font-size : 14px;
+    top: 10px;
+}
+
 /**
 * Arxius css per donar-li estils al footer
 */

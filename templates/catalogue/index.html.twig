@@ -20,28 +20,29 @@
             {% if vehicle.vehicleOrder == null %}
                 <div class="row g-1">
                     <div class="vehicle   mb-2 border border-1 border-light rounded-3 overflow-hidden ">
-                        <div class="img-vehicle rounded-2 w-100 overflow-hidden mh-">
+                        <div class="img-vehicle rounded-2 w-100 overflow-hidden ">
 
                             <div id="carouselExampleIndicators_{{ vehicle.id }}" class="carousel slide w-100">
                                 <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleIndicators"
+                                    <button type="button" data-bs-target="#carouselExampleIndicators_{{ vehicle.id }}"
                                             data-bs-slide-to="0"
                                             class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators"
+                                    <button type="button" data-bs-target="#carouselExampleIndicators_{{ vehicle.id }}"
                                             data-bs-slide-to="1"
                                             aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators "
+                                    <button type="button" data-bs-target="#carouselExampleIndicators_{{ vehicle.id }}"
                                             data-bs-slide-to="2"
                                             aria-label="Slide 3"></button>
                                 </div>
                                 <div class="carousel-inner">
                                     {% for image in vehicle.images %}
-                                        <div class="carousel-item active">
+                                        <div class="carousel-item{{ loop.first ? ' active' }}">
                                             <img src="{{ asset("/equip3/img/vehicles/" ~ image.filename) }}"
                                                  class="d-block w-100 object-fit-cover rounded-top"
                                                  alt="image {{ vehicle.model.name }}">
                                         </div>
                                     {% endfor %}
+
                                 </div>
                                 <button class="carousel-control-prev" type="button"
                                         data-bs-target="#carouselExampleIndicators_{{ vehicle.id }}"
@@ -66,7 +67,7 @@
                             </div>
                             <div class="vehicle-add text-center pt-2 pb-2">
                                 <a class="vehicle-add-button px-3 py-2 rounded-2 text-decoration-none"
-                                   href="{{ path('app_garage_delete_vehicle', {'id': vehicle.id }) }}">Afegir</a>
+                                   href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id }) }}">Afegir</a>
                             </div>
                             <div class="vehicle-details text-center pt-2 pb-2">
                                 <a class="vehicle-details-button px-3 py-2 rounded-2 text-decoration-none"

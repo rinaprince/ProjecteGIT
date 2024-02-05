@@ -40,9 +40,11 @@
                                  id="desitjos"/>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ path('app_garage_index') }}">
+                    <li data-controller="vehicles-count">
+                        <a href="{{ path('app_garage_index') }}" class="position-relative">
                             <img src="{{ asset('equip3/img/garatge-Groc.png') }}" alt="Imatge Garatge" id="garatge">
+                            <span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger" id="garage-count" data-vehicles-count-target="counter">
+                            </span>
                         </a>
                     </li>
                     <li>
@@ -127,7 +129,6 @@
                         {% else %}
                             <li><a href="{{ path('app_front_office') }}">Pagina Principal</a></li>
                             <li><a href="{{ path('app_back_office') }}">Pagina de Administració</a></li>
-                            </ul>
                                 <ul class="dropdown">
                                     <li onclick=openAdmin()>Configuracio</li>
                                     <ul class="dropdown-content" id="administration-menu">

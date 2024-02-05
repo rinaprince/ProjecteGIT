@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class CustomerController extends AbstractController
 {
     #[Route('/customer', name: 'app_customer')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function index(CustomerRepository $customerRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $q = $request->query->get('q', '');

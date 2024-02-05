@@ -43,17 +43,17 @@ const filteredData = computed(() => {
       <td v-for="(value, titleIndex) in config" :key="titleIndex" :data-title="config[titleIndex]">
         {{ data[titleIndex] }}
       </td>
-    <!--  <td>
-        <a :href="invoiceShowPath(data.id)">
+      <td>
+        <a>
           <button class="details-button"><i class="fas fa-eye"></i></button>
         </a>
-        <a :href="invoiceEditPath(data.id)">
+        <a>
           <button class="edit-button"><i class="fas fa-pencil-alt"></i></button>
         </a>
-        <a :href="invoiceDeletePath(data.id)">
+        <a>
           <button class="delete-button"><i class="fas fa-trash"></i></button>
         </a>
-      </td>-->
+      </td>
     </tr>
     </tbody>
   </table>

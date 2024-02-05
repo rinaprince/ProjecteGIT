@@ -9,7 +9,7 @@
 {% block body %}
         <section class="contingut col-10">
             <h1>Lista de Facturas</h1>
-            <div id="div-table" {{ vue_component('Tables_component', { 'data': data, 'config': config})}} ></div>
+            <div id="div-table" {{ vue_component('invoiceList_component', {'invoices': invoices})}} ></div>
 
     <div class="navigation d-flex justify-content-center mt-3">
         {{ knp_pagination_render(pagination) }}

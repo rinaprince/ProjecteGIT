@@ -1,6 +1,6 @@
 {% extends 'base_back_3.html.twig' %}
 
-{% block title %}Invoice Detail{% endblock %}
+{% block title %}Detalles de factura{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('equip3/css/Personal.css') }}">
@@ -8,10 +8,11 @@
 
 {% block body %}
 
-    <section class="col-10 contingut">
-        <h1>Invoice Detail</h1>
+    <section class="contingut">
+        <h1>Detalles de factura
+        </h1>
         <div id="invoice-table">
-            <table id="invoice-details">
+            <table class="border-0 table table-striped w-50">
                 <tbody>
                 <tr>
                     <th>ID:</th>
@@ -34,15 +35,17 @@
         </div>
 
     </section>
-    <a href="{{ path('app_invoice_index') }}">
-        <button><i class="fas fa-arrow-left"></i> back to list</button>
-    </a>
+    <div class="d-flex justify-content-center">
+        <a href="{{ path('app_invoice_index') }}">
+            <button><i class="fas fa-arrow-left"></i> back to list</button>
+        </a>
 
-    <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">
-        <button class="edit-button">Edit <i class="fas fa-pencil-alt"></i></button>
-    </a>
+        <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">
+            <button class="edit-button">Edit <i class="fas fa-pencil-alt"></i></button>
+        </a>
 
-    {{ include('invoice/_delete_form.html.twig') }}
+        {{ include('invoice/_delete_form.html.twig') }}
+    </div>
     </main>
 
 

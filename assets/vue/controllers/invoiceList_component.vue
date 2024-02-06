@@ -38,17 +38,17 @@ const filteredInvoices = computed(() => {
 </script>
 
 <template>
-  <div>
-    <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador Global"/>
+  <div classs="">
+    <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador "/>
     <input type="text" id="number-filter" v-model="filters.number.value" @input="applyFilters" placeholder="Buscar por Numero"/>
     <input type="text" id="customer-filter" v-model="filters.customer.value" @input="applyFilters" placeholder="Buscar por Usuario"/>
   </div>
 
-  <table id="backoffice-table">
+  <table id="table">
     <thead>
     <tr>
       <th>Numero</th>
-     <!-- <th>Usuario</th>-->
+      <!---<th>Usuario</th>-->
       <th>Precio</th>
       <th>Fecha</th>
       <th>Operaciones</th>
@@ -62,13 +62,13 @@ const filteredInvoices = computed(() => {
       <td data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</td>
       <td>
         <a :href="invoiceShowPath(invoice.id)">
-          <button class="details-button"><i class="fas fa-eye"></i></button>
+          <button class="btn btn-success"><i class="fas fa-eye"></i></button>
         </a>
         <a :href="invoiceEditPath(invoice.id)">
-          <button class="edit-button"><i class="fas fa-pencil-alt"></i></button>
+          <button class="btn btn-info"><i class="fas fa-pencil-alt"></i></button>
         </a>
         <a :href="invoiceDeletePath(invoice.id)">
-          <button class="delete-button"><i class="fas fa-trash"></i></button>
+          <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
         </a>
       </td>
     </tr>

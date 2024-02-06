@@ -13,11 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 #[Route('/catalogue')]
 class CatalegController extends AbstractController
 {
-    #[Route('/', name: 'app_catalogue_index')]
+    #[IsGranted("PUBLIC_ACCESS")]
+    #[Route('', name: 'app_catalogue_index')]
     public function index(VehicleRepository $vehicleRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $q = $request->query->get('q', '');
@@ -41,6 +44,7 @@ class CatalegController extends AbstractController
         ]);
     }
 
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/add/{id}', name: 'app_catalogue_add_vehicle', methods: ['GET', 'POST'])]
     public function new($id, Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): Response {
         $customers = $customerRepository->findAll();

@@ -1,4 +1,17 @@
 {{ form_start(form) }}
+    <div clas="row">
+        <div class="col-12">
+            {{ form_row(form.number) }}
+            {{ form_row(form.price) }}
+            {{ form_row(form.date) }}
+            {{ form_row(form.customer) }}
+            {{ form_row(form.customerOrder) }}
+        </div>
+    </div>
+
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div id="divBotons" class="d-flex justify-content-center gap-2">
+    <button class="btn btn-success ">{{ button_label|default('Save') }} </button>
+    <button class="btn btn-secondary "><a class="text-decoration-none text-light" href="{{ path('app_invoice_index') }}">Back to list</a></button>
+</div>
 {{ form_end(form) }}

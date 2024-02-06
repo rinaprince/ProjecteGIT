@@ -7088,6 +7088,7 @@
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/twig-bundle/tree/v6.4.3"
+
             },
             "funding": [
                 {
@@ -7103,7 +7104,9 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2024-01-23T14:51:35+00:00"
+
         },
         {
             "name": "symfony/ux-lazy-image",

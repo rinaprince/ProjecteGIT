@@ -118,7 +118,7 @@ class Order implements JsonSerializable
             'id' => $this->id,
             'state' => $this->state,
             'customer' => $this->getCustomer(),
-            'vehicles' => $this->getVehicles()
+            'vehicles' => $this->getVehicles()->getIterator()
         ];
     }
 }

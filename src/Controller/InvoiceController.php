@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,22 +22,32 @@ class InvoiceController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
             null, 'Accés restringit, soles administratius');
-        $q = $request->query->get('q', '');
+        $invoicesQ = $InvoiceRepository->findAllQuery();
+        $invoices = $InvoiceRepository->findAll();
 
-        if(empty($q))
-            $invoiceQ = $InvoiceRepository->findAllQuery();
-        else{
-            $invoiceQ = $InvoiceRepository->findByText($q);
+        $arrayInvoices = $invoicesQ->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+        for ($i = 0; $i < count($arrayInvoices) ; $i++) {
+            $arrayInvoices[$i]['date'] = $arrayInvoices[$i]['date']->format('d/m/Y');;
         }
+
+        $config = array(
+            "number" => "Numero",
+            "customer" => "Usuario",
+            "price" => "Precio",
+            "date" => "Fecha",
+        );
+
         $paginator = $paginator->paginate(
-            $invoiceQ,
+            $invoicesQ,
             $request->query->getInt('page', 1),
             5
         );
         return $this->render('invoice/index.html.twig', [
             'invoices' => $paginator->getItems(),
             'pagination' => $paginator,
-            'q' => $q
+            'data' => $arrayInvoices,
+            'config' => $config
         ]);
     }
 

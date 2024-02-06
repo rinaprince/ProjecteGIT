@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Vehicle;
 use App\Form\Vehicle1Type;
+use App\Form\VehicleType;
 use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -19,6 +20,8 @@ class VehicleController extends AbstractController
     #[Route('/', name: 'app_vehicle_index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, VehicleRepository $vehicleRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
+            null, 'Accés restringit, soles administratius');
         $q = $request->query->get('q', '');
 
         if (empty($q))
@@ -29,7 +32,7 @@ class VehicleController extends AbstractController
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            10
+            5
         );
         return $this->render('vehicle/index.html.twig', [
             'q' => $q,
@@ -42,7 +45,7 @@ class VehicleController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $vehicle = new Vehicle();
-        $form = $this->createForm(Vehicle1Type::class, $vehicle);
+        $form = $this->createForm(VehicleType::class, $vehicle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -69,7 +72,7 @@ class VehicleController extends AbstractController
     #[Route('/{id}/edit', name: 'app_vehicle_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Vehicle $vehicle, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Vehicle1Type::class, $vehicle);
+        $form = $this->createForm(VehicleType::class, $vehicle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

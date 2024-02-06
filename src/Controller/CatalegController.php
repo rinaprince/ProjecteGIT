@@ -49,6 +49,9 @@ class CatalegController extends AbstractController
 
         $existingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
 
+        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
+            null, 'Accés restringit, soles administratius');
+
         if (!$existingOrder) {
             $order = new Order();
             $order->setState('Pendent');

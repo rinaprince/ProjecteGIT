@@ -54,8 +54,7 @@
         <div class="col-12">
             {{ form_row(form.observedDamages) }}
         </div>
-
     </div>
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-warning">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

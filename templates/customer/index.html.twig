@@ -10,7 +10,8 @@
         <input name="q" type="search" class="form-control" placeholder="Search..." aria-label="Search">
     </form>
 
-    <div {{ vue_component('CustomerList_component', { 'customers': customers }) }}></div>
+    {{ dump(customs) }}
+    <div {{ vue_component('CustomerList_component', { 'elements': customs, 'config': config}) }}></div>
 
     <div class="navigation d-flex justify-content-center">
         {{ knp_pagination_render(pagination) }}

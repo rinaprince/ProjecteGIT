@@ -11,8 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/private/customer')]
+#[Route('/private/customers')]
 class PrivateCustomerController extends AbstractController
 {
     #[Route('/', name: 'app_private_customer_index', methods: ['GET'])]
@@ -96,6 +97,7 @@ class PrivateCustomerController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_private_customer_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, PrivateCustomer $privateCustomer, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PrivateCustomerType::class, $privateCustomer);

@@ -41,6 +41,7 @@ security:
         - { path: ^/providers, roles: ROLE_ADMINISTRATIVE }
         # - { path: ^/orders, roles: ROLE_LOGIN }
         - { path: ^/invoice, roles: ROLE_ADMINISTRATIVE }
+        - { path: ^/vehicles, roles: ROLE_ADMINISTRATIVE }
         # - { path: ^/, }
 
 when@test:

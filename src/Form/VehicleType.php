@@ -8,6 +8,7 @@ use App\Entity\Order;
 use App\Entity\Provider;
 use App\Entity\Vehicle;
 use App\Repository\ModelRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,10 +36,13 @@ class VehicleType extends AbstractType
             ->add('registrationDate')
             ->add('model', EntityType::class,[
                 'class' => Model::class,
-                'choice_label' => 'name',
+                'choice_label' => 'fullname',
                 'autocomplete' => true,
-                'query_builder' => function (ModelRepository $modelRepository) {
-                    return $modelRepository->createQueryBuilder('m')->join('m.brand', 'b')->orderBy('m.name');
+                'query_builder' => function (ModelRepository $er) {
+                    return $er->createQueryBuilder('m')
+                        ->join('m.brand', 'b')
+                        ->orderBy('b.name', 'ASC')
+                        ->addOrderBy('m.name', 'ASC');
                 },
                 ])
             ->add('provider', EntityType::class, [

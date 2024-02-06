@@ -25,8 +25,6 @@ RUN yes | pecl install xdebug \
     && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 
-
-
 # Instalar extensiones y herramientas necesarias para Composer
 RUN apt-get update && apt-get install -y \
     libpng-dev\

@@ -30,7 +30,7 @@ class VehicleFixtures extends Fixture implements DependentFixtureInterface
     {
         $models = [];
         $brands = [];
-        for ($i = 0; $i < 200; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
             $vehicleArray = $this->faker->vehicleArray;
 
             $brandName = $vehicleArray["brand"];

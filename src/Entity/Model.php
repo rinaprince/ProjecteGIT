@@ -36,6 +36,8 @@ class Model implements JsonSerializable
     private ?Brand $brand = null;
 
 
+    private string $fullname = '';
+
     public function __construct()
     {
         $this->vehicles = new ArrayCollection();
@@ -153,6 +155,10 @@ class Model implements JsonSerializable
         return $this;
     }
 
+    public function getFullname(): string
+    {
+        return $this->getBrand()->getName() . " " . $this->name;
+    }
 
     public function jsonSerialize(): array
     {

@@ -83,6 +83,17 @@
                                     <a class="vehicle-details-button px-3 py-2 rounded-2 text-decoration-none"
                                        href="{{ path('app_detail', {'id': vehicle.id }) }}">Especificacions</a>
                                 </div>
+
+                                <div><p class="km-vehicle mt-1 text-center fs-6"> {{ vehicle.kilometers }}km</p></div>
+                            </div>
+                            <div class="vehicle-add text-center pt-2 pb-2">
+                                <a class="vehicle-add-button px-3 py-2 rounded-2 text-decoration-none"
+                                   href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id }) }}">Afegir</a>
+                            </div>
+                            <div class="vehicle-details text-center pt-2 pb-2">
+                                <a class="vehicle-details-button px-3 py-2 rounded-2 text-decoration-none"
+                                   href="{{ path('app_detail', {'id': vehicle.id }) }}">Especificacions</a>
+
                             </div>
                         </div>
                     </div>

@@ -17,13 +17,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class GarageController extends AbstractController
 {
     #[Route('', name: 'app_garage_index')]
-    public function index(VehicleRepository $vehicleRepository, ModelRepository $modelRepository, BrandRepository $brandRepository, OrderRepository $orderRepository): Response {
+    public function index(VehicleRepository $vehicleRepository, OrderRepository $orderRepository, InvoiceRepository $invoiceRepository, CustomerRepository $customerRepository): Response {
         $vehicles = $vehicleRepository->findAll();
 
+        $userId = $this->getUser()->getId();
+        $customer = $customerRepository->find($userId);
+
+        $userInvoices = $invoiceRepository->findBy(['customer' => $customer]);
+
         return $this->render('garage/index.html.twig', [
-            'vehicles' => $vehicles
+            'vehicles' => $vehicles,
+            'invoices' => $userInvoices
         ]);
     }
+
 
     #[Route('/delete/{id}', name: 'app_garage_delete_vehicle')]
     public function remove($id, VehicleRepository $vehicleRepository, EntityManagerInterface $entityManager): Response {

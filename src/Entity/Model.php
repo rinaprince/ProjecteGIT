@@ -153,11 +153,12 @@ class Model implements JsonSerializable
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function jsonSerialize(): mixed
+
+    public function jsonSerialize(): array
     {
-        return ["name" => $this->getName()];
+        return [
+            'brand' => $this->getBrand(),
+            'name' => $this->getName()
+        ];
     }
 }

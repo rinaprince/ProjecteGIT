@@ -99,7 +99,8 @@ class PrivateCustomerController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_private_customer_edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
+
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function edit(Request $request, PrivateCustomer $privateCustomer, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PrivateCustomerType::class, $privateCustomer);

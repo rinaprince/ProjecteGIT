@@ -55,7 +55,8 @@ class ProfessionalController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_professional_edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
+
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function edit(Request $request, Professional $professional, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProfessionalType::class, $professional);

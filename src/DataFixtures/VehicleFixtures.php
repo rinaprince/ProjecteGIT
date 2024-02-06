@@ -30,7 +30,7 @@ class VehicleFixtures extends Fixture implements DependentFixtureInterface
     {
         $models = [];
         $brands = [];
-        for ($i = 0; $i < 26; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             $vehicleArray = $this->faker->vehicleArray;
 
             $brandName = $vehicleArray["brand"];
@@ -46,16 +46,24 @@ class VehicleFixtures extends Fixture implements DependentFixtureInterface
                 $brands[] = $brand;
             }
 
-            $model = new Model();
-            $model->setName($vehicleArray["model"]);
-            $model->setGearType("Automatic");
-            $model->setBrand($brand);
-            $model->setDescription("no se");
-            $model->setYear($this->faker->biasedNumberBetween(1990, date('Y'), 'sqrt'));
+            $modelName = $vehicleArray["model"];
+            if (empty(array_filter($models, function ($v) use ($modelName) {
+                if ($v->getName() == $modelName)
+                    return true;
+            }))) {
+                $model = new Model();
+                $model->setName($vehicleArray["model"]);
+                $model->setGearType("Automatic");
+                $model->setBrand($brand);
+                $model->setDescription("no se");
+                $model->setYear($this->faker->biasedNumberBetween(1990, date('Y'), 'sqrt'));
 
-            $manager->persist($model);
+                $manager->persist($model);
 
-            $models[] = $model;
+                $models[] = $model;
+            }
+
+
         }
 
         for ($i = 0; $i < 20; $i++) {

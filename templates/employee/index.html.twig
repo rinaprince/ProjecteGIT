@@ -1,54 +1,11 @@
-{% extends 'base_back_1.html.twig' %}
+{% extends 'base_back_3.html.twig' %}
 
 {% block title %}Employee index{% endblock %}
 
+
 {% block body %}
 
-    <h1>Employee index</h1>
-
-    <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg3" role="search">
-        <input name="e" type="search" class="form-control" placeholder="Search..." aria-label="Search">
-    </form>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Lastname</th>
-            <th>Type</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% if e %}
-            <h2>Mostrant els resultats de la cerca</h2>
-        {% endif %}
-
-        {% for employee in employees %}
-            <tr>
-                <td>{{ employee.id }}</td>
-                <td>{{ employee.name }}</td>
-                <td>{{ employee.lastname }}</td>
-                <td>{{ employee.type }}</td>
-                <td>
-                    <a href="{{ path('app_employee_show', {'id': employee.id}) }}"><button>show</button></a>
-                    <a href="{{ path('app_employee_edit', {'id': employee.id}) }}"><button>edit</button></a>
-                    <a href="{{ path('app_employee_delete', {'id': employee.id}) }}"><button>delete</button></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">No s'han trobat coincidències.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <div class="navigation d-flex justify-content-center">
-        {{ knp_pagination_render(pagination) }}
-    </div>
-
-    <a href="{{ path('app_employee_new') }}">Create new</a>
+    <h1>Employee</h1>
+    <div {{ vue_component('EmployeesList_component', { 'employees': employees, 'e':e }) }}></div>
 
 {% endblock %}

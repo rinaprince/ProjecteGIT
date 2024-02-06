@@ -15,14 +15,14 @@
     <link rel="stylesheet" href="{{ asset('equip3/css/variables.css') }}">
     <link rel="stylesheet" href="{{ asset('equip3/css/modal.css') }}">
     <link rel="stylesheet" href="{{ asset('equip3/css/backend-skeleton.css') }}">
+    <link rel="stylesheet" href="{{ asset('equip3/css/styles.css') }}">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"/>
 
     {# <--- Scripts ---> #}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer></script>
     <script src="{{ asset('equip3/js/menu_aside.js') }}" defer></script>
     <script src="{{ asset('equip3/js/modal.js') }}" defer></script>
-
-
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }} {# Carga todos los componentes de VUE #}
@@ -31,6 +31,16 @@
 </head>
 
 <body>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endfor %}
 {# Header #}
 {% include '_header_back_3.html.twig' %}
 

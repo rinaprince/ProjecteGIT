@@ -6,6 +6,7 @@ use App\Entity\Invoice;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\AbstractQuery;
 
 /**
  * @extends ServiceEntityRepository<Invoice>
@@ -41,6 +42,35 @@ class InvoiceRepository extends ServiceEntityRepository
             ->setMaxResults(10)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findInvoicesForLoggedInUser($loginId): array
+    {
+        $results = $this->createQueryBuilder('i')
+        ->select(['i.id', 'i.number', 'i.price', 'i.date', 'c.name as customer_name'])
+        ->innerJoin('i.customer', 'c')
+        ->innerJoin('c.login', 'l')
+        ->andWhere('l.id = :loginId')
+        ->setParameter('loginId', $loginId)
+        ->orderBy('i.date', 'DESC')
+        ->getQuery()
+        ->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+        foreach ($results as &$result) {
+            $result['date'] = $result['date']->format('d/m/Y');
+        }
+
+        return $results;
+    }    
+
+    public function findByTextQuery(string $value): Query
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.number LIKE :val')
+            ->setParameter('val', "%$value%")
+            ->orderBy('i.number', 'DESC')
+            ->getQuery()
+            ;
     }
 
 //    public function findOneBySomeField($value): ?Invoice

@@ -8,12 +8,12 @@
   </div>
   <table class="table">
     <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Cognom</th>
-        <th>Tipus</th>
-        <th>Accions</th>
-      </tr>
+    <tr>
+      <th>Nom</th>
+      <th>Cognom</th>
+      <th>Tipus</th>
+      <th>Accions</th>
+    </tr>
     </thead>
     <tbody>
     <tr v-for="employee in employees">
@@ -40,9 +40,9 @@
 
           <!-- Content goes here -->
           <!-- You can add form elements, text, etc. -->
+        </div>
       </div>
     </div>
-  </div>
   </div>
 
 </template>

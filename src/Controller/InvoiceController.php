@@ -17,41 +17,33 @@ use Knp\Component\Pager\PaginatorInterface;
 class InvoiceController extends AbstractController
 {
     #[Route('', name: 'app_invoice_index', methods: ['GET'])]
-    public function index(InvoiceRepository $InvoiceRepository, PaginatorInterface $paginator, Request $request): Response
-
+    public function index(InvoiceRepository $invoiceRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
-            null, 'Accés restringit, soles administratius');
-        $invoicesQ = $InvoiceRepository->findAllQuery();
-        $invoices = $InvoiceRepository->findAll();
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE', null, 'Accés restringit, soles administratius');
 
-        $arrayInvoices = $invoicesQ->getResult(AbstractQuery::HYDRATE_ARRAY);
-        for ($i = 0; $i < count($arrayInvoices) ; $i++) {
-
-
-            $arrayInvoices[$i]['date'] = $arrayInvoices[$i]['date']->format('d/m/Y');;
-        }
-
-
+        $loggedInLoginId = $this->getUser()->getId();
+    
+        $arrayInvoices = $invoiceRepository->findInvoicesForLoggedInUser($loggedInLoginId);
+    
+        $pagination = $paginator->paginate(
+            $arrayInvoices,
+            $request->query->getInt('page', 1),
+            10
+        );
+    
         $config = array(
             "number" => "Numero",
-            "customer" => "Usuario",
             "price" => "Precio",
             "date" => "Fecha",
         );
-
-        $paginator = $paginator->paginate(
-            $invoicesQ,
-            $request->query->getInt('page', 1),
-            5
-        );
+    
         return $this->render('invoice/index.html.twig', [
-            'invoices' => $paginator->getItems(),
-            'pagination' => $paginator,
-            'data' => $arrayInvoices,
-            'config' => $config
+            'pagination' => $pagination,
+            'data' => $pagination->getItems(),
+            'config' => $config,
         ]);
     }
+       
 
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

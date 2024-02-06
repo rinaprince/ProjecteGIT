@@ -53,6 +53,7 @@ class PrivateCustomerController extends AbstractController
 
 
     #[Route('/new', name: 'app_private_customer_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $privateCustomer = new PrivateCustomer();
@@ -89,6 +90,7 @@ class PrivateCustomerController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_private_customer_show', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function show(PrivateCustomer $privateCustomer): Response
     {
         return $this->render('private_customer/show.html.twig', [
@@ -116,6 +118,7 @@ class PrivateCustomerController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_private_customer_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function delete(Request $request, PrivateCustomer $privateCustomer, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$privateCustomer->getId(), $request->request->get('_token'))) {

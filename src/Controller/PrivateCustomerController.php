@@ -63,7 +63,6 @@ class PrivateCustomerController extends AbstractController
             $data = $request->toArray();
 
             $form->submit($data);
-            dump($data);
         }
 
         $form->handleRequest($request);

@@ -22,6 +22,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class EmployeeController extends AbstractController
 {
 
+    public function __construct(UserPasswordHasherInterface $hasher){
+        $this->hasher = $hasher;
+    }
+
     #[Route('', name: 'app_employee_index', methods: ['GET'])]
     #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function index(EmployeeRepository $employeeRepository,PaginatorInterface $paginator, Request $request): Response
@@ -54,12 +58,10 @@ class EmployeeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getViewData());
-            dump($employee);
             if ($employee->getType() == 'administrative') {
                 $login = $employee->getLogin();
                 $passwd = $login->getPassword();
-                $login->setPassword($this->hasher->hashPassword($login,$passwd ));
+                $login->setPassword($this->hasher->hashPassword($login,$passwd));
                 $login->setRole('ROLE_ADMINISTRATIVE');
             }
             else if ($employee->getType()== 'administrator') {

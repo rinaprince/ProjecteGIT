@@ -13,20 +13,24 @@ class ApiController extends AbstractController
     #[Route('/count', name: 'app_api_count')]
     public function index(OrderRepository $orderRepository): Response
     {
-        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent']);
+        //  [
+//      "status" => "success",
+//      "data" => ["count_number" => $totalVehicles]
+//       message" => null
+        //  ]
+
+        $userId = $this->getUser()->getId();
+
+        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
+
         $totalVehicles = 0;
 
         if ($pendingOrder) {
             $totalVehicles = count($pendingOrder->getVehicles());
         }
 
-        //  [
-        //      "status" => "success",
-        //      "data" => ["count_number" => $totalVehicles]
-        //      "message" => null
-        // ]
-
         $response = $this->json(['count_number' => $totalVehicles]);
+
         return $response;
     }
 }

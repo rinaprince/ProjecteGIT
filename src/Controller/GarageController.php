@@ -17,11 +17,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class GarageController extends AbstractController
 {
     #[Route('', name: 'app_garage_index')]
-    public function index(VehicleRepository $vehicleRepository, OrderRepository $orderRepository, InvoiceRepository $invoiceRepository, CustomerRepository $customerRepository): Response {
-        $vehicles = $vehicleRepository->findAll();
+    public function index(VehicleRepository $vehicleRepository, InvoiceRepository $invoiceRepository, CustomerRepository $customerRepository, OrderRepository $orderRepository): Response {
+        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
+            null, 'Accés restringit');
 
-        $userId = $this->getUser()->getId();
-        $customer = $customerRepository->find($userId);
+        $login = $this->getUser();
+        $customer = $login->getCustomer();
+
+        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
+
+        if (!$pendingOrder) {
+            $vehicles = [];
+        } else {
+            $vehicles = $pendingOrder->getVehicles()->toArray();
+        }
 
         $userInvoices = $invoiceRepository->findBy(['customer' => $customer]);
 
@@ -46,7 +55,8 @@ class GarageController extends AbstractController
 
     #[Route('/close', name: 'app_garage_close_order')]
     public function close(OrderRepository $orderRepository, EntityManagerInterface $entityManager, InvoiceRepository $invoiceRepository): Response {
-        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent']);
+        $userId = $this->getUser()->getId();
+        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
 
         if ($pendingOrder) {
             $customer = $pendingOrder->getCustomer();
@@ -77,7 +87,8 @@ class GarageController extends AbstractController
 
     #[Route('/cancel', name: 'app_garage_cancel_order')]
     public function cancel(CustomerRepository $customerRepository, VehicleRepository $vehicleRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response {
-        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent']);
+        $userId = $this->getUser()->getId();
+        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
 
         if ($pendingOrder) {
             $vehicles = $vehicleRepository->findBy(['vehicleOrder' => $pendingOrder]);

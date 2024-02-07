@@ -17,12 +17,10 @@ class ModelAutocompleteField extends AbstractType
     {
         $resolver->setDefaults([
             'class' => Model::class,
-            'placeholder' => 'Choose a Model',
-            'choice_label' => 'name',
-            'autocomplete' => false,
-            'query_builder' => function (ModelRepository $modelRepository) {
-                return $modelRepository->createQueryBuilder('model');
-            },
+            'placeholder' => 'Triar un model',
+            'choice_label' => 'fullname',
+            'autocomplete' => true,
+            'searchable_fields' => ['name', 'brand.name'],
             // 'security' => 'ROLE_SOMETHING',
         ]);
     }

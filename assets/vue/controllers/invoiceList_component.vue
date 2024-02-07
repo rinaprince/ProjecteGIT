@@ -48,7 +48,7 @@ const filteredInvoices = computed(() => {
     <thead>
     <tr>
       <th>Numero</th>
-     <!-- <th>Usuario</th>-->
+      <th>Usuario</th>
       <th>Precio</th>
       <th>Fecha</th>
       <th>Operaciones</th>
@@ -57,7 +57,7 @@ const filteredInvoices = computed(() => {
     <tbody>
     <tr v-for="invoice in filteredInvoices" :key="invoice.id">
       <td data-title="Numero:">{{invoice.number}}</td>
-     <!-- <td data-title="Usuario:">{{invoice.customer.name}}</td>-->
+     <td data-title="Usuario:">{{invoice.customer.name}}</td>
       <td data-title="Precio:">{{invoice.price}}</td>
       <td data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</td>
       <td>

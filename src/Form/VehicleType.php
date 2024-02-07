@@ -34,17 +34,7 @@ class VehicleType extends AbstractType
             ->add('transportIncluded')
             ->add('color')
             ->add('registrationDate')
-            ->add('model', EntityType::class,[
-                'class' => Model::class,
-                'choice_label' => 'fullname',
-                'autocomplete' => true,
-                'query_builder' => function (ModelRepository $er) {
-                    return $er->createQueryBuilder('m')
-                        ->join('m.brand', 'b')
-                        ->orderBy('b.name', 'ASC')
-                        ->addOrderBy('m.name', 'ASC');
-                },
-                ])
+            ->add('model', ModelAutocompleteField::class,[])
             ->add('provider', EntityType::class, [
                 'class' => Provider::class,
                 'choice_label' => 'businessName',

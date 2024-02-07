@@ -7,11 +7,12 @@
 {% endblock %}
 
 {% block body %}
-        <section class="contingut col-10">
-            <h1>Lista de Facturas</h1>
-            <div id="div-table" {{ vue_component('Tables_component', {'data': data, 'config': config})}} ></div>
+    <section class="contingut col-10">
+        <h1>Llista de Factures</h1>
+        <div id="div-table" {{ vue_component('Tables_component', {'data': data, 'config': config}) }} ></div>
 
-    <div class="navigation d-flex justify-content-center mt-3">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+        <div class="navigation d-flex justify-content-center mt-3">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </section>
 {% endblock %}

@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <th>ObservedDamages</th>
-            <td>{{ vehicle.observedDamages }}</td>
+            <td>{{ vehicle.observedDamages | raw }}</td>
         </tr>
         <tr>
             <th>Kilometers</th>
@@ -41,7 +41,7 @@
         </tr>
         <tr>
             <th>Description</th>
-            <td>{{ vehicle.description }}</td>
+            <td>{{ vehicle.description | raw }}</td>
         </tr>
         <tr>
             <th>ChassisNumber</th>

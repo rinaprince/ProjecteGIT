@@ -48,18 +48,13 @@
     <div class="col-4">
         {{ form_row(form.vehicleOrder) }}
     </div>
-    <div class="col-12">
+    <div class="col-6">
         {{ form_row(form.description) }}
     </div>
-    <div class="col-12">
+    <div class="col-6">
         {{ form_row(form.observedDamages) }}
     </div>
 </div>
 {{ form_widget(form) }}
 <button class="btn btn-warning">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
-
-
-<script>
-
-</script>

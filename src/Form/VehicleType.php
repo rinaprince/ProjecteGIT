@@ -9,23 +9,25 @@ use App\Entity\Provider;
 use App\Entity\Vehicle;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
-class Vehicle1Type extends AbstractType
+class VehicleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('plate')
-            ->add('observedDamages')
+            ->add('observedDamages', CKEditorType::class)
             ->add('kilometers')
             ->add('buyPrice')
             ->add('sellPrice')
             ->add('fuel')
             ->add('iva')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('chassisNumber')
             ->add('gearShit')
             ->add('isNew')

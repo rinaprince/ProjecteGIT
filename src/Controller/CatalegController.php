@@ -44,8 +44,8 @@ class CatalegController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_PRIVATE',
             null, 'Accés restringit');
 
-        $userId = $this->getUser()->getId();
-        $customer = $customerRepository->find($userId);
+        $login = $this->getUser();
+        $customer = $login->getCustomer();
 
         $existingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
 

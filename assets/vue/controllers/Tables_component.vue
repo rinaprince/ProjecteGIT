@@ -41,19 +41,26 @@ const filteredData = computed(() => {
     <tr v-for="(data, index) in data" :key="index">
       <!-- Imprime el data-title correspondiente al td -->
       <td v-for="(value, titleIndex) in config" :key="titleIndex" :data-title="config[titleIndex]">
-        {{ data[titleIndex] }}
+        <span v-if="titleIndex.indexOf('.') === -1">
+
+            {{ data[titleIndex] }}
+        </span>
+        <!--  TODO: Transform into for loop-->
+        <span v-else>
+                {{ data[titleIndex.split('.')[0]][titleIndex.split('.')[1]] }}
+        </span>
       </td>
-    <!--  <td>
-        <a :href="invoiceShowPath(data.id)">
+      <td>
+        <a>
           <button class="details-button"><i class="fas fa-eye"></i></button>
         </a>
-        <a :href="invoiceEditPath(data.id)">
+        <a>
           <button class="edit-button"><i class="fas fa-pencil-alt"></i></button>
         </a>
-        <a :href="invoiceDeletePath(data.id)">
+        <a>
           <button class="delete-button"><i class="fas fa-trash"></i></button>
         </a>
-      </td>-->
+      </td>
     </tr>
     </tbody>
   </table>

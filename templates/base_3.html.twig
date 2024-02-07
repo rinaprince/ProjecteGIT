@@ -19,12 +19,21 @@
     <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer></script>
   {#<script src="{{ asset('equip3/js/searchbar.js') }}" defer ></script>#}
     <script src="{{ asset('equip3/js/modal.js') }}" defer ></script>
-    <script src="{{ asset('equip3/js/dropDown.js') }}" defer></script>
+
 
     {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
 </head>
 <body>
 {% include '_header_front_3.html.twig' %}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    {% endfor %}
+{% endfor %}
 
 {% block body %}
 {% endblock %}
@@ -45,7 +54,7 @@
                 <!-- Llista amb els enllaços corresponents -->
                 <ul class="footer-menu">
                     <li>
-                        <a href="#">FAQ</a>
+                        <a href="{{ path('app_f_a_q')}}">FAQ</a>
                     </li>
                     <li>
                         <a href="#">Terminis i Condicions</a>

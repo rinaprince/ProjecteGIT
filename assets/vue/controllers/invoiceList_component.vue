@@ -4,9 +4,6 @@ const { invoices } = defineProps(['invoices']);
 //const q = props.q;
 import { ref, onMounted, computed } from 'vue';
 
-//Confirma que esta cargando
-//const loading = ref(true);
-
 //Rutas de los botones
 const invoiceShowPath = (id) => `/invoices/${id}`;
 const invoiceCreatePath = '/invoices/new';
@@ -38,17 +35,6 @@ const applyFilters = (data, filters) => {
 const filteredInvoices = computed(() => {
   return applyFilters(invoices, filters.value);
 });
-
-/*onMounted(() => {
-  loading.value = false;
-
-  // Configuración de DataTables
-  $('#backoffice-table').DataTable({
-    paging: true,
-    searching: true,
-
-  });
-});*/
 </script>
 
 <template>
@@ -71,7 +57,7 @@ const filteredInvoices = computed(() => {
     <tbody>
     <tr v-for="invoice in filteredInvoices" :key="invoice.id">
       <td data-title="Numero:">{{invoice.number}}</td>
-      <td data-title="Usuario:">{{invoice.customer.name}}</td>
+     <td data-title="Usuario:">{{invoice.customer.name}}</td>
       <td data-title="Precio:">{{invoice.price}}</td>
       <td data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</td>
       <td>

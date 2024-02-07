@@ -9,16 +9,37 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 <div class="row">
-    <form class="col-4 m-3" method="post" action="{{ path('app_login') }}">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <div class="col-4 m-3" >
+        <form method="post" action="{{ path('app_login') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <label for="username">Nom d'usuari:</label>
-        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required autofocus>
+            <label for="username">Nom d'usuari:</label>
+            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required autofocus>
 
-        <label for="password">Contrasenya:</label>
-        <input class="form-control" type="password" id="password" name="_password" required>
+            <label for="password">Contrasenya:</label>
+            <input class="form-control" type="password" id="password" name="_password" required>
 
-        <button class="btn btn-primary" type="submit">Iniciar sessió</button>
-    </form>
+            <button class="btn btn-primary" type="submit">Iniciar sessió</button>
+        </form>
+        <p>Si no tens un compter, <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrat ací.</a></p>
+    </div>
 </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Eres una empresa?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <!--data-bs-toggle="modal" data-bs-target="#professional"-->
+                    <a class="btn btn-outline-secondary" href="{{ path('app_register_professional') }}">Si</a>
+                    <!--data-bs-toggle="modal" data-bs-target="#private"-->
+                    <a class="btn btn-primary" href="{{ path('app_register_private') }}">No</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

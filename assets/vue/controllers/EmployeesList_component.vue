@@ -23,7 +23,7 @@
       <td>
         <a @click="showModal(employee.id)" class="btn btn-outline-dark">Mostrar</a>
         <a :href="employeeEditPath(employee.id)" class="btn btn-primary">Editar</a>
-        <a :href="employeeDeletePath(employee.id)" class="btn btn-danger">Esborrar</a>
+        <a @click="softDeleteEmployee(employee.id)" class="btn btn-danger">Esborrar</a>
       </td>
     </tr>
     </tbody>
@@ -103,6 +103,18 @@ function modalNewEmployee(){
       })
       .catch(error => {
         console.error('Error fetching modal content:', error);
+      });
+}
+
+function softDeleteEmployee(employeeId){
+  axios.post('/employees/'+employeeId+'/delete',{
+    employeeId: employeeId
+  })
+.then(function (response) {
+    console.log(response);
+  })
+      .catch(function (error) {
+        console.log(error);
       });
 }
 

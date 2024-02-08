@@ -2,35 +2,35 @@
 <div class="container bg-white">
     <div class="row">
         <div class="col-6">
-            {{ form_row(form.dni) }}
+            {{ form_row(form.dni, {'label': 'DNI'}) }}
         </div>
         <div class="col-6">
-            {{ form_row(form.phone) }}
+            {{ form_row(form.phone, {'label': 'Telèfon'}) }}
         </div>
         <div class="col-6">
-            {{ form_row(form.email) }}
+            {{ form_row(form.email, {'label': 'Correu electrònic'}) }}
         </div>
         <div class="col-6">
-            {{ form_row(form.businessName) }}
+            {{ form_row(form.businessName, {'label': 'Nom empresa'}) }}
         </div>
         <div class="col-6">
             {{ form_row(form.cif) }}
         </div>
         <div class="col-6">
-            {{ form_row(form.address) }}
+            {{ form_row(form.address, {'label': 'Direcció'}) }}
         </div>
         <div class="col-6">
-            {{ form_row(form.managerNif) }}
+            {{ form_row(form.managerNif, {'label': 'Nif del manager'}) }}
         </div>
         <div class="col-3">
-            {{ form_row(form.bankTitleFile) }}
+            {{ form_row(form.bankTitleFile , {'label': 'Titol del banc'}) }}
         </div>
         <div class="col-3">
-            {{ form_row(form.LOPDdocFile) }}
+            {{ form_row(form.LOPDdocFile, {'label': 'Document LOPD'}) }}
         </div>
         <div class="d-flex justify-content-end">
             <div class="col-3">
-                {{ form_row(form.constitutionArticleFile) }}
+                {{ form_row(form.constitutionArticleFile, {'label': 'Article de constitució'}) }}
             </div>
         </div>
     </div>

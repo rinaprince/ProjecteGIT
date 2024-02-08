@@ -34,6 +34,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     #[ORM\JoinColumn(nullable: false)]
     private ?Login $login = null;
 
+    #[ORM\Column]
+    private ?bool $discharge = null;
+
 
     public function getId(): ?int
     {
@@ -97,6 +100,18 @@ use Symfony\Component\Validator\Constraints as Assert;
             'lastname' => $this->lastname,
             'type' => $this->type,
         ];
+    }
+
+    public function isDischarge(): ?bool
+    {
+        return $this->discharge;
+    }
+
+    public function setDischarge(bool $discharge): static
+    {
+        $this->discharge = $discharge;
+
+        return $this;
     }
 
 }

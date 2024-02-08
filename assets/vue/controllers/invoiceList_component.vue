@@ -81,6 +81,7 @@ const showModal = () => {
     <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador "/>
     <input type="text" id="number-filter" v-model="filters.number.value" @input="applyFilters" placeholder="Buscar por Numero"/>
     <input type="text" id="customer-filter" v-model="filters.customer.value" @input="applyFilters" placeholder="Buscar por Usuario"/>
+    <a :href="invoiceCreatePath"><button class="btn"><i class="bi bi-plus-square"></i> Create new</button></a>
   </div>
 
   <table id="table">
@@ -122,5 +123,5 @@ const showModal = () => {
   </div>
 
 
-  <a :href="invoiceCreatePath"><button class="">Create new</button></a>
+
 </template>

@@ -137,9 +137,7 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
               </div>
               <div class="d-flex justify-content-between px-4">
                 <p>{{ vehicle.plate }}</p>
-                <p>{{
-                    vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : ''
-                  }}</p>
+                <p>{{ vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : '' }}</p>
                 <p>{{ vehicle.kilometers }}</p>
               </div>
             </div>

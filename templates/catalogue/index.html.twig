@@ -15,11 +15,11 @@
     {% if q %}
         <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
     {% endif %}
-    <div class=" container-fluid d-flex flex-wrap gap-5 justify-content-center  p-5 bg-#f5f5f5">
+    <div class=" container-fluid d-flex flex-wrap gap-3 justify-content-center  p-5 bg-#f5f5f5">
         <div class="row">
             {% for vehicle in vehicles %}
                 {% if vehicle.vehicleOrder == null %}
-                    <div class=" col-3 g-1">
+                    <div class=" col-3 d-flex align-items-center justify-content-center text-center mb-2">
                         <div class="vehicle   mb-2 border border-1 border-light rounded-3 overflow-hidden ">
                             <div class="img-vehicle rounded-2 w-100 overflow-hidden ">
 
@@ -42,9 +42,9 @@
                                         {% for image in vehicle.images %}
                                             <div class="carousel-item{{ loop.first ? ' active' }}">
                                                 <img src="{{ asset("/equip3/no-photo.png") }}"
-                                                        {{  stimulus_controller('symfony/ux-lazy-image/lazy-image', {
-                                                                src: asset("/equip3/img/vehicles/" ~ image.filename)
-                                                            }) }}
+                                                        {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
+                                                            src: asset("/equip3/img/vehicles/" ~ image.filename)
+                                                        }) }}
 
                                                      class="d-block w-100 object-fit-cover rounded-top"
                                                      alt="image {{ vehicle.model.name }}">
@@ -76,23 +76,15 @@
                                     </div>
                                 </div>
                                 <div class="vehicle-add text-center pt-2 pb-2">
-                                    <a class="vehicle-add-button px-3 py-2 rounded-2 text-decoration-none"
-                                       href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id }) }}">Afegir</a>
+                                    <a href="{{ path('app_api_pending_orders', {'id': vehicle.id }) }}"
+                                       {{  stimulus_controller('vehicle_add') }}  {{ stimulus_action('vehicle_add', 'addVehicle', 'click') }}
+                                       >Añadir</a>
                                 </div>
                                 <div class="vehicle-details text-center pt-2 pb-2">
                                     <a class="vehicle-details-button px-3 py-2 rounded-2 text-decoration-none"
                                        href="{{ path('app_detail', {'id': vehicle.id }) }}">Especificacions</a>
                                 </div>
 
-                                <div><p class="km-vehicle mt-1 text-center fs-6"> {{ vehicle.kilometers }}km</p></div>
-                            </div>
-                            <div class="vehicle-add text-center pt-2 pb-2">
-                                <a class="vehicle-add-button px-3 py-2 rounded-2 text-decoration-none"
-                                   href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id }) }}">Afegir</a>
-                            </div>
-                            <div class="vehicle-details text-center pt-2 pb-2">
-                                <a class="vehicle-details-button px-3 py-2 rounded-2 text-decoration-none"
-                                   href="{{ path('app_detail', {'id': vehicle.id }) }}">Especificacions</a>
 
                             </div>
                         </div>

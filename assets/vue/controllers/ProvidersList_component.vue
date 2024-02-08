@@ -2,16 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex justify-content-between m-3">
+        <div class="d-flex justify-content-between align-items-center m-3">
           <form method="GET" role="search">
             <div class="d-flex">
-              <input name="q" type="search" class="rounded-start-pill border border-secondary-subtle "
+              <input name="q" type="search" class="rounded-start-pill border border-secondary-subtle ps-3"
                      placeholder="Buscar..." aria-label="Search">
               <button type="submit" class="rounded-end-pill button-searcher-BHEC"><i class="bi bi-search"></i>
               </button>
             </div>
           </form>
-          <a :href="providerNewPath" class="button-text-primary-BHEC btn button-primary-BHEC"><i
+          <a :href="providerNewPath" class="button-text-primary-BHEC btn button-primary-BHEC p-3 mb-3"><i
               class="bi bi-plus-square me-1"></i>Nou Proveïdor</a>
         </div>
         <!--<form class="mb-3 mb-lg-0 me-lg-3 mb-lg-1">

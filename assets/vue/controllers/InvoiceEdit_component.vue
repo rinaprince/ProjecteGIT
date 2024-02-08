@@ -21,10 +21,6 @@
 </style>
 
 <script setup>
-import { defineProps } from 'vue';
 
-defineProps({
-  elements: Array,
-  config: Object,
-});
+
 </script>

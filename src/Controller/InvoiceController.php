@@ -84,12 +84,18 @@ class InvoiceController extends AbstractController
     {
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
+dump($invoice);
+       if ($this->isCsrfTokenValid('edit'.$invoice->getId(), $request->request->get('_token'))) {
+                $entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+                return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
+       }
+
+        /*if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
-        }
+        }*/
+
 
         return $this->render('invoice/edit.html.twig', [
             'invoice' => $invoice,

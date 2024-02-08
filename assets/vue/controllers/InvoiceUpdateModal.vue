@@ -3,32 +3,32 @@
 </script>
 
 
-  <template>
-    <div class="modal">
-      <div class="modal-content">
-        <slot></slot>
-      </div>
+<template>
+  <div class="modal" style="display:none">
+    <div class="modal-content">
+      <slot></slot>
     </div>
-  </template>
+  </div>
+</template>
 
   <style scoped>
     .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 10%;
+      left: 40%;
+      width: 20%;
+      height: 65%;
       display: flex;
       justify-content: center;
       align-items: center;
-      opacity:50%;
+      opacity:100%;
+      border-radius: 8px;
     }
 
     .modal-content {
       background: white;
-      padding: 20px;
       border-radius: 8px;
+      opacity:100% ;
     }
   </style>
 

@@ -25,7 +25,7 @@ class ApiController extends AbstractController
 //       message" => null
         //  ]
 
-        $userId = $this->getUser()->getId();
+        $userId = $this->getUser();
 
         $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
 

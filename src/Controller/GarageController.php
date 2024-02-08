@@ -17,7 +17,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class GarageController extends AbstractController
 {
     #[Route('', name: 'app_garage_index')]
-    public function index(VehicleRepository $vehicleRepository, InvoiceRepository $invoiceRepository, CustomerRepository $customerRepository, OrderRepository $orderRepository): Response {
+    public function index(InvoiceRepository $invoiceRepository, OrderRepository $orderRepository): Response {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash(
+                'warning',
+                "Sols els clients poden realitzar compres"
+            );
+            return $this->redirectToRoute('templates');
+        }
+
         $this->denyAccessUnlessGranted('ROLE_PRIVATE',
             null, 'Accés restringit');
 
@@ -55,7 +63,7 @@ class GarageController extends AbstractController
 
     #[Route('/close', name: 'app_garage_close_order')]
     public function close(OrderRepository $orderRepository, EntityManagerInterface $entityManager, InvoiceRepository $invoiceRepository): Response {
-        $userId = $this->getUser()->getId();
+        $userId = $this->getUser();
         $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
 
         if ($pendingOrder) {
@@ -86,8 +94,8 @@ class GarageController extends AbstractController
     }
 
     #[Route('/cancel', name: 'app_garage_cancel_order')]
-    public function cancel(CustomerRepository $customerRepository, VehicleRepository $vehicleRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response {
-        $userId = $this->getUser()->getId();
+    public function cancel(VehicleRepository $vehicleRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response {
+        $userId = $this->getUser();
         $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
 
         if ($pendingOrder) {

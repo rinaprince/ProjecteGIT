@@ -39,7 +39,6 @@ class Professional extends Customer
     private ?string $constitutionWriting = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank]
     #[Assert\Type(type:'bool')]
     private ?bool $subscription = null;
 

@@ -11,9 +11,11 @@ use App\Repository\ModelRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class VehicleType extends AbstractType
 {
@@ -21,30 +23,20 @@ class VehicleType extends AbstractType
     {
         $builder
             ->add('plate')
-            ->add('observedDamages')
+            ->add('observedDamages', CKEditorType::class)
             ->add('kilometers')
             ->add('buyPrice')
             ->add('sellPrice')
             ->add('fuel')
             ->add('iva')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('chassisNumber')
             ->add('gearShit')
             ->add('isNew')
             ->add('transportIncluded')
             ->add('color')
             ->add('registrationDate')
-            ->add('model', EntityType::class,[
-                'class' => Model::class,
-                'choice_label' => 'fullname',
-                'autocomplete' => true,
-                'query_builder' => function (ModelRepository $er) {
-                    return $er->createQueryBuilder('m')
-                        ->join('m.brand', 'b')
-                        ->orderBy('b.name', 'ASC')
-                        ->addOrderBy('m.name', 'ASC');
-                },
-                ])
+            ->add('model', ModelAutocompleteField::class,[])
             ->add('provider', EntityType::class, [
                 'class' => Provider::class,
                 'choice_label' => 'businessName',

@@ -41,7 +41,14 @@ const filteredData = computed(() => {
     <tr v-for="(data, index) in data" :key="index">
       <!-- Imprime el data-title correspondiente al td -->
       <td v-for="(value, titleIndex) in config" :key="titleIndex" :data-title="config[titleIndex]">
-        {{ data[titleIndex] }}
+        <span v-if="titleIndex.indexOf('.') === -1">
+
+            {{ data[titleIndex] }}
+        </span>
+        <!--  TODO: Transform into for loop-->
+        <span v-else>
+                {{ data[titleIndex.split('.')[0]][titleIndex.split('.')[1]] }}
+        </span>
       </td>
       <td>
         <a>

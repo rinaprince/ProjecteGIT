@@ -10,6 +10,7 @@ NPM_CMD = $(DOCKER_PREFIX) npm
 rebuild:
 	-$(COMPOSER_CMD) install
 
+
 	-$(NPM_CMD) install
 	-$(NPM_CMD) run dev
 
@@ -40,6 +41,9 @@ rebuild:
 
 	@ echo "Carregant les dades..."
 	$(PHP_CMD) bin/console doctrine:fixtures:load -n
+
+	@ echo "Instal·lant assets FOSCKEditorBundle.."
+	$(PHP_CMD) bin/console assets:install
 
 rebuild-test:
 	-$(COMPOSER_CMD) install

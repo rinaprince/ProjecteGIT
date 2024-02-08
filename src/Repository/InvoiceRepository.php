@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Invoice;
+use App\Entity\Login;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -44,14 +45,14 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findInvoicesForLoggedInUser($loginId): array
+    public function findInvoicesForLoggedInUser(Login $login): array
     {
         $results = $this->createQueryBuilder('i')
         ->select(['i.id', 'i.number', 'i.price', 'i.date', 'c.name as customer_name'])
         ->innerJoin('i.customer', 'c')
         ->innerJoin('c.login', 'l')
-        ->andWhere('l.id = :loginId')
-        ->setParameter('loginId', $loginId)
+        ->andWhere('l = :login')
+        ->setParameter('login', $login)
         ->orderBy('i.date', 'DESC')
         ->getQuery()
         ->getResult(AbstractQuery::HYDRATE_ARRAY);

@@ -15,11 +15,13 @@
     {% if q %}
         <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
     {% endif %}
+
     <div class=" container-fluid d-flex flex-wrap gap-3 justify-content-center  p-5 bg-#f5f5f5">
         <div class="row">
             {% for vehicle in vehicles %}
                 {% if vehicle.vehicleOrder == null %}
                     <div class=" col-3 d-flex align-items-center justify-content-center text-center mb-2">
+
                         <div class="vehicle   mb-2 border border-1 border-light rounded-3 overflow-hidden ">
                             <div class="img-vehicle rounded-2 w-100 overflow-hidden ">
 
@@ -80,11 +82,11 @@
                                        {{  stimulus_controller('vehicle_add') }}  {{ stimulus_action('vehicle_add', 'addVehicle', 'click') }}
                                        >Añadir</a>
                                 </div>
+
                                 <div class="vehicle-details text-center pt-2 pb-2">
                                     <a class="vehicle-details-button px-3 py-2 rounded-2 text-decoration-none"
                                        href="{{ path('app_detail', {'id': vehicle.id }) }}">Especificacions</a>
                                 </div>
-
 
                             </div>
                         </div>
@@ -98,7 +100,6 @@
         </div>
     </div>
     <div class="navigation d-flex justify-content-center mt-lg-3">
-
         {{ knp_pagination_render(pagination) }}
     </div>
 

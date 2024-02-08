@@ -12,18 +12,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/invoices')]
 class InvoiceController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
     #[Route('', name: 'app_invoice_index', methods: ['GET'])]
-    public function index(InvoiceRepository $invoiceRepository, PaginatorInterface $paginator, Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE', null, 'Accés restringit, soles administratius');
+    public function index(InvoiceRepository $invoiceRepository, PaginatorInterface $paginator, Request $request): Response    {
 
-        $loggedInLoginId = $this->getUser()->getId();
+        $user = $this->getUser();
     
-        $arrayInvoices = $invoiceRepository->findInvoicesForLoggedInUser($loggedInLoginId);
+    //    $arrayInvoices = $invoiceRepository->findInvoicesForLoggedInUser($user);
+        $arrayInvoices = $invoiceRepository->findBy([], ['date'=>'DESC']);
     
         $pagination = $paginator->paginate(
             $arrayInvoices,
@@ -31,11 +32,12 @@ class InvoiceController extends AbstractController
             10
         );
     
-        $config = array(
+        $config = [
             "number" => "Numero",
+            "customer.name" => "Client",
             "price" => "Precio",
             "date" => "Fecha",
-        );
+        ];
     
         return $this->render('invoice/index.html.twig', [
             'pagination' => $pagination,

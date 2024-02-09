@@ -35,6 +35,39 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 
 const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 
+//Axios
+import axios from "axios";
+function sweetAlertDelete(id) {
+  Swal.fire({
+    title: 'Estàs segur?',
+    text: "No prodras desfer la teua decissió!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí, elimina definitivament!'
+  }).then((result) => {
+    if (result.isConfirmed === true) {
+      axios.get('/vehicles/'+id+'/delete')
+          .then(response => {
+            Swal.fire({
+              title: "Eliminat!",
+              text: "El vehicle ha sigut eliminat.",
+              icon: "success"
+            });
+          })
+          .catch(error => {
+            console.error(error);
+            Swal.fire({
+              title: "Error",
+              text: "S'ha produït un error en eliminar el vehicle.",
+              icon: "error"
+            });
+          });
+    }
+  });
+}
+
 </script>
 
 <template>
@@ -123,9 +156,14 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
                     <i class="bi bi-pencil-square fnt-tertiary-BHEC"></i>
                   </button>
                 </a>
+                <a @click="sweetAlertDelete('{{ vehicle.id }}')">
+                  <button class="border-0 bg-transparent p-1">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </a>
                 <a :href="vehiclesAddImagePath(vehicle.id)">
                   <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
-                    <i class="bi bi-trash"></i>
+                    <i class="bi bi-image"></i>
                   </button>
                 </a>
 
@@ -137,7 +175,9 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
               </div>
               <div class="d-flex justify-content-between px-4">
                 <p>{{ vehicle.plate }}</p>
-                <p>{{ vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : '' }}</p>
+                <p>{{
+                    vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : ''
+                  }}</p>
                 <p>{{ vehicle.kilometers }}</p>
               </div>
             </div>
@@ -146,6 +186,4 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
       </div>
     </div>
   </div>
-
-
 </template>

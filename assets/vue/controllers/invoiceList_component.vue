@@ -64,7 +64,7 @@ const showModal = () => {
           const form = doc.querySelector('form');
           const modalContent = document.querySelector('.modal-content');
           modalContent.innerHTML = form.outerHTML;
-          form.action = '/invoices/$ {selectedInvoice.value.id}/edit'
+          form.action = '/invoices/${selectedInvoice.value.id}/edit'
           // Mostrar el modal
           const modal = document.querySelector('.modal');
           modal.style.display = 'block';
@@ -84,7 +84,7 @@ const showModal = () => {
     <a :href="invoiceCreatePath"><button class="btn"><i class="bi bi-plus-square"></i> Create new</button></a>
   </div>
 
-  <table id="table">
+  <table id="table" class="w-100 d-sm-flex d-none">
     <thead>
     <tr>
       <th>Numero</th>
@@ -114,14 +114,34 @@ const showModal = () => {
     </tr>
     </tbody>
   </table>
-  <!-- Modal de edición -->
+
+  <div class="accordion accordion-flush d-flex justify-content-center">
+    <div v-for="invoice in filteredInvoices" :key="invoice.id">
+      <p data-title="Numero:">{{invoice.number}}</p>
+      <!-- <p data-title="Usuario:">{{invoice.customer.name}}</p>-->
+      <p data-title="Precio:">{{invoice.price}}</p>
+      <p data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</p>
+      <p>
+        <a :href="invoiceShowPath(invoice.id)">
+          <button class="btn btn-success"><i class="fas fa-eye"></i></button>
+        </a>
+        <!-- <a :href="invoiceEditPath(invoice.id)">-->
+        <button class="btn btn-info" @click="openEditModal(invoice)"><i class="fas fa-pencil-alt"></i></button>
+        <!-- </a>-->
+        <a :href="invoiceDeletePath(invoice.id)">
+          <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+        </a>
+      </p>
+    </div>
+  </div>
+
+
+  <!-- Modal de edició -->
   <div class="modal" v-if="selectedInvoice !== null">
     <div class="modal-content">
       {{ selectedInvoice.modalContent }}
       <button @click="closeModal">Cerrar</button>
     </div>
   </div>
-
-
 
 </template>

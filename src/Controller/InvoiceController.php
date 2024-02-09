@@ -82,19 +82,21 @@ class InvoiceController extends AbstractController
     #[Route('/{id}/edit', name: 'app_invoice_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(InvoiceType::class, $invoice);
-        $form->handleRequest($request);
-dump($invoice);
+
+            $form = $this->createForm(InvoiceType::class, $invoice);
+            $form->handleRequest($request);
+
+        dump($invoice);
        if ($this->isCsrfTokenValid('edit'.$invoice->getId(), $request->request->get('_token'))) {
                 $entityManager->flush();
 
                 return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
        }
 
-        /*if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
-        }*/
+        }
 
 
         return $this->render('invoice/edit.html.twig', [
@@ -103,7 +105,7 @@ dump($invoice);
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST', 'GET'])]
     public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) {

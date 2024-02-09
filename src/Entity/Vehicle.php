@@ -373,5 +373,4 @@ class Vehicle implements JsonSerializable
             'model' => $this->getModel()
         ];
     }
-
 }

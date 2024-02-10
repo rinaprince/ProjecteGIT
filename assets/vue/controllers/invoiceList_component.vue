@@ -43,37 +43,50 @@ const filteredInvoices = computed(() => {
 //Modal editar factures
 const selectedInvoice = ref(null); // La factura seleccionada para editar
 
-const openEditModal = (invoice) => {
+const openEditModal = (id) => {
+  const invoice = invoices.find(inv => inv.id === id);
   selectedInvoice.value = invoice; // Guardar la factura seleccionada
-  showModal();
+  showModal(id); // Pasar el ID de la factura seleccionada a showModal
 };
+
 
 //Funció per tancar el modal
 const closeModal = () => {
   selectedInvoice.value = null; // Limpiar la factura seleccionada
 };
 // Función para mostrar el modal de edición
-const showModal = () => {
-  if (selectedInvoice.value !== null) {
-    axios.get(`/invoices/${selectedInvoice.value.id}/edit`)
-        .then(response => {
-          //Filtrem per a que sols ens mostre el formulari
-          const html = response.data;
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const form = doc.querySelector('form');
-          const modalContent = document.querySelector('.modal-content');
-          modalContent.innerHTML = form.outerHTML;
-          form.action = '/invoices/${selectedInvoice.value.id}/edit'
-          // Mostrar el modal
-          const modal = document.querySelector('.modal');
-          modal.style.display = 'block';
-        })
-        .catch(error => {
-          console.error('Error fetching modal content:', error);
+function showModal(id) {
+  axios.get(`/invoices/${id}/edit`)
+      .then(response => {
+        // Actualizar el contenido del modal con el formulario de edición
+        const modalBody = document.querySelector('.modal-content');
+        modalBody.innerHTML = response.data;
+
+        // Modificar la acción del formulario para que envíe los datos actualizados a través de AJAX
+        const form = modalBody.querySelector('form');
+        form.action = `/invoices/${id}/edit`; // Ajusta la acción del formulario según tu ruta de edición
+        form.addEventListener('submit', function(event) {
+          event.preventDefault(); // Evitar el envío del formulario por defecto
+          // Enviar los datos del formulario a través de AJAX
+          axios.post(form.action, new FormData(form))
+              .then(response => {
+                // Manejar la respuesta según sea necesario (por ejemplo, cerrar el modal)
+                closeModal();
+              })
+              .catch(error => {
+                console.error('Error al enviar el formulario de edición:', error);
+              });
         });
-  }
-};
+
+        // Mostrar el modal
+        const modal = document.querySelector('.modal');
+        modal.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Error al obtener el contenido del modal:', error);
+      });
+}
+
 </script>
 
 <template>
@@ -105,8 +118,8 @@ const showModal = () => {
           <button class="btn btn-success"><i class="fas fa-eye"></i></button>
         </a>
        <!-- <a :href="invoiceEditPath(invoice.id)">-->
-          <button class="btn btn-info" @click="openEditModal(invoice)"><i class="fas fa-pencil-alt"></i></button>
-       <!-- </a>-->
+        <button class="btn btn-info" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
+        <!-- </a>-->
         <a :href="invoiceDeletePath(invoice.id)">
           <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
         </a>

@@ -90,15 +90,13 @@ function showModal(id) {
 </script>
 
 <template>
-  <div>
+  <div class="d-flex justify-content-center">
     <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador "/>
-    <input type="text" id="number-filter" v-model="filters.number.value" @input="applyFilters" placeholder="Buscar por Numero"/>
-    <input type="text" id="customer-filter" v-model="filters.customer.value" @input="applyFilters" placeholder="Buscar por Usuario"/>
-    <a :href="invoiceCreatePath"><button class="btn"><i class="bi bi-plus-square"></i> Create new</button></a>
+    <a :href="invoiceCreatePath"><button class="btn p-1"><i class="bi bi-plus-square"></i> Create new</button></a>
   </div>
 
-  <table id="table" class="w-100 d-sm-flex d-none">
-    <thead>
+  <table id="table" class="d-sm-inline d-none">
+    <thead class="theadInvoices">
     <tr>
       <th>Numero</th>
       <!---<th>Usuario</th>-->

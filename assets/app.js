@@ -13,6 +13,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import '@popperjs/core';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import 'jquery';
+import 'datatables.net-dt/js/dataTables.dataTables';
+import 'datatables.net-dt/css/jquery.dataTables.css';
+import 'quill/dist/quill.snow.css';
+
+import './equip3/css/variables.css';
+import './equip3/css/modal.css';
+import './equip3/css/backend-skeleton.css';
+import './equip3/js/menu-burguer';
+import './equip3/js/menu_aside';
+import './equip3/js/modal';
+
+
 
 import { registerVueControllerComponents } from '@symfony/ux-vue';
 

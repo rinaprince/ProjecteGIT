@@ -1,5 +1,5 @@
 {{ form_start(form) }}
-<div class="row">
+<div class="row" {{ stimulus_controller('quill') }}>
     <div class="col-2">
         {{ form_row(form.plate) }}
     </div>
@@ -49,12 +49,16 @@
         {{ form_row(form.vehicleOrder) }}
     </div>
     <div class="col-6">
+        {{ form_label(form.description) }}
+        <div {{ stimulus_target('quill', 'editor') }}> {{  form.description.vars.value | raw}}</div>
         {{ form_row(form.description) }}
     </div>
-    <div class="col-6">
+    <div class="col-6" >
+        {{ form_label(form.observedDamages) }}
+        <div {{ stimulus_target('quill', 'editor') }}> {{  form.observedDamages.vars.value | raw }}</div>
         {{ form_row(form.observedDamages) }}
     </div>
 </div>
-{{ form_widget(form) }}
+
 <button class="btn btn-warning">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

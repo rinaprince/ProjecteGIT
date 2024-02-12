@@ -6,7 +6,7 @@
              placeholder="Buscar..." aria-label="Search">
     </form>
   </div>
-  <table class="table">
+  <table class="table" id="employeesTable">
     <thead>
     <tr>
       <th>Nom</th>
@@ -16,16 +16,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="employee in employees">
-      <td>{{ employee.name }}</td>
-      <td>{{ employee.lastname }}</td>
-      <td>{{ employee.type }}</td>
-      <td>
-        <a @click="showModal(employee.id)" class="btn btn-outline-dark">Mostrar</a>
-        <a :href="employeeEditPath(employee.id)" class="btn btn-primary">Editar</a>
-        <a :href="employeeDeletePath(employee.id)" class="btn btn-danger">Esborrar</a>
-      </td>
-    </tr>
+      <tr v-for="employee in employees" :key="employee.id">
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.lastname }}</td>
+        <td>{{ employee.type }}</td>
+        <td>
+          <a @click="showModal(employee.id)" class="btn btn-outline-dark">Mostrar</a>
+          <a :href="employeeEditPath(employee.id)" class="btn btn-primary">Editar</a>
+          <a @click="deleteEmployee(employee)" class="btn btn-danger">Esborrar</a>
+        </td>
+      </tr>
     </tbody>
   </table>
   <!-- Modal -->
@@ -50,6 +50,7 @@
 <script setup>
 import axios from 'axios';
 
+
 defineProps({
   employees: Array,
   e: String
@@ -58,7 +59,7 @@ defineProps({
 const employeeShowPath = (id) => `/employees/${id}/details`;
 const employeeEditPath = (id) => `/employees/${id}/edit`;
 const employeeNewPath = `/employees/new`;
-const employeeDeletePath = (id) => `/employees/${id}`;
+const employeeDeletePath = (id) => `/employees/${id}/delete`;
 
 
 // ... (resto del código)
@@ -100,6 +101,29 @@ function modalNewEmployee(){
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Error fetching modal content:', error);
+      });
+}
+
+function deleteEmployee(employee){
+  axios.post(employeeDeletePath(employee.id),{
+    employee:employee
+  })
+      .then(response => {
+        const rowKey = employee.id;
+        const table = document.getElementById('employeesTable');
+        const rowToDelete = table.rows[rowKey];
+        console.log('rowKey'+rowKey)
+        console.log('taula'+table.rows[rowKey])
+        console.log('rowToDelete')
+
+        // Eliminar la fila
+        if (rowToDelete) {
+          rowToDelete.remove();
+        }
+        console.log();
       })
       .catch(error => {
         console.error('Error fetching modal content:', error);

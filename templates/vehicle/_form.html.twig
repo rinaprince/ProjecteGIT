@@ -1,41 +1,81 @@
 {{ form_start(form) }}
-<div class="row">
+<div class="row d-flex justify-content-center flex-column flex-sm-row">
+
+    <div class="col-12 col-md-6 pt-3">
+        <div class="pb-3">
+            <label for="formFileSm" class="form-label d-flex justify-content-center">
+                <i class="bi bi-cloud-arrow-up-fill fs-2 fnt-tertiary-BHEC px-2"></i>
+                <span class="fs-2">Puja les imatges ací:</span>
+            </label>
+            <img src="{{ asset('equip3/img/vehicles/0b1d2794-111f-358c-b005-88cd26ce3e94.jpg')}}" alt="Imatge Cotxe" width="100%" class="pb-3">
+            <input class="form-control form-control-sm" id="formFileSm" type="file">
+        </div>
+
+<div class="row" {{ stimulus_controller('quill') }}>
     <div class="col-2">
         {{ form_row(form.plate) }}
     </div>
 
-    <div class="col-5">
-        {{ form_row(form.model) }}
-    </div>
-    <div class="col-5">
-        {{ form_row(form.gearShit) }}
+    <div class="col-12 col-md-3 pt-3 my-auto">
+        <div class="mb-3 tabind">
+            {{ form_row(form.model, { 'attr': {'tabindex': '1'} }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.plate, { 'attr': {'tabindex': '3'} }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.kilometers, { 'attr': {'tabindex': '5'} }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.provider, { 'attr': {'tabindex': '7'} }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.transportIncluded, { 'attr': {'tabindex': '9'} }) }}
+        </div>
     </div>
 
-    <div class="col-4">
-        {{ form_row(form.chassisNumber) }}
-    </div>
-    <div class="col-4">
-        {{ form_row(form.buyPrice) }}
-    </div>
-    <div class="col-4">
-        {{ form_row(form.sellPrice) }}
+    <div class="col-12 col-md-3 pt-4 my-auto">
+        <div class="mb-3">
+            {{ form_row(form.buyPrice , { 'attr': {'tabindex': '2'} }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.sellPrice, { 'attr': {'tabindex': '4'} }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.iva, { 'attr': {'tabindex': '6'} }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(form.gearShit, { 'attr': {'tabindex': '8'} }) }}
+        </div>
+        <div class="mb-3 mx-auto">
+            {{ form_row(form.isNew, { 'attr': {'tabindex': '10'} }) }}
+        </div>
     </div>
 
-    <div class="col-4">
-        {{ form_row(form.kilometers) }}
+    <div class="col-12 col-md-3 pt-3">
+        <div class="mb-3">
+            {{ form_row(form.chassisNumber, { 'attr': {'tabindex': '11'} }) }}
+        </div>
     </div>
-    <div class="col-4">
-        {{ form_row(form.fuel) }}
+
+    <div class="col-12 col-md-3 pt-3">
+        <div class="mb-3">
+            {{ form_row(form.color, { 'attr': {'tabindex': '12'} }) }}
+        </div>
     </div>
-    <div class="col-4">
-        {{ form_row(form.iva) }}
+
+    <div class="col-12 col-md-3 pt-3">
+        <div class="mb-3">
+            {{ form_row(form.registrationDate, { 'attr': {'tabindex': '13'} }) }}
+        </div>
     </div>
-    <div class="col-4">
-        {{ form_row(form.isNew) }}
+
+    <div class="col-12 col-md-3 pt-3">
+        <div class="mb-3">
+            {{ form_row(form.fuel, { 'attr': {'tabindex': '14'} }) }}
+        </div>
     </div>
-    <div class="col-4">
-        {{ form_row(form.transportIncluded) }}
-    </div>
+
     <div class="col-4">
         {{ form_row(form.color) }}
     </div>
@@ -49,12 +89,22 @@
         {{ form_row(form.vehicleOrder) }}
     </div>
     <div class="col-6">
-        {{ form_row(form.description) }}
+        {{ form_label(form.description) }}
+        <div {{ stimulus_target('quill', 'editor') }}> {{  form.description.vars.value | raw}}</div>
+        {{ form_row(form.description, { 'attr': {'tabindex': '15'} }) }}
     </div>
-    <div class="col-6">
-        {{ form_row(form.observedDamages) }}
+    <div class="col-6" >
+        {{ form_label(form.observedDamages) }}
+        <div {{ stimulus_target('quill', 'editor') }}> {{  form.observedDamages.vars.value | raw }}</div>
+        {{ form_row(form.observedDamages, { 'attr': {'tabindex': '16'} }) }}
     </div>
+
+
 </div>
+
 {{ form_widget(form) }}
-<button class="btn btn-warning">{{ button_label|default('Save') }}</button>
+    <div class="mx-auto d-flex justify-content-center">
+        <button class="btn border-0 bg-secundary-BHEC text-white btn-tertiary-hover mx-auto">{{ button_label|default('Guardar') }}</button>
+    </div>
+
 {{ form_end(form) }}

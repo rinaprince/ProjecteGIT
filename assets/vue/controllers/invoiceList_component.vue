@@ -3,6 +3,9 @@
 const { invoices } = defineProps(['invoices']);
 //const q = props.q;
 import { ref, onMounted, computed } from 'vue';
+//Importem axios
+import axios from 'axios';
+
 
 //Rutas de los botones
 const invoiceShowPath = (id) => `/invoices/${id}`;
@@ -35,20 +38,57 @@ const applyFilters = (data, filters) => {
 const filteredInvoices = computed(() => {
   return applyFilters(invoices, filters.value);
 });
+
+
+//Modal editar factures
+const selectedInvoice = ref(null); // La factura seleccionada para editar
+
+const openEditModal = (invoice) => {
+  selectedInvoice.value = invoice; // Guardar la factura seleccionada
+  showModal();
+};
+
+//Funció per tancar el modal
+const closeModal = () => {
+  selectedInvoice.value = null; // Limpiar la factura seleccionada
+};
+// Función para mostrar el modal de edición
+const showModal = () => {
+  if (selectedInvoice.value !== null) {
+    axios.get(`/invoices/${selectedInvoice.value.id}/edit`)
+        .then(response => {
+          //Filtrem per a que sols ens mostre el formulari
+          const html = response.data;
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const form = doc.querySelector('form');
+          const modalContent = document.querySelector('.modal-content');
+          modalContent.innerHTML = form.outerHTML;
+          form.action = '/invoices/${selectedInvoice.value.id}/edit'
+          // Mostrar el modal
+          const modal = document.querySelector('.modal');
+          modal.style.display = 'block';
+        })
+        .catch(error => {
+          console.error('Error fetching modal content:', error);
+        });
+  }
+};
 </script>
 
 <template>
   <div>
-    <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador Global"/>
+    <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador "/>
     <input type="text" id="number-filter" v-model="filters.number.value" @input="applyFilters" placeholder="Buscar por Numero"/>
     <input type="text" id="customer-filter" v-model="filters.customer.value" @input="applyFilters" placeholder="Buscar por Usuario"/>
+    <a :href="invoiceCreatePath"><button class="btn"><i class="bi bi-plus-square"></i> Create new</button></a>
   </div>
 
-  <table id="backoffice-table">
+  <table id="table" class="w-100 d-sm-flex d-none">
     <thead>
     <tr>
       <th>Numero</th>
-      <th>Usuario</th>
+      <!---<th>Usuario</th>-->      
       <th>Precio</th>
       <th>Fecha</th>
       <th>Operaciones</th>
@@ -62,18 +102,46 @@ const filteredInvoices = computed(() => {
       <td data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</td>
       <td>
         <a :href="invoiceShowPath(invoice.id)">
-          <button class="details-button"><i class="fas fa-eye"></i></button>
+          <button class="btn btn-success"><i class="fas fa-eye"></i></button>
         </a>
-        <a :href="invoiceEditPath(invoice.id)">
-          <button class="edit-button"><i class="fas fa-pencil-alt"></i></button>
-        </a>
+       <!-- <a :href="invoiceEditPath(invoice.id)">-->
+          <button class="btn btn-info" @click="openEditModal(invoice)"><i class="fas fa-pencil-alt"></i></button>
+       <!-- </a>-->
         <a :href="invoiceDeletePath(invoice.id)">
-          <button class="delete-button"><i class="fas fa-trash"></i></button>
+          <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
         </a>
       </td>
     </tr>
     </tbody>
   </table>
 
-  <a :href="invoiceCreatePath"><button>Create new</button></a>
+  <div class="accordion accordion-flush d-flex justify-content-center">
+    <div v-for="invoice in filteredInvoices" :key="invoice.id">
+      <p data-title="Numero:">{{invoice.number}}</p>
+      <!-- <p data-title="Usuario:">{{invoice.customer.name}}</p>-->
+      <p data-title="Precio:">{{invoice.price}}</p>
+      <p data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</p>
+      <p>
+        <a :href="invoiceShowPath(invoice.id)">
+          <button class="btn btn-success"><i class="fas fa-eye"></i></button>
+        </a>
+        <!-- <a :href="invoiceEditPath(invoice.id)">-->
+        <button class="btn btn-info" @click="openEditModal(invoice)"><i class="fas fa-pencil-alt"></i></button>
+        <!-- </a>-->
+        <a :href="invoiceDeletePath(invoice.id)">
+          <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+        </a>
+      </p>
+    </div>
+  </div>
+
+
+  <!-- Modal de edició -->
+  <div class="modal" v-if="selectedInvoice !== null">
+    <div class="modal-content">
+      {{ selectedInvoice.modalContent }}
+      <button @click="closeModal">Cerrar</button>
+    </div>
+  </div>
+
 </template>

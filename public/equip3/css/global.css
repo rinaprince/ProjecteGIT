@@ -1,0 +1,54 @@
+/* Importa les fonts de Google */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap');
+
+:root{
+    --primary-color-BHEC : #181d33ff;
+    --secundary-color-BHEC :#e7d381ff;
+    --tertiary-color-BHEC:#aa8e31ff;
+    --quaternary-color :#e7e7e9;
+}
+
+.font-playfair {
+    font-family: 'Playfair Display', 'Courier New', Courier, monospace;
+}
+
+.bg-primary-BHEC {
+    background-color: var(--primary-color-BHEC);
+}
+
+.bg-secondary-BHEC {
+    background-color: var(--secundary-color-BHEC);
+}
+
+.bg-tertiary-BHEC {
+    background-color: var(--tertiary-color-BHEC);
+}
+
+.bg-tertiary-BHEC:hover {
+    background-color: var(--tertiary-color-BHEC);
+    opacity: 0.5;
+}
+
+.text-secondary-BHEC {
+    color: var(--secundary-color-BHEC);
+}
+
+.text-secondary-BHEC:hover {
+    color:  var(--secundary-color-BHEC);
+    opacity: 0.5;
+}
+
+.text-tertiary-BHEC {
+    color: var(--tertiary-color-BHEC);
+}
+
+.text-secondary.badge-garatge {
+    top:0.7rem !important;
+}
+
+.bg-tertiary-BHEC:hover {
+    color: black !important;
+    background-color:lightgray;
+    opacity: 0.9;
+}

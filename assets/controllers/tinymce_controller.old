@@ -1,0 +1,32 @@
+/*
+import { Controller } from '@hotwired/stimulus';
+import tinymce from "tinymce";
+import 'tinymce/themes/silver/theme';
+import 'tinymce/icons/default'
+import 'tinymce/models/dom'
+import 'tinymce/skins/ui/oxide/skin';
+
+/!*
+* The following line makes this controller "lazy": it won't be downloaded until needed
+* See https://github.com/symfony/stimulus-bridge#lazy-controllers
+*!/
+/!* stimulusFetch: 'lazy' *!/
+export default class extends Controller {
+    static targets = ['editor']
+    // ...
+
+    connect() {
+        this.editorTargets.forEach((e)=> {
+            console.log(e);
+            let textarea = e.querySelector('textarea');
+            console.log(textarea.id);
+            tinymce.init({
+                selector: "#" + textarea.id
+            }).then(r => console.log(r));
+        })
+
+
+    }
+
+}
+*/

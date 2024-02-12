@@ -3,11 +3,11 @@
 {% block title %}New Vehicle{% endblock %}
 
 {% block body %}
-    <h1>Create new Vehicle</h1>
+    <h1 class="text-center pt-3 fs-1">Donar de alta un vehícle</h1>
 
     {{ include('vehicle/_form.html.twig') }}
 
-    <div class="d-flex mt-3 mb-3">
+    <div class="d-flex justify-content-center mt-3 mb-3">
         <a href="{{ path('app_vehicle_index') }}"
            class="link-underline link-underline-opacity-0 btn btn-secondary text-light">back to list</a>
     </div>

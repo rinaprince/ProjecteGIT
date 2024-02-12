@@ -90,9 +90,10 @@ class VehicleController extends AbstractController
     #[Route('/{id}/delete', name: 'app_vehicle_delete', methods: ['POST'])]
     public function delete(Request $request, Vehicle $vehicle, EntityManagerInterface $entityManager): Response
     {
+        $entityManager->remove($vehicle);
+        $entityManager->flush();
         if ($this->isCsrfTokenValid('delete'.$vehicle->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($vehicle);
-            $entityManager->flush();
+
         }
 
         return $this->redirectToRoute('app_vehicle_index', [], Response::HTTP_SEE_OTHER);

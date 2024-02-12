@@ -48,7 +48,7 @@ function sweetAlertDelete(id) {
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {
     if (result.isConfirmed === true) {
-      axios.get('/vehicles/'+id+'/delete')
+      axios.post(`/vehicles/${id}/delete`)
           .then(response => {
             Swal.fire({
               title: "Eliminat!",
@@ -156,7 +156,7 @@ function sweetAlertDelete(id) {
                     <i class="bi bi-pencil-square fnt-tertiary-BHEC"></i>
                   </button>
                 </a>
-                <a @click="sweetAlertDelete('{{ vehicle.id }}')">
+                <a @click="sweetAlertDelete(vehicle.id)">
                   <button class="border-0 bg-transparent p-1">
                     <i class="bi bi-trash"></i>
                   </button>

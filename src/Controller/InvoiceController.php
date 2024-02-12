@@ -114,4 +114,26 @@ class InvoiceController extends AbstractController
 
         return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[IsGranted('ROLE_PRIVATE', message: 'Accés restringit')]
+    #[Route('/myinvoices', name: 'app_invoice_myinvoices', priority: 2)]
+    public function myinvoices(InvoiceRepository $invoiceRepository): Response    
+    {
+        $customer = $this->getUser()->getCustomer();
+    
+        $arrayInvoices = $invoiceRepository->findBy(['customer' => $customer]);
+    
+        return $this->render('invoice/myinvoices.html.twig', [
+            'invoices'   => $arrayInvoices
+        ]);
+    }
+
+    #[IsGranted('ROLE_PRIVATE', message: 'Accés restringit')]
+    #[Route('/myinvoices/{id}', name: 'app_invoice_myinvoices_detail', methods: ['GET'])]
+    public function detail(Invoice $invoice): Response
+    {
+        return $this->render('invoice/detail.html.twig', [
+            'invoice' => $invoice,
+        ]);
+    }
 }

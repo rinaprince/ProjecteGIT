@@ -40,7 +40,8 @@ security:
         - { path: ^/admin, roles: ROLE_ADMINISTRATIVE },
         - { path: ^/providers, roles: ROLE_ADMINISTRATIVE }
         # - { path: ^/orders, roles: ROLE_LOGIN }
-        - { path: ^/invoice, roles: ROLE_ADMINISTRATIVE }
+        - { path: ^/invoices/myinvoices, roles: ROLE_PRIVATE }
+        - { path: ^/invoices, roles: ROLE_ADMINISTRATIVE }
         - { path: ^/vehicles, roles: ROLE_ADMINISTRATIVE }
         # - { path: ^/, }
 

@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: LoginRepository::class)]
 #[UniqueEntity('username')]
 #[UniqueConstraint(name: 'username_unique_idx', columns: ['username'])]
-class Login implements UserInterface, PasswordAuthenticatedUserInterface
+class Login implements UserInterface, PasswordAuthenticatedUserInterface, \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -123,5 +123,14 @@ class Login implements UserInterface, PasswordAuthenticatedUserInterface
         $this->customer = $customer;
 
         return $this;
+    }
+    function jsonSerialize(): mixed
+    {
+        return [
+            'username' => $this->getUsername(),
+            'role' => $this->getRole(),
+            'employee' => $this->getEmployee(),
+            'customer' => $this->getCustomer(),
+        ];
     }
 }

@@ -2,14 +2,15 @@
 const Routes = {
   home: "/",
   back: "/back",
-  catalogue: "",
-  contacte: "",
-  garage: "",
-  preferits: "",
-  notificacions: "",
-  login: "",
-  logout: ""
+  catalogue: "/catalogue",
+  contacte: "/contacte",
+  garage: "/garage",
+  preferits: "/preferits",
+  notifications: "/",
 };
+defineProps({
+  Routes: Object
+})
 </script>
 
 <template>
@@ -17,12 +18,12 @@ const Routes = {
     <nav class="navbar navbar-expand-sm py-0">
       <div class="d-flex justify-content-between w-100 py-0 align-items-center py-1 row g-0">
         <div class="d-flex align-items-center col-2 col-sm-3">
-          <a class="navbar-brand ps-2 d-inline-block" href="{{ Routes.home }}"><img src="/equip2/img/logoBHEC.png"
+          <a class="navbar-brand ps-2 d-inline-block" :href="Routes.home"><img src="/equip2/img/logoBHEC.png"
              alt="logo BHEC"></a>
           <a class="navbar-brand d-inline-block text-secondary-BHEC fs-2 font-front d-none d-sm-block"
-             href="{{ Routes.catalogue }}">Catàleg</a>
+             :href="Routes.catalogue">Catàleg</a>
           <a class="navbar-brand ps-3 d-inline-block text-secondary-BHEC fs-2 font-front d-none d-sm-block"
-             href="{{ Routes.contacte }}">Contacte</a>
+             :href="Routes.contacte">Contacte</a>
         </div>
         <div class="d-none d-sm-block d-flex justify-content-center col col-sm-6">
           <div class="input-group w-50 d-flex justify-content-center mx-auto">
@@ -68,11 +69,11 @@ const Routes = {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-lg-0 d-block d-sm-none bg-light p-0 m-0 fs-5 dropdown-menu w-100">
           <li class="">
-            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" href="{{Routes['catalogue']}}"><i
+            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" :href="Routes.catalogue"><i
                 class="bi bi-book px-2 py-2"></i> Catàleg</a>
           </li>
           <li class="">
-            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" href="{{Routes['contacte']}}"><i
+            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" :href="Routes.contacte"><i
                 class="bi-envelope px-2 py-2"></i> Contacte</a>
           </li>
         </ul>

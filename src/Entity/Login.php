@@ -4,11 +4,15 @@ namespace App\Entity;
 
 use App\Repository\LoginRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: LoginRepository::class)]
-class Login implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity('username')]
+#[UniqueConstraint(name: 'username_unique_idx', columns: ['username'])]
+class Login implements UserInterface, PasswordAuthenticatedUserInterface, \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,6 +20,7 @@ class Login implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
@@ -118,5 +123,14 @@ class Login implements UserInterface, PasswordAuthenticatedUserInterface
         $this->customer = $customer;
 
         return $this;
+    }
+    function jsonSerialize(): mixed
+    {
+        return [
+            'username' => $this->getUsername(),
+            'role' => $this->getRole(),
+            'employee' => $this->getEmployee(),
+            'customer' => $this->getCustomer(),
+        ];
     }
 }

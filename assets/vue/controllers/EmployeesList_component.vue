@@ -23,7 +23,7 @@
       <td>
         <a @click="showModal(employee.id)" class="btn btn-outline-dark">Mostrar</a>
         <a :href="employeeEditPath(employee.id)" class="btn btn-primary">Editar</a>
-        <a :href="employeeDeletePath(employee.id)" class="btn btn-danger">Esborrar</a>
+        <a @click="softDeleteEmployee(employee.id)" class="btn btn-danger">Esborrar</a>
       </td>
     </tr>
     </tbody>
@@ -37,6 +37,7 @@
           <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
           <!-- Content goes here -->
           <!-- You can add form elements, text, etc. -->
         </div>
@@ -54,30 +55,36 @@ defineProps({
   e: String
 });
 
-const employeeShowPath = (id) => `empoyees/$(id)/details`;
+const employeeShowPath = (id) => `/employees/${id}/details`;
+const employeeEditPath = (id) => `/employees/${id}/edit`;
+const employeeNewPath = `/employees/new`;
+const employeeDeletePath = (id) => `/employees/${id}`;
 
-const employeeEditPath = (id) =>`/employee/$(id)/edit`;
-const employeeDeletePath = (id) => `/employees/$(id)`;
 
-
-
+// ... (resto del código)
+// Hacer la solicitud Axios aquí
 function showModal(id) {
-  axios.get('/employees/'+id+'')
+  axios.get('/employees/'+id+'/details')
       .then(response => {
-        // Actualitzar el contingut del modal
+        // Actualizar el contenido del modal
         const modalBody = document.querySelector('.modal-body');
         modalBody.innerHTML = response.data;
 
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
+
+        /**const confirmModal = document.querySelector('.modal-confirmation')
+
+
+         const deleteButton = document.getElementById('#deleteProvider')
+         deleteButton.addEventListener('click',confirmationModal(id))
+         */
       })
       .catch(error => {
         console.error('Error fetching modal content:', error);
       });
 }
-
-
 function hideModal(){
   const myModal = document.querySelector('.modal');
   myModal.style.display = 'none';
@@ -86,7 +93,7 @@ function hideModal(){
 function modalNewEmployee(){
   axios.get('/employees/new')
       .then(response => {
-        // Actualitzar el contingut del modal
+        // Actualizar el contenido del modal
         const modalBody = document.querySelector('.modal-body');
         modalBody.innerHTML = response.data;
 
@@ -99,10 +106,23 @@ function modalNewEmployee(){
       });
 }
 
+function softDeleteEmployee(employeeId){
+  axios.post('/employees/'+employeeId+'/delete',{
+    employeeId: employeeId
+  })
+.then(function (response) {
+    console.log(response);
+  })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
+
 /**
  function confirmationModal(id){
  axios.get('/providers/'+id)
  .then(response => {
+ // Actualizar el contenido del modal
  const confirmModal = document.querySelector('.modal-confirmation')
  confirmModal.innerHTML = response.data;
 

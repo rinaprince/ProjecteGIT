@@ -2,6 +2,9 @@
 const {vehicles} = defineProps(['vehicles']);
 
 import {ref, onMounted, computed} from 'vue';
+import axios from "axios";
+import Swal from 'sweetalert2';
+
 
 //Tipus de filtració
 const filters = ref({
@@ -23,6 +26,7 @@ const applyFilters = (data, filters) => {
   });
 };
 
+//Constants
 const filteredVehicles = computed(() => {
   return applyFilters(vehicles, filters.value);
 });
@@ -35,8 +39,6 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 
 const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 
-//Axios
-import axios from "axios";
 function sweetAlertDelete(id) {
   Swal.fire({
     title: 'Estàs segur?',

@@ -19,15 +19,15 @@
     <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer></script>
   {#<script src="{{ asset('equip3/js/searchbar.js') }}" defer ></script>#}
     <script src="{{ asset('equip3/js/modal.js') }}" defer ></script>
-    <!-- Include the Stimulus controller -->
-    <script src="{{ asset('path_to_your_js_file/passwordToggle_controller.js') }}" defer></script>
+    <!-- Password hider -- Javi Ramos -- -->
+    <script src="{{ asset('equip1/js/hidePassword.js') }}" defer></script>
 
 
 
     {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
 </head>
 <body>
-{% include '_header_front_3.html.twig' %}
+{# {% include '_header_front_3.html.twig' %} #}
 {% for label, messages in app.flashes %}
     {% for message in messages %}
             <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">

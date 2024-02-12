@@ -6,6 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 my-5 d-flex justify-content-center">
+
                 <div>
                     <div class="border border-black border-opacity-25 p-3 rounded-2 d-flex flex-column align-items-center">
                         <h2>Inicia sessió</h2>
@@ -30,9 +31,11 @@
                                 <div class="position-relative" id="passwordController">
                                     <input class="form-control border border-black border-opacity-25 ps-5"
                                            type="password" id="password"
+
                                            name="_password" required
                                            data-action="click->password-toggle#togglePassword"
                                            data-target="password-toggle.icon">
+
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-key position-absolute top-50 translate-middle-y ms-3"
                                          viewBox="0 0 16 16">
@@ -47,7 +50,7 @@
                             {% if error %}
                                 <p class="alert alert-danger small py-2 my-2">Les credencials no són correctes</p>
                             {% endif %}
-                            <button class="btn bg-tertiary-BHEC mt-3" type="submit">Inicia sessió</button>
+                            <button class="btn btn-primary mt-3" type="submit">Iniciar sessió</button>
                         </form>
                         <p>Si no tens un compter, <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="text-tertiary-BHEC hover-tertiary">Registra't
                                 ací.</a></p>
@@ -60,17 +63,16 @@
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header bg-fade-secondary-tertiary">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Crea el teu compte ací!</h1>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Eres una empresa?</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div {{ vue_component('PrivateCustomerNewFront_component') }}></div>
                     <!--{% include 'register/professional.html.twig' %}-->
                 </div>
-
             </div>
         </div>
     </div>

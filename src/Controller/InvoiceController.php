@@ -19,33 +19,40 @@ class InvoiceController extends AbstractController
 {
     #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
     #[Route('', name: 'app_invoice_index', methods: ['GET'])]
-    public function index(InvoiceRepository $invoiceRepository, PaginatorInterface $paginator, Request $request): Response    {
+    public function index(InvoiceRepository $InvoiceRepository, PaginatorInterface $paginator, Request $request): Response
 
-        $user = $this->getUser();
-    
-    //    $arrayInvoices = $invoiceRepository->findInvoicesForLoggedInUser($user);
-        $arrayInvoices = $invoiceRepository->findBy([], ['date'=>'DESC']);
-    
-        $pagination = $paginator->paginate(
-            $arrayInvoices,
-            $request->query->getInt('page', 1),
-            10
-        );
-    
-        $config = [
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
+            null, 'Accés restringit, soles administratius');
+        $invoicesQ = $InvoiceRepository->findAllQuery();
+        $invoices = $InvoiceRepository->findAll();
+
+        $arrayInvoices = $invoicesQ->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+        for ($i = 0; $i < count($arrayInvoices) ; $i++) {
+            $arrayInvoices[$i]['date'] = $arrayInvoices[$i]['date']->format('d/m/Y');;
+        }
+
+        $config = array(
             "number" => "Numero",
-            "customer.name" => "Client",
+            "customer" => "Usuario",
             "price" => "Precio",
             "date" => "Fecha",
-        ];
-    
+        );
+
+        $paginator = $paginator->paginate(
+            $invoicesQ,
+            $request->query->getInt('page', 1),
+            5
+        );
         return $this->render('invoice/index.html.twig', [
-            'pagination' => $pagination,
-            'data' => $pagination->getItems(),
-            'config' => $config,
+            'invoices' => $paginator->getItems(),
+            'pagination' => $paginator,
+            'data' => $arrayInvoices,
+            'config' => $config
         ]);
     }
-       
+
     #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -83,15 +90,9 @@ class InvoiceController extends AbstractController
             $form = $this->createForm(InvoiceType::class, $invoice);
             $form->handleRequest($request);
 
-        dump($invoice);
-       if ($this->isCsrfTokenValid('edit'.$invoice->getId(), $request->request->get('_token'))) {
-                $entityManager->flush();
-
-                return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
-       }
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -101,6 +102,7 @@ class InvoiceController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
 
     #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]

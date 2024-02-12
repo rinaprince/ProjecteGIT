@@ -43,11 +43,11 @@ class InvoiceTest extends WebTestCase
             'PHP_AUTH_PW' => 'administrative',
         ]);
 
-        $crawlerAdmin = $clientAdmin->request('GET', '/invoice/');
+        $crawlerAdmin = $clientAdmin->request('GET', '/invoices/');
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Invoice index');
+        self::assertPageTitleContains('Lista de Facturas');
 
-        $crawlerUser = $clientUser->request('GET', '/invoice/');
+        $crawlerUser = $clientUser->request('GET', '/invoices/');
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 

@@ -1,0 +1,277 @@
+/* ---------------------------- BACKGROUND COLOR STYLES ----------------------------*/
+
+.bg-primary-BHEC{
+    background-color: var(--primary-color);
+}
+
+.bg-secundary-BHEC{
+    background-color: var(--secundary-color);
+}
+
+.bg-tertiary-BHEC{
+    background-color: var(--tertiary-color);
+}
+
+.bg-quaternary-BHEC{
+    background-color: var(--quaternary-color) ;
+}
+
+/* ---------------------------- FONT FAMILY STYLES ----------------------------*/
+
+.fm-primary-BHEC{
+    font-family: var(--primary-fontFamily) !important;
+}
+
+.fm-secundary-BHEC{
+    font-family: var(--secundary-fontFamily) !important;
+}
+
+.fm-special-BHEC{
+    font-family: 'Herr Von Muellerhoff', cursive;
+}
+
+
+
+/* ---------------------------- FONT COLOR STYLES ----------------------------*/
+
+.fnt-primary-BHEC{
+    color: var(--primary-color);
+}
+
+.fnt-secundary-BHEC{
+    color: var(--secundary-color);
+}
+
+.fnt-tertiary-BHEC{
+    color: var(--tertiary-color);
+}
+
+.fnt-quaternary-BHEC{
+    color: var(--quaternary-color);
+}
+
+/* ---------------------------- IMATGE LOGO BACK STYLES ----------------------------*/
+
+.img-back-logo-header-BHEC{
+    width: 3.1rem;
+}
+
+/* ---------------------------- IMATGES ICONES STYLES ----------------------------*/
+
+.img-icon-header-BHEC{
+    width: 1.8rem;
+}
+
+/* ---------------------------- BORDER STYLES ----------------------------*/
+
+.border-secundary-BHEC{
+    border-color: var(--secundary-color);
+}
+
+/* ---------------------------- LINK HOVER STYLES ----------------------------*/
+
+.image-header-BHEC {
+    height: calc(91.4vh);
+    background-image: url(../img/coches/5.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding: 20px 70px;
+    background-attachment: fixed;
+    transition: background-image 3s ease-in-out, background-size 0s;
+}
+
+
+.link:hover{
+    color: var(--tertiary-color);
+    transition: .3s;
+}
+
+.nav-hover-menu-BHEC:hover{
+    background-color: var(--quaternary-color);
+}
+
+.nav-hover-text-BHEC:hover{
+    color: black !important;
+}
+
+.link-modal-hover-BHEC:hover{
+    color: gray !important;
+}
+
+.w-400px{
+    width: 400px;
+}
+
+.start-95-BHEC {
+    left: 95% !important;
+}
+
+.header-link-BHEC:hover{
+    opacity: 45%;
+}
+
+.w-25-BHEC{
+    width: 25%;
+}
+
+.text-button-format-BHEC{
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1.4px;
+}
+
+.btn-tertiary-hover:hover{
+    color: var(--quaternary-color);
+    background-color: #aa8e31ff;
+    transition: .75s;
+}
+
+ .arrow-BHEC {
+    position: relative;
+    display: inline-block;
+    margin-top: -20px;
+}
+
+.arrow-BHEC span {
+    display: inline-block;
+    width: 140px; 
+    height: 3px; 
+    background-color: #fff;
+    position: relative;
+}
+
+.arrow-BHEC .arrow-right-BHEC::before, .arrow-BHEC .arrow-left-BHEC::before {
+    content: "";
+    position: absolute;
+    width: 90px; 
+    height: 3px; 
+    background-color: #fff;
+    top: -31px; 
+}
+
+.arrow-BHEC .arrow-right-BHEC::before {
+    right: -75px; 
+    transform: rotate(-45deg); 
+}
+
+.arrow-BHEC .arrow-left-BHEC::before {
+    left: -75px; 
+    transform: rotate(45deg); 
+}
+
+.fs-title-BHEC {
+    font-size: 8.75rem; 
+    left: 25%;
+    top: 40%;
+}
+
+.fs-subtitle-BHEC {
+    font-size: 17.5rem; 
+}
+
+@media (max-width: 768px) {
+    .fs-title-BHEC {
+        font-size: 6rem; 
+        left: 25%;
+        top: 40%;
+    }
+
+    .fs-subtitle-BHEC {
+        font-size: 12rem; 
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before, .arrow-BHEC .arrow-left-BHEC::before {
+        content: "";
+        position: absolute;
+        width: 60px; 
+        height: 3px; 
+        background-color: #fff;
+        top: -21.7px; 
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before {
+        right: -50px; 
+        transform: rotate(-45deg); 
+    }
+    
+    .arrow-BHEC .arrow-left-BHEC::before {
+        left: -50px; 
+        transform: rotate(45deg); 
+    }
+
+    .arrow-BHEC span {
+        display: inline-block;
+        width: 75px; 
+        height: 3px; 
+        background-color: #fff;
+        position: relative;
+    }
+}
+
+@media (max-width: 576px) {
+    .fs-title-BHEC {
+        font-size: 3.75rem; 
+        left: 25%;
+        top: 40%;
+    }
+
+    .fs-subtitle-BHEC {
+        font-size: 7.5rem; 
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before {
+        right: -50px; 
+        transform: rotate(-45deg); 
+    }
+    
+    .arrow-BHEC .arrow-left-BHEC::before {
+        left: -50px; 
+        transform: rotate(45deg); 
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before, .arrow-BHEC .arrow-left-BHEC::before {
+        content: "";
+        position: absolute;
+        width: 40px; 
+        height: 3px; 
+        background-color: #fff;
+        top: -14.1px; 
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before {
+        right: -33px; 
+        transform: rotate(-45deg); 
+    }
+    
+    .arrow-BHEC .arrow-left-BHEC::before {
+        left: -33px; 
+        transform: rotate(45deg); 
+    }
+
+    .arrow-BHEC span {
+        display: inline-block;
+        width: 60px; 
+        height: 3px; 
+        background-color: #fff;
+        position: relative;
+    }
+}
+
+header .svg-down {
+    bottom: -2.2%;
+    left: 50%;
+    z-index: 5;
+    margin-left: -96px;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+header .arrow-down, header .svg-down{
+    position: absolute;
+}
+
+
+
+ 
+

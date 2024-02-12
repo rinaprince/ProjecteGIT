@@ -37,7 +37,6 @@
           <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
           <!-- Content goes here -->
           <!-- You can add form elements, text, etc. -->
         </div>
@@ -56,36 +55,31 @@ defineProps({
   e: String
 });
 
+
 const employeeShowPath = (id) => `/employees/${id}/details`;
 const employeeEditPath = (id) => `/employees/${id}/edit`;
 const employeeNewPath = `/employees/new`;
 const employeeDeletePath = (id) => `/employees/${id}/delete`;
 
 
-// ... (resto del código)
-// Hacer la solicitud Axios aquí
+
 function showModal(id) {
-  axios.get('/employees/'+id+'/details')
+  axios.get('/employees/'+id+'')
       .then(response => {
-        // Actualizar el contenido del modal
+        // Actualitzar el contingut del modal
         const modalBody = document.querySelector('.modal-body');
         modalBody.innerHTML = response.data;
 
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
-
-        /**const confirmModal = document.querySelector('.modal-confirmation')
-
-
-         const deleteButton = document.getElementById('#deleteProvider')
-         deleteButton.addEventListener('click',confirmationModal(id))
-         */
       })
       .catch(error => {
         console.error('Error fetching modal content:', error);
       });
 }
+
+
 function hideModal(){
   const myModal = document.querySelector('.modal');
   myModal.style.display = 'none';
@@ -94,7 +88,7 @@ function hideModal(){
 function modalNewEmployee(){
   axios.get('/employees/new')
       .then(response => {
-        // Actualizar el contenido del modal
+        // Actualitzar el contingut del modal
         const modalBody = document.querySelector('.modal-body');
         modalBody.innerHTML = response.data;
 
@@ -134,7 +128,6 @@ function deleteEmployee(employee){
  function confirmationModal(id){
  axios.get('/providers/'+id)
  .then(response => {
- // Actualizar el contenido del modal
  const confirmModal = document.querySelector('.modal-confirmation')
  confirmModal.innerHTML = response.data;
 

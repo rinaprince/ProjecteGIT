@@ -1,3 +1,6 @@
-.theadInvoices{
-    background-color:var(--primary-color-BHEC);
+@import 'global.css';
+
+.theadInvoices tr{
+    background-color: var(--tertiary-color-BHEC) !important;
+
 }

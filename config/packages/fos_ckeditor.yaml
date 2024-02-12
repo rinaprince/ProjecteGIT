@@ -6,6 +6,7 @@ twig:
 
 # config/packages/fos_ckeditor.yaml
 fos_ck_editor:
+    autoload: true
     jquery: true
     configs:
         main_config:

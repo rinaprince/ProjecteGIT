@@ -32,9 +32,9 @@ class EmployeeController extends AbstractController
     {
             $q = $request->query->get('e','');
 
-
-            if (empty($q))
+            if (empty($q)) {
                 $employees = $employeeRepository->findAllQuery();
+            }
             else
                 $employees = $employeeRepository->findByTextQuery($q);
 
@@ -116,10 +116,16 @@ class EmployeeController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
     {
+        $employee->setDischarge(true);
+        $entityManager->persist($employee);
+        $entityManager->flush();
+
+        /**
         if ($this->isCsrfTokenValid('delete'.$employee->getId(), $request->request->get('_token'))) {
             $entityManager->remove($employee);
             $entityManager->flush();
         }
+         */
 
         return $this->redirectToRoute('app_employee_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -3,7 +3,6 @@
   <table class="table">
     <thead>
     <tr>
-      <th>ID</th>
       <th>Customer Name</th>
       <th>Vehicle Model</th>
       <th>Order State</th>
@@ -12,12 +11,11 @@
     </thead>
     <tbody>
     <tr v-for="order in orders">
-      <td data-title="id:">{{ order.id}}</td>
       <td data-title="Customer Name:">{{ order.customer.name }}</td>
       <td data-title="Model:">
-          <span v-for="vehicle in order.vehicles">
-            {{ vehicle.model.name }}
-          </span>
+        <span v-for="(vehicle, index) in order.vehicles" :key="index">
+          {{ vehicle.model.name }}
+        </span>
       </td>
       <td data-title="Estat:">{{ order.state }}</td>
       <td>
@@ -33,5 +31,4 @@
 const props = defineProps({
   orders: Array
 });
-console.log(props.orders);
 </script>

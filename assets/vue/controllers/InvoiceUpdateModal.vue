@@ -1,0 +1,38 @@
+<script setup>
+
+</script>
+
+
+<template>
+  <div class="modal" style="display:none">
+    <div class="modal-content">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+  <style scoped>
+    .modal {
+      position: absolute;
+      top: 10%;
+      left: 40%;
+      width: 20%;
+      height: 70%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity:100%;
+      border-radius: 8px;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 8px;
+      opacity:100% ;
+    }
+  </style>
+
+
+<style scoped>
+
+</style>

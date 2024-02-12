@@ -1,42 +1,35 @@
 {% extends 'base_back_3.html.twig' %}
 
-{% block title %}Invoice detail{% endblock %}
+{% block title %}Detalles de factura{% endblock %}
+
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('equip3/css/Personal.css') }}">
+
 {% endblock %}
 
 {% block body %}
 
-    <section class="col-10 contingut">
-        <h1>Invoice Detail</h1>
-        <div id="invoice-table">
-            <table id="invoice-details">
-                <tbody>
-                <tr>
-                    <th>ID:</th>
-                    <td data-title="Id:">{{ invoice.id }}</td>
+    <section class="contingut">
+        <h1>Detalles de factura
+        </h1>
+        <div id="invoice-table" class="d-sm-flex d-none">
+            <table class="border-0 table table-striped w-50 d-flex ">
+                <tbody class="w-100">
+                <tr class="d-flex">
+                    <th class="w-25">ID:</th>
+                    <td class="w-75" data-title="Id:">{{ invoice.id }}</td>
                 </tr>
-                <tr>
-                    <th>Invoice number</th>
-                    <td data-title="Numero:">{{ invoice.number }}</td>
+                <tr class="d-flex">
+                    <th class="w-25">Número</th>
+                    <td class="w-75" data-title="Numero:">{{ invoice.number }}</td>
                 </tr>
-                <tr>
-                    <th>Order number</th>
-                    <td data-title="Numero de pedido:">
-                        <a href="{{ path('app_order_show', {'id': invoice.customerOrder.id}) }}">
-                            {{ invoice.customerOrder.id }}
-                        </a>
-                    </td>
+                <tr class="d-flex">
+                    <th class="w-25">Precio:</th>
+                    <td class="w-75" data-title="Precio:">{{ invoice.price }}</td>
                 </tr>
-                <tr>
-                    <th>Price</th>
-                    <td data-title="Precio:">{{ invoice.price }}</td>
-                </tr>
+                <tr class="d-flex">
+                    <th class="w-25">Fecha:</th>
+                    <td class="w-75" data-title="Fecha:">{{ invoice.date ? invoice.date|date('Y-m-d') : '' }}</td>
 
-                <tr>
-                    <th>Date</th>
-                    <td data-title="Fecha:">{{ invoice.date ? invoice.date|date('d-m-Y') : '' }}</td>
                 </tr>
                 {% if invoice.customerOrder.vehicles is not empty %}
                     <tr>
@@ -54,16 +47,19 @@
             </table>
         </div>
 
+
     </section>
-    <a href="{{ path('app_invoice_index') }}">
-        <button><i class="fas fa-arrow-left"></i> back to list</button>
-    </a>
+    <div class="d-flex flex-row justify-content-center align-items-center gap-2 ">
+        <a href="{{ path('app_invoice_index') }}">
+            <button class="btn btn-secondary" ><i class="fas fa-arrow-left"></i> Back to list</button>
+        </a>
 
-    <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">
-        <button class="edit-button">Edit <i class="fas fa-pencil-alt"></i></button>
-    </a>
+        <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">
+            <button class="btn btn-info text-white">Edit <i class="fas fa-pencil-alt"></i></button>
+        </a>
 
-    {{ include('invoice/_delete_form.html.twig') }}
+        {{ include('invoice/_delete_form.html.twig') }}
+    </div>
     </main>
 
 

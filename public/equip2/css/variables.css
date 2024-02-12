@@ -68,8 +68,12 @@
     background-repeat: no-repeat;
 }
 
+.bg-Aside-BHEC{
+    background-color: var(--tertiary-BHEC) !important;
+}
+
 .bg-aside-BHEC:hover{
-    background-color: var(--hover-aside-BHEC);
+    background-color: var(--hover-aside-BHEC) !important;
 }
 
 /*----- TEXTO -----*/

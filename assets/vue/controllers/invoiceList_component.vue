@@ -43,49 +43,93 @@ const filteredInvoices = computed(() => {
 //Modal editar factures
 const selectedInvoice = ref(null); // La factura seleccionada para editar
 
-const openEditModal = (invoice) => {
+const openEditModal = (id) => {
+  const invoice = invoices.find(inv => inv.id === id);
   selectedInvoice.value = invoice; // Guardar la factura seleccionada
-  showModal();
+  showEditModal(id); // Pasar el ID de la factura seleccionada a showModal
 };
+
+const openShowModal = (id) => {
+  const invoice = invoices.find(inv => inv.id === id);
+  selectedInvoice.value = invoice;
+  showDetailsModal(id);
+}
 
 //Funció per tancar el modal
 const closeModal = () => {
-  selectedInvoice.value = null; // Limpiar la factura seleccionada
+  selectedInvoice.value = null;
+  let modal = document.querySelector('.modal');
+  modal.style.display='none';
+  window.location.reload();
 };
-// Función para mostrar el modal de edición
-const showModal = () => {
-  if (selectedInvoice.value !== null) {
-    axios.get(`/invoices/${selectedInvoice.value.id}/edit`)
-        .then(response => {
-          //Filtrem per a que sols ens mostre el formulari
-          const html = response.data;
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const form = doc.querySelector('form');
-          const modalContent = document.querySelector('.modal-content');
-          modalContent.innerHTML = form.outerHTML;
-          form.action = '/invoices/${selectedInvoice.value.id}/edit'
-          // Mostrar el modal
-          const modal = document.querySelector('.modal');
-          modal.style.display = 'block';
-        })
-        .catch(error => {
-          console.error('Error fetching modal content:', error);
+
+function showDetailsModal(id) {
+  axios.get(`/invoices/${id}`)
+      .then(response => {
+        const modalBody = document.querySelector('.modal-content');
+        modalBody.innerHTML = response.data;
+
+        // Elimina el formulario y sus escuchadores de eventos
+        const form = modalBody.querySelector('form');
+        if (form) {
+          form.remove();
+        }
+
+        // Mostrar el modal
+        const modal = document.querySelector('.modal');
+        modal.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Error al obtener los detalles de la factura:', error);
+      });
+}
+
+
+
+function showEditModal(id) {
+  axios.get(`/invoices/${id}/edit`)
+      .then(response => {
+        const modalBody = document.querySelector('.modal-content');
+        modalBody.innerHTML = response.data;
+
+        const form = modalBody.querySelector('form');
+        form.action = `/invoices/${id}/edit`; // Ajusta la acción del formulario según tu ruta de edición
+        form.addEventListener('submit', function(event) {
+          event.preventDefault(); // Evitar el envío del formulario por defecto
+          axios.post(form.action, new FormData(form))
+              .then(response => {
+                closeModal();
+              })
+              .catch(error => {
+                console.error('Error al enviar el formulario de edición:', error);
+              });
         });
-  }
-};
+
+        // Mostrar el modal
+        const modal = document.querySelector('.modal');
+        modal.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Error al obtindre el contingut del modal:', error);
+      });
+}
+
+
+
+
+
+
+
 </script>
 
 <template>
-  <div>
+  <div class="d-flex justify-content-center">
     <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador "/>
-    <input type="text" id="number-filter" v-model="filters.number.value" @input="applyFilters" placeholder="Buscar por Numero"/>
-    <input type="text" id="customer-filter" v-model="filters.customer.value" @input="applyFilters" placeholder="Buscar por Usuario"/>
-    <a :href="invoiceCreatePath"><button class="btn"><i class="bi bi-plus-square"></i> Create new</button></a>
+    <a :href="invoiceCreatePath"><button class="btn p-1"><i class="bi bi-plus-square"></i> Create new</button></a>
   </div>
 
-  <table id="table" class="w-100 d-sm-flex d-none">
-    <thead>
+  <table id="table" class="d-sm-block d-none" >
+    <thead class="theadInvoices">
     <tr>
       <th>Numero</th>
       <!---<th>Usuario</th>-->      
@@ -101,12 +145,12 @@ const showModal = () => {
       <td data-title="Precio:">{{invoice.price}}</td>
       <td data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</td>
       <td>
-        <a :href="invoiceShowPath(invoice.id)">
-          <button class="btn btn-success"><i class="fas fa-eye"></i></button>
-        </a>
+
+        <button class="btn btn-success" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
+
        <!-- <a :href="invoiceEditPath(invoice.id)">-->
-          <button class="btn btn-info" @click="openEditModal(invoice)"><i class="fas fa-pencil-alt"></i></button>
-       <!-- </a>-->
+        <button class="btn btn-info" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
+        <!-- </a>-->
         <a :href="invoiceDeletePath(invoice.id)">
           <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
         </a>
@@ -115,7 +159,7 @@ const showModal = () => {
     </tbody>
   </table>
 
-  <div class="accordion accordion-flush d-flex justify-content-center">
+  <div class="accordion accordion-flush d-flex justify-content-center d-sm-none d-block">
     <div v-for="invoice in filteredInvoices" :key="invoice.id">
       <p data-title="Numero:">{{invoice.number}}</p>
       <!-- <p data-title="Usuario:">{{invoice.customer.name}}</p>-->

@@ -40,9 +40,10 @@ class InvoiceController extends AbstractController
         ];
     
         return $this->render('invoice/index.html.twig', [
-            'pagination' => $pagination,
-            'data' => $pagination->getItems(),
-            'config' => $config,
+            'invoices' => $paginator->getItems(),
+            'pagination' => $paginator,
+            'data' => $arrayInvoices,
+            'config' => $config
         ]);
     }
        

@@ -20,23 +20,29 @@ class ProviderController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMINISTRATIVE',
             null, 'Accés restringit, soles administratius');
-        $q = $request->query->get('q','');
 
-        if (empty($q))
-            $query = $providerRepository->findAllQuery();
-        else
-            $query = $providerRepository->findByTextQuery($q);
+        //$arrayProvider = $providerRepository->findBy([], ['businessName'=>'DESC']);
+
+        $query = $providerRepository->findAllQuery();
 
         $pagination = $paginator->paginate(
-            $query, /* query NOT result */
+            $query,
+            //    $arrayProvider, /* query NOT result */
             $request->query->getInt('page', 1), /* page number */
             10
         );
 
+        $config = [
+            "email" => "Email",
+            "phone" => "Telefon",
+            "businessName" => "Nom de l'empresa",
+        ];
+
         return $this->render('provider/index.html.twig', [
             'pagination' => $pagination,
-            'q' => $q,
-            'providers' => $pagination->getItems()
+            'providers' => $pagination->getItems(),
+            //'data' => $pagination->getItems(),
+            'config' => $config
         ]);
     }
 

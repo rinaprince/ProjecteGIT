@@ -8,12 +8,12 @@
   </div>
   <table class="table">
     <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Cognom</th>
-        <th>Tipus</th>
-        <th>Accions</th>
-      </tr>
+    <tr>
+      <th>Nom</th>
+      <th>Cognom</th>
+      <th>Tipus</th>
+      <th>Accions</th>
+    </tr>
     </thead>
     <tbody>
     <tr v-for="employee in employees">
@@ -37,9 +37,11 @@
           <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <!-- Content goes here -->
+          <!-- You can add form elements, text, etc. -->
+        </div>
       </div>
     </div>
-  </div>
   </div>
 
 </template>

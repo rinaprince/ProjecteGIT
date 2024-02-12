@@ -20,13 +20,37 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class GarageController extends AbstractController
 {
     #[Route('', name: 'app_garage_index')]
-    public function index(VehicleRepository $vehicleRepository, ModelRepository $modelRepository, BrandRepository $brandRepository, OrderRepository $orderRepository): Response {
-        $vehicles = $vehicleRepository->findAll();
+    public function index(InvoiceRepository $invoiceRepository, OrderRepository $orderRepository): Response {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash(
+                'warning',
+                "Sols els clients poden realitzar compres"
+            );
+            return $this->redirectToRoute('templates');
+        }
+
+        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
+            null, 'Accés restringit');
+
+        $login = $this->getUser();
+        $customer = $login->getCustomer();
+
+        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
+
+        if (!$pendingOrder) {
+            $vehicles = [];
+        } else {
+            $vehicles = $pendingOrder->getVehicles()->toArray();
+        }
+
+        $userInvoices = $invoiceRepository->findBy(['customer' => $customer]);
 
         return $this->render('garage/index.html.twig', [
-            'vehicles' => $vehicles
+            'vehicles' => $vehicles,
+            'invoices' => $userInvoices
         ]);
     }
+
 
     #[Route('/delete/{id}', name: 'app_garage_delete_vehicle')]
     public function remove($id, VehicleRepository $vehicleRepository, EntityManagerInterface $entityManager): Response {
@@ -42,7 +66,8 @@ class GarageController extends AbstractController
 
     #[Route('/close', name: 'app_garage_close_order')]
     public function close(OrderRepository $orderRepository, EntityManagerInterface $entityManager, InvoiceRepository $invoiceRepository): Response {
-        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent']);
+        $userId = $this->getUser();
+        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
 
         if ($pendingOrder) {
             $customer = $pendingOrder->getCustomer();
@@ -72,8 +97,9 @@ class GarageController extends AbstractController
     }
 
     #[Route('/cancel', name: 'app_garage_cancel_order')]
-    public function cancel(CustomerRepository $customerRepository, VehicleRepository $vehicleRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response {
-        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent']);
+    public function cancel(VehicleRepository $vehicleRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response {
+        $userId = $this->getUser();
+        $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
 
         if ($pendingOrder) {
             $vehicles = $vehicleRepository->findBy(['vehicleOrder' => $pendingOrder]);

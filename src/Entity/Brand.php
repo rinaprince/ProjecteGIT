@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\BrandRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
-class Brand
+class Brand implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,5 +32,12 @@ class Brand
         $this->name = $name;
 
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'name' => $this->getName()
+        ];
     }
 }

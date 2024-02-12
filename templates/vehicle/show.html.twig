@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <th>ObservedDamages</th>
-            <td>{{ vehicle.observedDamages }}</td>
+            <td>{{ vehicle.observedDamages | raw }}</td>
         </tr>
         <tr>
             <th>Kilometers</th>
@@ -41,7 +41,7 @@
         </tr>
         <tr>
             <th>Description</th>
-            <td>{{ vehicle.description }}</td>
+            <td>{{ vehicle.description | raw }}</td>
         </tr>
         <tr>
             <th>ChassisNumber</th>
@@ -75,5 +75,5 @@
         <a href="{{ path('app_vehicle_edit', {'id': vehicle.id}) }}" class="link-underline link-underline-opacity-0 btn btn-primary text-light">edit</a>
     </div>
 
-    {{ include('vehicle/_delete_form.html.twig') }}
+{{ include('vehicle/_delete_form.html.twig') }}
 {% endblock %}

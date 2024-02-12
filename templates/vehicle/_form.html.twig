@@ -1,60 +1,64 @@
 {{ form_start(form) }}
-    <div class="row">
-        <div class="col-2">
-            {{ form_row(form.plate) }}
-        </div>
-
-        <div class="col-5">
-            {{ form_row(form.model) }}
-        </div>
-        <div class="col-5">
-            {{ form_row(form.gearShit) }}
-        </div>
-
-        <div class="col-4">
-            {{ form_row(form.chassisNumber) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.buyPrice) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.sellPrice) }}
-        </div>
-
-        <div class="col-4">
-            {{ form_row(form.kilometers) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.fuel) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.iva) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.isNew) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.transportIncluded) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.color) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.registrationDate) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.provider) }}
-        </div>
-        <div class="col-4">
-            {{ form_row(form.vehicleOrder) }}
-        </div>
-        <div class="col-12">
-            {{ form_row(form.description) }}
-        </div>
-        <div class="col-12">
-            {{ form_row(form.observedDamages) }}
-        </div>
+<div class="row" {{ stimulus_controller('quill') }}>
+    <div class="col-2">
+        {{ form_row(form.plate) }}
     </div>
-    {{ form_widget(form) }}
-    <button class="btn btn-warning">{{ button_label|default('Save') }}</button>
+
+    <div class="col-5">
+        {{ form_row(form.model) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(form.gearShit) }}
+    </div>
+
+    <div class="col-4">
+        {{ form_row(form.chassisNumber) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.buyPrice) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.sellPrice) }}
+    </div>
+
+    <div class="col-4">
+        {{ form_row(form.kilometers) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.fuel) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.iva) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.isNew) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.transportIncluded) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.color) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.registrationDate) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.provider) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.vehicleOrder) }}
+    </div>
+    <div class="col-6">
+        {{ form_label(form.description) }}
+        <div {{ stimulus_target('quill', 'editor') }}> {{  form.description.vars.value | raw}}</div>
+        {{ form_row(form.description) }}
+    </div>
+    <div class="col-6" >
+        {{ form_label(form.observedDamages) }}
+        <div {{ stimulus_target('quill', 'editor') }}> {{  form.observedDamages.vars.value | raw }}</div>
+        {{ form_row(form.observedDamages) }}
+    </div>
+</div>
+
+<button class="btn btn-warning">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Professional;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,10 +22,11 @@ class ProfessionalType extends AbstractType
             ->add('email')
             ->add('cif')
             ->add('managerNif')
-            ->add('LOPDdoc')
+            ->add('LOPDdoc', FileType::class)
             ->add('bussinessName')
-            ->add('constitutionWriting')
-            ->add('subscription')
+            ->add('constitutionWriting',FileType::class)
+            ->add('login', LoginType::class)
+            ->add('subscription',CheckboxType::class,array('required'=> false))
         ;
     }
 

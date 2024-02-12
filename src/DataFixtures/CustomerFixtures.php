@@ -115,7 +115,24 @@ class CustomerFixtures extends Fixture
         $manager->persist($customer);
 
 
+        $customer2 = new PrivateCustomer();
 
+        $customer2->setName("Client");
+        $customer2->setLastname("Private");
+        $customer2->setAddress($this->faker->address());
+        $customer2->setDni($this->faker->dni());
+        $customer2->setPhone($this->faker->phoneNumber());
+        $customer2->setEmail($this->faker->email());
+
+        $login2 = new Login();
+        $login2->setUsername("pepeprivate");
+        $login2->setPassword($this->hasher->hashPassword($login, "pepeprivate"));
+        $login2->setRole("ROLE_PRIVATE");
+
+        $customer2->setLogin($login2);
+
+        $manager->persist($login2);
+        $manager->persist($customer2);
 
         $manager->flush();
     }

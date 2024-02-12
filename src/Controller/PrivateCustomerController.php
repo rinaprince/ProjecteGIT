@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/private/customers')]
 class PrivateCustomerController extends AbstractController
@@ -52,6 +53,7 @@ class PrivateCustomerController extends AbstractController
 
 
     #[Route('/new', name: 'app_private_customer_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $privateCustomer = new PrivateCustomer();
@@ -61,7 +63,6 @@ class PrivateCustomerController extends AbstractController
             $data = $request->toArray();
 
             $form->submit($data);
-            dump($data);
         }
 
         $form->handleRequest($request);
@@ -88,6 +89,7 @@ class PrivateCustomerController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_private_customer_show', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function show(PrivateCustomer $privateCustomer): Response
     {
         return $this->render('private_customer/show.html.twig', [
@@ -96,6 +98,8 @@ class PrivateCustomerController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_private_customer_edit', methods: ['GET', 'POST'])]
+
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function edit(Request $request, PrivateCustomer $privateCustomer, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PrivateCustomerType::class, $privateCustomer);
@@ -114,6 +118,7 @@ class PrivateCustomerController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_private_customer_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function delete(Request $request, PrivateCustomer $privateCustomer, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$privateCustomer->getId(), $request->request->get('_token'))) {

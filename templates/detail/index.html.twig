@@ -2,7 +2,6 @@
 {% block title %} Especificacions {% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('equip3/css/global.css') }}">
 
 {% endblock %}
 {% block body %}
@@ -11,16 +10,16 @@
             <div class="row">
                 <div class="col-12">
                     <div class="carName">
-                        <h1>{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</h1>
+                        <h1 class="d-flex justify-content-center">{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</h1>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-8">
+                <div class="col-8 d-block d-sm-flex m-auto">
                     <div>
                     <div>
                         <div id="CarrouselDetails{{ vehicle.model.brand.name }}" class="carousel slide">
-                            <div class="carousel-inner">
+                            <div class="carousel-inner mh-100">
                                 {% for key, image in vehicle.images %}
                                     <div class="carousel-item {% if loop.first %}active{% endif %}">
                                         <img src="{{ asset("/equip3/img/vehicles/" ~ image.filename) }}"
@@ -43,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div id="payment">
+                    <div id="payment bg-sm-secondary">
                         <div class="prices">
                             <p id="totalCost" class="fs-1 text-center">{{ vehicle.sellPrice }}€</p>
                             <div id="separatorPayment-div">
@@ -54,7 +53,7 @@
                                 <p id="pricePerMonth" class="fs-3">8.333,33€ / Mes</p>
                             </div>
                         </div>
-                        <div class="actions d-flex flex-column">
+                        <div class="actions d-flex flex-sm-row">
                             <a id="addGarage" class="btn bg-secondary-BHEC m-2 p-3" href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id })}}">Afegir al
                                 Garatge
                             </a>
@@ -67,8 +66,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-2"></div>
                 <div class="col-8">
-                    <div class="carCaracteristics d-flex justify-content-between text-center">
+                    <div class="carCaracteristics d-flex justify-content-between text-center m-auto">
                         <div class="caracteristic m-2 text-center">
                             <img src="{{ asset("/equip3/img/icones/canvi-GrocOscur.png") }}" alt="gearShift"
                                  class="caracteristicImg">
@@ -95,7 +95,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-2"></div>
+                <div class="col-12">
                 </div>
             </div>
                     <div class="accordion accordion-flush d-flex justify-content-center" id="accordionFlushExample">

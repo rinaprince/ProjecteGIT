@@ -1,3 +1,7 @@
+<script setup>
+
+</script>
+
 <template>
     <div class="row">
       <div class="col-12 d-flex justify-content-center align-items-center pt-3">
@@ -9,7 +13,7 @@
       <div class="col-12">
         <hr class="border-secundary-BHEC border-2 opacity-100 m-0">
         <ul
-            class="text-secondary-BHEC d-flex text-center justify-content-center flex-column flex-sm-row pt-3 list-unstyled">
+            class="text-secondary-BHEC d-flex text-center justify-content-center flex-column flex-sm-row   pt-3 list-unstyled">
           <li class="px-2 py-1">FAQ</li>
           <li class="px-2 py-1">Terminis i Condicions</li>
           <li class="px-2 py-1">Política de Privacitat</li>

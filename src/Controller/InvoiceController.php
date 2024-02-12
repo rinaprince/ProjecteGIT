@@ -46,7 +46,7 @@ class InvoiceController extends AbstractController
         ]);
     }
        
-
+    #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -75,6 +75,7 @@ class InvoiceController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
     #[Route('/{id}/edit', name: 'app_invoice_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
@@ -93,6 +94,7 @@ class InvoiceController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
     #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST'])]
     public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {

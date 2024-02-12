@@ -40,10 +40,10 @@ import axios from "axios";
 function sweetAlertDelete(id) {
   Swal.fire({
     title: 'Estàs segur?',
-    text: "No prodras desfer la teua decissió!",
+    text: "No podras desfer la teua decissió!",
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
+    confirmButtonColor: '#aa8e31ff',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {

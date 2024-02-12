@@ -6,7 +6,7 @@
     --secundary-color :#e7d381ff;
     --tertiary-color :#aa8e31ff;
     --quaternary-color :#e7e7e9;
-    
+
     --primary-fontFamily :'DM Sans';
 
     /** Hover aside color */
@@ -14,7 +14,7 @@
 
     /*Table*/
     --table-color:#d9d9da;
-    
+
     /* Botons de taules backoffice*/
     --button-delete : #f44336;
     --button-edit : #008CBA;
@@ -24,11 +24,52 @@
     --button-delete-hover : #8a1c24;
     --button-edit-hover : #004080;
     --button-details-hover : #388E3C;
-	
-	/* Botons generals */
+
+    /* Botons generals */
     --button-normal: var(--secundary-color);
     --button-text: white;
 
     /* Botons generals hovers */
     --button-normal-hover: var(--tertiary-color);
+}
+
+.bg-primary-BHEC{
+    background-color: var(--primary-color) !important;
+}
+.bg-secondary-BHEC{
+    background-color: var(--secundary-color) !important;
+}
+.bg-tertiary-BHEC{
+    background-color: var(--tertiary-color) !important;
+}
+.bg-quaternary-BHEC{
+    background-color: var(--quaternary-color) !important;
+}
+
+.bg-fade-secondary-tertiary{
+    background: rgb(131,58,180) !important;
+    background: -moz-linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(231,211,129,1) 0%, rgba(170,142,49,1) 100%) !important;
+    background: -webkit-linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(231,211,129,1) 0%, rgba(170,142,49,1) 100%) !important;
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(231,211,129,1) 0%, rgba(170,142,49,1) 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endColorstr="#aa8e31",GradientType=1) !important;
+}
+
+.text-primary-BHEC{
+    color:var(--primary-color);
+}
+
+.text-secondary-BHEC{
+    color:var(--secundary-color);
+}
+
+.text-tertiary-BHEC{
+    color:var(--tertiary-color);
+}
+
+.text-quaternary-BHEC{
+    color:var(--quaternary-color);
+}
+
+.hover-tertiary:hover{
+    color:var(--hover-aside-color);
 }

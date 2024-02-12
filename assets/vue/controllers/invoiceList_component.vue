@@ -90,11 +90,7 @@ function showEditModal(id) {
   axios.get(`/invoices/${id}/edit`)
       .then(response => {
         const modalBody = document.querySelector('.modal-content');
-        const tempElement = document.createElement('div'); // Crear un elemento HTML temporal
-        tempElement.innerHTML = response.data; // Establecer el contenido HTML de la respuesta
-        const tableContent = tempElement.querySelector('#table').innerHTML; // Buscar la tabla dentro del elemento HTML temporal
-
-        modalBody.innerHTML = tableContent; // Establecer el contenido de la tabla en el modalBody
+        modalBody.innerHTML = response.data;
 
         const form = modalBody.querySelector('form');
         form.action = `/invoices/${id}/edit`; // Ajusta la acción del formulario según tu ruta de edición
@@ -117,6 +113,11 @@ function showEditModal(id) {
         console.error('Error al obtindre el contingut del modal:', error);
       });
 }
+
+
+
+
+
 
 
 </script>

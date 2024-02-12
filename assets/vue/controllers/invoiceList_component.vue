@@ -52,25 +52,23 @@ const openEditModal = (id) => {
 
 //Funció per tancar el modal
 const closeModal = () => {
-  selectedInvoice.value = null; // Limpiar la factura seleccionada
+  selectedInvoice.value = null;
+  let modal = document.querySelector('.modal');
+  modal.style.display='none';
+  window.location.reload();
 };
-// Función para mostrar el modal de edición
 function showModal(id) {
   axios.get(`/invoices/${id}/edit`)
       .then(response => {
-        // Actualizar el contenido del modal con el formulario de edición
         const modalBody = document.querySelector('.modal-content');
         modalBody.innerHTML = response.data;
 
-        // Modificar la acción del formulario para que envíe los datos actualizados a través de AJAX
         const form = modalBody.querySelector('form');
         form.action = `/invoices/${id}/edit`; // Ajusta la acción del formulario según tu ruta de edición
         form.addEventListener('submit', function(event) {
           event.preventDefault(); // Evitar el envío del formulario por defecto
-          // Enviar los datos del formulario a través de AJAX
           axios.post(form.action, new FormData(form))
               .then(response => {
-                // Manejar la respuesta según sea necesario (por ejemplo, cerrar el modal)
                 closeModal();
               })
               .catch(error => {
@@ -83,7 +81,7 @@ function showModal(id) {
         modal.style.display = 'block';
       })
       .catch(error => {
-        console.error('Error al obtener el contenido del modal:', error);
+        console.error('Error al obtindre el contingut del modal:', error);
       });
 }
 

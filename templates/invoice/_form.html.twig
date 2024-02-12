@@ -12,9 +12,6 @@
     {{ form_widget(form) }}
 <div id="divBotons" class="d-flex justify-content-center gap-2">
     <button class="btn btn-success ">{{ button_label|default('Save') }} </button>
-    <button class="btn btn-secondary "><a class="text-decoration-none text-light" href="{{ path('app_invoice_edit',{id:"1"}) }}">Back to list</a></button>
-
-
     <button class="btn btn-secondary "><a class="text-decoration-none text-light" href="{{ path('app_invoice_index') }}">Back to list</a></button>
 </div>
 {{ form_end(form) }}

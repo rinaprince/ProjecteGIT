@@ -27,7 +27,7 @@
     {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
 </head>
 <body>
-{% include '_header_front_3.html.twig' %}
+{# {% include '_header_front_3.html.twig' %} #}
 {% for label, messages in app.flashes %}
     {% for message in messages %}
             <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">

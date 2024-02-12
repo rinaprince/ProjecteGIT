@@ -19,9 +19,9 @@ class CustomerController extends AbstractController
     {
         $q = $request->query->get('q', '');
 
-        if(empty($q))
+        if (empty($q))
             $customerQ = $customerRepository->findAllQuery();
-        else{
+        else {
             $customerQ = $customerRepository->findByText($q);
         }
 
@@ -34,6 +34,26 @@ class CustomerController extends AbstractController
         $arrayItem = $customerQ->getResult(AbstractQuery::HYDRATE_ARRAY);
 
         $config = [
+            'fields' => [
+                "name" => "Nom",
+                "lastname" => "Cognoms",
+                "address" => "Direcció",
+                "dni" => "DNI",
+                "phone" => "Telèfon",
+                "email" => "Correu Electrònic",
+                "customer_type" => "Tipus"
+            ],
+            'routes' => [
+                "private_show" => "Visualitzar",
+                "private_edit" => "Editar",
+                "private_delete" => "Eliminar",
+                "professional_show" => "Visualitzar",
+                "professional_edit" => "Editar",
+                "professional_delete" => "Cognoms",
+            ]
+        ];
+
+       /* $config = [
             "name" => "Nom",
             "lastname" => "Cognoms",
             "address" => "Direcció",
@@ -41,7 +61,8 @@ class CustomerController extends AbstractController
             "phone" => "Telèfon",
             "email" => "Correu Electrònic",
             "customer_type" => "Tipus"
-        ];
+        ]; */
+
 
         return $this->render('customer/index.html.twig', [
             'pagination' => $pagination,
@@ -55,7 +76,6 @@ class CustomerController extends AbstractController
 }
 
 /* 'customers' => $customerRepository->findBy([], ["name" => "DESC"], 1), */
-
 
 
 /*<?php

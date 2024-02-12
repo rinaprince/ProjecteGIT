@@ -17,7 +17,7 @@
       top: 10%;
       left: 40%;
       width: 20%;
-      height: 65%;
+      height: 70%;
       display: flex;
       justify-content: center;
       align-items: center;

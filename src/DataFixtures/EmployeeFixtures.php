@@ -30,7 +30,7 @@ class EmployeeFixtures extends Fixture
         $employee->setName("Administrador");
         $employee->setLastname("Administrador");
         $employee->setType("administrator");
-        $employee->setDischarge(true);
+        $employee->setDischarge(false);
 
         $login = new Login();
         $login->setUsername("admin");
@@ -65,8 +65,10 @@ class EmployeeFixtures extends Fixture
                 $employee->setName($this->faker->firstName);
                 $employee->setLastname($this->faker->lastName);
                 $employee->setType($type);
-                $employee->setDischarge(true);
-
+                if ($i%2 == 0)
+                    $employee->setDischarge(false);
+                else
+                    $employee->setDischarge(true);
 
 
                 $login = new Login();

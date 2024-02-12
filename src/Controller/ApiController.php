@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Repository\CustomerRepository;
+use App\Repository\LoginRepository;
 use App\Repository\OrderRepository;
 use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,6 +39,14 @@ class ApiController extends AbstractController
         $response = $this->json(['count_number' => $totalVehicles]);
 
         return $response;
+    }
+
+    #[Route('/username_validation', name: 'app_api_username_validation')]
+    public function usernameValidation(LoginRepository $loginRepository): Response
+    {
+        $query = $loginRepository->findAll();
+
+        return "hola";
     }
 
 

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('equip3/css/modal.css') }}">
     <link rel="stylesheet" href="{{ asset('equip3/css/backend-skeleton.css') }}">
     <link rel="stylesheet" href="{{ asset('equip3/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('equip3/css/custom-styles.css') }}">
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"/>
 
     {# <--- Scripts ---> #}
@@ -23,6 +24,7 @@
     <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer></script>
     <script src="{{ asset('equip3/js/menu_aside.js') }}" defer></script>
     <script src="{{ asset('equip3/js/modal.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }} {# Carga todos los componentes de VUE #}
@@ -49,7 +51,7 @@
     <div class="container-fluid">
         <div class="row">
             {% include '_aside_back_3.html.twig' %} {# Aside de Back #}
-            <article class="col-10">
+            <article class="col-10 mx-auto">
                 {% block body %}
                 {% endblock %}
             </article>

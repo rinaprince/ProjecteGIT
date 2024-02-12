@@ -1,0 +1,81 @@
+{% extends 'base_3.html.twig' %}
+{% block title %} Preguntas Frecuentes {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('equip3/css/cataleg.css') }}">
+{% endblock %}
+{% block body %}
+    <section class="bg-light py-3 py-md-5">
+        <div class="container">
+            <div class="row gy-5 gy-lg-0 align-items-lg-center">
+                <div class="col-12 col-lg-6">
+                    <img class="img-fluid rounded" loading="lazy" src="{{ asset("equip3/img/logos/persona-confundida.png") }}" alt="¿Cómo podemos ayudarte?">
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="row justify-content-xl-end">
+                        <div class="col-12 col-xl-11">
+                            <h2 class="h1 mb-3">¿Cómo podemos mejorar tu experiencia con nuestros vehículos de lujo?</h2>
+                            <p class="lead fs-4 text-secondary mb-5">Esperamos que hayas encontrado respuesta a tus preguntas sobre nuestros exclusivos vehículos de lujo. Si necesitas ayuda adicional, por favor busca más información en nuestro Centro de Soporte o contáctanos por correo electrónico.</p>
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            ¿Cómo puedo actualizar la información de facturación de mi vehículo de lujo?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>Para actualizar la información de facturación de tu vehículo de lujo, sigue estos pasos:</p>
+                                            <ul>
+                                                <li>Ingresa a nuestro portal en línea y accede a tu cuenta de propietario.</li>
+                                                <li>Haz clic en tu perfil y selecciona "Configuración de facturación del vehículo".</li>
+                                                <li>En la sección "Detalles de facturación", haz clic en "Editar".</li>
+                                                <li>Realiza los cambios necesarios y guarda la información actualizada.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            ¿Cómo opera nuestro exclusivo sistema de pago para adquirir tu vehículo de lujo?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Nuestro sistema de pago exclusivo facilita la adquisición de tu vehículo de lujo, involucrando una experiencia sin complicaciones que incluye diferentes etapas con bancos de prestigio, opciones de financiamiento exclusivas y una interacción transparente con nuestro concesionario.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            ¿Cómo puedo cancelar mi membresía de propietario de vehículo de lujo?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>Si decides cancelar tu membresía de propietario de vehículo de lujo, sigue estos pasos:</p>
+                                            <ul>
+                                                <li>Inicia sesión en nuestro portal en línea.</li>
+                                                <li>Dirígete a tu perfil y selecciona "Configuración de la cuenta de propietario".</li>
+                                                <li>Desplázate hacia abajo y haz clic en "Cancelar membresía".</li>
+                                                <li>Ingresa tu contraseña y confirma la cancelación.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
+

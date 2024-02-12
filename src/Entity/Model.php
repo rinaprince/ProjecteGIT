@@ -6,9 +6,10 @@ use App\Repository\ModelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: ModelRepository::class)]
-class Model
+class Model implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,6 +35,8 @@ class Model
     #[ORM\JoinColumn(nullable: false)]
     private ?Brand $brand = null;
 
+
+    private string $fullname = '';
 
     public function __construct()
     {
@@ -150,5 +153,18 @@ class Model
         }
 
         return $this;
+    }
+
+    public function getFullname(): string
+    {
+        return $this->getBrand()->getName() . " " . $this->name;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'brand' => $this->getBrand(),
+            'name' => $this->getName()
+        ];
     }
 }

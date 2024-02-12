@@ -1,0 +1,114 @@
+<form action="{{ path('app_professional_new') }}" method="post">
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-sm-4 col-6">
+                <div class="m-2">
+                    <fieldset>
+                        <legend for="name" class="fs-5 p-0 m-0">Nom</legend>
+                        <input type="text" class="w-100 rounded-2 border border-black border-opacity-50" placeholder="Nom" name="name" id="name">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-sm-4 col-6">
+                <div class="m-2">
+                    <fieldset>
+                        <legend for="lastname" class="fs-5 p-0 m-0">Cognom</legend>
+                        <input type="text" placeholder="Cognom" class="w-100 rounded-2 border border-black border-opacity-50" name="lastName" id="lastname">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-sm-2 col-6">
+                <div class="m-2">
+                    <fieldset class="w-100">
+                        <legend for="dni" class="fs-5 p-0 m-0">DNI</legend>
+                        <input type="text" placeholder="Dni" name="dni" class="w-100 rounded-2 border border-black border-opacity-50" id="dni" max="9" min="9">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-sm-2 col-6">
+                <div class="m-2">
+                    <fieldset class="w-100">
+                        <legend for="subscription" class="fs-5 p-0 m-0">Subscripció</legend>
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                <label for="subscription">Sí</label>
+                                <input type="radio" name="subscription" id="subscription" value="yes">
+                            </div>
+                            <div>
+                                <label for="subscription">No</label>
+                                <input type="radio" name="subscription" id="subscription" value="no">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-sm-6 col-12">
+                <div class="m-2">
+                    <fieldset class="w-100">
+                        <legend for="address" class="fs-5 p-0 m-0">Adreça</legend>
+                        <input type="text" placeholder="Adreça" class="w-100 rounded-2 border border-black border-opacity-50" name="address" id="address">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-sm-2 col-6">
+                <div class="m-2">
+                    <fieldset class="w-100">
+                        <legend for="phone" class="fs-5 p-0 m-0">Telèfon</legend>
+                        <input type="text" placeholder="Telèfon" name="phone" id="phone" class="w-100 rounded-2 border border-black border-opacity-50" max="9" min="9">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-sm-2 col-6">
+                <div class="m-2">
+                    <fieldset class="w-100">
+                        <legend for="cif" class="fs-5 p-0 m-0">CIF</legend>
+                        <input type="text" placeholder="CIF" name="cif" id="cif" class="w-100 rounded-2 border border-black border-opacity-50" max="9" min="9">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-sm-2 col-6">
+                <div class="m-2">
+                    <fieldset class="w-100">
+                        <legend  for="managerNif" class="fs-5 p-0 m-0">NIF del jerent</legend>
+                        <input type="text" placeholder="Nif del jerent" name="managerNif" id="managerNif" class="w-100 rounded-2 border border-black border-opacity-50" max="9" min="9">
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-sm-6 col-12">
+                <div class="m-2">
+                    <fieldset class="w-100">
+                        <legend for="email" class="fs-5 p-0 m-0">Correu electrònic</legend>
+                        <input type="email" placeholder="exemple@gmail.com" name="email" class="w-100 rounded-2 border border-black border-opacity-50" id="email">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6">
+                <div class="m-2">
+                    <fieldset>
+                        <legend for="constitutionArticle" class="fs-5 p-0 m-0">Article de la constitució</legend>
+                        <input type="file" name="constitutionArticle" class="form-control" id="constitutionArticle" accept="application/pdf">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6">
+                <div class="m-2">
+                    <fieldset>
+                        <legend for="LOPDdocument" class="fs-5 p-0 m-0">Document LOPD</legend>
+                        <input type="file" name="LOPDdocument" class="form-control" id="LOPDdocument" accept="application/pdf">
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="m-2">
+                    <a href="{{ path('app_professional_index') }}"><button class="btn btn-success" type="submit">{{ button_label|default('Crea') }}</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

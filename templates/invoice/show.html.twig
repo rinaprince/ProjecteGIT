@@ -3,6 +3,7 @@
 {% block title %}Detalles de factura{% endblock %}
 
 {% block stylesheets %}
+
 {% endblock %}
 
 {% block body %}
@@ -28,7 +29,20 @@
                 <tr class="d-flex">
                     <th class="w-25">Fecha:</th>
                     <td class="w-75" data-title="Fecha:">{{ invoice.date ? invoice.date|date('Y-m-d') : '' }}</td>
+
                 </tr>
+                {% if invoice.customerOrder.vehicles is not empty %}
+                    <tr>
+                        <th>Vehicles</th>
+                        {% for vehicle in invoice.customerOrder.vehicles %}
+                        <td>
+                            {{ vehicle.model.brand.name }} {{ vehicle.model.name }}<br>
+                            <strong>Plate:</strong> {{ vehicle.plate }}<br>
+                            <strong>Buy Price:</strong> {{ vehicle.buyPrice }} €<br>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                {% endif %}
                 </tbody>
             </table>
         </div>

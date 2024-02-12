@@ -29,8 +29,6 @@ class CatalegController extends AbstractController
         else
             $query = $vehicleRepository->findByTextQuery($q);
 
-        //$vehiclesQuery = $vehicleRepository->findAllQuery();
-
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
@@ -46,9 +44,20 @@ class CatalegController extends AbstractController
 
     #[IsGranted("ROLE_ADMIN")]
     #[Route('/add/{id}', name: 'app_catalogue_add_vehicle', methods: ['GET', 'POST'])]
-    public function new($id, Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): Response {
-        $customers = $customerRepository->findAll();
-        $customer = $customers[0];
+    public function new($id, Request $request, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): Response {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash(
+                'warning',
+                "Sols els clients poden realitzar compres"
+            );
+            return $this->redirectToRoute('templates');
+        }
+
+        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
+            null, 'Accés restringit');
+
+        $login = $this->getUser();
+        $customer = $login->getCustomer();
 
         $existingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
 
@@ -72,20 +81,35 @@ class CatalegController extends AbstractController
 
             $entityManager->persist($vehicle);
             $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                "S'ha creat una nova ordre amb el vehicle."
+            );
         } else {
             $order = $existingOrder;
 
             $vehicleId = $id;
             $vehicle = $vehicleRepository->find($vehicleId);
-            $vehicle->setVehicleOrder($order);
 
-            $entityManager->persist($vehicle);
-            $entityManager->flush();
+            if ($vehicle->getVehicleOrder() !== null) {
+                $this->addFlash(
+                    'danger',
+                    'El vehicle no esta disponible.'
+                );
+            } else {
+                $vehicle->setVehicleOrder($order);
+
+                $entityManager->persist($vehicle);
+                $entityManager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Vehicle afegit correctament!'
+                );
+            }
         }
 
         return $this->redirectToRoute('app_catalogue_index', [], Response::HTTP_SEE_OTHER);
     }
 }
-
-//$customerId = 2;
-//$customer = $entityManager->getRepository(Customer::class)->find($customerId);

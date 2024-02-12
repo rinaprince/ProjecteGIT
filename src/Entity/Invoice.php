@@ -112,7 +112,7 @@ class Invoice implements JsonSerializable
             'id' => $this->id,
             'number' => $this->number,
             'price' => $this->price,
-            'date' => $this->date,
+            'date' => $this->date->format('d/m/y'),
             'customer' => $this->customer
         ];
     }

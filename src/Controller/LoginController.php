@@ -6,6 +6,8 @@ use App\Repository\CustomerRepository;
 use App\Repository\EmployeeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -40,5 +42,6 @@ class LoginController extends AbstractController
     {
         return $this->render('profile/profile.html.twig');
     }
+
 
 }

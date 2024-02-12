@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Image;
-use App\Entity\Order;
+use App\Entity\Vehicle;
 use App\Form\ImageType;
-use App\Form\OrderType;
+use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ImageController extends AbstractController
 {
-    #[Route('/image', name: 'app_image')]
+    #[Route('/images', name: 'app_image')]
     public function index(): Response
     {
         return $this->render('image/index.html.twig', [
@@ -23,9 +23,20 @@ class ImageController extends AbstractController
     }
 
     #[Route('/vehicles/{id}/images/add', name: 'app_image_new')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, VehicleRepository $vehicleRepository, $id): Response
     {
+
+        // Obtindre el vehicle utilitzant l'ID
+        $vehicle = $vehicleRepository->find($id);
+
+        // Comprovar si el vehicle existeix
+        if (!$vehicle) {
+            throw $this->createNotFoundException('El vehicle no existeix');
+        }
+
         $image = new Image();
+        $image->setVehicle($vehicle);
+
         $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 

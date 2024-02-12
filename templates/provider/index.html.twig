@@ -2,12 +2,22 @@
 
 {% block title %}Provider index{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('equip3/css/Personal.css') }}">
+{% endblock %}
+
 {% block body %}
-    <h1>Providers</h1>
-    <div {{ vue_component('ProvidersList_component', { 'providers': providers, 'q':q, 'token': csrf_token('_token')  }) }}></div>
-    <div class="navigation d-flex justify-content-center">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+    <section>
+        <div class="mt-5">
+            <h1>Providers</h1>
+        </div>
+        <div {{ vue_component('ProvidersList_component', { 'providers': providers, 'token': csrf_token('_token')  }) }}></div>
 
+        {#  <div {{ vue_component('Tables_component', { 'data': data, 'config': config  }) }}></div> #}
 
+        <div class="navigation d-flex justify-content-center mt-3">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </section>
 {% endblock %}

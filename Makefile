@@ -10,20 +10,23 @@ NPM_CMD = $(DOCKER_PREFIX) npm
 rebuild:
 	-$(COMPOSER_CMD) install
 
+
 	-$(NPM_CMD) install
 	-$(NPM_CMD) run dev
 
 	@ echo "Esborrant imatges..."
-	-rm -r public/equip3/img/vehicles/*.jpg
+	-$(DOCKER_PREFIX) rm -r public/equip3/img/vehicles/*.jpg
 
 	@ echo "Creant directori images"
 	-$(DOCKER_PREFIX) mkdir public/equip3/img/vehicles -p
-	-$(DOCKER_PREFIX) umask 0002 public/equip3
-	-$(DOCKER_PREFIX) chgrp www-data public/equip3
+	-$(DOCKER_PREFIX) chmod 775 public/equip3/img/vehicles
+	-umask 0002 public/equip3
+	-$(DOCKER_PREFIX) chgrp www-data -R public/equip3/*
 
 	@ echo "Creació del la carpeta mèdia amb els permisos corresponents"
 	-$(DOCKER_PREFIX) mkdir public/media -p
-	-$(DOCKER_PREFIX) umask 0002 public/media
+	-$(DOCKER_PREFIX) chmod 777 public/media
+	-umask 0002 public/media
 	-$(DOCKER_PREFIX) chgrp www-data public/media
 
 	@ echo "Esborrant la base de dades..."
@@ -38,6 +41,9 @@ rebuild:
 
 	@ echo "Carregant les dades..."
 	$(PHP_CMD) bin/console doctrine:fixtures:load -n
+
+	@ echo "Instal·lant assets FOSCKEditorBundle.."
+	$(PHP_CMD) bin/console assets:install
 
 rebuild-test:
 	-$(COMPOSER_CMD) install

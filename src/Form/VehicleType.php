@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,7 +26,7 @@ class VehicleType extends AbstractType
     {
         $builder
             ->add('plate')
-            ->add('observedDamages', CKEditorType::class)
+            ->add('observedDamages', HiddenType::class)
             ->add('kilometers')
             ->add('buyPrice')
             ->add('sellPrice')
@@ -38,7 +39,7 @@ class VehicleType extends AbstractType
                 ],
             ])
             ->add('iva')
-            ->add('description', CKEditorType::class)
+            ->add('description', HiddenType::class)
             ->add('chassisNumber')
             ->add('gearShit',ChoiceType::class, [
                 'choices'  => [

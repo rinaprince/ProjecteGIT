@@ -37,7 +37,6 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 
 //Axios
 import axios from "axios";
-
 function sweetAlertDelete(id) {
   Swal.fire({
     title: 'Estàs segur?',
@@ -160,8 +159,16 @@ function sweetAlertDelete(id) {
                   </button>
                 </a>
                 <a @click="sweetAlertDelete(vehicle.id)">
-                  <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
+<<<<<<< HEAD
+=======
+                  <button class="border-0 bg-transparent p-1">
                     <i class="bi bi-trash"></i>
+                  </button>
+                </a>
+                <a :href="vehiclesAddImagePath(vehicle.id)">
+>>>>>>> main
+                  <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
+                    <i class="bi bi-image"></i>
                   </button>
                 </a>
 
@@ -190,6 +197,4 @@ function sweetAlertDelete(id) {
       </div>
     </div>
   </div>
-
-
 </template>

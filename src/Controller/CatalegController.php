@@ -13,11 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 #[Route('/catalogue')]
 class CatalegController extends AbstractController
 {
-    #[Route('/', name: 'app_catalogue_index')]
+    #[IsGranted("PUBLIC_ACCESS")]
+    #[Route('', name: 'app_catalogue_index')]
     public function index(VehicleRepository $vehicleRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $q = $request->query->get('q', '');
@@ -39,8 +42,17 @@ class CatalegController extends AbstractController
         ]);
     }
 
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/add/{id}', name: 'app_catalogue_add_vehicle', methods: ['GET', 'POST'])]
-    public function new($id, Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): Response {
+    public function new($id, Request $request, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): Response {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash(
+                'warning',
+                "Sols els clients poden realitzar compres"
+            );
+            return $this->redirectToRoute('templates');
+        }
+
         $this->denyAccessUnlessGranted('ROLE_PRIVATE',
             null, 'Accés restringit');
 
@@ -69,15 +81,33 @@ class CatalegController extends AbstractController
 
             $entityManager->persist($vehicle);
             $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                "S'ha creat una nova ordre amb el vehicle."
+            );
         } else {
             $order = $existingOrder;
 
             $vehicleId = $id;
             $vehicle = $vehicleRepository->find($vehicleId);
-            $vehicle->setVehicleOrder($order);
 
-            $entityManager->persist($vehicle);
-            $entityManager->flush();
+            if ($vehicle->getVehicleOrder() !== null) {
+                $this->addFlash(
+                    'danger',
+                    'El vehicle no esta disponible.'
+                );
+            } else {
+                $vehicle->setVehicleOrder($order);
+
+                $entityManager->persist($vehicle);
+                $entityManager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Vehicle afegit correctament!'
+                );
+            }
         }
 
         return $this->redirectToRoute('app_catalogue_index', [], Response::HTTP_SEE_OTHER);

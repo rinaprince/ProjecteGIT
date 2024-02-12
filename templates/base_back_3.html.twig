@@ -10,29 +10,14 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="{{ asset('equip3/css/variables.css') }}">
-    <link rel="stylesheet" href="{{ asset('equip3/css/modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('equip3/css/backend-skeleton.css') }}">
-    <link rel="stylesheet" href="{{ asset('equip3/css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('equip3/css/custom-styles.css') }}">
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"/>
-
-    {# <--- Scripts ---> #}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer></script>
-    <script src="{{ asset('equip3/js/menu_aside.js') }}" defer></script>
-    <script src="{{ asset('equip3/js/modal.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }} {# Carga todos los componentes de VUE #}
-        <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js" defer></script>
     {% endblock %}
 </head>
 
 <body>
+{% include '_header_back_3.html.twig' %}
 {% for label, messages in app.flashes %}
     {% for message in messages %}
         <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
@@ -44,7 +29,6 @@
     {% endfor %}
 {% endfor %}
 {# Header #}
-{% include '_header_back_3.html.twig' %}
 
 {# Secció de contingut principal #}
 <main>
@@ -58,7 +42,6 @@
         </div>
     </div>
 </main>
-
 
 {# Footer #}
 {% include '_footer_back_3.html.twig' %}

@@ -8,15 +8,16 @@
 {% endblock %}
 
 {% block body %}
-<section class="contingut col-10">
-    <h1>Providers</h1>
-    <div {{ vue_component('ProvidersList_component', { 'providers': providers, 'token': csrf_token('_token')  }) }}></div>
+    <section>
+        <div class="mt-5">
+            <h1>Providers</h1>
+        </div>
+        <div {{ vue_component('ProvidersList_component', { 'providers': providers, 'token': csrf_token('_token')  }) }}></div>
 
-    {#  <div {{ vue_component('Tables_component', { 'data': data, 'config': config  }) }}></div>#}
+        {#  <div {{ vue_component('Tables_component', { 'data': data, 'config': config  }) }}></div> #}
 
-    <div class="navigation d-flex justify-content-center">
-        {{ knp_pagination_render(pagination) }}
-    </div>
-
-</section>
+        <div class="navigation d-flex justify-content-center mt-3">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </section>
 {% endblock %}

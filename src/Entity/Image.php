@@ -40,7 +40,7 @@ class Image
         return $this->filename;
     }
 
-    public function setFilename(string $filename): static
+    public function setFilename(?string $filename): static
     {
         $this->filename = $filename;
 
@@ -68,6 +68,4 @@ class Image
     {
         $this->imageFile = $imageFile;
     }
-
-
 }

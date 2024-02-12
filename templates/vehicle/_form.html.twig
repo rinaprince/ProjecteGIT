@@ -10,6 +10,10 @@
             <img src="{{ asset('equip3/img/vehicles/0b1d2794-111f-358c-b005-88cd26ce3e94.jpg')}}" alt="Imatge Cotxe" width="100%" class="pb-3">
             <input class="form-control form-control-sm" id="formFileSm" type="file">
         </div>
+
+<div class="row" {{ stimulus_controller('quill') }}>
+    <div class="col-2">
+        {{ form_row(form.plate) }}
     </div>
 
     <div class="col-12 col-md-3 pt-3 my-auto">
@@ -72,22 +76,35 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 pt-3">
-        <div class="form-floating mb-3">
-            {{ form_row(form.description, { 'attr': {'tabindex': '15'} }) }}
-        </div>
+    <div class="col-4">
+        {{ form_row(form.color) }}
     </div>
-
-    <div class="col-12 col-sm-6 pt-3">
-        <div class="form-floating mb-3">
-            {{ form_row(form.observedDamages, { 'attr': {'tabindex': '16'} }) }}
-        </div>
+    <div class="col-4">
+        {{ form_row(form.registrationDate) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.provider) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.vehicleOrder) }}
+    </div>
+    <div class="col-6">
+        {{ form_label(form.description) }}
+        <div {{ stimulus_target('quill', 'editor') }}> {{  form.description.vars.value | raw}}</div>
+        {{ form_row(form.description, { 'attr': {'tabindex': '15'} }) }}
+    </div>
+    <div class="col-6" >
+        {{ form_label(form.observedDamages) }}
+        <div {{ stimulus_target('quill', 'editor') }}> {{  form.observedDamages.vars.value | raw }}</div>
+        {{ form_row(form.observedDamages, { 'attr': {'tabindex': '16'} }) }}
     </div>
 
 
 </div>
+
 {{ form_widget(form) }}
     <div class="mx-auto d-flex justify-content-center">
         <button class="btn border-0 bg-secundary-BHEC text-white btn-tertiary-hover mx-auto">{{ button_label|default('Guardar') }}</button>
     </div>
+
 {{ form_end(form) }}

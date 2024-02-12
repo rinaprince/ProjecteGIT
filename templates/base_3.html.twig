@@ -19,6 +19,9 @@
     <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer></script>
   {#<script src="{{ asset('equip3/js/searchbar.js') }}" defer ></script>#}
     <script src="{{ asset('equip3/js/modal.js') }}" defer ></script>
+    <!-- Include the Stimulus controller -->
+    <script src="{{ asset('path_to_your_js_file/passwordToggle_controller.js') }}" defer></script>
+
 
 
     {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
@@ -27,11 +30,10 @@
 {% include '_header_front_3.html.twig' %}
 {% for label, messages in app.flashes %}
     {% for message in messages %}
-        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            </button>
-        </div>
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
     {% endfor %}
 {% endfor %}
 

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Knp\Snappy\Pdf;
 
 #[Route('/invoices')]
 class InvoiceController extends AbstractController
@@ -136,5 +137,25 @@ class InvoiceController extends AbstractController
         return $this->render('invoice/detail.html.twig', [
             'invoice' => $invoice,
         ]);
+    }
+
+    #[IsGranted('ROLE_PRIVATE', message: 'Accés restringit')]
+    #[Route('/myinvoices/{id}/pdf', name: 'app_invoice_pdf', methods: ['GET'])]
+    public function invoicePdf(Invoice $invoice, Pdf $pdf): Response
+    {
+        $html = $this->renderView('invoice/invoicePdf.html.twig', [
+            'invoice' => $invoice,
+        ]);
+
+        $filename = sprintf('invoice_%s.pdf', $invoice->getNumber());
+
+        return new Response(
+            $pdf->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => sprintf('inline; filename="%s"', $filename),
+            ]
+        );
     }
 }

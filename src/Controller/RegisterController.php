@@ -68,8 +68,18 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $professional->getLogin()->setRole("ROLE_PROFESSIONAL");
+            //$entityManager->persist($login);
+            //$privateCustomer->setLogin($login);
+            $login = $professional->getLogin();
+            $passwd = $login->getPassword();
+            $login->setPassword($this->hasher->hashPassword($login,$passwd));
             $entityManager->persist($professional);
             $entityManager->flush();
+
+            $this->addFlash('info', 'Usuari registrat correctament!');
+
+            return $this->redirectToRoute('app_front_office', [], Response::HTTP_SEE_OTHER);
 
             return $this->redirectToRoute('app_professional_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -132,7 +132,7 @@ function showEditModal(id) {
     <thead class="theadInvoices">
     <tr>
       <th>Numero</th>
-      <!---<th>Usuario</th>-->      
+      <th>Usuario</th>
       <th>Precio</th>
       <th>Fecha</th>
       <th>Operaciones</th>
@@ -162,7 +162,7 @@ function showEditModal(id) {
   <div class="accordion accordion-flush d-flex justify-content-center d-sm-none d-block">
     <div v-for="invoice in filteredInvoices" :key="invoice.id">
       <p data-title="Numero:">{{invoice.number}}</p>
-      <!-- <p data-title="Usuario:">{{invoice.customer.name}}</p>-->
+      <p data-title="Usuario:">{{invoice.customer.name}}</p>
       <p data-title="Precio:">{{invoice.price}}</p>
       <p data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</p>
       <p>

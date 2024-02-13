@@ -28,6 +28,9 @@ import './equip3/js/modal';
 
 
 
+import './equip3/css/backend-skeleton.css';
+import './equip3/css/variables.css';
+
 import { registerVueControllerComponents } from '@symfony/ux-vue';
 
 registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));

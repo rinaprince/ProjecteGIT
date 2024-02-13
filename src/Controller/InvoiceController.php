@@ -21,32 +21,29 @@ class InvoiceController extends AbstractController
     #[Route('', name: 'app_invoice_index', methods: ['GET'])]
     public function index(InvoiceRepository $invoiceRepository, PaginatorInterface $paginator, Request $request): Response    {
 
-        $user = $this->getUser();
+       // $user = $this->getUser();
     
     //    $arrayInvoices = $invoiceRepository->findInvoicesForLoggedInUser($user);
-        $arrayInvoices = $invoiceRepository->findBy([], ['date'=>'DESC']);
-    
-        $pagination = $paginator->paginate(
-            $arrayInvoices,
+        $invoicesQuery = $invoiceRepository->findAll();
+
+        $paginatedInvoices = $paginator->paginate(
+            $invoicesQuery,
             $request->query->getInt('page', 1),
-            10
+            5
         );
     
-        $config = [
+/*        $config = [
             "number" => "Numero",
             "customer.name" => "Client",
             "price" => "Precio",
             "date" => "Fecha",
-        ];
-    
+        ];*/
+
         return $this->render('invoice/index.html.twig', [
-            'invoices' => $paginator->getItems(),
-            'pagination' => $paginator,
-            'data' => $arrayInvoices,
-            'config' => $config
+            'paginatedInvoices' => $paginatedInvoices,
         ]);
     }
-       
+
     #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

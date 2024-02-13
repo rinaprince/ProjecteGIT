@@ -1,19 +1,28 @@
 {% extends 'base_back_3.html.twig' %}
 
-{% block title %}New Vehicle{% endblock %}
+{% block title %}Imatge{% endblock %}
 
 {% block body %}
-    <h1>Create new Vehicle</h1>
+    <h1>Afegir imatges</h1>
 
-    <div class="p-2">
     {{ form_start(form) }}
     {{ form_widget(form) }}
-        <button class="btn btn-success mb-2">{{ button_label|default('Guardar') }}</button>
     {{ form_end(form) }}
 
-
-    <button class="btn btn-primary">
-        <a href="{{ path('app_vehicle_index') }}" class="text-light text-decoration-none">Tornar a la llista</a>
-    </button>
-    </div>
+{#     {% if image is not empty %}
+        <div class="row">
+            {% for img in image %}
+                <div class="col-md-3">
+                    <img src="{{ vich_uploader_asset(img, 'imageFile') }}" alt="Imatge">
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No images available.</p>
+    {% endif %}
+    <div class="d-flex mt-3 mb-3">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{{ path('app_vehicle_index') }}"
+           class="link-underline link-underline-opacity-0 btn btn-secondary text-light mx-2">Back to list</a>
+    </div> #}
 {% endblock %}

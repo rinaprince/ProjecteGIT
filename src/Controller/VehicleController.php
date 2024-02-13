@@ -32,7 +32,7 @@ class VehicleController extends AbstractController
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            5
+            6
         );
         return $this->render('vehicle/index.html.twig', [
             'q' => $q,

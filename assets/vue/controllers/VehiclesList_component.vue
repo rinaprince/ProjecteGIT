@@ -2,6 +2,9 @@
 const {vehicles} = defineProps(['vehicles']);
 
 import {ref, onMounted, computed} from 'vue';
+import axios from "axios";
+import Swal from 'sweetalert2';
+
 
 //Tipus de filtració
 const filters = ref({
@@ -23,6 +26,7 @@ const applyFilters = (data, filters) => {
   });
 };
 
+//Constants
 const filteredVehicles = computed(() => {
   return applyFilters(vehicles, filters.value);
 });
@@ -35,8 +39,6 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 
 const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 
-//Axios
-import axios from "axios";
 function sweetAlertDelete(id) {
   Swal.fire({
     title: 'Estàs segur?',
@@ -64,6 +66,7 @@ function sweetAlertDelete(id) {
               icon: "error"
             });
           });
+
     }
   });
 }
@@ -143,7 +146,8 @@ function sweetAlertDelete(id) {
       <div class="row">
         <div class="col-4 p-3" v-for="vehicle in vehicles">
           <div>
-            <img src="/public/equip1/img/" alt="Imatge Vehicle 1" width="250px" height="200px" class="rounded-top-3">
+            <img src="/equip3/img/vehicles/0b1d2794-111f-358c-b005-88cd26ce3e94.jpg" alt="Imatge Vehicle 1" width="100%"
+                 class="rounded-top-3">
             <div class="bg-white mt-1">
               <div class="d-flex align-items-center justify-content-end">
                 <a :href="vehiclesShowPath(vehicle.id)">
@@ -157,10 +161,19 @@ function sweetAlertDelete(id) {
                   </button>
                 </a>
                 <a @click="sweetAlertDelete(vehicle.id)">
+<<<<<<< HEAD
+=======
                   <button class="border-0 bg-transparent p-1">
                     <i class="bi bi-trash"></i>
                   </button>
                 </a>
+                <a :href="vehiclesAddImagePath(vehicle.id)">
+>>>>>>> main
+                  <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
+                    <i class="bi bi-image"></i>
+                  </button>
+                </a>
+
                 <a :href="vehiclesAddImagePath(vehicle.id)">
                   <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
                     <i class="bi bi-image"></i>

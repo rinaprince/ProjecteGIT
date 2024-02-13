@@ -3,16 +3,17 @@
 {% block title %}Invoice index{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('equip3/css/Personal.css') }}">
+    <link rel="stylesheet" href="{{ asset('equip3/css/llistaInvoices.css') }}">
 {% endblock %}
 
 {% block body %}
-    <section class="contingut col-10">
-        <h1>Llista de Factures</h1>
-        <div id="div-table" {{ vue_component('Tables_component', {'data': data, 'config': config}) }} ></div>
+        <section class="contingut ">
+            <h1>Lista de Facturas</h1>
+            <div id="EditInvoiceModal" {{ vue_component('InvoiceUpdateModal') }}></div>
+            <div id="div-table" class="table table-striped"{{ vue_component('InvoiceList_component', {'invoices': paginatedInvoices.items})}} ></div>
 
-        <div class="navigation d-flex justify-content-center mt-3">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-    </section>
+
+    <div class="navigation d-flex justify-content-center mt-3" >
+        {{ knp_pagination_render(paginatedInvoices) }}
+    </div>
 {% endblock %}

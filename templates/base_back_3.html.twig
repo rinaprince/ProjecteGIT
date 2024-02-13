@@ -11,7 +11,6 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
-
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }} {# Carga todos los componentes de VUE #}
     {% endblock %}
@@ -36,7 +35,7 @@
     <div class="container-fluid">
         <div class="row">
             {% include '_aside_back_3.html.twig' %} {# Aside de Back #}
-            <article class="col-10">
+            <article class="col-10 mx-auto">
                 {% block body %}
                 {% endblock %}
             </article>

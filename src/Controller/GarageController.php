@@ -13,6 +13,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+#[IsGranted("ROLE_ADMIN")]
 #[Route('/garage')]
 class GarageController extends AbstractController
 {
@@ -66,31 +69,31 @@ class GarageController extends AbstractController
         $userId = $this->getUser();
         $pendingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $userId]);
 
-        if ($pendingOrder) {
-            $customer = $pendingOrder->getCustomer();
+//        if ($pendingOrder) {
+//            $customer = $pendingOrder->getCustomer();
+//
+//            $totalPrice = 0;
+//            foreach ($pendingOrder->getVehicles() as $vehicle) {
+//                $totalPrice += $vehicle->getSellPrice();
+//            }
+//
+//            $actualDate = new \DateTime();
+//
+//            $invoice = new Invoice();
+//            $invoice->setDate($actualDate);
+//            $invoice->setNumber(2);
+//            $invoice->setCustomer($customer);
+//            $invoice->setCustomerOrder($pendingOrder);
+//            $invoice->setPrice($totalPrice);
+//
+//            $pendingOrder->setState('Tancat');
+//
+//            $entityManager->persist($invoice);
+//            $entityManager->persist($pendingOrder);
+//            $entityManager->flush();
+//        }
 
-            $totalPrice = 0;
-            foreach ($pendingOrder->getVehicles() as $vehicle) {
-                $totalPrice += $vehicle->getSellPrice();
-            }
-
-            $actualDate = new \DateTime();
-
-            $invoice = new Invoice();
-            $invoice->setDate($actualDate);
-            $invoice->setNumber(2);
-            $invoice->setCustomer($customer);
-            $invoice->setCustomerOrder($pendingOrder);
-            $invoice->setPrice($totalPrice);
-
-            $pendingOrder->setState('Tancat');
-
-            $entityManager->persist($invoice);
-            $entityManager->persist($pendingOrder);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_garage_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_purchase_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/cancel', name: 'app_garage_cancel_order')]

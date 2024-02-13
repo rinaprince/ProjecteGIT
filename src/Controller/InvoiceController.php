@@ -103,7 +103,7 @@ class InvoiceController extends AbstractController
 
 
     #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
-    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST', 'GET'])]
     public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) {

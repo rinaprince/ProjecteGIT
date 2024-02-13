@@ -84,18 +84,17 @@ function showDetailsModal(id) {
       });
 }
 
-
-
 function showEditModal(id) {
   axios.get(`/invoices/${id}/edit`)
       .then(response => {
         const modalBody = document.querySelector('.modal-content');
-        modalBody.innerHTML = response.data;
+        const from = new DOMParser().parseFromString(response.data, 'text/html').querySelector('form');
+        modalBody.innerHTML = form.outerHTML;
 
         const form = modalBody.querySelector('form');
-        form.action = `/invoices/${id}/edit`; // Ajusta la acción del formulario según tu ruta de edición
+        form.action = `/invoices/${id}/edit`;
         form.addEventListener('submit', function(event) {
-          event.preventDefault(); // Evitar el envío del formulario por defecto
+          event.preventDefault();
           axios.post(form.action, new FormData(form))
               .then(response => {
                 closeModal();
@@ -114,12 +113,6 @@ function showEditModal(id) {
       });
 }
 
-
-
-
-
-
-
 </script>
 
 <template>
@@ -127,11 +120,11 @@ function showEditModal(id) {
     <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador "/>
     <a :href="invoiceCreatePath"><button class="btn p-1"><i class="bi bi-plus-square"></i> Create new</button></a>
   </div>
-
+<div class="d-flex justify-content-center mx-auto">
   <table id="table" class="d-sm-block d-none" >
     <thead class="theadInvoices">
     <tr>
-      <th>Numero</th>
+      <th class="p-1">Numero</th>
       <th>Usuario</th>
       <th>Precio</th>
       <th>Fecha</th>
@@ -158,6 +151,7 @@ function showEditModal(id) {
     </tr>
     </tbody>
   </table>
+</div>
 
   <div class="accordion accordion-flush d-flex justify-content-center d-sm-none d-block">
     <div v-for="invoice in filteredInvoices" :key="invoice.id">
@@ -180,10 +174,9 @@ function showEditModal(id) {
   </div>
 
 
-  <!-- Modal de edició -->
+  <!-- Tancar modal de edició -->
   <div class="modal" v-if="selectedInvoice !== null">
     <div class="modal-content">
-      {{ selectedInvoice.modalContent }}
       <button @click="closeModal">Cerrar</button>
     </div>
   </div>

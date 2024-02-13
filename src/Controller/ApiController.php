@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Repository\CustomerRepository;
 use App\Repository\LoginRepository;
+use App\Repository\ModelRepository;
 use App\Repository\OrderRepository;
 use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -95,5 +96,19 @@ class ApiController extends AbstractController
 
 
         return new JsonResponse(['success' => true]);
+    }
+    #[Route('/models', name: 'app_api_model')]
+    public function model(ModelRepository $modelRepository): Response
+    {
+        $models = $modelRepository->findAll();
+
+        $modelNames = [];
+
+        foreach ($models as $model) {
+            $modelNames[] = $model->getFullname();
+        }
+
+        $response = $this->json(["data" => ["models" => $modelNames]]);
+        return $response;
     }
 }

@@ -7,6 +7,12 @@ defineProps({
   config: Array
 });
 
+let functionData = function(){
+  for (let i = 0; i < data.length; i++) {
+
+  }
+  return data
+};
 /*const filters = ref({
   global: {value: null, matchMode: 'CONTAINS'},
 });

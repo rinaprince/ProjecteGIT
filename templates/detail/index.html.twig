@@ -10,15 +10,14 @@
             <div class="row">
                 <div class="col-12">
                     <div class="carName">
-                        <h1 class="d-flex justify-content-center">{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</h1>
+                        <h1 class="d-flex justify-content-center mb-3">{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</h1>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-8 d-block d-sm-flex m-auto">
                     <div>
-                    <div>
-                        <div id="CarrouselDetails{{ vehicle.model.brand.name }}" class="carousel slide">
+                        <div id="CarrouselDetails{{ vehicle.model.brand.name }}" class="carousel slide mr-2">
                             <div class="carousel-inner mh-100">
                                 {% for key, image in vehicle.images %}
                                     <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -39,14 +38,13 @@
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-                    </div>
                 </div>
-                <div class="col-4">
-                    <div id="payment bg-sm-secondary">
+                <div class="col-4 d-flex">
+                    <div id="payment bg-sm-secondary pl-2">
                         <div class="prices">
                             <p id="totalCost" class="fs-1 text-center">{{ vehicle.sellPrice }}€</p>
                             <div id="separatorPayment-div">
-                                <hr class="separator">
+                                <hr>
                             </div>
                             <div class="priceInfo text-center">
                                 <p id="feeTime" class="fs-3">Quota / 24 mesos</p>
@@ -54,13 +52,9 @@
                             </div>
                         </div>
                         <div class="actions d-flex flex-sm-row">
-                            <a id="addGarage" class="btn bg-secondary-BHEC m-2 p-3" href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id })}}">Afegir al
-                                Garatge
-                            </a>
+                            <a class="btn bg-secondary-BHEC m-2 p-3" href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id })}}">Afegir al Garatge </a>
 
-                            <button id="addWish" class="btn bg-secondary-BHEC m-2 p-3">Desitje <img
-                                        src="{{ asset("/equip3/img/icones/llistaDeDesitjos-GrocOscur.png") }}"
-                                        alt="wishlist"></button>
+                            <a class="btn bg-secondary-BHEC m-2 p-3">Desitje <img src="{{ asset("/equip3/img/icones/llistaDeDesitjos-GrocOscur.png") }}" alt="wishlist"></a>
                         </div>
                     </div>
                 </div>

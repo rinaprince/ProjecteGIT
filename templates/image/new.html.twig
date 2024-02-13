@@ -3,11 +3,23 @@
 {% block title %}Imatge{% endblock %}
 
 {% block body %}
-    <h1>Afegir imatges</h1>
+    <div class="container-fluid">
+        <h1>Afegir imatges</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+
+        <div class="row">
+        {% for image in form.images %}
+
+
+                <div class="col-6">{{ form_row(image.imageFile) }}</div>
+
+        {% endfor %}
+        </div>
+
+        <div><input class="btn btn-primary" type="submit" value="Guardar"></div>
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}
 

@@ -17,11 +17,12 @@ class ImageType extends AbstractType
                 [
                     'required' => false,
                     'allow_delete' => true,
-                    'delete_label' => '...',
+                    'delete_label' => 'Esborrar imatge',
                     'download_label' => '...',
-                    'download_uri' => true,
+                    'download_uri' => false,
                     'image_uri' => true,
-                    'asset_helper' => true]
+                    'asset_helper' => true,
+                    'imagine_pattern' => 'vehicle_thumb']
             )
 
             ;

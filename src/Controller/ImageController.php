@@ -26,20 +26,17 @@ class ImageController extends AbstractController
     #[Route('/vehicles/{id}/images/add', name: 'app_image_new')]
     public function new(Vehicle $vehicle, Request $request, EntityManagerInterface $entityManager): Response
     {
-
-
         // Comprovar si el vehicle existeix
         if (!$vehicle) {
             throw $this->createNotFoundException('El vehicle no existeix');
         }
 
-/*        $image = new Image();
-        $image->setVehicle($vehicle);*/
-
         $form = $this->createForm(VehicleImagesType::class, $vehicle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            dump($form->getData());
             $entityManager->persist($vehicle);
             $entityManager->flush();
 

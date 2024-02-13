@@ -40,6 +40,7 @@
                     </tr>
                 </table>
                 <a class="btn btn-primary" href="{{ path('app_invoice_myinvoices')}}">Back to Invoices</a>
+                <a class="btn btn-success" href="{{ path('app_invoice_pdf', {'id': invoice.id}) }}" target="_blank">Generate PDF</a>
             {% else %}
                 <p class="lead">There is no details for this invoice.</p>
             {% endif %}

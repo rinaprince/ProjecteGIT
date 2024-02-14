@@ -12,7 +12,7 @@
         <h1>Detalles de factura
         </h1>
         <div id="invoice-table" class="d-sm-flex d-none">
-            <table class="border-0 table table-striped w-50 d-flex align-items-center">
+            <table class="border-0 table table-striped w-100 d-flex align-items-center">
                 <tbody class="w-100">
                 <tr class="d-flex">
                     <th class="w-50">ID:</th>
@@ -33,9 +33,9 @@
                 </tr>
                 {% if invoice.customerOrder.vehicles is not empty %}
                     <tr>
-                        <th>Vehicles</th>
+                        <th class="w-50">Vehicles</th>
                         {% for vehicle in invoice.customerOrder.vehicles %}
-                        <td>
+                        <td class="w-50">
                             {{ vehicle.model.brand.name }} {{ vehicle.model.name }}<br>
                             <strong>Plate:</strong> {{ vehicle.plate }}<br>
                             <strong>Buy Price:</strong> {{ vehicle.buyPrice }} €<br>

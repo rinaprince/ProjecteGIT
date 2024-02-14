@@ -9,10 +9,12 @@ use App\Repository\OrderRepository;
 use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/api/v1')]
 class ApiController extends AbstractController
@@ -49,20 +51,17 @@ class ApiController extends AbstractController
         return "hola";
     }
 
-
+    #[IsGranted(
+        new Expression(
+            'is_granted("ROLE_PRIVATE", subject) or is_granted("ROLE_PROFESSIONAL", subject)'
+        ))]
     #[Route('/add/{id}', name: 'app_api_pending_orders', methods: ['POST'])]
     public function new($id, Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): JsonResponse
     {
-
         $userId = $this->getUser()->getId();
         $customer = $customerRepository->find($userId);
 
-
         $existingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
-
-
-        $this->denyAccessUnlessGranted('ROLE_PRIVATE', null, 'Accés restringit');
-
 
         if (!$existingOrder) {
             $order = new Order();
@@ -92,7 +91,6 @@ class ApiController extends AbstractController
             $entityManager->persist($vehicle);
             $entityManager->flush();
         }
-
 
         return new JsonResponse(['success' => true]);
     }

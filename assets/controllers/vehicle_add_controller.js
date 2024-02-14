@@ -17,7 +17,12 @@ export default class extends Controller {
             if (response.ok) {
                 // Manejar la respuesta según sea necesario
                 console.log('Vehículo añadido exitosamente');
-                // Puedes realizar alguna acción adicional si es necesario, como actualizar la página o mostrar un mensaje de éxito
+
+                // Cambiar el texto y el estilo del botón a "Reservado"
+                const button = event.currentTarget;
+                button.textContent = 'Reservado';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-secondary');
             } else {
                 console.error('Error al añadir el vehículo:', response.statusText);
                 // Puedes manejar el error de alguna manera, por ejemplo, mostrando un mensaje de error al usuario
@@ -27,4 +32,3 @@ export default class extends Controller {
         }
     }
 }
-

@@ -96,7 +96,7 @@
 
                 </div>
             </div>
-            <div class="col-5 my-5 d-flex justify-content-center px-0">
+            <div class="col-5 my-5 d-flex justify-content-center px-0"  data-controller="password-confirm">
                 <div class="border border-black border-opacity-25 py-5 rounded-2">
                     <div class="p-3 d-flex flex-column align-items-center">
                         <h2 class="fs-4">Credencials d'inici de sessió</h2>
@@ -116,7 +116,7 @@
                         <div class="py-2">
                             <label for="password" class="my-1">Contrasenya:</label>
                             <div class="position-relative" id="passwordController">
-                                {{ form_widget(form.login.password, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5'} }) }}
+                                {{ form_widget(form.login.password, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5','data-password-confirm-target':"password", 'type':"text"} }) }}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-key position-absolute top-50 translate-middle-y ms-3"
                                      viewBox="0 0 16 16">
@@ -131,18 +131,13 @@
                                 <input class="form-control border border-black border-opacity-25 ps-5"
                                        type="password" id="password"
                                        name="_password" required
-                                       data-action="click->password-toggle#togglePassword"
-                                       data-target="password-toggle.icon" placeholder="Confirma la contrasenya">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-key position-absolute top-50 translate-middle-y ms-3"
-                                     viewBox="0 0 16 16">
-                                    <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
-                                    <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                                </svg>
+                                       placeholder="Confirma la contrasenya" data-password-confirm-target="password2" data-action="input->password-confirm#confirm">
+                                <i class="bi bi-person-lock position-absolute top-50 translate-middle-y ms-3"></i>
                                 <div id="hideEye">
                                     <i class='bi bi-eye position-absolute top-50 end-0 translate-middle-y me-3 small'></i>
                                 </div>
                             </div>
+                            <span data-password-confirm-target="message" ></span>
                         </div>
                     </div>
                 </div>

@@ -1,13 +1,27 @@
 {{ form_start(form) }}
+<div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             {{ form_row(form.number) }}
+        </div>
+        <div class="col-6">
             {{ form_row(form.price) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
             {{ form_row(form.date) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             {{ form_row(form.customer) }}
+        </div>
+        <div class="col">
             {{ form_row(form.customerOrder) }}
         </div>
     </div>
+</div>
 
     {{ form_widget(form) }}
 <div id="divBotons" class="d-flex justify-content-center gap-2">

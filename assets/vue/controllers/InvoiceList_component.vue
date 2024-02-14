@@ -1,8 +1,7 @@
-
 <script setup>
-const { invoices } = defineProps(['invoices']);
+const {invoices} = defineProps(['invoices']);
 //const q = props.q;
-import { ref, onMounted, computed } from 'vue';
+import {ref, onMounted, computed} from 'vue';
 //Importem axios
 import axios from 'axios';
 
@@ -15,11 +14,11 @@ const invoiceDeletePath = (id) => `/invoices/${id}/delete`;
 
 //Tipos de filtrado
 const filters = ref({
-  global: { value: null, matchMode: 'CONTAINS' },
-  number: { value: null, matchMode: 'CONTAINS' },
-  customer: { value: null, matchMode: 'STARTS_WITH' },
-  price: { value: null, matchMode: 'IN' },
-  date: { value: null, matchMode: 'EQUALS' },
+  global: {value: null, matchMode: 'CONTAINS'},
+  number: {value: null, matchMode: 'CONTAINS'},
+  customer: {value: null, matchMode: 'STARTS_WITH'},
+  price: {value: null, matchMode: 'IN'},
+  date: {value: null, matchMode: 'EQUALS'},
 });
 
 //Filtrador
@@ -59,11 +58,11 @@ const openShowModal = (id) => {
 const closeModal = () => {
   selectedInvoice.value = null;
   let modal = document.querySelector('.modal');
-  modal.style.display='none';
+  modal.style.display = 'none';
   window.location.reload();
 };
 
-function openNewModal(){
+function openNewModal() {
   axios.get(`/invoices/new`)
       .then(response => {
         const modalBody = document.querySelector('.modal-content');
@@ -132,47 +131,56 @@ function showEditModal(id) {
 <template>
   <div>
     <div>
-      <div class="d-flex justify-content-between align-items-center bg-quaternary-BHEC col-10"><form method="GET" role="search"><div class="d-flex"><input name="q" type="search" class="rounded-start-pill border border-secondary-subtle ps-3" placeholder="Buscar..." aria-label="Search"><button type="submit" class="rounded-end-pill button-searcher-BHEC"><i class="bi bi-search"></i></button></div></form>
-        <a href="/invoices/new" class="button-text-primary-BHEC btn button-primary-BHEC "><i class="bi bi-plus-square me-1"></i>Nova Factura</a></div>
+      <div class="d-flex justify-content-between align-items-center bg-quaternary-BHEC col-10">
+        <form method="GET" role="search">
+          <div class="d-flex my-3"><input name="q" type="search"
+                                     class="rounded-start-pill border border-secondary-subtle px-4"
+                                     placeholder="Buscar..." aria-label="Search">
+            <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0"><i class="bi bi-search"></i></button>
+          </div>
+        </form>
+        <a href="/invoices/new" class="button-text-primary-BHEC btn bg-tertiary-BHEC "><i
+            class="bi bi-plus-square me-1"></i>Nova Factura</a></div>
     </div>
   </div>
 
-      <div class="col-10">
-        <table class="table table-striped w-100 m-0 bg-tertiary-BHEC">
-          <thead class="theadInvoices text-center bg-primary-BHEC">
-          <tr>
-            <th class="py-1">Numero</th>
-            <th>Usuario</th>
-            <th>Precio</th>
-            <th>Fecha</th>
-            <th>Operaciones</th>
-          </tr>
-          </thead>
-          <tbody class="text-center">
-          <tr v-for="invoice in filteredInvoices" :key="invoice.id">
-            <td data-title="Numero:">{{invoice.number}}</td>
-            <td data-title="Usuario:">{{invoice.customer.name}}</td>
-            <td data-title="Precio:">{{invoice.price}}</td>
-            <td data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</td>
-            <td class="py-3">
-              <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
-              <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
-              <a :href="invoiceDeletePath(invoice.id)">
-                <button class="btn btn-danger mx-1 "><i class="fas fa-trash"></i></button>
-              </a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="col-10">
+    <table class="table table-striped w-100 m-0 bg-tertiary-BHEC">
+      <thead class="theadInvoices text-center bg-primary-BHEC">
+      <tr>
+        <th class="py-1">Numero</th>
+        <th>Usuario</th>
+        <th>Precio</th>
+        <th>Fecha</th>
+        <th>Operaciones</th>
+      </tr>
+      </thead>
+      <tbody class="text-center">
+      <tr v-for="invoice in filteredInvoices" :key="invoice.id">
+        <td data-title="Numero:">{{ invoice.number }}</td>
+        <td data-title="Usuario:">{{ invoice.customer.name }}</td>
+        <td data-title="Precio:">{{ invoice.price }}</td>
+        <td data-title="Fecha:">{{ invoice.date.date.substring(0, 10) }}</td>
+        <td class="py-3">
+          <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
+          <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i>
+          </button>
+          <a :href="invoiceDeletePath(invoice.id)">
+            <button class="btn btn-danger mx-1 "><i class="fas fa-trash"></i></button>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
 
   <div class="accordion accordion-flush d-flex justify-content-center d-sm-none d-block">
     <div v-for="invoice in filteredInvoices" :key="invoice.id">
-      <p data-title="Numero:">{{invoice.number}}</p>
-      <p data-title="Usuario:">{{invoice.customer.name}}</p>
-      <p data-title="Precio:">{{invoice.price}}</p>
-      <p data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</p>
+      <p data-title="Numero:">{{ invoice.number }}</p>
+      <p data-title="Usuario:">{{ invoice.customer.name }}</p>
+      <p data-title="Precio:">{{ invoice.price }}</p>
+      <p data-title="Fecha:">{{ invoice.date.date.substring(0, 10) }}</p>
       <p>
         <a :href="invoiceShowPath(invoice.id)">
           <button class="btn btn-success"><i class="fas fa-eye"></i></button>

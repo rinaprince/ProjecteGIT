@@ -10,7 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable]
-class Image
+class Image implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -67,5 +67,13 @@ class Image
     public function setImageFile(?File $imageFile): void
     {
         $this->imageFile = $imageFile;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'filename' => $this->getFilename()
+        ];
+
     }
 }

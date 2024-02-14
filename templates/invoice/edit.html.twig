@@ -3,9 +3,10 @@
 {% block title %}Edición de factura{% endblock %}
 
 {% block body %}
-    <h1>Edición de factura</h1>
 
-    {{ include('invoice/_form.html.twig', {'button_label': 'Update'}) }}
-
+    <div id="form">
+        <h1>Edición de factura</h1>
+        {{ include('invoice/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
 
 {% endblock %}

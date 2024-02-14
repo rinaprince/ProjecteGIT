@@ -7,12 +7,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Alta Factura</h1>
+    <div id="newBody">
+        <h1>Alta Factura</h1>
 
-    {{ include('invoice/_form.html.twig') }}
-
-
-    <a href="{{ path('app_invoice_index') }}">
-        <button><i class="fas fa-arrow-left"></i> back to list</button>
-    </a>
+        {{ include('invoice/_form.html.twig') }}
+    </div>
 {% endblock %}

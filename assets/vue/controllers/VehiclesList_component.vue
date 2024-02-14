@@ -74,9 +74,8 @@ function sweetAlertDelete(id) {
 </script>
 
 <template>
-  <h1>Index de Vehicles</h1>
 
-  <div class="d-flex justify-content-between align-items-center mb-2">
+  <div class="d-flex justify-content-between align-items-center mb-2 px-3">
     <form method="get" role="search" class="d-flex">
       <input type="search" class="form-control" name="q" placeholder="Matrícula, combustible, color..."
              aria-label="Search">
@@ -89,65 +88,14 @@ function sweetAlertDelete(id) {
     </a>
   </div>
 
-
-  <!--
-  <table class="table">
-    <thead>
-    <tr>
-      <th class="d-none">Id</th>
-      <th>Plate</th>
-      <th class="d-none">ObservedDamages</th>
-      <th>Kilometers</th>
-      <th>BuyPrice</th>
-      <th>SellPrice</th>
-      <th>Fuel</th>
-      <th>Iva</th>
-      <th class="d-none">Description</th>
-      <th>ChassisNumber</th>
-      <th>GearShit</th>
-      <th>IsNew</th>
-      <th class="d-none">TransportIncluded</th>
-      <th>Color</th>
-      <th>RegistrationDate</th>
-      <th>actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="vehicle in filteredVehicles" :key="vehicle.id">
-      <td class="d-none">{{ vehicle.id }}</td>
-      <td>{{ vehicle.plate }}</td>
-      <td class="d-none">{{ vehicle.observedDamages }}</td>
-      <td>{{ vehicle.kilometers }}</td>
-      <td>{{ vehicle.buyPrice }}</td>
-      <td>{{ vehicle.sellPrice }}</td>
-      <td>{{ vehicle.fuel }}</td>
-      <td>{{ vehicle.iva }}</td>
-      <td class="d-none">{{ vehicle.description }}</td>
-      <td>{{ vehicle.chassisNumber }}</td>
-      <td>{{ vehicle.gearShit }}</td>
-      <td>{{ vehicle.isNew ? 'Yes' : 'No' }}</td>
-      <td class="d-none">{{ vehicle.transportIncluded ? 'Yes' : 'No' }}</td>
-      <td>{{ vehicle.color }}</td>
-      <td>{{ vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : '' }}</td>
-      <td>
-        <a :href="vehiclesShowPath(vehicle.id)"><button class="btn btn-primary"><i class="fas fa-eye"></i></button></a>
-        <a :href="vehiclesEditPath(vehicle.id)"><button class="btn btn-success"><i class="fas fa-pencil-alt"></i></button></a>
-        <a :href="vehiclesAddImagePath(vehicle.id)"><button class="btn btn-danger"><i class="fa-regular fa-image"></i></button></a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-  -->
-
   <div class="col-12 p-3 d-flex justify-content-center">
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-4 p-3" v-for="vehicle in vehicles">
           <div>
-            <img src="/equip3/img/vehicles/0b1d2794-111f-358c-b005-88cd26ce3e94.jpg" alt="Imatge Vehicle 1" width="100%"
-                 class="rounded-top-3">
+            <img :src="'/equip3/img/vehicles' + vehicle.images[0]" alt="Imatge Vehicle 1" width="100%"
+            class="rounded-top-3">
             <div class="bg-white mt-1">
               <div class="d-flex align-items-center justify-content-end">
                 <a :href="vehiclesShowPath(vehicle.id)">

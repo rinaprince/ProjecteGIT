@@ -15,13 +15,14 @@ class ImageType extends AbstractType
         $builder
             ->add('imageFile', VichImageType::class,
                 [
+                    'label' => false,
                     'required' => false,
-                    'allow_delete' => true,
+                    'allow_delete' => false,
                     'delete_label' => 'Esborrar imatge',
                     'download_label' => '...',
                     'download_uri' => false,
-                    'image_uri' => true,
-                    'asset_helper' => true,
+                    'image_uri' => false,
+                    'asset_helper' => false,
                     'imagine_pattern' => 'vehicle_thumb']
             )
 

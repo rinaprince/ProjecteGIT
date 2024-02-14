@@ -35,17 +35,32 @@ defineProps({
         </div>
         <!-- Iconos -->
         <div class="pe-md-4 d-flex justify-content-center col-8 col-sm-2">
-          <a class="btn d-inline-block px-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-             aria-controls="offcanvasExample">
-            <img src="/equip2/img/icon/notificacio-Groc.png">
-          </a>
-          <a class="btn d-inline-block px-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-             aria-controls="offcanvasExample">
+
+          <div class="dropdown">
+            <a class="px-0 btn d-inline-block notificacion dropdown-toggle" type="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="/equip2/img/icon/notificacio-Groc.png"></a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-bag-check text-success"></i> La compra de tu coche ha sido exitosa</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Tu coche ya esta en camino</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Mira nuestras novedades</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-exclamation-octagon-fill text-warning"></i> Has la verificacion en 2 pasos por tu seguridad</a></li>
+
+            </ul>
+          </div>
+          <a class="btn d-inline-block px-2" :href="Routes.preferits">
             <img src="/equip2/img/icon/llistaDeDesitjos-Groc.png">
           </a>
-          <a class="btn d-inline-block d-flex align-items-center position-relative me-2"
-             data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-             aria-controls="offcanvasExample">
+          <a class="btn d-inline-block d-flex align-items-center position-relative me-2" :href="Routes.garage">
             <img src="/equip2/img/icon/garatge-Groc.png">
             <span
                 class="position-absolute start-100 translate-middle badge rounded-pill bg-light text-secondary badge-garatge">

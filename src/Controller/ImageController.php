@@ -36,7 +36,6 @@ class ImageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            dump($form->getData());
             $entityManager->persist($vehicle);
             $entityManager->flush();
 

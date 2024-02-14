@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Knp\Snappy\Pdf;
 
 #[Route('/invoices')]
 class InvoiceController extends AbstractController
@@ -21,32 +22,30 @@ class InvoiceController extends AbstractController
     #[Route('', name: 'app_invoice_index', methods: ['GET'])]
     public function index(InvoiceRepository $invoiceRepository, PaginatorInterface $paginator, Request $request): Response    {
 
-        $user = $this->getUser();
+       // $user = $this->getUser();
     
     //    $arrayInvoices = $invoiceRepository->findInvoicesForLoggedInUser($user);
-        $arrayInvoices = $invoiceRepository->findBy([], ['date'=>'DESC']);
-    
-        $pagination = $paginator->paginate(
-            $arrayInvoices,
+        $invoicesQuery = $invoiceRepository->findAll();
+
+        $paginatedInvoices = $paginator->paginate(
+            $invoicesQuery,
             $request->query->getInt('page', 1),
-            10
+            5
         );
     
-        $config = [
+/*        $config = [
             "number" => "Numero",
             "customer.name" => "Client",
             "price" => "Precio",
             "date" => "Fecha",
-        ];
-    
+        ];*/
+
+
         return $this->render('invoice/index.html.twig', [
-            'invoices' => $paginator->getItems(),
-            'pagination' => $paginator,
-            'data' => $arrayInvoices,
-            'config' => $config
+            'paginatedInvoices' => $paginatedInvoices,
         ]);
     }
-       
+
     #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -105,7 +104,7 @@ class InvoiceController extends AbstractController
 
 
     #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
-    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST', 'GET'])]
     public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) {
@@ -133,8 +132,40 @@ class InvoiceController extends AbstractController
     #[Route('/myinvoices/{id}', name: 'app_invoice_myinvoices_detail', methods: ['GET'])]
     public function detail(Invoice $invoice): Response
     {
-        return $this->render('invoice/detail.html.twig', [
-            'invoice' => $invoice,
-        ]);
+        $customer = $this->getUser();
+    
+        if ($customer !== null && $invoice->getCustomer() === $customer->getCustomer()) {
+            return $this->render('invoice/detail.html.twig', [
+                'invoice' => $invoice,
+            ]);
+        }
+    
+        return $this->redirectToRoute('app_invoice_myinvoices', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[IsGranted('ROLE_PRIVATE', message: 'Accés restringit')]
+    #[Route('/myinvoices/{id}/pdf', name: 'app_invoice_pdf', methods: ['GET'])]
+    public function invoicePdf(Invoice $invoice, Pdf $pdf): Response
+    {
+        $customer = $this->getUser();
+    
+        if ($customer !== null && $invoice->getCustomer() === $customer->getCustomer()) {
+            $html = $this->renderView('invoice/invoicePdf.html.twig', [
+                'invoice' => $invoice,
+            ]);
+    
+            $filename = sprintf('invoice_%s.pdf', $invoice->getNumber());
+    
+            return new Response(
+                $pdf->getOutputFromHtml($html),
+                200,
+                [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => sprintf('inline; filename="%s"', $filename),
+                ]
+            );
+        }
+    
+        return $this->redirectToRoute('app_invoice_myinvoices', [], Response::HTTP_SEE_OTHER);
     }
 }

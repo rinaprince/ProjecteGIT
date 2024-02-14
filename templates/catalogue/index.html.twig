@@ -6,24 +6,23 @@
     <link rel="stylesheet" href="{{ asset('equip3/css/cataleg.css') }}">
 {% endblock %}
 {% block body %}
-    <h1 class="col-12 ">Catàleg</h1>
-    <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 mx-lg-5 mb-lg-1" role="search">
-        <input name="q" type="search" class="form-control form-control-light text-dark justify-content-center"
-               placeholder="Buscar..." aria-label="Search">
-    </form>
+    <div class="container-fluid p-5">
+        <h1 class="col-12 mt-2">Catàleg</h1>
+        <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 mx-lg-5 mb-lg-1" role="search">
+            <input name="q" type="search" class="form-control form-control-light text-dark justify-content-center"
+                   placeholder="Buscar..." aria-label="Search">
+        </form>
 
-    {% if q %}
-        <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
-    {% endif %}
+        {% if q %}
+            <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
+        {% endif %}
 
-    <div class=" container-fluid d-flex flex-wrap gap-3 justify-content-center  p-5 bg-#f5f5f5">
         <div class="row">
             {% for vehicle in vehicles %}
                 {% if vehicle.vehicleOrder is null or vehicle.vehicleOrder.state != 'Tancat' %}
-                    <div class=" col-3 d-flex align-items-center justify-content-center text-center mb-2">
-
-                        <div class="vehicle   mb-2 border border-1 border-light rounded-3 overflow-hidden ">
-                            <div class="img-vehicle rounded-2 w-100 overflow-hidden ">
+                    <div class="col-3 mb-2">
+                        <div class="mb-2 border border-1 border-light rounded-3 overflow-hidden ">
+                            <div class="rounded-2 w-100 overflow-hidden ">
 
                                 <div id="carouselImagesVehicles_{{ vehicle.id }}" class="carousel slide w-100">
                                     <div class="carousel-indicators">
@@ -43,9 +42,9 @@
                                     <div class="carousel-inner">
                                         {% for image in vehicle.images %}
                                             <div class="carousel-item{{ loop.first ? ' active' }}">
-                                                <img src="{{ asset("/equip3/no-photo.png") }}"
+                                                <img src="{{ asset("/equip3/img/vehicles/" ~ image.filename) | imagine_filter('vehicle_lowres') }}"
                                                         {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
-                                                            src: asset("/equip3/img/vehicles/" ~ image.filename)
+                                                            src: asset("/equip3/img/vehicles/" ~ image.filename) | imagine_filter('vehicle_thumb')
                                                         }) }}
 
                                                      class="d-block w-100 object-fit-cover rounded-top"

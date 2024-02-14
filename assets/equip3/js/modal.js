@@ -1,9 +1,9 @@
-function openMenuModal() {
+export function openMenuModal() {
     var menuModal = document.getElementById('menu-modal');
     menuModal.style.display = 'block';
 }
 
-function closeMenuModal() {
+export function closeMenuModal() {
     var menuModal = document.getElementById('menu-modal');
     menuModal.style.display = 'none';
 
@@ -18,7 +18,7 @@ function closeMenuModal() {
 
 // Modificar el controlador de eventos para el botón de administración
 var administrationMenuBtn = document.getElementById('administration-menu-btn');
-function openAdmin() {
+export function openAdmin() {
     var administrationMenu = document.getElementById('administration-menu');
 
     if (administrationMenu.style.display === 'block') {

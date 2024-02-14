@@ -2,32 +2,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Front Office{% endblock %}</title>
 
-    {# <--- Estilos ---> #}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <link  href="{{ asset('equip3/css/Normalize.css') }}" rel="stylesheet">
-    <link  href="{{ asset('equip3/css/grid.css') }} " rel="stylesheet">
-    <link  href="{{ asset('equip3/css/variables.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('equip3/css/modal.css') }}">
-    <link  href="{{ asset('equip3/css/squeleton-frontend.css') }}" rel="stylesheet">
-
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
-
-    {# <--- Scripts ---> #}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-    <script src="{{ asset('equip3/js/menu-burguer.js') }}" defer></script>
-  {#<script src="{{ asset('equip3/js/searchbar.js') }}" defer ></script>#}
-    <script src="{{ asset('equip3/js/modal.js') }}" defer ></script>
-    <!-- Password hider -- Javi Ramos -- -->
-    <script src="{{ asset('equip1/js/hidePassword.js') }}" defer></script>
-
-
 
     {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
 </head>
 <body>
-{# {% include '_header_front_3.html.twig' %} #}
+{% include '_header_front_3.html.twig' %}
 {% for label, messages in app.flashes %}
     {% for message in messages %}
             <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">

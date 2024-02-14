@@ -272,6 +272,8 @@ class Vehicle implements JsonSerializable
             $image->setVehicle($this);
         }
 
+        //TODO: review
+        $this->buyPrice++;
         return $this;
     }
 

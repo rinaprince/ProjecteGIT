@@ -1,19 +1,25 @@
 {% extends 'base_back_3.html.twig' %}
 
-{% block title %}New Vehicle{% endblock %}
+{% block title %}Imatge{% endblock %}
 
 {% block body %}
-    <h1>Create new Vehicle</h1>
+    <div class="container-fluid">
+        <h1>Afegir imatges</h1>
 
-    <div class="p-2">
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-        <button class="btn btn-success mb-2">{{ button_label|default('Guardar') }}</button>
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+
+        <div class="row">
+        {% for image in form.images %}
 
 
-    <button class="btn btn-primary">
-        <a href="{{ path('app_vehicle_index') }}" class="text-light text-decoration-none">Tornar a la llista</a>
-    </button>
+                <div class="col-6">{{ form_row(image.imageFile) }}</div>
+
+        {% endfor %}
+        </div>
+
+        <div><input class="btn btn-primary" type="submit" value="Guardar"></div>
+        {{ form_end(form) }}
     </div>
+
 {% endblock %}
+

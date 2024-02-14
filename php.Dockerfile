@@ -42,6 +42,13 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd
 
 
+# Instal·lar suport traduccions
+RUN apt-get -y update \
+    && apt-get install -y libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl
+
+
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -54,6 +61,12 @@ RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 #Installing node and namp
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&\
  apt-get install -y nodejs
+
+ # Instalar wkhtmltopdf
+RUN apt-get update && apt-get install -y \
+    wkhtmltopdf \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # docker-compose exec web-server composer install \
 # docker-compose exec web-server /bin/bash

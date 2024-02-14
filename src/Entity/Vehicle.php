@@ -372,7 +372,9 @@ class Vehicle implements JsonSerializable
             'transportIncluded' => $this->transportIncluded,
             'color' => $this->color,
             'registrationDate' => $this->registrationDate,
-            'model' => $this->getModel()
+            'model' => $this->getModel(),
+            'images' => $this->getImages()->getIterator()
+
         ];
     }
 }

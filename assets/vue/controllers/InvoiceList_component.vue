@@ -1,8 +1,7 @@
-
 <script setup>
-const { invoices } = defineProps(['invoices']);
+const {invoices} = defineProps(['invoices']);
 //const q = props.q;
-import { ref, onMounted, computed } from 'vue';
+import {ref, onMounted, computed} from 'vue';
 //Importem axios
 import axios from 'axios';
 
@@ -15,11 +14,11 @@ const invoiceDeletePath = (id) => `/invoices/${id}/delete`;
 
 //Tipos de filtrado
 const filters = ref({
-  global: { value: null, matchMode: 'CONTAINS' },
-  number: { value: null, matchMode: 'CONTAINS' },
-  customer: { value: null, matchMode: 'STARTS_WITH' },
-  price: { value: null, matchMode: 'IN' },
-  date: { value: null, matchMode: 'EQUALS' },
+  global: {value: null, matchMode: 'CONTAINS'},
+  number: {value: null, matchMode: 'CONTAINS'},
+  customer: {value: null, matchMode: 'STARTS_WITH'},
+  price: {value: null, matchMode: 'IN'},
+  date: {value: null, matchMode: 'EQUALS'},
 });
 
 //Filtrador
@@ -59,7 +58,7 @@ const openShowModal = (id) => {
 const closeModal = () => {
   selectedInvoice.value = null;
   let modal = document.querySelector('.modal');
-  modal.style.display='none';
+  modal.style.display = 'none';
   window.location.reload();
 };
 
@@ -93,7 +92,7 @@ function showEditModal(id) {
 
         const form = modalBody.querySelector('form');
         form.action = `/invoices/${id}/edit`;
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
           event.preventDefault();
           axios.post(form.action, new FormData(form))
               .then(response => {
@@ -118,47 +117,49 @@ function showEditModal(id) {
 <template>
   <div class="d-flex justify-content-center">
     <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador "/>
-    <a :href="invoiceCreatePath"><button class="btn p-1"><i class="bi bi-plus-square"></i> Create new</button></a>
+    <a :href="invoiceCreatePath">
+      <button class="btn p-1"><i class="bi bi-plus-square"></i> Create new</button>
+    </a>
   </div>
-<div class="d-flex justify-content-center mx-auto">
-  <table id="table" class="d-sm-block d-none" >
-    <thead class="theadInvoices">
-    <tr>
-      <th class="p-1">Numero</th>
-      <th>Usuario</th>
-      <th>Precio</th>
-      <th>Fecha</th>
-      <th>Operaciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="invoice in filteredInvoices" :key="invoice.id">
-      <td data-title="Numero:">{{invoice.number}}</td>
-     <td data-title="Usuario:">{{invoice.customer.name}}</td>
-      <td data-title="Precio:">{{invoice.price}}</td>
-      <td data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</td>
-      <td>
+  <div class="d-flex justify-content-center w-100 mx-auto">
+    <table id="table" class="d-sm-block d-none">
+      <thead class="theadInvoices">
+      <tr>
+        <th class="p-1">Numero</th>
+        <th>Usuario</th>
+        <th>Precio</th>
+        <th>Fecha</th>
+        <th>Operaciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="invoice in filteredInvoices" :key="invoice.id">
+        <td data-title="Numero:">{{ invoice.number }}</td>
+        <td data-title="Usuario:">{{ invoice.customer.name }}</td>
+        <td data-title="Precio:">{{ invoice.price }}</td>
+        <td data-title="Fecha:">{{ invoice.date.date.substring(0, 10) }}</td>
+        <td>
 
-        <button class="btn btn-success" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
+          <button class="btn btn-success" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
 
-       <!-- <a :href="invoiceEditPath(invoice.id)">-->
-        <button class="btn btn-info" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
-        <!-- </a>-->
-        <a :href="invoiceDeletePath(invoice.id)">
-          <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-        </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+          <!-- <a :href="invoiceEditPath(invoice.id)">-->
+          <button class="btn btn-info" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
+          <!-- </a>-->
+          <a :href="invoiceDeletePath(invoice.id)">
+            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="accordion accordion-flush d-flex justify-content-center d-sm-none d-block">
     <div v-for="invoice in filteredInvoices" :key="invoice.id">
-      <p data-title="Numero:">{{invoice.number}}</p>
-      <p data-title="Usuario:">{{invoice.customer.name}}</p>
-      <p data-title="Precio:">{{invoice.price}}</p>
-      <p data-title="Fecha:">{{invoice.date.date.substring(0, 10)}}</p>
+      <p data-title="Numero:">{{ invoice.number }}</p>
+      <p data-title="Usuario:">{{ invoice.customer.name }}</p>
+      <p data-title="Precio:">{{ invoice.price }}</p>
+      <p data-title="Fecha:">{{ invoice.date.date.substring(0, 10) }}</p>
       <p>
         <a :href="invoiceShowPath(invoice.id)">
           <button class="btn btn-success"><i class="fas fa-eye"></i></button>

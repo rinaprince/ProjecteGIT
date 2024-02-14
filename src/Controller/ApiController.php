@@ -106,8 +106,7 @@ class ApiController extends AbstractController
 
         return new JsonResponse(['success' => true]);
     }
-
-    #[Route('/models', name: 'app_api_model')]
+    #[Route('/models', name: 'app_api_models')]
     public function model(ModelRepository $modelRepository): Response
     {
         $models = $modelRepository->findAll();

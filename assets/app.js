@@ -23,6 +23,7 @@ import './equip3/css/variables.css';
 import './equip3/css/modal.css';
 import './equip3/css/backend-skeleton.css';
 import './equip3/css/providers.css';
+import './equip3/css/catalogue.css';
 import './equip3/js/menu-burguer';
 import './equip3/js/menu_aside';
 import './equip3/js/modal';

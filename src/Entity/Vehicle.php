@@ -59,7 +59,7 @@ class Vehicle implements JsonSerializable
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $registrationDate = null;
 
-    #[ORM\OneToMany(mappedBy: 'vehicle', targetEntity: Image::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'vehicle', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'vehicle', targetEntity: Document::class, orphanRemoval: true)]

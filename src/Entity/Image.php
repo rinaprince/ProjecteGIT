@@ -92,6 +92,5 @@ class Image implements \JsonSerializable
         return [
             'filename' => $this->getFilename()
         ];
-
     }
 }

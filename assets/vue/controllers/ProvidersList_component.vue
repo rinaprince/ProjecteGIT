@@ -59,9 +59,10 @@
             <td class="d-sm-none d-md-none">{{ provider.LOPDdocFile }}</td>
             <td class="d-sm-none d-md-none">{{ provider.constitutionArticle }}</td>
             <td>
-              <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="bi bi-eye-fill"></i>
-              </button>
+              <button class="btn btn-success">
+                <a @click="modalShow(provider.id)">
+                  <i class="bi bi-eye-fill"></i>
+                </a></button>
             </td>
             <td>
               <a :href="providerEditPath(provider.id)" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
@@ -78,18 +79,17 @@
     </div>
   </div>
   <!-- Modal Mostrar-->
-  <div class="modal" id="myModal" tabindex="-1">
-    <div class="modal-dialog">
+  <div class="modal" style="background-color: rgba(0,0,0,0.5)" ref="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Detalls:</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
         </div>
-        <div class="modal-body" id="modalContent">
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn button-primary-BHEC text-white" data-bs-dismiss="modal">Tanca</button>
+        <div class="modal-body">
+          <!-- Content goes here -->
+          <!-- You can add form elements, text, etc. -->
         </div>
       </div>
     </div>
@@ -136,27 +136,26 @@ const applyFilters = (data, filters) => {
 };
 
 // Hacer la solicitud Axios aquí
-function showModal(id) {
-  axios.get('/providers/'+id)
+function modalShow(id) {
+  axios.get('/providers/' + id + '')
       .then(response => {
-        // Actualizar el contenido del modal
+        // Actualitzar el contingut del modal
         const modalBody = document.querySelector('.modal-body');
         modalBody.innerHTML = response.data;
 
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
-
       })
       .catch(error => {
         console.error('Error fetching modal content:', error);
       });
 }
 
-/*function hideModal() {
+function hideModal() {
   const myModal = document.querySelector('.modal');
   myModal.style.display = 'none';
-}*/
+}
 
 /* Funció per a eliminar al proveïdor */
 /*function deleteProvider(providerId, token) {
@@ -185,7 +184,7 @@ function sweetAlertDelete(id) {
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {
     if (result.isConfirmed === true) {
-      axios.post('/providers/'+id+'/delete')
+      axios.post('/providers/' + id + '/delete')
           .then(response => {
             Swal.fire({
               title: "Eliminat!",

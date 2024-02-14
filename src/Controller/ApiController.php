@@ -42,13 +42,23 @@ class ApiController extends AbstractController
         return $response;
     }
 
-    #[Route('/username_validation', name: 'app_api_username_validation')]
-    public function usernameValidation(LoginRepository $loginRepository): Response
+    #[Route('/username-validation', name: 'app_api_username_validation', methods: ['POST'])]
+    public function usernameValidation(Request $request, LoginRepository $loginRepository): Response
     {
-        $query = $loginRepository->findAll();
+        $requestData = json_decode($request->getContent(), true);
+        $username = $requestData['username'];
 
-        return "hola";
+        $usernameExists = $loginRepository->createQueryBuilder('l')
+            ->select('l.username')
+            ->where("l.username = :username")
+            ->setParameter("username", $username)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $responseData = ['username_exists' => (bool) $usernameExists];
+        return new JsonResponse($responseData);
     }
+
 
 
     #[Route('/add/{id}', name: 'app_api_pending_orders', methods: ['POST'])]

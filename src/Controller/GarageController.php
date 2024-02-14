@@ -2,20 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Invoice;
-use App\Repository\BrandRepository;
-use App\Repository\CustomerRepository;
+use App\Entity\Order;
 use App\Repository\InvoiceRepository;
-use App\Repository\ModelRepository;
 use App\Repository\OrderRepository;
 use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted("ROLE_ADMIN")]
+#[IsGranted(
+    new Expression(
+        'is_granted("ROLE_PRIVATE", subject) or is_granted("ROLE_PROFESSIONAL", subject)'
+    ))]
 #[Route('/garage')]
 class GarageController extends AbstractController
 {
@@ -29,9 +30,6 @@ class GarageController extends AbstractController
             return $this->redirectToRoute('templates');
         }
 
-        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
-            null, 'Accés restringit');
-
         $login = $this->getUser();
         $customer = $login->getCustomer();
 
@@ -43,11 +41,13 @@ class GarageController extends AbstractController
             $vehicles = $pendingOrder->getVehicles()->toArray();
         }
 
+        $closedOrders = $orderRepository->findBy(['state' => 'Tancat', 'customer' => $customer]);
         $userInvoices = $invoiceRepository->findBy(['customer' => $customer]);
 
         return $this->render('garage/index.html.twig', [
             'vehicles' => $vehicles,
-            'invoices' => $userInvoices
+            'invoices' => $userInvoices,
+            'orders' => $closedOrders
         ]);
     }
 
@@ -115,4 +115,11 @@ class GarageController extends AbstractController
         return $this->redirectToRoute('app_garage_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Route('/{id}/details', name: 'app_order_details', methods: ['GET'])]
+    public function show(Order $order): Response
+    {
+        return $this->render('order/details.html.twig', [
+            'order' => $order,
+        ]);
+    }
 }

@@ -9,6 +9,7 @@ use App\Repository\OrderRepository;
 use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,7 +43,10 @@ class CatalegController extends AbstractController
         ]);
     }
 
-    #[IsGranted("ROLE_ADMIN")]
+    #[IsGranted(
+        new Expression(
+            'is_granted("ROLE_PRIVATE", subject) or is_granted("ROLE_PROFESSIONAL", subject)'
+        ))]
     #[Route('/add/{id}', name: 'app_catalogue_add_vehicle', methods: ['GET', 'POST'])]
     public function new($id, Request $request, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): Response {
         if ($this->isGranted('ROLE_ADMIN')) {
@@ -53,16 +57,10 @@ class CatalegController extends AbstractController
             return $this->redirectToRoute('templates');
         }
 
-        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
-            null, 'Accés restringit');
-
         $login = $this->getUser();
         $customer = $login->getCustomer();
 
         $existingOrder = $orderRepository->findOneBy(['state' => 'Pendent', 'customer' => $customer]);
-
-        $this->denyAccessUnlessGranted('ROLE_PRIVATE',
-            null, 'Accés restringit, soles administratius');
 
         if (!$existingOrder) {
             $order = new Order();

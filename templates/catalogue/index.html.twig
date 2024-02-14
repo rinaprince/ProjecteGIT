@@ -1,4 +1,4 @@
-{% extends 'base_3.html.twig' %}
+{% extends 'base_2.html.twig' %}
 {% block title %} Catàleg {% endblock %}
 
 {% block body %}
@@ -21,17 +21,20 @@
         </div>
     </div>
 
-    {% if q %}
-        <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
-    {% endif %}
+
+        {% if q %}
+            <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
+        {% endif %}
 
     <div class=" container-fluid d-flex flex-xl-wrap gap-xl-3 justify-content-center p-5">
+
         <div class="row">
             {% for vehicle in vehicles %}
                 {% if vehicle.vehicleOrder is null or vehicle.vehicleOrder.state != 'Tancat' %}
-                    <div class=" col-xl-3 col-12 d-flex align-items-center justify-content-center text-center mb-xl-2 mb-5">
-                        <div class="card" style="width: 18rem;">
-                            <div>
+                    <div class="col-3 mb-2">
+                        <div class="mb-2 border border-1 border-light rounded-3 overflow-hidden ">
+                            <div class="rounded-2 w-100 overflow-hidden ">
+
                                 <div id="carouselImagesVehicles_{{ vehicle.id }}" class="carousel slide w-100">
                                     <div class="carousel-indicators">
                                         <button type="button"
@@ -50,9 +53,9 @@
                                     <div class="carousel-inner">
                                         {% for image in vehicle.images %}
                                             <div class="carousel-item{{ loop.first ? ' active' }}">
-                                                <img src="{{ asset("/equip3/no-photo.png") }}"
+                                                <img src="{{ asset("/equip3/img/vehicles/" ~ image.filename) | imagine_filter('vehicle_lowres') }}"
                                                         {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
-                                                            src: asset("/equip3/img/vehicles/" ~ image.filename)
+                                                            src: asset("/equip3/img/vehicles/" ~ image.filename) | imagine_filter('vehicle_thumb')
                                                         }) }}
 
                                                      class="d-block w-100 object-fit-cover rounded-top"

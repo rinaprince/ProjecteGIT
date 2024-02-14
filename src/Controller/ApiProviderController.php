@@ -26,17 +26,15 @@ class ApiProviderController extends AbstractController
         if ($data == null || $data == "") {
             $providersJson = [
                 "status" => "fail",
-                "data" => ["count_number" => $data],
+                "data" => ["provider" => $data],
                 "message" => "No se pudo acceder a los datos de provedores"
             ];
-            $status = Response::HTTP_OK;
         } else {
             $providersJson = [
                 "status" => "success",
                 "data" => ["providers" => $data],
                 "message" => null
             ];
-            $status = Response::HTTP_OK;
         }
 
         return new JsonResponse($providersJson, Response::HTTP_OK);

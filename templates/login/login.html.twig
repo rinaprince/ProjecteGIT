@@ -1,4 +1,4 @@
-{% extends 'base_3.html.twig' %}
+{% extends 'base_2.html.twig' %}
 
 {% block title %}Inici de sessió{% endblock %}
 
@@ -71,7 +71,7 @@
                 </div>
                 <div class="modal-body">
                     <!--<div {{ vue_component('PrivateCustomerNewFront_component') }}></div>-->
-                    <a href="/register/company">Professional</a>
+                    {% include 'register/professional.html.twig' %}
                 </div>
             </div>
         </div>

@@ -1,54 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Provider{% endblock %}
+{% block title %}Detalls de proveïdors{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>Provider</h1>
-        <a href="{{ path('app_provider_edit', {'id': provider.id}) }}" class="btn btn-primary">edit</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-start align-items-center">
+                    <h1 class="fs-5">Proveïdor</h1>
+                    <!--<a href="{{ path('app_provider_edit', {'id': provider.id}) }}" class="btn btn-primary">edit</a>-->
+                </div>
+                <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ provider.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ provider.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{ provider.phone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Dni</th>
+                        <td>{{ provider.dni }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cif</th>
+                        <td>{{ provider.cif }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ provider.address }}</td>
+                    </tr>
+                    <tr>
+                        <th>BankTitle</th>
+                        <td>{{ provider.bankTitle }}</td>
+                    </tr>
+                    <tr>
+                        <th>ManagerNif</th>
+                        <td>{{ provider.managerNif }}</td>
+                    </tr>
+                    <tr>
+                        <th>LOPDdoc</th>
+                        <td>{{ provider.LOPDdoc }}</td>
+                    </tr>
+                    <tr>
+                        <th>ConstitutionArticle</th>
+                        <td>{{ provider.constitutionArticle }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ provider.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ provider.email }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ provider.phone }}</td>
-            </tr>
-            <tr>
-                <th>Dni</th>
-                <td>{{ provider.dni }}</td>
-            </tr>
-            <tr>
-                <th>Cif</th>
-                <td>{{ provider.cif }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ provider.address }}</td>
-            </tr>
-            <tr>
-                <th>BankTitle</th>
-                <td>{{ provider.bankTitle }}</td>
-            </tr>
-            <tr>
-                <th>ManagerNif</th>
-                <td>{{ provider.managerNif }}</td>
-            </tr>
-            <tr>
-                <th>LOPDdoc</th>
-                <td>{{ provider.LOPDdoc }}</td>
-            </tr>
-            <tr>
-                <th>ConstitutionArticle</th>
-                <td>{{ provider.constitutionArticle }}</td>
-            </tr>
-        </tbody>
-    </table>
 {% endblock %}

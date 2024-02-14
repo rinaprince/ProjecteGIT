@@ -49,6 +49,10 @@ class PurchaseController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_purchase_index', [], Response::HTTP_SEE_OTHER);
+        return $this->render('purchase/confirmation.html.twig', [
+            'controller_name' => 'PurchaseController',
+        ]);
     }
+
+
 }

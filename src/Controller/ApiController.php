@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Repository\CustomerRepository;
 use App\Repository\LoginRepository;
+use App\Repository\ModelRepository;
 use App\Repository\OrderRepository;
 use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,18 +44,29 @@ class ApiController extends AbstractController
         return $response;
     }
 
-    #[Route('/username_validation', name: 'app_api_username_validation')]
-    public function usernameValidation(LoginRepository $loginRepository): Response
+    #[Route('/username-validation', name: 'app_api_username_validation', methods: ['POST'])]
+    public function usernameValidation(Request $request, LoginRepository $loginRepository): Response
     {
-        $query = $loginRepository->findAll();
+        $requestData = json_decode($request->getContent(), true);
+        $username = $requestData['username'];
 
-        return "hola";
+        $usernameExists = $loginRepository->createQueryBuilder('l')
+            ->select('l.username')
+            ->where("l.username = :username")
+            ->setParameter("username", $username)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $responseData = ['username_exists' => (bool) $usernameExists];
+        return new JsonResponse($responseData);
     }
+
 
     #[IsGranted(
         new Expression(
             'is_granted("ROLE_PRIVATE", subject) or is_granted("ROLE_PROFESSIONAL", subject)'
         ))]
+
     #[Route('/add/{id}', name: 'app_api_pending_orders', methods: ['POST'])]
     public function new($id, Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): JsonResponse
     {
@@ -94,4 +106,20 @@ class ApiController extends AbstractController
 
         return new JsonResponse(['success' => true]);
     }
+
+    #[Route('/models', name: 'app_api_model')]
+    public function model(ModelRepository $modelRepository): Response
+    {
+        $models = $modelRepository->findAll();
+
+        $modelNames = [];
+
+        foreach ($models as $model) {
+            $modelNames[] = $model->getFullname();
+        }
+
+        $response = $this->json(["data" => ["models" => $modelNames]]);
+        return $response;
+    }
 }
+

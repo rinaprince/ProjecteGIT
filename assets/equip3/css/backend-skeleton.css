@@ -18,12 +18,6 @@ body {
 /* Estils de la capçalera */
 header {
     background-color: var(--primary-color);
-    position: fixed;
-    right: 0;
-    left: 0;
-    width: 100%;
-    top: 0;
-    z-index: 1;
 }
 
 #logoAndNav>img{

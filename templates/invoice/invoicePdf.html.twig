@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice PDF</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Invoice PDF</h1>
+
+        {% if invoice %}
+            <table class="table table-bordered">
+                <tr>
+                    <th>Invoice Number</th>
+                    <td>{{ invoice.number }}</td>
+                </tr>
+                <tr>
+                    <th>Invoice Date</th>
+                    <td>{{ invoice.date | date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
+                </tr>
+                <tr>
+                    <th>Customer</th>
+                    <td>{{ invoice.customer.name }} {{ invoice.customer.lastname }} - {{ invoice.customer.dni }}</td>
+                </tr>
+                <tr>
+                    <th>Order Number</th>
+                    <td>{{ invoice.customerOrder.id }}</td>
+                </tr>
+                <tr>
+                    <th>Customer Order State</th>
+                    <td>{{ invoice.customerOrder.state }}</td>
+                </tr>
+            </table>
+        {% else %}
+            <p class="lead">There is no details for this invoice.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -27,7 +27,7 @@ class InvoiceRepository extends ServiceEntityRepository
     public function findAllQuery() : Query
     {
         return $this->createQueryBuilder('i')
-            ->orderBy('i.id', 'ASC')
+            ->orderBy('i.date', 'DESC')
             ->getQuery()
             ;
     }

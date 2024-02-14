@@ -30,6 +30,9 @@ class Image
     #[ORM\JoinColumn(nullable: false)]
     private ?Vehicle $vehicle = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updateAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,5 +70,20 @@ class Image
     public function setImageFile(?File $imageFile): void
     {
         $this->imageFile = $imageFile;
+
+        if (null !== $imageFile)
+            $this->setUpdateAt(new \DateTimeImmutable());
+    }
+
+    public function getUpdateAt(): ?\DateTimeImmutable
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeImmutable $updateAt): static
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
     }
 }

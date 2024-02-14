@@ -161,16 +161,8 @@ function sweetAlertDelete(id) {
                   </button>
                 </a>
                 <a @click="sweetAlertDelete(vehicle.id)">
-<<<<<<< HEAD
-=======
-                  <button class="border-0 bg-transparent p-1">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </a>
-                <a :href="vehiclesAddImagePath(vehicle.id)">
->>>>>>> main
                   <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
-                    <i class="bi bi-image"></i>
+                    <i class="bi bi-trash"></i>
                   </button>
                 </a>
 

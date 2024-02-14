@@ -40,6 +40,7 @@ class InvoiceController extends AbstractController
             "date" => "Fecha",
         ];*/
 
+
         return $this->render('invoice/index.html.twig', [
             'paginatedInvoices' => $paginatedInvoices,
         ]);

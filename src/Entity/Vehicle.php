@@ -59,7 +59,7 @@ class Vehicle implements JsonSerializable
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $registrationDate = null;
 
-    #[ORM\OneToMany(mappedBy: 'vehicle', targetEntity: Image::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'vehicle', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'vehicle', targetEntity: Document::class, orphanRemoval: true)]
@@ -272,6 +272,8 @@ class Vehicle implements JsonSerializable
             $image->setVehicle($this);
         }
 
+        //TODO: review
+        $this->buyPrice++;
         return $this;
     }
 
@@ -370,7 +372,9 @@ class Vehicle implements JsonSerializable
             'transportIncluded' => $this->transportIncluded,
             'color' => $this->color,
             'registrationDate' => $this->registrationDate,
-            'model' => $this->getModel()
+            'model' => $this->getModel(),
+            'images' => $this->getImages()->getIterator()
+
         ];
     }
 }

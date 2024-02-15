@@ -1,16 +1,15 @@
-{% extends 'base_back_1.html.twig' %}
+{% extends 'base_back_2.html.twig' %}
 
 {% block title %}Pàgina Index Customer!{% endblock %}
 
 {% block body %}
-    <h1>Customer index</h1>
+    <h1 class="text-center">Customers</h1>
 
 
     <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg3" role="search">
         <input name="q" type="search" class="form-control" placeholder="Search..." aria-label="Search">
     </form>
 
-    {{ dump(customs) }}
     <div {{ vue_component('CustomerList_component', { 'elements': customs, 'config': config}) }}></div>
 
     <div class="navigation d-flex justify-content-center">

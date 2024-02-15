@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Image;
-use App\Entity\Vehicle;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,10 +13,19 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageFile', VichImageType::class)
-            //->add('vehicle', EntityType::class, [
-                //'class' => Vehicle::class,
-                //'choice_label' => 'id',
+            ->add('imageFile', VichImageType::class,
+                [
+                    'label' => false,
+                    'required' => false,
+                    'allow_delete' => false,
+                    'delete_label' => 'Esborrar imatge',
+                    'download_label' => '...',
+                    'download_uri' => false,
+                    'image_uri' => false,
+                    'asset_helper' => false,
+                    'imagine_pattern' => 'vehicle_thumb']
+            )
+
             ;
     }
 

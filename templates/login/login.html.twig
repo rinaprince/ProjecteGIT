@@ -1,4 +1,4 @@
-{% extends 'base_3.html.twig' %}
+{% extends 'base_2.html.twig' %}
 
 {% block title %}Inici de sessió{% endblock %}
 
@@ -61,17 +61,17 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Eres una empresa?</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div {{ vue_component('PrivateCustomerNewFront_component') }}></div>
-                    <!--{% include 'register/professional.html.twig' %}-->
+                    <!--<div {{ vue_component('PrivateCustomerNewFront_component') }}></div>-->
+                    {% include 'register/professional.html.twig' %}
                 </div>
             </div>
         </div>

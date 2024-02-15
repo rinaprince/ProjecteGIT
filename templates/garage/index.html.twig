@@ -1,4 +1,4 @@
-{% extends 'base_3.html.twig' %}
+{% extends 'base_2.html.twig' %}
 
 {% block title %}Garage{% endblock %}
 
@@ -80,7 +80,6 @@
                             <td>{{ invoice.date | date('d/m/Y') }}</td>
                             <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
                             <td>
-                                <a class="btn btn-primary btn-sm" href="#">Detalls</a>
                             </td>
                         </tr>
                     {% endfor %}

@@ -10,7 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable]
-class Image
+class Image implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -29,6 +29,9 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Vehicle $vehicle = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updateAt = null;
 
     public function getId(): ?int
     {
@@ -67,5 +70,27 @@ class Image
     public function setImageFile(?File $imageFile): void
     {
         $this->imageFile = $imageFile;
+
+        if (null !== $imageFile)
+            $this->setUpdateAt(new \DateTimeImmutable());
+    }
+
+    public function getUpdateAt(): ?\DateTimeImmutable
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeImmutable $updateAt): static
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'filename' => $this->getFilename()
+        ];
     }
 }

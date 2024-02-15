@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "adfb203f6fb7450df14efa471e944f68",
+    "content-hash": "07612fce606566c1f352b0e2a1567509",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -1761,6 +1761,131 @@
                 "source": "https://github.com/KnpLabs/KnpPaginatorBundle/tree/v6.3.0"
             },
             "time": "2023-11-19T08:15:37+00:00"
+        },
+        {
+            "name": "knplabs/knp-snappy",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/snappy.git",
+                "reference": "98468898b50c09f26d56d905b79b0f52a2215da6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/snappy/zipball/98468898b50c09f26d56d905b79b0f52a2215da6",
+                "reference": "98468898b50c09f26d56d905b79b0f52a2215da6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "psr/log": "^2.0||^3.0",
+                "symfony/process": "^5.0||^6.0||^7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "pedrotroller/php-cs-custom-fixer": "^2.19",
+                "phpstan/phpstan": "^1.0.0",
+                "phpstan/phpstan-phpunit": "^1.0.0",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Snappy\\": "src/Knp/Snappy"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KNP Labs Team",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://github.com/KnpLabs/snappy/contributors"
+                }
+            ],
+            "description": "PHP library allowing thumbnail, snapshot or PDF generation from a url or a html page. Wrapper for wkhtmltopdf/wkhtmltoimage.",
+            "homepage": "http://github.com/KnpLabs/snappy",
+            "keywords": [
+                "knp",
+                "knplabs",
+                "pdf",
+                "snapshot",
+                "thumbnail",
+                "wkhtmltopdf"
+            ],
+            "support": {
+                "issues": "https://github.com/KnpLabs/snappy/issues",
+                "source": "https://github.com/KnpLabs/snappy/tree/v1.5.0"
+            },
+            "time": "2023-12-18T09:12:11+00:00"
+        },
+        {
+            "name": "knplabs/knp-snappy-bundle",
+            "version": "v1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpSnappyBundle.git",
+                "reference": "0080ff4ad9526c08792823cf7566060ffba07ef6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpSnappyBundle/zipball/0080ff4ad9526c08792823cf7566060ffba07ef6",
+                "reference": "0080ff4ad9526c08792823cf7566060ffba07ef6",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-snappy": "^1.4.3",
+                "php": ">=8.1",
+                "symfony/framework-bundle": "^5.1|^6.0|^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5",
+                "symfony/yaml": "^5.1|^6.0|^7.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Bundle\\SnappyBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://github.com/KnpLabs/KnpSnappyBundle/contributors"
+                }
+            ],
+            "description": "Easily create PDF and images in Symfony by converting Twig/HTML templates.",
+            "homepage": "http://github.com/KnpLabs/KnpSnappyBundle",
+            "keywords": [
+                "bundle",
+                "knp",
+                "knplabs",
+                "pdf",
+                "snappy"
+            ],
+            "support": {
+                "issues": "https://github.com/KnpLabs/KnpSnappyBundle/issues",
+                "source": "https://github.com/KnpLabs/KnpSnappyBundle/tree/v1.10.0"
+            },
+            "time": "2023-12-18T09:56:06+00:00"
         },
         {
             "name": "liip/imagine-bundle",
@@ -7990,16 +8115,16 @@
         },
         {
             "name": "vich/uploader-bundle",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "0d748cfe676bcf894b3f324f69797c9b9d124aa5"
+                "reference": "f21f620502fdee511b090e3bbbc4c724ecb4f977"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/0d748cfe676bcf894b3f324f69797c9b9d124aa5",
-                "reference": "0d748cfe676bcf894b3f324f69797c9b9d124aa5",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/f21f620502fdee511b090e3bbbc4c724ecb4f977",
+                "reference": "f21f620502fdee511b090e3bbbc4c724ecb4f977",
                 "shasum": ""
             },
             "require": {
@@ -8028,12 +8153,12 @@
                 "doctrine/orm": "^2.13",
                 "ext-sqlite3": "*",
                 "knplabs/knp-gaufrette-bundle": "dev-master",
-                "league/flysystem-bundle": "^2.3",
-                "league/flysystem-memory": "^2.0",
-                "matthiasnoback/symfony-dependency-injection-test": "^4.3",
+                "league/flysystem-bundle": "^2.4 || ^3.0",
+                "league/flysystem-memory": "^2.0 || ^3.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^5.1",
                 "mikey179/vfsstream": "^1.6.11",
                 "phpunit/phpunit": "^9.6",
-                "symfony/asset": "^5.4 || ^6.0",
+                "symfony/asset": "^5.4 || ^6.0 || ^7.0",
                 "symfony/browser-kit": "^5.4 || ^6.0 || ^7.0",
                 "symfony/css-selector": "^5.4 || ^6.0 || ^7.0",
                 "symfony/doctrine-bridge": "^5.4 || ^6.0 || ^7.0",
@@ -8093,9 +8218,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dustin10/VichUploaderBundle/issues",
-                "source": "https://github.com/dustin10/VichUploaderBundle/tree/2.3.0"
+                "source": "https://github.com/dustin10/VichUploaderBundle/tree/2.3.1"
             },
-            "time": "2023-12-18T07:49:22+00:00"
+            "time": "2024-02-12T08:29:16+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -10711,7 +10836,8 @@
     "platform": {
         "php": ">=8.1",
         "ext-ctype": "*",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+        "ext-http": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"

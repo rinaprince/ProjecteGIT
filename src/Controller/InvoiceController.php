@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Knp\Snappy\Pdf;
 
 #[Route('/invoices')]
 class InvoiceController extends AbstractController
@@ -38,6 +39,7 @@ class InvoiceController extends AbstractController
             "price" => "Precio",
             "date" => "Fecha",
         ];*/
+
 
         return $this->render('invoice/index.html.twig', [
             'paginatedInvoices' => $paginatedInvoices,
@@ -130,8 +132,40 @@ class InvoiceController extends AbstractController
     #[Route('/myinvoices/{id}', name: 'app_invoice_myinvoices_detail', methods: ['GET'])]
     public function detail(Invoice $invoice): Response
     {
-        return $this->render('invoice/detail.html.twig', [
-            'invoice' => $invoice,
-        ]);
+        $customer = $this->getUser();
+    
+        if ($customer !== null && $invoice->getCustomer() === $customer->getCustomer()) {
+            return $this->render('invoice/detail.html.twig', [
+                'invoice' => $invoice,
+            ]);
+        }
+    
+        return $this->redirectToRoute('app_invoice_myinvoices', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[IsGranted('ROLE_PRIVATE', message: 'Accés restringit')]
+    #[Route('/myinvoices/{id}/pdf', name: 'app_invoice_pdf', methods: ['GET'])]
+    public function invoicePdf(Invoice $invoice, Pdf $pdf): Response
+    {
+        $customer = $this->getUser();
+    
+        if ($customer !== null && $invoice->getCustomer() === $customer->getCustomer()) {
+            $html = $this->renderView('invoice/invoicePdf.html.twig', [
+                'invoice' => $invoice,
+            ]);
+    
+            $filename = sprintf('invoice_%s.pdf', $invoice->getNumber());
+    
+            return new Response(
+                $pdf->getOutputFromHtml($html),
+                200,
+                [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => sprintf('inline; filename="%s"', $filename),
+                ]
+            );
+        }
+    
+        return $this->redirectToRoute('app_invoice_myinvoices', [], Response::HTTP_SEE_OTHER);
     }
 }

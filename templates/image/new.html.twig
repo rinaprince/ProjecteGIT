@@ -1,23 +1,27 @@
-{% extends 'base_back_3.html.twig' %}
+{% extends 'base_back_2.html.twig' %}
 
-{% block title %}Imatge{% endblock %}
+
 
 {% block body %}
     <div class="container-fluid">
-        <h1>Afegir imatges</h1>
+        <h1>Imatges</h1>
 
         {{ form_start(form) }}
 
-        <div class="row">
-        {% for image in form.images %}
-
-
-                <div class="col-6">{{ form_row(image.imageFile) }}</div>
-
-        {% endfor %}
+        <div {{ stimulus_controller('form-image-collection') }}
+                data-form-image-collection-index-value="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}"
+                data-form-image-collection-prototype-value="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
+                class="row mb-2">
+            {% for image in form.images %}
+                <div {{ stimulus_target('form-image-collection', 'collectionContainer') }} class="col-12">{{ form_row(image.imageFile) }}</div>
+            {% endfor %}
+            <div class="col-12 d-flex gap-2 justify-content-end">
+                <button class="btn btn-secondary" type="button" {{ stimulus_action('form-image-collection', 'addImageElement') }}>{{ "Afegeix una image" | trans }}</button>
+                <input class="btn btn-primary" type="submit" value="Guardar">
+            </div>
         </div>
 
-        <div><input class="btn btn-primary" type="submit" value="Guardar"></div>
+
         {{ form_end(form) }}
     </div>
 

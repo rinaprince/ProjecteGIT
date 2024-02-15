@@ -1,32 +1,40 @@
-function openMenuModal() {
-    var menuModal = document.getElementById('menu-modal');
-    menuModal.style.display = 'block';
-}
 
-function closeMenuModal() {
-    var menuModal = document.getElementById('menu-modal');
-    menuModal.style.display = 'none';
 
-    var administrationMenu = document.getElementById('administration-menu');
-    administrationMenu.style.display = 'none'; // Ocultar el menú de administración
-    console.log('Hola');
-}
+
+    window.openMenuModal = function () {
+        var menuModal = document.getElementById('menu-modal');
+        menuModal.style.display = 'block';
+    }
+
+
+
+    window.closeMenuModal = function() {
+        var menuModal = document.getElementById('menu-modal');
+        menuModal.style.display = 'none';
+
+        var administrationMenu = document.getElementById('administration-menu');
+        administrationMenu.style.display = 'none'; // Ocultar el menú de administración
+        console.log('Hola');
+    }
 
 // Agregar un controlador de eventos al icono de usuario
 //var usuarioIcon = document.getElementById('usuari');
 //usuarioIcon.addEventListener('click', openMenuModal);
 
 // Modificar el controlador de eventos para el botón de administración
-var administrationMenuBtn = document.getElementById('administration-menu-btn');
-function openAdmin() {
-    var administrationMenu = document.getElementById('administration-menu');
+    const administrationMenuBtn = document.getElementById('administration-menu-btn');
 
-    if (administrationMenu.style.display === 'block') {
-        administrationMenu.style.display = 'none';
-    } else {
-        administrationMenu.style.display = 'block';
+    window.openAdmin = function () {
+        var administrationMenu = document.getElementById('administration-menu');
+
+        if (administrationMenu.style.display === 'block') {
+            administrationMenu.style.display = 'none';
+        } else {
+            administrationMenu.style.display = 'block';
+        }
     }
-}
+
+
 
 
 

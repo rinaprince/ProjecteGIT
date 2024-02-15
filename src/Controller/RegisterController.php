@@ -60,7 +60,6 @@ class RegisterController extends AbstractController
     }
 
     #[Route('/register/company', name: 'app_professional_new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
         $professional = new Professional();
@@ -80,8 +79,6 @@ class RegisterController extends AbstractController
             $this->addFlash('info', 'Usuari registrat correctament!');
 
             return $this->redirectToRoute('app_front_office', [], Response::HTTP_SEE_OTHER);
-
-            return $this->redirectToRoute('app_professional_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('professional/register.html.twig', [

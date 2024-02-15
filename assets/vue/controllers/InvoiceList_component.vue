@@ -62,16 +62,37 @@ const closeModal = () => {
   window.location.reload();
 };
 
+function openNewModal() {
+  axios.get(`/invoices/new`)
+      .then(response => {
+        const modalBody = document.querySelector('.modal-content');
+        const parsedHTML = new DOMParser().parseFromString(response.data, 'text/html');
+        const detailsDiv = parsedHTML.querySelector('#newBody');
+
+        if (detailsDiv) {
+          modalBody.innerHTML = detailsDiv.outerHTML;
+        }
+
+        // Mostrar el modal
+        const modal = document.querySelector('.modal');
+        modal.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Error al obtener los detalles de la factura:', error);
+      });
+}
+
 function showDetailsModal(id) {
   axios.get(`/invoices/${id}`)
       .then(response => {
         const modalBody = document.querySelector('.modal-content');
-        modalBody.innerHTML = response.data;
+        const parsedHTML = new DOMParser().parseFromString(response.data, 'text/html');
+        const detailsDiv = parsedHTML.querySelector('.contingut');
+        console.log(detailsDiv);
+        console.log(response.data);
 
-        // Elimina el formulario y sus escuchadores de eventos
-        const form = modalBody.querySelector('form');
-        if (form) {
-          form.remove();
+        if (detailsDiv) {
+          modalBody.innerHTML = detailsDiv.outerHTML;
         }
 
         // Mostrar el modal
@@ -87,72 +108,72 @@ function showEditModal(id) {
   axios.get(`/invoices/${id}/edit`)
       .then(response => {
         const modalBody = document.querySelector('.modal-content');
-        const from = new DOMParser().parseFromString(response.data, 'text/html').querySelector('form');
-        modalBody.innerHTML = form.outerHTML;
+        const parsedHTML = new DOMParser().parseFromString(response.data, 'text/html');
+        const formDiv = parsedHTML.querySelector('#form');
+        formDiv.querySelector("form").action = `/invoices/${id}/edit`
+        if (formDiv) {
+          modalBody.innerHTML = formDiv.outerHTML;
 
-        const form = modalBody.querySelector('form');
-        form.action = `/invoices/${id}/edit`;
-        form.addEventListener('submit', function (event) {
-          event.preventDefault();
-          axios.post(form.action, new FormData(form))
-              .then(response => {
-                closeModal();
-              })
-              .catch(error => {
-                console.error('Error al enviar el formulario de edición:', error);
-              });
-        });
-
-        // Mostrar el modal
-        const modal = document.querySelector('.modal');
-        modal.style.display = 'block';
+          // Mostrar el modal
+          const modal = document.querySelector('.modal');
+          modal.style.display = 'block';
+        } else {
+          console.error('No se encontró el div con el ID "form" en la respuesta.');
+        }
       })
       .catch(error => {
-        console.error('Error al obtindre el contingut del modal:', error);
+        console.error('Error al obtener el contenido del modal:', error);
       });
 }
 
 </script>
 
 <template>
-  <div class="d-flex justify-content-center">
-    <input type="text" id="global-filter" v-model="filters.global.value" @input="applyFilters" placeholder="Buscador "/>
-    <a :href="invoiceCreatePath">
-      <button class="btn p-1"><i class="bi bi-plus-square"></i> Create new</button>
-    </a>
+  <div>
+    <div>
+      <div class="d-flex justify-content-between align-items-center bg-quaternary-BHEC col-10">
+        <form method="GET" role="search">
+          <div class="d-flex my-3"><input name="q" type="search"
+                                     class="rounded-start-pill border border-secondary-subtle px-4"
+                                     placeholder="Buscar..." aria-label="Search">
+            <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0"><i class="bi bi-search"></i></button>
+          </div>
+        </form>
+        <a href="/invoices/new" class="button-text-primary-BHEC btn bg-tertiary-BHEC "><i
+            class="bi bi-plus-square me-1"></i>Nova Factura</a></div>
+    </div>
   </div>
-  <div class="d-flex justify-content-center w-100 mx-auto">
-    <table id="table" class="d-sm-block d-none">
-      <thead class="theadInvoices">
+
+  <div class="col-10">
+    <table class="table table-striped w-100 m-0 bg-tertiary-BHEC">
+      <thead class="theadInvoices text-center bg-primary-BHEC">
       <tr>
-        <th class="p-1">Numero</th>
+        <th class="py-1">Numero</th>
         <th>Usuario</th>
         <th>Precio</th>
         <th>Fecha</th>
         <th>Operaciones</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody class="text-center">
       <tr v-for="invoice in filteredInvoices" :key="invoice.id">
         <td data-title="Numero:">{{ invoice.number }}</td>
         <td data-title="Usuario:">{{ invoice.customer.name }}</td>
         <td data-title="Precio:">{{ invoice.price }}</td>
         <td data-title="Fecha:">{{ invoice.date.date.substring(0, 10) }}</td>
-        <td>
-
-          <button class="btn btn-success" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
-
-          <!-- <a :href="invoiceEditPath(invoice.id)">-->
-          <button class="btn btn-info" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
-          <!-- </a>-->
+        <td class="py-3">
+          <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
+          <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i>
+          </button>
           <a :href="invoiceDeletePath(invoice.id)">
-            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-danger mx-1 "><i class="fas fa-trash"></i></button>
           </a>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
+
 
   <div class="accordion accordion-flush d-flex justify-content-center d-sm-none d-block">
     <div v-for="invoice in filteredInvoices" :key="invoice.id">
@@ -164,9 +185,7 @@ function showEditModal(id) {
         <a :href="invoiceShowPath(invoice.id)">
           <button class="btn btn-success"><i class="fas fa-eye"></i></button>
         </a>
-        <!-- <a :href="invoiceEditPath(invoice.id)">-->
         <button class="btn btn-info" @click="openEditModal(invoice)"><i class="fas fa-pencil-alt"></i></button>
-        <!-- </a>-->
         <a :href="invoiceDeletePath(invoice.id)">
           <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
         </a>
@@ -174,8 +193,6 @@ function showEditModal(id) {
     </div>
   </div>
 
-
-  <!-- Tancar modal de edició -->
   <div class="modal" v-if="selectedInvoice !== null">
     <div class="modal-content">
       <button @click="closeModal">Cerrar</button>
@@ -183,3 +200,4 @@ function showEditModal(id) {
   </div>
 
 </template>
+

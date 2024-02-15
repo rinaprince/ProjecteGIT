@@ -29,6 +29,7 @@
       background: white;
       border-radius: 8px;
       opacity:100% ;
+      padding:10px;
     }
   </style>
 

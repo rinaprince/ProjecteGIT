@@ -1,4 +1,4 @@
-{% extends 'base_back_2.html.twig' %}
+{% extends 'base_back_3.html.twig' %}
 
 {% block title %}Invoice index{% endblock %}
 {% block stylesheets %}
@@ -7,11 +7,16 @@
 {% endblock %}
 
 {% block body %}
-            <h1>Lista de Facturas</h1>
-            <div {{ vue_component('InvoiceUpdateModal') }}></div>
-            <div id="div-table" class="table table-striped min-vw-100"{{ vue_component('InvoiceList_component', {'invoices': paginatedInvoices.items})}} ></div>
+        <section class="contingut ">
 
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1>Lista de Facturas</h1>
+                <div {{ vue_component('InvoiceUpdateModal') }}></div>
+                <div id="div-table"{{ vue_component('InvoiceList_component', {'invoices': paginatedInvoices.items})}} ></div>
+        </div>
+    </div>
     <div class="navigation d-flex justify-content-center mt-3" >
         {{ knp_pagination_render(paginatedInvoices) }}
     </div>

@@ -1,4 +1,4 @@
-{% extends 'base_2.html.twig' %}
+{% extends 'base_3.html.twig' %}
 
 {% block title %}Invoice Details{% endblock %}
 
@@ -9,41 +9,41 @@
 
 {% block body %}
     <section class="contingut col-10 mx-auto my-4">
-        <h1 class="text-center mb-4">Invoice Details</h1>
 
-        <div class="text-center">
-            {% if invoice %}
-                <table class="table table-bordered">
-                    <tr>
-                        <th>Invoice Number</th>
-                        <td>{{ invoice.number }}</td>
-                    </tr>
-                    <tr>
-                        <th>Invoice Date</th>
-                        <td>{{ invoice.date | date('d/m/Y') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Price</th>
-                        <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
-                    </tr>
-                    <tr>
-                        <th>Customer</th>
-                        <td>{{ invoice.customer.name }} {{ invoice.customer.lastname }} - {{ invoice.customer.dni }}</td>
-                    </tr>
-                    <tr>
-                        <th>Order Number</th>
-                        <td>{{ invoice.customerOrder.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Customer Order State</th>
-                        <td>{{ invoice.customerOrder.state }}</td>
-                    </tr>
-                </table>
-                <a class="btn btn-primary" href="{{ path('app_invoice_myinvoices')}}">Back to Invoices</a>
-                <a class="btn btn-success" href="{{ path('app_invoice_pdf', {'id': invoice.id}) }}" target="_blank">Generate PDF</a>
-            {% else %}
-                <p class="lead">There is no details for this invoice.</p>
-            {% endif %}
+        <div id="details">
+            <h1 class="text-center mb-4">Invoice Details</h1>
+            <div class="text-center">
+                {% if invoice %}
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Invoice Number</th>
+                            <td>{{ invoice.number }}</td>
+                        </tr>
+                        <tr>
+                            <th>Invoice Date</th>
+                            <td>{{ invoice.date | date('d/m/Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Price</th>
+                            <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
+                        </tr>
+                        <tr>
+                            <th>Customer</th>
+                            <td>{{ invoice.customer.name }} {{ invoice.customer.lastname }} - {{ invoice.customer.dni }}</td>
+                        </tr>
+                        <tr>
+                            <th>Order Number</th>
+                            <td>{{ invoice.customerOrder.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Customer Order State</th>
+                            <td>{{ invoice.customerOrder.state }}</td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <p class="lead">There is no details for this invoice.</p>
+                {% endif %}
+            </div>
         </div>
     </section>
 {% endblock %}

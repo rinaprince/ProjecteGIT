@@ -11,12 +11,16 @@
         <div {{ stimulus_controller('form-image-collection') }}
                 data-form-image-collection-index-value="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}"
                 data-form-image-collection-prototype-value="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
-                class="row mb-2">
+                class="mb-2">
+            <div  class="row" {{ stimulus_target('form-image-collection', 'container') }} >
             {% for image in form.images %}
-                <div {{ stimulus_target('form-image-collection', 'collectionContainer') }} class="col-12">{{ form_row(image.imageFile) }}</div>
+                <div {{ stimulus_target('form-image-collection', 'collectionContainer') }}
+                        class="col-12">{{ form_row(image.imageFile) }}</div>
             {% endfor %}
+            </div>
             <div class="col-12 d-flex gap-2 justify-content-end">
-                <button class="btn btn-secondary" type="button" {{ stimulus_action('form-image-collection', 'addImageElement') }}>{{ "Afegeix una image" | trans }}</button>
+                <button class="btn btn-secondary"
+                        type="button" {{ stimulus_action('form-image-collection', 'addImageElement') }}>{{ "Afegeix una image" | trans }}</button>
                 <input class="btn btn-primary" type="submit" value="Guardar">
             </div>
         </div>

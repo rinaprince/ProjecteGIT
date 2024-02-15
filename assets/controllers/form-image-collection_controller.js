@@ -6,7 +6,7 @@ import { Controller } from '@hotwired/stimulus';
 */
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-    static targets = ['collectionContainer']
+    static targets = ['container', 'collectionContainer']
 
     static values = {
         index    : Number,
@@ -22,11 +22,10 @@ export default class extends Controller {
     {
         const item = document.createElement('div');
         item.innerHTML = this.prototypeValue.replace(/__name__/g, this.indexValue);
-        console.log(this.indexValue);
-        this.collectionContainerTargets[this.indexValue-1].appendChild(item);
+        //console.log(this.indexValue);
+        this.containerTarget.append(item);
         this.indexValue++;
     }
-
 
     addImageDeleteButton () {
         this.collectionContainerTargets.forEach((div) => {

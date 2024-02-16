@@ -133,26 +133,27 @@ function showEditModal(id) {
     <div>
       <div class="d-flex justify-content-between align-items-center bg-quaternary-BHEC col-10">
         <form method="GET" role="search">
-          <div class="d-flex my-3"><input name="q" type="search"
-                                     class="rounded-start-pill border border-secondary-subtle px-4"
-                                     placeholder="Buscar..." aria-label="Search">
-            <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0"><i class="bi bi-search"></i></button>
+          <div class="d-flex my-3 "><input name="q" type="search"
+                                          class="rounded-start-pill border border-secondary-subtle px-4 "
+                                          placeholder="Buscar..." aria-label="Search">
+            <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0"><i class="bi bi-search"></i>
+            </button>
           </div>
         </form>
         <a href="/invoices/new" class="button-text-primary-BHEC btn bg-tertiary-BHEC "><i
-            class="bi bi-plus-square me-1"></i>Nova Factura</a></div>
+            class="bi bi-plus-square me-1"></i><p class="d-sm-inline d-none">Nova Factura</p></a></div>
     </div>
   </div>
 
   <div class="col-10">
-    <table class="table table-striped w-100 m-0 bg-tertiary-BHEC">
-      <thead class="theadInvoices text-center bg-primary-BHEC">
+    <table class="table table-striped w-100 m-0 bg-tertiary-BHEC d-sm-table d-none">
+      <thead class="theadInvoices text-center">
       <tr>
-        <th class="py-1">Numero</th>
-        <th>Usuario</th>
-        <th>Precio</th>
-        <th>Fecha</th>
-        <th>Operaciones</th>
+        <th class="py-1 bg-tertiary-BHEC">Numero</th>
+        <th class="bg-tertiary-BHEC">Usuario</th>
+        <th class="bg-tertiary-BHEC">Precio</th>
+        <th class="bg-tertiary-BHEC">Fecha</th>
+        <th class="bg-tertiary-BHEC">Operaciones</th>
       </tr>
       </thead>
       <tbody class="text-center">
@@ -175,29 +176,39 @@ function showEditModal(id) {
   </div>
 
 
-  <div class="accordion accordion-flush d-flex justify-content-center d-sm-none d-block">
+  <div id="accordion" class="accordion accordion-flush d-flex justify-content-center d-sm-none d-flex flex-wrap text-center">
     <div v-for="invoice in filteredInvoices" :key="invoice.id">
-      <p data-title="Numero:">{{ invoice.number }}</p>
-      <p data-title="Usuario:">{{ invoice.customer.name }}</p>
-      <p data-title="Precio:">{{ invoice.price }}</p>
-      <p data-title="Fecha:">{{ invoice.date.date.substring(0, 10) }}</p>
-      <p>
-        <a :href="invoiceShowPath(invoice.id)">
-          <button class="btn btn-success"><i class="fas fa-eye"></i></button>
-        </a>
-        <button class="btn btn-info" @click="openEditModal(invoice)"><i class="fas fa-pencil-alt"></i></button>
-        <a :href="invoiceDeletePath(invoice.id)">
-          <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-        </a>
-      </p>
+      <div class="card" style="width: 18rem;">
+        <div class="card-header" id="heading{{ invoice.id }}">
+          <h2 class="mb-0">
+            <button class="btn " type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + invoice.id" aria-expanded="false" :aria-controls="'collapse' + invoice.id">
+              Nº: {{ invoice.number }}
+            </button>
+          </h2>
+        </div>
+        <div :id="'collapse' + invoice.id" class="collapse" aria-labelledby="heading{{ invoice.id }}" data-parent="#accordion">
+          <div class="card-body text-center">
+            <p data-title="Usuario:">Nom: {{ invoice.customer.name }}</p>
+            <p data-title="Precio:">Preu: {{ invoice.price }}</p>
+            <p data-title="Fecha:">Data: {{ invoice.date.date.substring(0, 10) }}</p>
+            <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
+            <a :href="invoiceDeletePath(invoice.id)">
+              <button class="btn btn-danger mx-1"><i class="fas fa-trash"></i></button>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
+
+
   <div class="modal" v-if="selectedInvoice !== null">
-    <div class="modal-content">
-      <button @click="closeModal">Cerrar</button>
+      <div class="modal-content">
+        <button @click="closeModal">Cerrar</button>
+      </div>
     </div>
-  </div>
 
 </template>
 

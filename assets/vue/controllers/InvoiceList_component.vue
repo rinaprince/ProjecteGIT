@@ -126,6 +126,21 @@ function showEditModal(id) {
       });
 }
 
+function deleteInvoice(id) {
+  axios.delete(`/invoices/${id}/delete`)
+      .then(response => {
+        // Elimina la factura de la matriz de facturas
+        const index = invoices.findIndex(inv => inv.id === id);
+        if (index !== -1) {
+          invoices.splice(index, 1);
+        }
+        // Opcionalmente, podrías volver a renderizar la tabla aquí
+      })
+      .catch(error => {
+        console.error('Error deleting invoice:', error);
+      });
+}
+
 </script>
 
 <template>
@@ -140,8 +155,10 @@ function showEditModal(id) {
             </button>
           </div>
         </form>
-        <a href="/invoices/new" class="button-text-primary-BHEC btn bg-tertiary-BHEC "><i
-            class="bi bi-plus-square me-1"></i><p class="d-sm-inline d-none">Nova Factura</p></a></div>
+        <a href="#" @click="openNewModal" class="button-text-primary-BHEC btn bg-tertiary-BHEC">
+          <i class="bi bi-plus-square me-1"></i><p class="d-sm-inline d-none">Nueva Factura</p>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -181,7 +198,7 @@ function showEditModal(id) {
       <div class="card" style="width: 18rem;">
         <div class="card-header" id="heading{{ invoice.id }}">
           <h2 class="mb-0">
-            <button class="btn " type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + invoice.id" aria-expanded="false" :aria-controls="'collapse' + invoice.id">
+            <button class="btn " type="button" data-bs-toggle="collapse"  :data-bs-target="'#collapse' + invoice.id" aria-expanded="false" :aria-controls="'collapse' + invoice.id">
               Nº: {{ invoice.number }}
             </button>
           </h2>

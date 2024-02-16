@@ -31,6 +31,16 @@
       opacity:100% ;
       padding:10px;
     }
+
+    @media (max-width: 768px) {
+      .modal {
+        width: 90vw;
+        max-width: none;
+        height: 90vh;
+        max-height: none;
+        left:5%;
+      }
+    }
   </style>
 
 

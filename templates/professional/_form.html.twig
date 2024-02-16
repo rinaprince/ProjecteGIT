@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(professionalForm) }}
     <div class="container">
         <div class="row">
             <div class="col-7 px-5 border-end border-black border-opacity-25">
@@ -6,28 +6,28 @@
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset>
-                                {{ form_row(form.name, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
+                                {{ form_row(professionalForm.name, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset>
-                                {{ form_row(form.lastname, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
+                                {{ form_row(professionalForm.lastname, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(form.dni, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.dni, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(form.cif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.cif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -36,21 +36,21 @@
                     <div class="col-sm-5 col-12">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(form.email, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.email, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(form.phone, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.phone, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-4 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(form.managerNif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.managerNif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -59,14 +59,14 @@
                     <div class="col-sm-4 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(form.bussinessName, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.bussinessName, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-8 col-12">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(form.address, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.address, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -75,21 +75,21 @@
                     <div class="col-sm-5 col-6">
                         <div class="m-2">
                             <fieldset>
-                                {{ form_row(form.constitutionWriting, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.constitutionWriting, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-4 col-6">
                         <div class="m-2">
                             <fieldset>
-                                {{ form_row(form.LOPDdoc, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.LOPDdoc, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset class="w-100 text-center">
-                                {{ form_row(form.subscription, { 'attr': {'class': ' border border-black border-opacity-25 '} }) }}
+                                {{ form_row(professionalForm.subscription, { 'attr': {'class': ' border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                         <div class="py-2">
                             <label for="username" class="my-1">Usuari:</label>
                             <div class="position-relative">
-                                {{ form_widget(form.login.username, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5'} }) }}
+                                {{ form_widget(professionalForm.login.username, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5'} }) }}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-person position-absolute top-50 translate-middle-y ms-3"
                                      viewBox="0 0 16 16">
@@ -116,7 +116,7 @@
                         <div class="py-2">
                             <label for="password" class="my-1">Contrasenya:</label>
                             <div class="position-relative" id="passwordController">
-                                {{ form_widget(form.login.password, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5','data-password-confirm-target':"password", 'type':"text"} }) }}
+                                {{ form_widget(professionalForm.login.password, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5','data-password-confirm-target':"password", 'type':"text"} }) }}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-key position-absolute top-50 translate-middle-y ms-3"
                                      viewBox="0 0 16 16">
@@ -152,4 +152,4 @@
         </div>
     </div>
 
-{{ form_end(form) }}
+{{ form_end(professionalForm) }}

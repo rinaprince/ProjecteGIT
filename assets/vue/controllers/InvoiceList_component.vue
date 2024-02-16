@@ -126,15 +126,15 @@ function showEditModal(id) {
       });
 }
 
-function deleteInvoice(id) {
-  axios.delete(`/invoices/${id}/delete`)
+function showDeleteInvoice(id) {
+  // Realiza una solicitud de eliminación al servidor
+  axios.post(`/invoices/${id}/delete`)
       .then(response => {
         // Elimina la factura de la matriz de facturas
         const index = invoices.findIndex(inv => inv.id === id);
         if (index !== -1) {
           invoices.splice(index, 1);
         }
-        // Opcionalmente, podrías volver a renderizar la tabla aquí
       })
       .catch(error => {
         console.error('Error deleting invoice:', error);
@@ -183,9 +183,8 @@ function deleteInvoice(id) {
           <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
           <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i>
           </button>
-          <a :href="invoiceDeletePath(invoice.id)">
-            <button class="btn btn-danger mx-1 "><i class="fas fa-trash"></i></button>
-          </a>
+          <button class="btn btn-danger mx-1" @click="showDeleteInvoice(invoice.id)"><i class="fas fa-trash"></i></button>
+
         </td>
       </tr>
       </tbody>
@@ -210,9 +209,7 @@ function deleteInvoice(id) {
             <p data-title="Fecha:">Data: {{ invoice.date.date.substring(0, 10) }}</p>
             <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
             <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
-            <a :href="invoiceDeletePath(invoice.id)">
-              <button class="btn btn-danger mx-1"><i class="fas fa-trash"></i></button>
-            </a>
+            <button class="btn btn-danger mx-1" @click="showDeleteInvoice(invoice.id)"><i class="fas fa-trash"></i></button>
           </div>
         </div>
       </div>

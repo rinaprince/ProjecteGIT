@@ -32,9 +32,7 @@
                                     <input class="form-control border border-black border-opacity-25 ps-5"
                                            type="password" id="password"
 
-                                           name="_password" required
-                                           data-action="click->password-toggle#togglePassword"
-                                           data-target="password-toggle.icon">
+                                           name="_password" required>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-key position-absolute top-50 translate-middle-y ms-3"
@@ -64,14 +62,22 @@
     <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+            <div class="modal-content" data-controller="customer-register">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Eres una empresa?</h1>
+                    <div class="mx-2">
+
+                        <label for="professional">Sí</label>
+                        <input type="radio" name="registerType" id="professional" value="professional" data-action="click->customer-register#professional">
+                        <label for="private">No</label>
+                        <input type="radio" name="registerType" id="private" value="private" data-action="click->customer-register#private">
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <!--<div {{ vue_component('PrivateCustomerNewFront_component') }}></div>-->
-                    <a href="{{ path('app_professional_new') }}">Professional</a>
+                <div class="modal-body" data-customer-register-target="modal">
+                    <div {{ vue_component('PrivateCustomerNewFront_component') }}></div>
+
+                    <!--{{ include('professional/_form.html.twig') }}-->
                 </div>
             </div>
         </div>

@@ -1,6 +1,5 @@
 <template>
   <p class="display-4">Registre</p>
-  <div v-if="registerType === 'particular'">
     <form method="post" novalidate="novalidate">
       <div class="container">
         <div class="row">
@@ -138,14 +137,12 @@
         </div>
       </div>
     </form>
-  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
 
-let registerType = 'particular';
 
 const nameInput = ref('asdasdasd');
 const lastnameInput = ref('asdasd');

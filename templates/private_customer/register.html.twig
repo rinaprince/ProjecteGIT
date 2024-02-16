@@ -1,0 +1,32 @@
+
+{% block title %}New PrivateCustomer{% endblock %}
+
+{% block body %}
+
+<div {{ vue_component('PrivateCustomerNew_component') }}></div>
+
+    <a href="{{ path('app_private_customer_index') }}">back to list</a>
+
+{% endblock %}
+
+
+
+
+
+
+{#
+
+
+{% block body %}
+    <h1>Create new PrivateCustomer</h1>
+
+    {{ include('private_customer/_form.html.twig') }}
+
+
+{% endblock %}
+
+
+#}
+
+
+

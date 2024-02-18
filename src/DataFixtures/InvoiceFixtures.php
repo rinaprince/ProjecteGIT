@@ -36,7 +36,7 @@ class InvoiceFixtures extends Fixture implements DependentFixtureInterface
             $date = DateTime::createFromFormat('Y-m-d', $dateString);
             $invoice->setDate($date);
             $invoice->setNumber($this->faker->numberBetween('1000000', '2000000'));
-
+            $invoice->setDischarge(0);
 
             $orders = $this->orderRep->findAll();
 

@@ -59,7 +59,6 @@ const closeModal = () => {
   selectedInvoice.value = null;
   let modal = document.querySelector('.modal');
   modal.style.display = 'none';
-  window.location.reload();
 };
 
 function openNewModal() {
@@ -127,19 +126,19 @@ function showEditModal(id) {
 }
 
 function showDeleteInvoice(id) {
-  // Realiza una solicitud de eliminación al servidor
   axios.post(`/invoices/${id}/delete`)
       .then(response => {
-        // Elimina la factura de la matriz de facturas
         const index = invoices.findIndex(inv => inv.id === id);
         if (index !== -1) {
-          invoices.splice(index, 1);
+          invoices.splice(index, 1); // Eliminar la factura del arreglo invoices de manera reactiva
         }
       })
       .catch(error => {
         console.error('Error deleting invoice:', error);
       });
 }
+
+
 
 </script>
 

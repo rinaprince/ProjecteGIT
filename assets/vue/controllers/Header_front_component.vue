@@ -1,7 +1,7 @@
 <script setup>
 const Routes = {
   home: "/",
-  back: "/back",
+  back: "/backoffice",
   catalogue: "/catalogue",
   contacte: "/contacte",
   garage: "/garage",

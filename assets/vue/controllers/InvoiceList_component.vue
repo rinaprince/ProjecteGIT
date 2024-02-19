@@ -1,9 +1,11 @@
+
 <script setup>
 const {invoices} = defineProps(['invoices']);
 //const q = props.q;
 import {ref, onMounted, computed} from 'vue';
 //Importem axios
 import axios from 'axios';
+import $ from 'jquery';
 import Swal from 'sweetalert2';
 
 
@@ -139,34 +141,52 @@ function showDeleteInvoice(id) {
       });
 }
 
-const confirmDeleteInvoice = (id) => {
+function confirmDelete(id) {
   Swal.fire({
     title: '¿Estás seguro?',
-    text: 'Esta acción eliminará permanentemente la factura. ¿Estás seguro de continuar?',
+    text: 'No podrás deshacer esta acción',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
     confirmButtonText: 'Sí, eliminar'
   }).then((result) => {
     if (result.isConfirmed) {
-      deleteInvoice(id); // Si el usuario confirma, llama a la función para eliminar la factura
+      deleteInvoice(id); // Llamar a la función para eliminar la factura
     }
   });
-};
+}
 
-const deleteInvoice = (id) => {
-  axios.post(invoiceDeletePath(id))
+function deleteInvoice(id) {
+  const index = invoices.findIndex(inv => inv.id === id);
+  if (index !== -1) {
+    invoices.splice(index, 1); // Eliminar la factura del arreglo invoices de manera reactiva
+  }
+  axios.post(`/invoices/${id}/delete`)
       .then(response => {
-        const index = invoices.findIndex(inv => inv.id === id);
-        if (index !== -1) {
-          invoices.splice(index, 1);
+        if (response.data.success) {
+          Swal.fire(
+              'Eliminado!',
+              'El registro ha sido eliminado correctamente.',
+              'success'
+          );
+        } else {
+          Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el registro.',
+              'error'
+          );
         }
       })
       .catch(error => {
-        console.error('Error al eliminar la factura:', error);
+        Swal.fire(
+            'Error!',
+            'Hubo un problema al eliminar el registro.',
+            'error'
+        );
+        console.error('Error al eliminar el registro:', error);
       });
-};
+}
 
 </script>
 
@@ -176,15 +196,15 @@ const deleteInvoice = (id) => {
       <div class="d-flex justify-content-between align-items-center bg-quaternary-BHEC col-10">
         <form method="GET" role="search">
           <div class="d-flex my-3 "><input name="q" type="search"
-                                          class="rounded-start-pill border border-secondary-subtle px-4 py-2"
-                                          placeholder="Buscar..." aria-label="Search">
+                                           class="rounded-start-pill border border-secondary-subtle px-4 py-2"
+                                           placeholder="Buscar..." aria-label="Search">
             <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0 px-2"><i class="bi bi-search"></i>
             </button>
           </div>
         </form>
-<!--        <a href="#" @click="openNewModal" class="button-text-primary-BHEC btn bg-tertiary-BHEC">
-          <i class="bi bi-plus-square me-1"></i><p class="d-sm-inline d-none">Nueva Factura</p>
-        </a>-->
+        <!--        <a href="#" @click="openNewModal" class="button-text-primary-BHEC btn bg-tertiary-BHEC">
+                  <i class="bi bi-plus-square me-1"></i><p class="d-sm-inline d-none">Nueva Factura</p>
+                </a>-->
       </div>
     </div>
   </div>
@@ -202,7 +222,7 @@ const deleteInvoice = (id) => {
       </tr>
       </thead>
       <tbody class="text-center">
-      <tr v-for="invoice in filteredInvoices" :key="invoice.id">
+      <tr v-for="invoice in filteredInvoices">
         <td data-title="ID:" class="d-none">{{ invoice.id }}</td>
         <td data-title="Numero:">{{ invoice.number }}</td>
         <td data-title="Usuario:">{{ invoice.customer.name }}</td>
@@ -212,7 +232,7 @@ const deleteInvoice = (id) => {
           <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
           <button class="btn btn-primary mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i>
           </button>
-          <button class="btn btn-danger mx-1" @click="confirmDeleteInvoice(invoice.id)"><i class="fas fa-trash"></i></button>
+          <button class="btn btn-danger mx-1 delete" @click="confirmDelete(invoice.id)"><i class="fas fa-trash"></i></button>
 
         </td>
       </tr>
@@ -238,7 +258,7 @@ const deleteInvoice = (id) => {
             <p data-title="Fecha:">Data: {{ invoice.date.date.substring(0, 10) }}</p>
             <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
             <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
-            <button class="btn btn-danger mx-1" @click="deleteInvoice(invoice.id)"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-danger mx-1 delete"><i class="fas fa-trash"></i></button>
           </div>
         </div>
       </div>
@@ -248,10 +268,9 @@ const deleteInvoice = (id) => {
 
 
   <div class="modal" v-if="selectedInvoice !== null">
-      <div class="modal-content">
-        <button @click="closeModal">Cerrar</button>
-      </div>
+    <div class="modal-content">
+      <button @click="closeModal">Cerrar</button>
     </div>
+  </div>
 
 </template>
-

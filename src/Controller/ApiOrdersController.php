@@ -64,7 +64,7 @@ class ApiOrdersController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $order = new Order();
-        $order->setState($data['state']); // Assuming 'state' is a property of Order entity
+        $order->setState($data['state']);
 
         $this->entityManager->persist($order);
         $this->entityManager->flush();
@@ -97,17 +97,27 @@ class ApiOrdersController extends AbstractController
         return new JsonResponse($response, Response::HTTP_OK);
     }
 
-    #[Route('/{id}', name: 'api_v1_order_delete', methods: ['DELETE'])]
+    #[Route('/{id}/delete', name: 'api_v1_order_delete', methods: ['GET'])]
     public function delete(Order $order): JsonResponse
     {
+        if ($order->getInvoice()==null) {
+            $response = [
+                "status" => "Error",
+                "message" => "Order has an invoice"
+            ];
+            return new JsonResponse($response, Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        }
+
+
         $this->entityManager->remove($order);
         $this->entityManager->flush();
+
 
         $response = [
             "status" => "success",
             "message" => "Order deleted successfully"
         ];
-
         return new JsonResponse($response, Response::HTTP_OK);
     }
 }

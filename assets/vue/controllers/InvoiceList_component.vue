@@ -4,6 +4,7 @@ const {invoices} = defineProps(['invoices']);
 import {ref, onMounted, computed} from 'vue';
 //Importem axios
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 //Rutas de los botones
@@ -138,7 +139,34 @@ function showDeleteInvoice(id) {
       });
 }
 
+const confirmDeleteInvoice = (id) => {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Esta acción eliminará permanentemente la factura. ¿Estás seguro de continuar?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteInvoice(id); // Si el usuario confirma, llama a la función para eliminar la factura
+    }
+  });
+};
 
+const deleteInvoice = (id) => {
+  axios.post(invoiceDeletePath(id))
+      .then(response => {
+        const index = invoices.findIndex(inv => inv.id === id);
+        if (index !== -1) {
+          invoices.splice(index, 1);
+        }
+      })
+      .catch(error => {
+        console.error('Error al eliminar la factura:', error);
+      });
+};
 
 </script>
 
@@ -148,15 +176,15 @@ function showDeleteInvoice(id) {
       <div class="d-flex justify-content-between align-items-center bg-quaternary-BHEC col-10">
         <form method="GET" role="search">
           <div class="d-flex my-3 "><input name="q" type="search"
-                                          class="rounded-start-pill border border-secondary-subtle px-4 "
+                                          class="rounded-start-pill border border-secondary-subtle px-4 py-2"
                                           placeholder="Buscar..." aria-label="Search">
-            <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0"><i class="bi bi-search"></i>
+            <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0 px-2"><i class="bi bi-search"></i>
             </button>
           </div>
         </form>
-        <a href="#" @click="openNewModal" class="button-text-primary-BHEC btn bg-tertiary-BHEC">
+<!--        <a href="#" @click="openNewModal" class="button-text-primary-BHEC btn bg-tertiary-BHEC">
           <i class="bi bi-plus-square me-1"></i><p class="d-sm-inline d-none">Nueva Factura</p>
-        </a>
+        </a>-->
       </div>
     </div>
   </div>
@@ -165,6 +193,7 @@ function showDeleteInvoice(id) {
     <table class="table table-striped w-100 m-0 bg-tertiary-BHEC d-sm-table d-none">
       <thead class="theadInvoices text-center">
       <tr>
+        <th class="py-1 bg-tertiary-BHEC d-none">ID</th>
         <th class="py-1 bg-tertiary-BHEC">Numero</th>
         <th class="bg-tertiary-BHEC">Usuario</th>
         <th class="bg-tertiary-BHEC">Precio</th>
@@ -174,15 +203,16 @@ function showDeleteInvoice(id) {
       </thead>
       <tbody class="text-center">
       <tr v-for="invoice in filteredInvoices" :key="invoice.id">
+        <td data-title="ID:" class="d-none">{{ invoice.id }}</td>
         <td data-title="Numero:">{{ invoice.number }}</td>
         <td data-title="Usuario:">{{ invoice.customer.name }}</td>
         <td data-title="Precio:">{{ invoice.price }}</td>
         <td data-title="Fecha:">{{ invoice.date.date.substring(0, 10) }}</td>
         <td class="py-3">
           <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
-          <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i>
+          <button class="btn btn-primary mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i>
           </button>
-          <button class="btn btn-danger mx-1" @click="showDeleteInvoice(invoice.id)"><i class="fas fa-trash"></i></button>
+          <button class="btn btn-danger mx-1" @click="confirmDeleteInvoice(invoice.id)"><i class="fas fa-trash"></i></button>
 
         </td>
       </tr>
@@ -208,7 +238,7 @@ function showDeleteInvoice(id) {
             <p data-title="Fecha:">Data: {{ invoice.date.date.substring(0, 10) }}</p>
             <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
             <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
-            <button class="btn btn-danger mx-1" @click="showDeleteInvoice(invoice.id)"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-danger mx-1" @click="deleteInvoice(invoice.id)"><i class="fas fa-trash"></i></button>
           </div>
         </div>
       </div>

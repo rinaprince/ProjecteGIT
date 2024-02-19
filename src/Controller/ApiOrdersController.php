@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Repository\CustomerRepository;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,32 +60,56 @@ class ApiOrdersController extends AbstractController
     }
 
     #[Route('/new', name: 'api_v1_order_new', methods: ['POST'])]
-    public function create(Request $request): JsonResponse
+    public function create(Request $request, CustomerRepository $customerRepository): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
+        if (empty($request->getContent())) {
+            $response = [
+                "status" => "fail",
+                "data" => $request->getContent(),
+                "message" => "Request data is null or empty"
+            ];
+            $status = Response::HTTP_BAD_REQUEST;
+            return new JsonResponse($response, $status);
+        } else {
+            $data = json_decode($request->getContent(), true);
 
-        $order = new Order();
-        $order->setState($data['state']);
+            $order = new Order();
 
-        $this->entityManager->persist($order);
-        $this->entityManager->flush();
+            try {
+                $order->setState($data['state']);
+                $customer = $customerRepository->find($data["customer_id"]);
+                $order->setCustomer($customer);
 
-        $response = [
-            "status" => "success",
-            "data" => $order,
-            "message" => "Order created successfully"
-        ];
+                $this->entityManager->persist($order);
+                $this->entityManager->flush();
 
-        return new JsonResponse($response, Response::HTTP_CREATED);
+                $response = [
+                    "status" => "success",
+                    "data" => $order,
+                    "message" => "Order created successfully"
+                ];
+
+                $status = Response::HTTP_CREATED;
+            } catch (\Exception $e) {
+                $response = [
+                    "status" => "error",
+                    "data" => null,
+                    "message" => $e->getMessage()
+                ];
+                $status = Response::HTTP_BAD_REQUEST;
+            }
+        }
+
+        return new JsonResponse($response, $status);
     }
 
-    #[Route('/{id}', name: 'api_v1_order_update', methods: ['PUT'])]
+    #[Route('/{id}', name: 'api_v1_order_update', methods: ['GET'])]
     public function update(Request $request, Order $order): JsonResponse
     {
         // Extract data from request
         $data = json_decode($request->getContent(), true);
 
-        $order->setState($data['state']); // Assuming 'state' is a property of Order entity
+        $order->setState($data['state']);
 
         $this->entityManager->flush();
 

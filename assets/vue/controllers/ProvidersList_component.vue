@@ -81,30 +81,13 @@
       </div>
     </div>
   </div>
-  <!-- Modal Mostrar-->
+  <!-- Modal -->
   <div class="modal" style="background-color: rgba(0,0,0,0.5)" ref="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title fw-bold fs-3">Detalls:</h5>
           <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
-                  aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Content goes here -->
-          <!-- You can add form elements, text, etc. -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Editar -->
-  <div class="modal" style="background-color: rgba(0,0,0,0.5)" ref="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold fs-3">Mostrar:</h5>
-          <button type="button" class="btn-close" @click="hideModal2" data-bs-dismiss="modal"
                   aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -194,10 +177,10 @@ function modalEdit(id) {
       });
 }
 
-function hideModal2() {
+/*function hideModal2() {
   const myModal = document.querySelector('.modal');
   myModal.style.display = 'none';
-}
+}*/
 
 /* Funció per a eliminar al proveïdor */
 /*function deleteProvider(providerId, token) {

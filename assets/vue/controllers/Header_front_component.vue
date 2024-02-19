@@ -1,4 +1,6 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+
 const Routes = {
   home: "/",
   back: "/back",
@@ -11,6 +13,25 @@ const Routes = {
 defineProps({
   Routes: Object
 })
+
+const counter = ref(0);
+
+async function load() {
+  try {
+    const response = await fetch('/api/v1/count');
+    const data = await response.json();
+
+    if (data.count_number) {
+      counter.value = data.count_number;
+    }
+  } catch (error) {
+    console.error('Fetch error:', error)
+  }
+}
+
+onMounted(() => {
+  load();
+});
 </script>
 
 <template>
@@ -62,11 +83,10 @@ defineProps({
           </a>
           <a class="btn d-inline-block d-flex align-items-center position-relative me-2" :href="Routes.garage">
             <img src="/equip2/img/icon/garatge-Groc.png">
-            <span
-                class="position-absolute start-100 translate-middle badge rounded-pill bg-light text-secondary badge-garatge">
-                            2
-                            <span class="visually-hidden">cotxes al garatge</span>
-                        </span>
+            <span v-if="counter > 0" class="position-absolute start-100 translate-middle badge rounded-pill bg-light text-secondary badge-garatge">
+  {{ counter }}
+  <span class="visually-hidden">cotxes al garatge</span>
+</span>
           </a>
           <a class="btn d-inline-block px-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
              aria-controls="offcanvasExample">

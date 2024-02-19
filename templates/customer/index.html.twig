@@ -10,7 +10,6 @@
         <input name="q" type="search" class="form-control" placeholder="Search..." aria-label="Search">
     </form>
 
-    {{ dump(customs) }}
     <div {{ vue_component('CustomerList_component', { 'elements': customs, 'config': config}) }}></div>
 
     <div class="navigation d-flex justify-content-center">

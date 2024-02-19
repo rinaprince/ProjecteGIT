@@ -6,6 +6,8 @@
 {% block body %}
 
     <h1>Employee</h1>
-    <div {{ vue_component('EmployeesList_component', { 'employees': employees, 'e':e }) }}></div>
+    {# <div {{ vue_component('EmployeesList_component', { 'employees': employees, 'e':e }) }}></div> #}
+
+    <div {{ vue_component('CustomerList_component', { 'elements': customs, 'config': config, "type": "employees"}) }}></div>
 
 {% endblock %}

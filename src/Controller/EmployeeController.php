@@ -6,6 +6,7 @@ use App\Entity\Employee;
 use App\Entity\Login;
 use App\Form\EmployeeType;
 use App\Repository\EmployeeRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 /* docker-compose exec web-server composer require knplabs/knp-paginator-bundle*/
 
@@ -43,9 +44,24 @@ class EmployeeController extends AbstractController
                 $request->query->getInt('page',1),7
             );
 
+        $arrayItem = $employees->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+        $config = [
+            'fields' => [
+                "name" => "Nom",
+                "lastname" => "Cognoms",
+                "type" => "Tipus",
+            ],
+            'routes' => [
+                "employees" => "employees"
+            ]
+        ];
+
             return $this->render('employee/index.html.twig', [
                 'pagination' => $pagination,
                 'employees' => $pagination->getItems(),
+                'customs' => $arrayItem,
+                'config' => $config,
                 'e' => $q
         ]);
     }
@@ -83,7 +99,7 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/details', name: 'app_employee_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_employee_show', methods: ['GET'])]
     #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function show(Employee $employee): Response
     {

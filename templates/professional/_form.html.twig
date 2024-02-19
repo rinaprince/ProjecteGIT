@@ -1,33 +1,37 @@
 {{ form_start(professionalForm) }}
     <div class="container">
         <div class="row">
-            <div class="col-7 px-5 border-end border-black border-opacity-25">
+            <div class="col-7 px-2 border-end border-black border-opacity-25">
                 <div class="row my-3">
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset>
-                                {{ form_row(professionalForm.name, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
+                                <legend class="fs-5">Nom</legend>
+                                {{ form_widget(professionalForm.name, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset>
-                                {{ form_row(professionalForm.lastname, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
+                                <legend class="fs-5">Cognom</legend>
+                                {{ form_widget(professionalForm.lastname, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(professionalForm.dni, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">DNI</legend>
+                                {{ form_widget(professionalForm.dni, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(professionalForm.cif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">CIF</legend>
+                                {{ form_widget(professionalForm.cif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -36,21 +40,24 @@
                     <div class="col-sm-5 col-12">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(professionalForm.email, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">Correu electrònic</legend>
+                                {{ form_widget(professionalForm.email, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(professionalForm.phone, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">Telèfon</legend>
+                                {{ form_widget(professionalForm.phone, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-4 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(professionalForm.managerNif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">NIF del gerent</legend>
+                                {{ form_widget(professionalForm.managerNif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -59,14 +66,16 @@
                     <div class="col-sm-4 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(professionalForm.bussinessName, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">Nom d'empresa</legend>
+                                {{ form_widget(professionalForm.bussinessName, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-8 col-12">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                {{ form_row(professionalForm.address, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">Adreça</legend>
+                                {{ form_widget(professionalForm.address, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -75,25 +84,27 @@
                     <div class="col-sm-5 col-6">
                         <div class="m-2">
                             <fieldset>
-                                {{ form_row(professionalForm.constitutionWriting, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">Article de la contitució</legend>
+                                {{ form_widget(professionalForm.constitutionWriting, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-4 col-6">
                         <div class="m-2">
                             <fieldset>
-                                {{ form_row(professionalForm.LOPDdoc, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">Document LOPD</legend>
+                                {{ form_widget(professionalForm.LOPDdoc, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="m-2">
                             <fieldset class="w-100 text-center">
-                                {{ form_row(professionalForm.subscription, { 'attr': {'class': ' border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">Subscripció</legend>
+                                {{ form_widget(professionalForm.subscription, { 'label':' ','attr': {'class': ' border border-black border-opacity-25 '} }) }}
                             </fieldset>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="col-5 my-5 d-flex justify-content-center px-0"  data-controller="password-confirm">
@@ -126,11 +137,11 @@
                             </div>
                         </div>
                         <div class="py-3">
-                            <label for="password">Confirma contrasenya:</label>
+                            <label for="confirmPassword">Confirma contrasenya:</label>
                             <div class="position-relative" id="passwordController">
                                 <input class="form-control border border-black border-opacity-25 ps-5"
-                                       type="password" id="password"
-                                       name="_password" required
+                                       type="password" id="confirmPassword"
+                                       name="confitmPassword" required
                                        placeholder="Confirma la contrasenya" data-password-confirm-target="password2" data-action="input->password-confirm#confirm">
                                 <i class="bi bi-person-lock position-absolute top-50 translate-middle-y ms-3"></i>
                                 <div id="hideEye">

@@ -7,6 +7,7 @@ export default class extends Controller {
         axios.get('/register/company')
             .then(response => {
                 this.modalTarget.innerHTML = response.data;
+                this.modalTarget.querySelector('form').action = '/register/company';
                 console.log(response.data)
             })
             .catch(error => {

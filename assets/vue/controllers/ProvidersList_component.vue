@@ -91,8 +91,6 @@
                   aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <!-- Content goes here -->
-          <!-- You can add form elements, text, etc. -->
         </div>
       </div>
     </div>
@@ -186,6 +184,9 @@ function modalEditProvider(id) {
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
+
+        const form = myModal.querySelector('form');
+        form.action = '/providers/' + id + '/edit';
       })
       .catch(error => {
         console.error('Error modal: ', error);
@@ -219,7 +220,7 @@ function sweetAlertDelete(id) {
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {
     if (result.isConfirmed === true) {
-      axios.post('/providers/' + id + '/delete')
+      axios.post(`/providers/${id}/delete`)
           .then(response => {
             Swal.fire({
               title: "Eliminat!",

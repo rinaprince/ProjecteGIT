@@ -4,6 +4,7 @@ const {vehicles} = defineProps(['vehicles']);
 import {ref, onMounted, computed} from 'vue';
 import axios from "axios";
 import Swal from 'sweetalert2';
+import $ from "jquery";
 
 
 //Tipus de filtració
@@ -39,7 +40,23 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 
 const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 
-function sweetAlertDelete(id) {
+/*$(document).ready( function () {
+
+  //----------------------------------------------------------------------------
+  $('.delete').on('click', function () {
+    let divContainer = $(this).closest('.col-12'); // Encuentra el contenedor más cercano con la clase '.col-12'
+    let vehicleId = divContainer.attr('data-vehicle-id'); // Obtiene el ID del vehículo del atributo de datos 'data-vehicle-id' en el contenedor
+    divContainer.remove();
+
+    //No implementar anoser que es tinga implementat la funcionalitat de soft delete ...
+    // -> (el camp en la base de dades i el mètodo delete del controlador configurat)
+    sweetAlertDelete(vehicleId);
+  })
+  //-----------------------------------------------------------------------------
+} );*/
+
+
+function sweetAlertDelete(vehicleId) {
   Swal.fire({
     title: 'Estàs segur?',
     text: "No podras desfer la teua decissió!",
@@ -50,8 +67,14 @@ function sweetAlertDelete(id) {
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {
     if (result.isConfirmed === true) {
-      axios.post(`/vehicles/${id}/delete`)
+      axios.post('/vehicles/' + vehicleId + '/delete')
           .then(response => {
+            const elementsToDelete = document.querySelectorAll('.vehicle');
+            elementsToDelete.forEach(element => {
+              if (element.dataset.vehicleId === vehicleId) {
+                element.remove();
+              }
+            });
             Swal.fire({
               title: "Eliminat!",
               text: "El vehicle ha sigut eliminat.",
@@ -108,7 +131,7 @@ function sweetAlertDelete(id) {
                     <i class="bi bi-pencil-square fnt-tertiary-BHEC"></i>
                   </button>
                 </a>
-                <a @click="sweetAlertDelete(vehicle.id)">
+                <a @click="sweetAlertDelete(vehicle.id)"  class="delete">
                   <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
                     <i class="bi bi-trash"></i>
                   </button>

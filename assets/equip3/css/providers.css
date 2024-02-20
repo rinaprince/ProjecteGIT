@@ -34,6 +34,22 @@
     border-color: var(--secundary-color);
 }
 
+.page-item:first-child .page-link {
+    color: #000000;
+}
+
 .page-item:not(:first-child) .page-link {
     color: #000000;
+}
+
+.vich-file a{
+    display: inline-block;
+    padding: 2%;
+    margin-top: 10%;
+    background-color: #878e8f;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }

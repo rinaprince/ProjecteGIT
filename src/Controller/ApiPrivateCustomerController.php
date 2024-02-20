@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[Route('api/v1/private/customers')]
 class ApiPrivateCustomerController extends AbstractController
 {
-    #[Route('', name: 'app_api_private_customer')]
+    #[Route('', name: 'app_api_private_customers')]
     public function index(PrivateCustomerRepository $privateCustomerRepository): JsonResponse
     {
         $private = $privateCustomerRepository->findAll();
@@ -37,7 +37,7 @@ class ApiPrivateCustomerController extends AbstractController
         return new JsonResponse($privateJson, Response::HTTP_OK);
     }
 
-    #[Route('/{id}', name: 'app_api_private_customer_show')]
+    #[Route('/{id}', name: 'app_api_private_customers_show')]
     public function show(?PrivateCustomer $privateCustomer): JsonResponse
     {
         if(!empty($privateCustomer)){
@@ -52,14 +52,14 @@ class ApiPrivateCustomerController extends AbstractController
             $privateJson = [
                 "status" => "error",
                 "data" => $privateCustomer,
-                "message" => "no se ha podido encontrar el usuari"
+                "message" => "No s'ha pogut trobar l'usuari"
             ];
             $status = Response::HTTP_NOT_FOUND;
         }
         return new JsonResponse($privateJson, $status);
     }
 
-    #[Route('/new', name: 'app_api_private_customer_new')]
+    #[Route('/new', name: 'app_api_private_customers_new')]
     public function create(Request $request, ValidatorInterface $validator, EntityManagerInterface $entityManager): JsonResponse
     {
         $privateCustomer = new PrivateCustomer();

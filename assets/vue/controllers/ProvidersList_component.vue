@@ -66,7 +66,7 @@
               </button>
             </td>
             <td>
-              <button class="btn btn-info mx-1" @click="modalEditProvider(provider.id)"><i
+              <button class="btn btn-primary" @click="modalEditProvider(provider.id)"><i
                   class="fas fa-pencil-alt"></i>
               </button>
             </td>
@@ -86,7 +86,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Detalls:</h5>
+          <h5 class="modal-title"></h5>
           <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
                   aria-label="Close"></button>
         </div>

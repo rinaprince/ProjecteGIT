@@ -7,11 +7,12 @@
             <div class="d-flex">
               <input name="q" type="search" class="rounded-start-pill border border-secondary-subtle ps-3"
                      placeholder="Buscar..." aria-label="Search">
-              <button type="submit" class="rounded-end-pill button-searcher-BHEC"><i class="bi bi-search"></i>
+              <button type="submit" class="border border-0 rounded-end-pill button-searcher-BHEC p-2"><i
+                  class="bi bi-search"></i>
               </button>
             </div>
           </form>
-          <a :href="providerNewPath" class="button-text-primary-BHEC btn button-primary-BHEC p-3 mb-3"><i
+          <a @click="modalNewProvider()" class="button-text-primary-BHEC btn button-primary-BHEC p-3 mb-3"><i
               class="bi bi-plus-square me-1"></i>Nou Proveïdor</a>
         </div>
         <!--<form class="mb-3 mb-lg-0 me-lg-3 mb-lg-1">
@@ -58,14 +59,23 @@
             <td class="d-sm-none d-md-none">{{ provider.LOPDdocFile }}</td>
             <td class="d-sm-none d-md-none">{{ provider.constitutionArticle }}</td>
             <td>
-              <a @click="showModal(provider.id)" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
+              <button class="btn btn-success">
+                <a @click="modalShow(provider.id)">
+                  <i class="bi bi-eye-fill"></i>
+                </a>
+              </button>
             </td>
             <td>
-              <a :href="providerEditPath(provider.id)" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+
+              <button class="btn btn-primary">
+              <a @click="modalEdit(provider.id)">
+                <i class="bi bi-pencil-square"></i>
+              </a></button>
+
             </td>
             <td>
-              <button class="btn btn-danger" @click="deleteProvider(provider.id, token)"><i
-                  class="bi bi-trash-fill"></i>
+              <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
+                <i class="bi bi-trash-fill"></i>
               </button>
             </td>
           </tr>
@@ -79,18 +89,11 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Provider</h5>
-          <button type="button" class="btn-close" @click.stop="hideModal" data-bs-dismiss="modal"
+          <h5 class="modal-title fw-bold fs-3">Detalls:</h5>
+          <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
                   aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
-          <!-- Content goes here -->
-          <!-- You can add form elements, text, etc. -->
-          <div class="modal-confirmation"></div>
-        </div>
-        <div class="modal-footer">
-
         </div>
       </div>
     </div>
@@ -100,13 +103,15 @@
 <script setup>
 import axios from 'axios';
 import {ref, computed, watch} from 'vue';
+import Swal from 'sweetalert2';
+import vehicle from "primevue/menu";
 
-const props = defineProps(['providers', 'q', 'token']);
+const props = defineProps(['providers', 'q']);
 
 const providerIdToDelete = ref(null);
-
 const providerShowPath = (id) => `/providers/${id}`;
 const providerEditPath = (id) => `/providers/${id}/edit`;
+
 const providerNewPath = `/providers/new`;
 const providerDeletePath = (id) => `/providers/${id}/delete`;
 
@@ -134,19 +139,17 @@ const applyFilters = (data, filters) => {
   });
 };
 
-
-// Hacer la solicitud Axios aquí
-function showModal(id) {
-  axios.post('/providers/' + id)
+// Hacer la solicitud Axios aquí para mostrar los detalles de los proveedores
+function modalShow(id) {
+  axios.get('/providers/' + id)
       .then(response => {
-        // Actualizar el contenido del modal
+        // Actualitzar el contingut del modal
         const modalBody = document.querySelector('.modal-body');
         modalBody.innerHTML = response.data;
 
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
-
       })
       .catch(error => {
         console.error('Error fetching modal content:', error);
@@ -158,8 +161,44 @@ function hideModal() {
   myModal.style.display = 'none';
 }
 
+
+function modalNewProvider() {
+  axios.get('/providers/new')
+      .then(response => {
+        // Actualitzar el contingut del modal
+        const modalBody = document.querySelector('.modal-body');
+        modalBody.innerHTML = response.data;
+
+        // Mostrar el modal
+        const myModal = document.querySelector('.modal');
+        myModal.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Error modal: ', error);
+      })
+}
+
+function modalEdit(id) {
+  axios.get('/providers/' + id + '/edit')
+      .then(response => {
+        // Actualitzar el contingut del modal
+        const modalBody = document.querySelector('.modal-body');
+        modalBody.innerHTML = response.data;
+
+        // Mostrar el modal
+        const myModal = document.querySelector('.modal');
+        myModal.style.display = 'block';
+
+        const form = myModal.querySelector('form');
+        form.action = '/providers/' + id + '/edit';
+      })
+      .catch(error => {
+        console.error('Error modal: ', error);
+      })
+}
+
 /* Funció per a eliminar al proveïdor */
-function deleteProvider(providerId, token) {
+/*function deleteProvider(providerId, token) {
   axios.post(`/providers/${providerId}/delete`, {
     id: providerId,
     token: token
@@ -171,6 +210,38 @@ function deleteProvider(providerId, token) {
       .catch(function (error) {
         console.error('Error deleting provider:', error);
       });
+}*/
+
+// Sweet Alert per a eliminar
+function sweetAlertDelete(id) {
+  Swal.fire({
+    title: 'Estàs segur?',
+    text: "No podras desfer la teua decissió!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#aa8e31ff',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí, elimina definitivament!'
+  }).then((result) => {
+    if (result.isConfirmed === true) {
+      axios.post(`/providers/${id}/delete`)
+          .then(response => {
+            Swal.fire({
+              title: "Eliminat!",
+              text: "El proveïdor ha sigut eliminat.",
+              icon: "success"
+            });
+          })
+          .catch(error => {
+            console.error(error);
+            Swal.fire({
+              title: "Error",
+              text: "S'ha produït un error en eliminar el proveïdor.",
+              icon: "error"
+            });
+          });
+    }
+  });
 }
 
 </script>

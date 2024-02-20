@@ -19,17 +19,17 @@ import 'datatables.net-dt/js/dataTables.dataTables';
 import 'datatables.net-dt/css/jquery.dataTables.css';
 import 'quill/dist/quill.snow.css';
 
+
 import './equip3/css/variables.css';
 import './equip3/css/modal.css';
 import './equip3/css/backend-skeleton.css';
+import './equip2/css/providers.css';
+import './equip2/css/catalogue.css';
+import './equip3/css/squeleton-frontend.css';
 import './equip3/js/menu-burguer';
-import './equip3/js/menu_aside';
-import './equip3/js/modal';
+import './equip3/js/menu-aside';
+import "./equip3/js/modal";
 
-
-
-import './equip3/css/backend-skeleton.css';
-import './equip3/css/variables.css';
 
 import { registerVueControllerComponents } from '@symfony/ux-vue';
 

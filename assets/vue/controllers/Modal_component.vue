@@ -1,11 +1,11 @@
 <script setup>
 const Routes = {
   home: "/",
-  back: "/back",
+  back: "/backoffice",
   login: "login",
   logout: "/logout",
   comandes: "/",
-  novetats: "/back"
+  novetats: "/backoffice"
 };
 defineProps({
   Routes: Object,

@@ -18,8 +18,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/orders')]
 class OrderController extends AbstractController
 {
-
-
     #[Route('', name: 'app_order_index', methods: ['GET'])]
     public function index(OrderRepository $orderRepository, PaginatorInterface $paginator, Request $request) : Response
     {
@@ -91,7 +89,7 @@ class OrderController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_order_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_order_delete', methods: ['POST'])]
     public function delete(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$order->getId(), $request->request->get('_token'))) {

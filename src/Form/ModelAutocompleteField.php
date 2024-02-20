@@ -10,7 +10,7 @@ use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
 use Symfony\UX\Autocomplete\Form\ParentEntityAutocompleteType;
 
-#[AsEntityAutocompleteField]
+#[AsEntityAutocompleteField(route: 'app_api_models')]
 class ModelAutocompleteField extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void

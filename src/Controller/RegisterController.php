@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class RegisterController extends AbstractController
 {
@@ -52,14 +53,14 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute('app_front_office', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('register/private.html.twig', [
+        return $this->render('private_customer/register.html.twig', [
             'private_customer' => $privateCustomer,
             'form' => $form,
         ]);
     }
 
-    #[Route('/register/company', name: 'app_register_professional', methods: ['GET', 'POST'])]
-    public function professional(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/register/company', name: 'app_professional_new', methods: ['GET', 'POST'])]
+    public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
         $professional = new Professional();
         $form = $this->createForm(ProfessionalType::class, $professional);
@@ -77,12 +78,13 @@ class RegisterController extends AbstractController
 
             $this->addFlash('info', 'Usuari registrat correctament!');
 
-            return $this->redirectToRoute('app_professional_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_front_office', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('register/professional.html.twig', [
+
+        return $this->render('professional/register.html.twig', [
             'professional' => $professional,
-            'form' => $form,
+            'professionalForm' => $form,
         ]);
     }
 }

@@ -1,118 +1,137 @@
-{% extends 'base_3.html.twig' %}
+{% extends 'base_2.html.twig' %}
 
 {% block body %}
     <main class="container">
         <section>
             <div class="row">
-                <h2 class="titulo">Proceso de Compra</h2>
+                <h2 class="titulo">Procés de compra</h2>
                 <hr>
-                <div class="col-md-6">
+                <div class="col-md-12 col-lg-6">
                     <div class="form-group">
-                        <label for="document">Elija un tipo de documentación</label>
-                        <select id="document" class="form-control">
-                            <option value="DNI">DNI</option>
-                            <option value="NIE">NIE</option>
-                            <option value="Pasaporte">Pasaporte</option>
-                        </select>
+                        <label for="document" class="my-2">Documentació</label>
+                        <div class="input-group">
+                            <select id="document" class="form-select input-group-prepend">
+                                <option value="DNI">DNI</option>
+                                <option value="NIE">NIE</option>
+                                <option value="Passaport">Passaport</option>
+                            </select>
+                            <input type="text" id="documentNumber" class="form-control" placeholder="1345678X">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="documentNumber">Documentación</label>
-                        <input type="text" id="documentNumber" class="form-control" placeholder="Ingrese documentación">
+                        <label for="emailInput" class="my-2">Email</label>
+                        <input type="email" id="emailInput" class="form-control" placeholder="example@gmail.com">
                     </div>
                     <div class="form-group">
-                        <label for="emailInput">Email</label>
-                        <input type="email" id="emailInput" class="form-control" placeholder="Ingrese su email">
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneInput">Teléfono</label>
-                        <input type="tel" id="phoneInput" class="form-control" placeholder="Ingrese su número de teléfono">
+                        <label for="phoneInput" class="my-2">Mòbil</label>
+                        <input type="tel" id="phoneInput" class="form-control" placeholder="123 45 67 89">
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12 col-lg-6">
+                    <label for="paymentMethod" class="my-2">Mètode de pagament</label>
+                    <select id="paymentMethod" class="form-select">
+                        <option value="PayPal">PayPal</option>
+                        <option value="Visa">Visa</option>
+                        <option value="MasterCard">MasterCard</option>
+                    </select>
                     <div class="form-group">
-                        <label for="paymentSelect">Método de Pago</label>
-                        <select id="paymentSelect" class="form-control">
-                            <option value="paypal">PayPal</option>
-                            <option value="mastercard">MasterCard</option>
-                            <option value="visa">Visa</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="nameInput">Nombre</label>
-                        <input type="text" id="nameInput" class="form-control" placeholder="Ingrese su nombre">
+                        <label for="nameInput" class="my-2">Nom</label>
+                        <input type="text" id="nameInput" class="form-control" placeholder="Nom">
                     </div>
 
                     <div class="form-group">
-                        <label for="lastNameInput">Apellido</label>
-                        <input type="text" id="lastNameInput" class="form-control" placeholder="Ingrese su apellido">
+                        <label for="lastNameInput" class="my-2">Cognoms</label>
+                        <input type="text" id="lastNameInput" class="form-control" placeholder="Cognoms">
                     </div>
-                    <div class="form-group">
-                        <label for="addressInput">Añade tu dirección aquí</label>
-                        <button id="address" class="btn btn-primary">Agregar Dirección</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="form-group my-3">
+                        <label for="addressInput" class="my-2">Afegir la direcció ací</label>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#direccioModal">
+                            Afegir direcció
+                        </button>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="termsCheckbox" />
-                        <label class="form-check-label" for="termsCheckbox">Aceptar <a href="link_a_terminos_y_condiciones.html"
-                                                                                       target="_blank">términos y condiciones de uso</a></label>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="form-group my-3">
+                        <input type="checkbox" class="form-check-input" id="termsCheckbox"/>
+                        <label class="form-check-label" for="termsCheckbox">Acceptar
+                            <a href="#" target="_blank">termes i condicions d'ús.</a>
+                        </label>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="button">
-                        <form action="https://jovial-villani.217-160-209-39.plesk.page/confirmacio/pagina-confirmacio.html">
-                            <button class="btn btn-secondary">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Siguiente</button>
+                    <div class="button d-flex justify-content-center my-3">
+                        <form action="#">
+                            <button class="btn btn-secondary">Cancel·lar</button>
+                            <button type="submit" class="btn btn-primary">Següent</button>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
-    </main>
 
-    <div id="modal-address" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Añadir Dirección</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="nameAddress">Nombre</label>
-                            <input type="text" class="form-control" id="nameAddress" placeholder="Juan">
-                        </div>
-                        <div class="form-group">
-                            <label for="lastNameAddress">Apellido</label>
-                            <input type="text" class="form-control" id="lastNameAddress" placeholder="Castillo">
-                        </div>
-                        <div class="form-group">
-                            <label for="provinceAddress">Provincia</label>
-                            <input type="text" class="form-control" id="provinceAddress" placeholder="Provincia">
-                        </div>
-                        <div class="form-group">
-                            <label for="postalCode">Código Postal</label>
-                            <input type="text" class="form-control" id="postalCode" placeholder="00000">
-                        </div>
-                        <div class="form-group">
-                            <label for="direction">Calle y Número</label>
-                            <input type="text" class="form-control" id="direction" placeholder="Calle cualquiera 11">
-                        </div>
-                        <div class="form-group">
-                            <label for="details">Piso y Puerta (Opcional)</label>
-                            <input type="text" class="form-control" id="details" placeholder="Piso 1, Puerta 1">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar Dirección</button>
+        <!-- Modal -->
+        <div class="modal fade" id="direccioModal" tabindex="-1" aria-labelledby="direccioModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="direccioModalLabel">Direcció</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="nameAddress">Nom</label>
+                                <input type="text" class="form-control" id="nameAddress" placeholder="Juan">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastNameAddress">Cognoms</label>
+                                <input type="text" class="form-control" id="lastNameAddress" placeholder="Moles">
+                            </div>
+                            <div class="form-group">
+                                <label for="provinceAddress">Provincia</label>
+                                <input type="text" class="form-control" id="provinceAddress" placeholder="Provincia">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="postalCode">Codi postal</label>
+                                        <input type="text" class="form-control" id="postalCode" placeholder="03780">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="valuePostalCode">Ciutat</label>
+                                        <input type="text" class="form-control" id="valuePostalCode" value="Pego">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="direction">Direcció</label>
+                                <input type="text" class="form-control" id="direction"
+                                       placeholder="Carrer Jesus de barqueta, 15">
+                            </div>
+                            <div class="form-group">
+                                <label for="details">Pis i porta</label>
+                                <input type="text" class="form-control" id="details" placeholder="Pis 2, porta 4">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                            Cancel·lar
+                        </button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 {% endblock %}

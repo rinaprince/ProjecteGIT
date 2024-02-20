@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\PrivateCustomer;
+use App\Entity\Professional;
+use App\Form\PrivateCustomerType;
+use App\Form\ProfessionalType;
 use App\Repository\CustomerRepository;
 use App\Repository\EmployeeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +24,10 @@ class LoginController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
 
         $lastUsername = $authenticationUtils->getLastUsername();
+        $privateCustomer = new PrivateCustomer();
+        $formPrivate = $this->createForm(PrivateCustomerType::class, $privateCustomer);
+        $professional = new Professional();
+        $formProfessional = $this->createForm(ProfessionalType::class, $professional);
 
         if ($authorizationChecker->isGranted('ROLE_LOGIN')) {
             return $this->redirectToRoute('app_front_office');
@@ -28,6 +36,8 @@ class LoginController extends AbstractController
         return $this->render('login/login.html.twig', [
             'last_username'=> $lastUsername,
             'error'        => $error,
+            'privateCustomerForm' => $formPrivate,
+            'professionalForm' => $formProfessional
         ]);
     }
 

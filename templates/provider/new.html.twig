@@ -1,13 +1,22 @@
-{% extends 'base_back_3.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Crear proveïdors{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center p-5">
-    <h1>Alta de proveïdors</h1>
+    <div class="container-xl container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center p-5">
+                    <h1 class="text-center">Alta de proveïdors</h1>
+                </div>
+            </div>
+        </div>
     </div>
-
-    {{ include('provider/_form.html.twig') }}
-
-    <a href="{{ path('app_provider_index') }}">back to list</a>
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                {{ include('provider/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

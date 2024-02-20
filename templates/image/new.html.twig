@@ -1,19 +1,33 @@
-{% extends 'base_back_3.html.twig' %}
+{% extends 'base_back_2.html.twig' %}
 
-{% block title %}New Vehicle{% endblock %}
+
 
 {% block body %}
-    <h1>Create new Vehicle</h1>
+    <div class="container-fluid">
+        <h1>Imatges</h1>
 
-    <div class="p-2">
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-        <button class="btn btn-success mb-2">{{ button_label|default('Guardar') }}</button>
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+
+        <div {{ stimulus_controller('form-image-collection') }}
+                data-form-image-collection-index-value="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}"
+                data-form-image-collection-prototype-value="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
+                class="mb-2">
+            <div  class="row" {{ stimulus_target('form-image-collection', 'container') }} >
+            {% for image in form.images %}
+                <div {{ stimulus_target('form-image-collection', 'collectionContainer') }}
+                        class="col-12">{{ form_row(image.imageFile) }}</div>
+            {% endfor %}
+            </div>
+            <div class="col-12 d-flex gap-2 justify-content-end">
+                <button class="btn btn-secondary"
+                        type="button" {{ stimulus_action('form-image-collection', 'addImageElement') }}>{{ "Afegeix una image" | trans }}</button>
+                <input class="btn btn-primary" type="submit" value="Guardar">
+            </div>
+        </div>
 
 
-    <button class="btn btn-primary">
-        <a href="{{ path('app_vehicle_index') }}" class="text-light text-decoration-none">Tornar a la llista</a>
-    </button>
+        {{ form_end(form) }}
     </div>
+
 {% endblock %}
+

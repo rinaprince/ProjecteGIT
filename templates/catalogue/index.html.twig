@@ -1,29 +1,39 @@
-{% extends 'base_3.html.twig' %}
+{% extends 'base_2.html.twig' %}
 {% block title %} Catàleg {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('equip3/css/cataleg.css') }}">
-{% endblock %}
 {% block body %}
-    <h1 class="col-12 ">Catàleg</h1>
-    <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 mx-lg-5 mb-lg-1" role="search">
-        <input name="q" type="search" class="form-control form-control-light text-dark justify-content-center"
-               placeholder="Buscar..." aria-label="Search">
-    </form>
+    <div class="container-xl container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center mt-3 mb-3">
+                    <h1>Catàleg</h1>
+                </div>
+                <form method="GET" role="search">
+                    <div class="d-flex d-flex justify-content-center mb-3">
+                        <input name="q" type="search" class="rounded-start-pill border border-secondary-subtle ps-3"
+                               placeholder="Buscar..." aria-label="Search">
+                        <button type="submit" class="border border-0 rounded-end-pill button-searcher-BHEC p-2"><i
+                                    class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    {% if q %}
-        <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
-    {% endif %}
 
-    <div class=" container-fluid d-flex flex-wrap gap-3 justify-content-center  p-5 bg-#f5f5f5">
+        {% if q %}
+            <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
+        {% endif %}
+
+    <div class=" container-fluid d-flex flex-xl-wrap gap-xl-3 justify-content-center p-5">
+
         <div class="row">
             {% for vehicle in vehicles %}
                 {% if vehicle.vehicleOrder is null or vehicle.vehicleOrder.state != 'Tancat' %}
-                    <div class=" col-3 d-flex align-items-center justify-content-center text-center mb-2">
-
-                        <div class="vehicle   mb-2 border border-1 border-light rounded-3 overflow-hidden ">
-                            <div class="img-vehicle rounded-2 w-100 overflow-hidden ">
+                    <div class="col-3 mb-2">
+                        <div class="mb-2 border border-1 border-light rounded-3 overflow-hidden ">
+                            <div class="rounded-2 w-100 overflow-hidden ">
 
                                 <div id="carouselImagesVehicles_{{ vehicle.id }}" class="carousel slide w-100">
                                     <div class="carousel-indicators">
@@ -43,9 +53,9 @@
                                     <div class="carousel-inner">
                                         {% for image in vehicle.images %}
                                             <div class="carousel-item{{ loop.first ? ' active' }}">
-                                                <img src="{{ asset("/equip3/no-photo.png") }}"
+                                                <img src="{{ asset("/equip3/img/vehicles/" ~ image.filename) | imagine_filter('vehicle_lowres') }}"
                                                         {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
-                                                            src: asset("/equip3/img/vehicles/" ~ image.filename)
+                                                            src: asset("/equip3/img/vehicles/" ~ image.filename) | imagine_filter('vehicle_thumb')
                                                         }) }}
 
                                                      class="d-block w-100 object-fit-cover rounded-top"
@@ -72,37 +82,41 @@
                                 <p class="name-vehicle text-center mt-3 fs-5 fw-bold">{{ vehicle.model.brand.name }} {{ vehicle.model.name }} </p>
                                 <div class="data-vehicle d-flex justify-content-around p-3 rounded-3">
                                     <div>
-                                        <p class="price-vehicle mt-1 text-center fs-5 fw-bold">{{ vehicle.sellPrice }} €</p>
+                                        <p class="price-vehicle mt-1 text-center fs-5 fw-bold">{{ vehicle.sellPrice }}
+                                            €</p>
                                     </div>
                                     <div>
                                         <p class="km-vehicle mt-1 text-center fs-6"> {{ vehicle.kilometers }}km</p>
                                     </div>
                                 </div>
-                                {% if vehicle.vehicleOrder is not null and vehicle.vehicleOrder.state == 'Pendent' %}
+{# {% if vehicle.vehicleOrder is not null and vehicle.vehicleOrder.state == 'Pendent' %}
                                     <div class="vehicle-add text-center pt-2 pb-2">
-                                        <a class="vehicle-add-button-disabled px-3 py-2 rounded-2 text-decoration-none">Reservado</a>
+                                        <a class="vehicle-add-button-disabled px-3 py-2 rounded-2 text-decoration-none">Reservat</a>
                                     </div>
                                 {% else %}
                                     <div class="vehicle-add text-center pt-2 pb-2">
-                                        <a class="vehicle-add-button px-3 py-2 rounded-2 text-decoration-none" href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id }) }}">Afegir</a>
+                                        <a class="vehicle-add-button px-3 py-2 rounded-2 text-decoration-none"
+                                           href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id }) }}">Afegir</a>
                                     </div>
-                                {% endif %}
+                                {% endif %}#}
 
 
-                                {% if vehicle.vehicleOrder is not null and vehicle.vehicleOrder.state == 'Pendent' %}
+                               {% if vehicle.vehicleOrder is not null and vehicle.vehicleOrder.state == 'Pendent' %}
                                     <div class="vehicle-add text-center pt-2 pb-2">
-                                        <p class="btn btn-secondary" >Reservado</p>
+                                        <p class="btn btn-secondary">Reservat</p>
                                     </div>
                                 {% else %}
                                     <div class="vehicle-add text-center pt-2 pb-2">
-                                        <a class="btn btn-primary" href="{{ path('app_api_pending_orders', {'id': vehicle.id }) }}"
-                                                {{  stimulus_controller('vehicle_add') }} id="agregar" {{ stimulus_action('vehicle_add', 'addVehicle', 'click') }}>Afegir</a>
+                                        <a class="btn" href="{{ path('app_api_pending_orders', {'id': vehicle.id }) }}" data-controller="vehicle-add" data-action="click->vehicle-add#addVehicle" data-target="vehicle-add.button">
+                                            Afegir
+                                        </a>
+
                                     </div>
                                 {% endif %}
 
 
                                 <div class="vehicle-details text-center pt-2 pb-2">
-                                    <a class="btn btn-warning"
+                                    <a class="btn btn-secondary"
                                        href="{{ path('app_detail', {'id': vehicle.id }) }}">Especificacions</a>
                                 </div>
 

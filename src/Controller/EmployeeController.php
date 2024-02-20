@@ -71,6 +71,7 @@ class EmployeeController extends AbstractController
                 $login->setRole('ROLE_ADMIN');
                 $employee->setLogin($login);
             }
+            $employee->setDischarge(false);
             $entityManager->persist($employee);
             $entityManager->flush();
 

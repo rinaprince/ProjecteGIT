@@ -34,10 +34,22 @@ class ProviderType extends AbstractType
             ->add('dni', TextType::class)
             ->add('cif', TextType::class)
             ->add('address', TextType::class)
-            ->add('bankTitleFile',VichFileType::class)
+            ->add('bankTitleFile',VichFileType::class, [
+                'label' => false,
+                'required' => false,
+                'allow_delete' => false,
+            ])
             ->add('managerNif', TextType::class)
-            ->add('LOPDdocFile',VichFileType::class)
-            ->add('constitutionArticleFile',VichFileType::class)
+            ->add('LOPDdocFile',VichFileType::class, [
+                'label' => false,
+                'required' => false,
+                'allow_delete' => false,
+            ])
+            ->add('constitutionArticleFile',VichFileType::class, [
+                'label' => false,
+                'required' => false,
+                'allow_delete' => false,
+            ])
         ;
     }
 

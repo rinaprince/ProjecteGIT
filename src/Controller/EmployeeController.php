@@ -130,4 +130,23 @@ class EmployeeController extends AbstractController
 
         return $this->redirectToRoute('app_employee_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/profile', name: 'app_employee_profile', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function profile(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(EmployeeType::class, $employee);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_back_office', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('profile/profile_back.html.twig', [
+            'employee' => $employee,
+            'form' => $form,
+        ]);
+    }
 }

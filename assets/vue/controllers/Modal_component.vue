@@ -5,7 +5,8 @@ const Routes = {
   login: "login",
   logout: "/logout",
   comandes: "/",
-  novetats: "/back"
+  novetats: "/back",
+  perfil: (id) => "/employees/"+id+"/profile"
 };
 defineProps({
   Routes: Object,
@@ -14,7 +15,6 @@ defineProps({
     default: false
   }
 });
-
 </script>
 
 <template>
@@ -60,6 +60,8 @@ defineProps({
                  class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Pagina de Administració</a>
               <a href="#"
                  class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Configuració</a>
+              <a :href="Routes.perfil(user.employee.id)"
+                 class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Perfil</a>
             </div>
             <div class="px-4" v-else>
               <span v-if="!user"><a :href="Routes.login"

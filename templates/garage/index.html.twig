@@ -16,9 +16,9 @@
                     {% set pendingVehicles = vehicles|filter(vehicle => vehicle.vehicleOrder != null and vehicle.vehicleOrder.state == 'Pendent') %}
                     {% if pendingVehicles %}
                         <div class="align-content-center">
-                            <table class="table " id="garage-table">
+                            <table class="table table-light table-striped " id="garage-table">
                                 <thead >
-                                <tr class="d-none d-sm-table-row">
+                                <tr class="d-none bg-secondary d-sm-table-row">
                                     <th></th>
                                     <th>Model</th>
                                     <th>Màtricula</th>

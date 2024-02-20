@@ -31,6 +31,17 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getQuery()
             ;
     }
+
+    public function findAllActive(): array
+    {
+        return $this->createQueryBuilder('i')
+            ->orderBy('i.date', 'DESC')
+            ->andWhere('i.discharge = :discharge')
+            ->setParameter('discharge', false)
+            ->getQuery()
+            ->getResult();
+    }
+
     /**
      * @return Invoice[] Returns an array of Invoice objects
      */
@@ -83,4 +94,5 @@ class InvoiceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

@@ -25,7 +25,7 @@ class InvoiceController extends AbstractController
        // $user = $this->getUser();
     
     //    $arrayInvoices = $invoiceRepository->findInvoicesForLoggedInUser($user);
-        $invoicesQuery = $invoiceRepository->findAll();
+        $invoicesQuery = $invoiceRepository->findAllActive();
 
         $paginatedInvoices = $paginator->paginate(
             $invoicesQuery,
@@ -102,16 +102,16 @@ class InvoiceController extends AbstractController
         ]);
     }
 
-
-    #[IsGranted('ROLE_ADMINISTRATIVE', message: 'Accés restringit, soles administratius')]
-    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST', 'GET'])]
+    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$invoice->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($invoice);
-            $entityManager->flush();
-        }
+        // Marcar la factura como eliminada (soft delete)
+        $invoice->setDischarge(true);
+        $entityManager->persist($invoice);
+        $entityManager->flush();
 
+        // Redirigir a la página de índice de facturas
         return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
     }
 

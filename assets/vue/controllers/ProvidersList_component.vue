@@ -12,7 +12,7 @@
               </button>
             </div>
           </form>
-          <a :href="providerNewPath" class="button-text-primary-BHEC btn button-primary-BHEC p-3 mb-3"><i
+          <a @click="modalNewProvider()" class="button-text-primary-BHEC btn button-primary-BHEC p-3 mb-3"><i
               class="bi bi-plus-square me-1"></i>Nou Proveïdor</a>
         </div>
         <!--<form class="mb-3 mb-lg-0 me-lg-3 mb-lg-1">
@@ -62,13 +62,16 @@
               <button class="btn btn-success">
                 <a @click="modalShow(provider.id)">
                   <i class="bi bi-eye-fill"></i>
-                </a></button>
+                </a>
+              </button>
             </td>
             <td>
+
               <button class="btn btn-primary">
               <a @click="modalEdit(provider.id)">
                 <i class="bi bi-pencil-square"></i>
               </a></button>
+
             </td>
             <td>
               <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
@@ -105,7 +108,7 @@ import {ref, computed, watch} from 'vue';
 import Swal from 'sweetalert2';
 import vehicle from "primevue/menu";
 
-const props = defineProps(['providers', 'q', 'token']);
+const props = defineProps(['providers', 'q']);
 
 const providerIdToDelete = ref(null);
 const providerShowPath = (id) => `/providers/${id}`;
@@ -140,7 +143,7 @@ const applyFilters = (data, filters) => {
 
 // Hacer la solicitud Axios aquí para mostrar los detalles de los proveedores
 function modalShow(id) {
-  axios.get('/providers/' + id + '')
+  axios.get('/providers/' + id)
       .then(response => {
         // Actualitzar el contingut del modal
         const modalBody = document.querySelector('.modal-body');
@@ -160,8 +163,24 @@ function hideModal() {
   myModal.style.display = 'none';
 }
 
-// Hacer la solicitud Axios aquí para mostrar los detalles de los proveedores
-function modalEdit(id) {
+
+function modalNewProvider() {
+  axios.get('/providers/new')
+      .then(response => {
+        // Actualitzar el contingut del modal
+        const modalBody = document.querySelector('.modal-body');
+        modalBody.innerHTML = response.data;
+
+        // Mostrar el modal
+        const myModal = document.querySelector('.modal');
+        myModal.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Error modal: ', error);
+      })
+}
+
+function modalEditProvider(id) {
   axios.get('/providers/' + id + '/edit')
       .then(response => {
         // Actualitzar el contingut del modal
@@ -173,14 +192,9 @@ function modalEdit(id) {
         myModal.style.display = 'block';
       })
       .catch(error => {
-        console.error('Error fetching modal content:', error);
-      });
+        console.error('Error modal: ', error);
+      })
 }
-
-/*function hideModal2() {
-  const myModal = document.querySelector('.modal');
-  myModal.style.display = 'none';
-}*/
 
 /* Funció per a eliminar al proveïdor */
 /*function deleteProvider(providerId, token) {
@@ -213,7 +227,7 @@ function sweetAlertDelete(id) {
           .then(response => {
             Swal.fire({
               title: "Eliminat!",
-              text: "El vehicle ha sigut eliminat.",
+              text: "El proveïdor ha sigut eliminat.",
               icon: "success"
             });
           })
@@ -221,7 +235,7 @@ function sweetAlertDelete(id) {
             console.error(error);
             Swal.fire({
               title: "Error",
-              text: "S'ha produït un error en eliminar el vehicle.",
+              text: "S'ha produït un error en eliminar el proveïdor.",
               icon: "error"
             });
           });

@@ -53,7 +53,7 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute('app_front_office', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('register/private.html.twig', [
+        return $this->render('private_customer/register.html.twig', [
             'private_customer' => $privateCustomer,
             'form' => $form,
         ]);
@@ -81,9 +81,10 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute('app_front_office', [], Response::HTTP_SEE_OTHER);
         }
 
+
         return $this->render('professional/register.html.twig', [
             'professional' => $professional,
-            'form' => $form,
+            'professionalForm' => $form,
         ]);
     }
 }

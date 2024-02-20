@@ -97,13 +97,14 @@ class ProviderController extends AbstractController
     {
         $entityManager->remove($provider);
         $entityManager->flush();
-        if ($this->isCsrfTokenValid('delete'.$provider->getId(), $request->request->get('_token'))) {
 
+        if ($this->isCsrfTokenValid('delete'.$provider->getId(), $request->request->get('_token'))) {
+            return $this->render('provider/_delete_form.html.twig', [
+                'provider' => $provider,
+                'request' => $request
+            ]);
         }
-        /*return $this->render('provider/_delete_form.html.twig', [
-            'provider' => $provider,
-            'request' => $request
-        ]);*/
+
          return $this->redirectToRoute('app_provider_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -60,7 +60,7 @@ class EmployeeFixtures extends Fixture
 
 
         foreach ($employeeTypes as $type) {
-            for ($i = 0; $i < self::EMPLOYEES_BY_TYPE; $i++) {
+            for ($i = 0; $i < 40; $i++) {
                 $employee = new Employee();
                 $employee->setName($this->faker->firstName);
                 $employee->setLastname($this->faker->lastName);

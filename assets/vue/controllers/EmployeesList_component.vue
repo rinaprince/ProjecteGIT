@@ -6,9 +6,10 @@
              placeholder="Buscar..." aria-label="Search">
     </form>
   </div>
-  <table class="table">
+  <table class="table" id="employeesTable">
     <thead>
     <tr>
+      <th class="d-none">Id</th>
       <th>Nom</th>
       <th>Cognom</th>
       <th>Tipus</th>
@@ -17,13 +18,14 @@
     </thead>
     <tbody>
     <tr v-for="employee in employees">
+      <td class="d-none">{{employee.id}}</td>
       <td>{{ employee.name }}</td>
       <td>{{ employee.lastname }}</td>
       <td>{{ employee.type }}</td>
       <td>
         <a @click="showModal(employee.id)" class="btn btn-outline-dark">Mostrar</a>
         <a :href="employeeEditPath(employee.id)" class="btn btn-primary">Editar</a>
-        <a @click="softDeleteEmployee(employee.id)" class="btn btn-danger">Esborrar</a>
+        <a class="btn btn-danger delete">Esborrar</a>
       </td>
     </tr>
     </tbody>
@@ -49,6 +51,20 @@
 
 <script setup>
 import axios from 'axios';
+import DataTable from 'datatables.net-dt';
+import $ from "jquery"; //Importació de jquery NECESSARIA per poder fer funcionar l'eliminació
+/**
+ * Per poder fer funcionar el codi per eliminar la fila del registre en temps real has de:
+ *
+ * posar la classe 'delete' al botó d'eliminar;
+ * Anyadir el camp id en la taula amb un display none '<th class="d-none">Id</th>, <td class="d-none">employee.id</td>'
+ *
+ */
+
+//Datatables
+let table = new DataTable('#employeesTable', {
+
+});
 
 defineProps({
   employees: Array,
@@ -60,6 +76,26 @@ const employeeEditPath = (id) => `/employees/${id}/edit`;
 const employeeNewPath = `/employees/new`;
 const employeeDeletePath = (id) => `/employees/${id}`;
 
+/**
+ * Event que s'executa quan es carrega el document
+ *
+ *
+ */
+$(document).ready( function () {
+  $('#employeesTable').DataTable(); // NO IMPLEMENTAR MENYS QUE VULGES IMPLEMENTAR DataTables
+
+  //----------------------------------------------------------------------------
+  $('.delete').on('click', function () {
+    let tr = this.closest('tr'); // Troba el 'Tr' de la taula més proper al botó prés(pulsado)
+    let employeeId = $(tr).find('td:eq(0)').text(); // Obté la id del registre a eliminar
+    tr.remove(); // Elimina directament la fila de la taula
+
+    //No implementar anoser que es tinga implementat la funcionalitat de soft delete ...
+    // -> (el camp en la base de dades i el mètodo delete del controlador configurat)
+    softDeleteEmployee(employeeId);
+  })
+  //-----------------------------------------------------------------------------
+} );
 
 // ... (resto del código)
 // Hacer la solicitud Axios aquí
@@ -106,16 +142,18 @@ function modalNewEmployee(){
       });
 }
 
+
 function softDeleteEmployee(employeeId){
   axios.post('/employees/'+employeeId+'/delete',{
     employeeId: employeeId
   })
 .then(function (response) {
-    console.log(response);
+    console.log(response)
   })
-      .catch(function (error) {
-        console.log(error);
-      });
+  .catch(function (error) {
+    console.log('Error: '+error);
+    console.log('Id: '+employeeId);
+  });
 }
 
 /**

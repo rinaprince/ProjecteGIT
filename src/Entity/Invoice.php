@@ -40,7 +40,8 @@ class Invoice implements JsonSerializable
     #[ORM\JoinColumn(nullable: false)]
     private ?Order $customerOrder = null;
 
-
+    #[ORM\Column]
+    private ?bool $discharge = null;
 
     public function getId(): ?int
     {
@@ -116,5 +117,17 @@ class Invoice implements JsonSerializable
             'date' => $this->date,
             'customer' => $this->customer
         ];
+    }
+
+    public function isDischarge(): ?bool
+    {
+        return $this->discharge;
+    }
+
+    public function setDischarge(bool $discharge): static
+    {
+        $this->discharge = $discharge;
+
+        return $this;
     }
 }

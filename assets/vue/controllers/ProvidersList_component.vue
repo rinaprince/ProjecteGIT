@@ -66,13 +66,16 @@
               </button>
             </td>
             <td>
-              <button class="btn btn-info mx-1" @click="modalEditProvider(provider.id)"><i
-                  class="fas fa-pencil-alt"></i>
-              </button>
+
+              <button class="btn btn-primary">
+              <a @click="modalEdit(provider.id)">
+                <i class="bi bi-pencil-square"></i>
+              </a></button>
+
             </td>
             <td>
-              <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)"><i
-                  class="bi bi-trash-fill"></i>
+              <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
+                <i class="bi bi-trash-fill"></i>
               </button>
             </td>
           </tr>
@@ -81,12 +84,12 @@
       </div>
     </div>
   </div>
-  <!-- Modal Mostrar-->
+  <!-- Modal -->
   <div class="modal" style="background-color: rgba(0,0,0,0.5)" ref="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Detalls:</h5>
+          <h5 class="modal-title fw-bold fs-3">Detalls:</h5>
           <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
                   aria-label="Close"></button>
         </div>
@@ -138,7 +141,7 @@ const applyFilters = (data, filters) => {
   });
 };
 
-// Hacer la solicitud Axios aquí
+// Hacer la solicitud Axios aquí para mostrar los detalles de los proveedores
 function modalShow(id) {
   axios.get('/providers/' + id)
       .then(response => {
@@ -159,6 +162,7 @@ function hideModal() {
   const myModal = document.querySelector('.modal');
   myModal.style.display = 'none';
 }
+
 
 function modalNewProvider() {
   axios.get('/providers/new')

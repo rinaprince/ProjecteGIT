@@ -59,7 +59,7 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 function sweetAlertDelete(vehicleId) {
   Swal.fire({
     title: 'Estàs segur?',
-    text: "No podras desfer la teua decissió!",
+    text: "No podràs desfer la teua decissió!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#aa8e31ff',
@@ -67,14 +67,10 @@ function sweetAlertDelete(vehicleId) {
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {
     if (result.isConfirmed === true) {
-      axios.post('/vehicles/' + vehicleId + '/delete')
+      axios.post('/vehicles/${vehicleId}/delete')
           .then(response => {
-            const elementsToDelete = document.querySelectorAll('.vehicle');
-            elementsToDelete.forEach(element => {
-              if (element.dataset.vehicleId === vehicleId) {
-                element.remove();
-              }
-            });
+            // Actualizar el estado de Vue.js para eliminar el vehículo eliminado
+            this.vehicles = this.vehicles.filter(vehicle => vehicle.id !== vehicleId);
             Swal.fire({
               title: "Eliminat!",
               text: "El vehicle ha sigut eliminat.",
@@ -115,7 +111,7 @@ function sweetAlertDelete(vehicleId) {
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 p-3" v-for="vehicle in vehicles">
+        <div class="col-12 col-md-6 col-lg-4 p-3 vehicle" :key="vehicle.id" data-vehicle-id="{{ vehicle.id }}" v-for="vehicle in vehicles">
           <div>
             <img :src="'/equip3/img/vehicles/' + vehicle.images[0].filename" :alt="'Imatge Vehicle' + vehicle.images[0].filename" width="100%"
             class="rounded-top-3 object-fit-container">

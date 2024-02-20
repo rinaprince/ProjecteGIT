@@ -24,11 +24,13 @@ class ApiPrivateCustomerController extends AbstractController
                 "status" => "fail",
                 "data" => $private,
                 "message" => "Private no té contingut"
+
             ];
         }
         else{
             $privateJson = [
-                "status" => "success",
+               "status" => "success",
+
                 "data" => $private,
                 "message" => null
             ];

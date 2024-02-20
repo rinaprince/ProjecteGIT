@@ -23,6 +23,19 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
+    /**
+     * @param string $value
+     * @return Query
+     */
+
+    public function findAllQuery(): Query
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.discharge = false') //This line set a filter to the query to get all the employees that are not discharge.
+            ->orderBy('c.name', 'DESC')
+            ->getQuery();
+    }
+
 //    /**
 //     * @return Customer[] Returns an array of Customer objects
 //     */
@@ -58,13 +71,6 @@ class CustomerRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-    }
-
-    public function findAllQuery(): Query
-    {
-        return $this->createQueryBuilder('c')
-            ->orderBy('c.name', 'ASC')
-            ->getQuery();
     }
 
     public function findAllPaginated(int $page = 1, int $limit = 10): Query

@@ -1,19 +1,22 @@
 <template>
-  <div class="d-flex align-items-center">
-    <a @click="modalNewEmployee()" class="m-2 btn btn-success">Create new</a>
+
+  <div class="d-flex justify-content-between align-items-center m-3">
     <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 mb-lg-1" role="search">
-      <input name="q" type="search" class="form-control form-control-light text-dark"
-             placeholder="Buscar..." aria-label="Search">
-    </form>
+    <input name="q" type="search" class="form-control form-control-light text-dark"
+           placeholder="Buscar..." aria-label="Search">
+  </form>
+    <a @click="modalNewEmployee()"  class="text-white btn bg-secondary-BHEC p-3 mb-3"><i
+        class="bi bi-plus-square me-1"></i>Nou Employee</a>
   </div>
-  <table class="table" id="employeesTable">
+
+  <table class="table table-striped table-hover" id="employeesTable">
     <thead>
     <tr>
       <th class="d-none">Id</th>
-      <th>Nom</th>
-      <th>Cognom</th>
-      <th>Tipus</th>
-      <th>Accions</th>
+      <th class="bg-tertiary-BHEC">Nom</th>
+      <th class="bg-tertiary-BHEC">Cognom</th>
+      <th class="bg-tertiary-BHEC">Tipus</th>
+      <th class="bg-tertiary-BHEC">Accions</th>
     </tr>
     </thead>
     <tbody>
@@ -23,10 +26,21 @@
       <td>{{ employee.lastname }}</td>
       <td>{{ employee.type }}</td>
       <td>
-        <a @click="showModal(employee.id)" class="btn btn-outline-dark">Mostrar</a>
-        <a :href="employeeEditPath(employee.id)" class="btn btn-primary">Editar</a>
-        <a class="btn btn-danger delete">Esborrar</a>
+        <a @click="showModal(employee.id)" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
+        <a :href="employeeEditPath(employee.id)" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+        <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
       </td>
+      <!--
+      <td>
+        <a @click="showModal(employee.id)" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
+      </td>
+      <td>
+        <a :href="employeeEditPath(employee.id)" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+      </td>
+      <td>
+        <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
+      </td>
+      -->
     </tr>
     </tbody>
   </table>
@@ -63,7 +77,10 @@ import $ from "jquery"; //Importació de jquery NECESSARIA per poder fer funcion
 
 //Datatables
 let table = new DataTable('#employeesTable', {
-
+    searching: true, // Activar la funcionalidad de búsqueda
+    paging: false, // Desactivar paginación
+    info: false, // Desactivar información de la tabla
+    autoWidth: false, // Desactivar auto-ancho de columnas
 });
 
 defineProps({

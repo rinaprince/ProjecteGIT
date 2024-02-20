@@ -40,22 +40,6 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 
 const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 
-/*$(document).ready( function () {
-
-  //----------------------------------------------------------------------------
-  $('.delete').on('click', function () {
-    let divContainer = $(this).closest('.col-12'); // Encuentra el contenedor más cercano con la clase '.col-12'
-    let vehicleId = divContainer.attr('data-vehicle-id'); // Obtiene el ID del vehículo del atributo de datos 'data-vehicle-id' en el contenedor
-    divContainer.remove();
-
-    //No implementar anoser que es tinga implementat la funcionalitat de soft delete ...
-    // -> (el camp en la base de dades i el mètodo delete del controlador configurat)
-    sweetAlertDelete(vehicleId);
-  })
-  //-----------------------------------------------------------------------------
-} );*/
-
-
 function sweetAlertDelete(vehicleId) {
   Swal.fire({
     title: 'Estàs segur?',
@@ -67,10 +51,8 @@ function sweetAlertDelete(vehicleId) {
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {
     if (result.isConfirmed === true) {
-      axios.post('/vehicles/${vehicleId}/delete')
+      axios.post('/vehicles/'+vehicleId+'/delete')
           .then(response => {
-            // Actualizar el estado de Vue.js para eliminar el vehículo eliminado
-            this.vehicles = this.vehicles.filter(vehicle => vehicle.id !== vehicleId);
             Swal.fire({
               title: "Eliminat!",
               text: "El vehicle ha sigut eliminat.",

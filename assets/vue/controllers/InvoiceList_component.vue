@@ -135,18 +135,24 @@ function confirmDelete(id) {
     showCancelButton: true,
     customClass: {
       confirmButton: 'sweetConfirm'
-
     },
-
     confirmButtonText: 'Sí, esborrar',
     cancelButtonColor: '#d33',
   }).then((result) => {
     if (result.isConfirmed) {
       // Llama a la función deleteInvoice solo si el usuario confirma la eliminación
       deleteInvoice(id);
+
+      // Elimina el tr correspondiente al sweetAlert abierto
+      const rowId = '#row' + id;
+      const tableRow = document.querySelector(rowId);
+      if (tableRow) {
+        tableRow.remove();
+      }
     }
   });
 }
+
 
 async function deleteInvoice(id) {
   try {

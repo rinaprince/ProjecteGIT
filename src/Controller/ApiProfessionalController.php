@@ -2,73 +2,119 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
-use App\Repository\CustomerRepository;
+use App\Entity\Professional;
 use App\Repository\LoginRepository;
-use App\Repository\OrderRepository;
 use App\Repository\ProfessionalRepository;
-use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-#[Route('/api/v1')]
+
+#[Route('/api/v1/professionals')]
 class ApiProfessionalController extends AbstractController
 {
-    public function index(Request $request, ProfessionalRepository $professionalRepository): JsonResponse
+    #[Route('', name: 'app_api_professional')]
+    public function index(ProfessionalRepository $professionalRepository): JsonResponse
     {
-        $movies = $movieRepository->findAll();
+        $data = $professionalRepository->findAll();
 
-        return new JsonResponse($movies, Response::HTTP_OK);
-    }
-
-    /**
-     * @Route("/{id}", name="api_moives_show", methods={"GET"})
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function show(Request $request,  ?Movie $movie): JsonResponse
-    {
-
-        if (!empty($movie))
-            return new JsonResponse($movie, Response::HTTP_OK);
-
-        else
-            return new JsonResponse("error", Response::HTTP_NOT_FOUND);
-    }
-
-    /**
-     *
-     * @Route("/", name="api_movies_create", methods={"POST"})
-     */
-
-    public function create(Request $request): JsonResponse
-    {
-        $movie = new Movie();
-        $data = [];
-        if ($content = $request->getContent()) {
-            $data = json_decode($content, true);
+        if ($data == null || $data == "") {
+            $professionalsJson = [
+                "status" => "fail",
+                "data" => ["professionals" => $data],
+                "message" => "No es pot accedir a les dades dels professionals"
+            ];
+        } else {
+            $professionalsJson = [
+                "status" => "success",
+                "data" => ["professionals" => $data],
+                "message" => null
+            ];
         }
+
+        return new JsonResponse($professionalsJson, Response::HTTP_OK);
+    }
+
+    #[Route('/{id}', name: 'app_api_professional_show')]
+    public function show(?Professional $professional): JsonResponse
+    {
+        $data = $professional;
+
+        if (!empty($data)) {
+            $professionalsJson = [
+                "status" => "success",
+                "data" => ["professional" => $data],
+                "message" => ""
+            ];
+            $status = Response::HTTP_OK;
+        } else {
+            $professionalsJson = [
+                "status" => "error",
+                "data" => ["professional" => $data],
+                "message" => "No s'ha trobat ningun professional"
+            ];
+            $status = Response::HTTP_NOT_FOUND;
+        }
+        return new JsonResponse($professionalsJson, $status);
+    }
+
+    #[Route('/new', name: 'app_api_professional_new')]
+    public function create(Request $request, ValidatorInterface $validator, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $professional = new Professional();
+        $data = $request->toArray();
 
         try {
-            $movie->setTitle($data["title"]);
-            $movie->setOverview($data["overview"]);
-            $movie->setTagline($data["tagline"]);
-            $movie->setPoster($data["poster"]);
-            $movie->setReleaseDate(new \DateTime($data["release_date"]));
+            $professional->setName($data["name"]);
+            $professional->setLastname($data["lastname"]);
+            $professional->setAddress($data["address"]);
+            $professional->setDni($data["dni"]);
+            $professional->setPhone($data["phone"]);
+            $professional->setEmail($data["email"]);
+            $professional->setCif($data["cif"]);
+            $professional->setManagerNif($data["nif"]);
+            $professional->setLOPDdoc("docLOPD.pdf");
+            $professional->setBussinessName($data["bussinessName"]);
+            $professional->setConstitutionWriting($data["constitutionWriting"]);
+            $professional->setSubscription($data["subscription"]);
+
+
+            $errors = $validator->validate($professional);
+            if (count($errors) > 0) {
+                $professionalJson = [
+                    "status" => "error",
+                    "data" => ["professional" => $data],
+                    "message" => "Els camps no tenen el format correcte"
+                ];
+                $status = Response::HTTP_BAD_REQUEST;
+            } else {
+                $professionalJson = [
+                    "status" => "success",
+                    "data" => ["professional" => $data],
+                    "message" => ""
+                ];
+                $status = Response::HTTP_CREATED;
+
+                $entityManager->persist($professional);
+                $entityManager->flush();
+            }
 
         } catch (\Exception $e) {
-            $error["code"] = $e->getCode();
-            $error["message"] = $e->getMessage();
-            return new JsonResponse($error, Response::HTTP_BAD_REQUEST);
+            $professionalJson = [
+                "status" => "error",
+                "data" => ["professional" => $data],
+                "message" => $e
+            ];
+            $status = Response::HTTP_BAD_REQUEST;
+            return new JsonResponse($professionalJson, $status);
         }
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($movie);
-        $em->flush();
 
-        return new JsonResponse($movie, Response::HTTP_CREATED);
+
+        return new JsonResponse($professionalJson, $status);
     }
 }

@@ -40,10 +40,6 @@
     background-color: var(--primary-BHEC);
 }
 
-.bg-secondary-BHEC {
-    background-color: var(--secondary-BHEC) !important;
-}
-
 .text-secondary-BHEC:hover {
     color:  var(--secondary-BHEC);
     opacity: 0.5;

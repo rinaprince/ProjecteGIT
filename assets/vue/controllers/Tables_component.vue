@@ -54,7 +54,6 @@ const filteredData = computed(() => {
         <!--  TODO: Transform into for loop-->
         <span v-else>
                 {{ data[titleIndex.split('.')[0]][titleIndex.split('.')[1]] }}
-                  data["object"]["object2"]
         </span>
       </td>
       <td>

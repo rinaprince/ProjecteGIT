@@ -25,9 +25,6 @@ import './equip3/css/modal.css';
 import './equip3/css/backend-skeleton.css';
 
 import './equip3/css/squeleton-frontend.css';
-import './equip3/js/menu-burguer';
-import './equip3/js/menu-aside';
-import "./equip3/js/modal";
 
 
 import { registerVueControllerComponents } from '@symfony/ux-vue';

@@ -2,23 +2,19 @@
 
 {% block title %}Order{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
-{% endblock %}
 
 {% block body %}
-    <section class="col-10 contingut">
-        <h1>Order Details</h1>
+    <section class="contingut m-4">
+        <h1 class="text-center">Order Details</h1>
         <div class="table-responsive">
             <table class="table table-striped">
                 <tbody>
                 <tr>
-                    <th scope="row">Customer name</th>
+                    <th class="bg-tertiary-BHEC" scope="row">Customer name</th>
                     <td>{{ order.customer.name }}</td>
                 </tr>
                 <tr>
-                    <th scope="row">State</th>
+                    <th class="bg-tertiary-BHEC" scope="row">State</th>
                     <td>{{ order.state }}</td>
                 </tr>
                 </tbody>

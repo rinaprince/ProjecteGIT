@@ -1,0 +1,39 @@
+/* Importa les fonts de Google */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap');
+
+/* Els meus estils */
+
+.button-text-primary-BHEC{
+    color: var(--button-text);
+}
+
+.button-primary-BHEC{
+    background-color: var(--button-normal);
+}
+
+.button-primary-BHEC:hover{
+    background-color: var(--button-normal-hover);
+    color: var(--button-text);
+}
+
+.button-searcher-BHEC{
+    background-color: var(--tertiary-color);
+}
+
+.button-searcher-BHEC:hover{
+    background-color: var(--tertiary-color);
+}
+
+.table th{
+    background-color: var(--tertiary-color);
+}
+
+.active > .page-link, .page-link.active {
+    background-color: var(--secundary-color);
+    border-color: var(--secundary-color);
+}
+
+.page-item:not(:first-child) .page-link {
+    color: #000000;
+}

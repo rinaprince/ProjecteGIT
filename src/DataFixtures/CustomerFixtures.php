@@ -38,6 +38,7 @@ class CustomerFixtures extends Fixture
             $customer->setDni($this->faker->dni());
             $customer->setPhone($this->faker->phoneNumber());
             $customer->setEmail($this->faker->email());
+            $customer->setDischarge(false);
 
             if ($customer instanceof Professional) {
                 $customer->setCif($this->faker->regexify('/^[A-Z0-9]{9}$/'));
@@ -46,6 +47,7 @@ class CustomerFixtures extends Fixture
                 $customer->setBussinessName($this->faker->company);
                 $customer->setConstitutionWriting($this->faker->word . '.pdf');
                 $customer->setSubscription($this->faker->boolean);
+                $customer->setDischarge(false);
             }
 
             $login = new Login();
@@ -73,6 +75,7 @@ class CustomerFixtures extends Fixture
             $customer->setDni($this->faker->dni());
             $customer->setPhone($this->faker->phoneNumber());
             $customer->setEmail($this->faker->email());
+            $customer->setDischarge(true);
 
             if ($customer instanceof Professional) {
                 $customer->setCif($this->faker->regexify('/^[A-Z0-9]{9}$/'));
@@ -81,6 +84,7 @@ class CustomerFixtures extends Fixture
                 $customer->setBussinessName($this->faker->company);
                 $customer->setConstitutionWriting($this->faker->word . '.pdf');
                 $customer->setSubscription($this->faker->boolean);
+                $customer->setDischarge(false);
             }
 
         $login = new Login();
@@ -103,6 +107,7 @@ class CustomerFixtures extends Fixture
         $customer->setDni($this->faker->dni());
         $customer->setPhone($this->faker->phoneNumber());
         $customer->setEmail($this->faker->email());
+        $customer->setDischarge(false);
 
         $login = new Login();
         $login->setUsername("private");
@@ -123,6 +128,7 @@ class CustomerFixtures extends Fixture
         $customer2->setDni($this->faker->dni());
         $customer2->setPhone($this->faker->phoneNumber());
         $customer2->setEmail($this->faker->email());
+        $customer->setDischarge(false);
 
         $login2 = new Login();
         $login2->setUsername("pepeprivate");

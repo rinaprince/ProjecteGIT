@@ -1,0 +1,14 @@
+/* Els meus estils */
+
+.active > .page-link, .page-link.active {
+    background-color: var(--secundary-color) !important;
+    border-color: var(--secundary-color) !important;
+}
+
+.page-item:not(:first-child) .page-link {
+    color: #000000;
+}
+
+.page-item:first-child .page-link {
+    color: black !important;
+}

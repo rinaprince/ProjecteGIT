@@ -1,31 +1,35 @@
 {{ form_start(form) }}
 <div class="container">
-    <div class="row">
+    <div class="row pt-2">
         <div class="col-6">
-            {{ form_row(form.number, label='Número') }}
+            {{ form_label(form.number, 'Número') }}
+            {{ form_widget(form.number) }}
         </div>
         <div class="col-6">
-            {{ form_row(form.price, label='Preu') }}
+            {{ form_label(form.price, 'Preu') }}
+            {{ form_widget(form.price) }}
         </div>
     </div>
-    <div class="row">
-        <div class="col d-flex justify-content-center">
-            {{ form_row(form.date, label='Data') }}
+    <div class="row pt-2">
+        <div class="col ">
+            {{ form_label(form.date, 'Data') }}
+            {{ form_widget(form.date) }}
         </div>
     </div>
-    <div class="row">
+    <div class="row pt-2">
         <div class="col">
-            {{ form_row(form.customer, label='Client') }}
+            {{ form_label(form.customer, 'Client') }}
+            {{ form_widget(form.customer) }}
         </div>
         <div class="col">
-            {{ form_row(form.customerOrder, label='Ordre del client') }}
+            {{ form_label(form.customerOrder, 'Ordre del client') }}
+            {{ form_widget(form.customerOrder) }}
         </div>
     </div>
 </div>
 
-    {{ form_widget(form) }}
-<div id="divBotons" class="d-flex justify-content-center gap-2">
-    <button class="btn btn-success ">{{ button_label|default('Save') }} </button>
+<div id="divBotons" class="d-flex justify-content-center gap-2 pt-4">
+    <button class="btn btn-success ">{{ button_label|default('Save') }}</button>
     <button class="btn btn-secondary "><a class="text-decoration-none text-light" href="{{ path('app_invoice_index') }}">Torna enrere</a></button>
 </div>
 {{ form_end(form) }}

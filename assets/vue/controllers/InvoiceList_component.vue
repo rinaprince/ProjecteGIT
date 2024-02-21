@@ -202,7 +202,7 @@ $(document).ready(function () {
     <div>
       <div class="d-flex justify-content-between align-items-center bg-quaternary-BHEC ">
         <form method="POST" role="search">
-          <div class="d-flex my-3 justify-content-right"><input name="q" type="search"
+          <div class="d-flex my-3 justify-content-right mw-75"><input name="q" type="search"
                                                                 class="rounded-start-pill border border-secondary-subtle px-4 py-2 "
                                                                 placeholder="Buscar..." aria-label="Search">
             <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0 px-2"><i

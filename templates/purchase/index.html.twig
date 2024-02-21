@@ -1,28 +1,40 @@
 {% extends 'base_2.html.twig' %}
 
 {% block body %}
-    <h1>Procés de compra</h1>
-    {{ form_start(purchaseForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
-    {{ form_row(purchaseForm.document) }}
-    {{ form_row(purchaseForm.documentNumber) }}
-    {{ form_row(purchaseForm.emailInput) }}
-    {{ form_row(purchaseForm.phoneInput) }}
-    {{ form_row(purchaseForm.paymentMethod) }}
-    {{ form_row(purchaseForm.nameInput) }}
-    {{ form_row(purchaseForm.lastNameInput) }}
+    <h1 class="text-center p-3">Procés de compra</h1>
+    <div class="row">
+        <div class="col-2">
+            {{ form_start(purchaseForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+            {{ form_row(purchaseForm.document) }}
+        </div>
+        <div class="col-4">
+            {{ form_row(purchaseForm.documentNumber) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(purchaseForm.addressName) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(purchaseForm.emailInput) }}
+            {{ form_row(purchaseForm.phoneInput) }}
+            {{ form_row(purchaseForm.paymentMethod) }}
+            {{ form_row(purchaseForm.nameInput) }}
+            {{ form_row(purchaseForm.lastNameInput) }}
+            {{ form_row(purchaseForm.details) }}
+        </div>
 
-    <h2>Direcció</h2>
-    {{ form_row(purchaseForm.addressName) }}
-    {{ form_row(purchaseForm.addressLastName) }}
-    {{ form_row(purchaseForm.provinceAddress) }}
-    {{ form_row(purchaseForm.postalCode) }}
-    {{ form_row(purchaseForm.city) }}
-    {{ form_row(purchaseForm.address) }}
-    {{ form_row(purchaseForm.details) }}
-    <div>
-        {{ form_row(purchaseForm.termsCheckbox) }}
+        <div class="col-md-6">
+            {{ form_row(purchaseForm.addressLastName) }}
+            {{ form_row(purchaseForm.provinceAddress) }}
+            {{ form_row(purchaseForm.postalCode) }}
+            {{ form_row(purchaseForm.city) }}
+            {{ form_row(purchaseForm.address) }}
+            {{ form_row(purchaseForm.termsCheckbox) }}
+        </div>
     </div>
 
-    <button class="btn btn-primary" type="submit">Següent</button>
+    <button class="btn btn-primary mb-4" type="submit">Següent</button>
     {{ form_end(purchaseForm) }}
 {% endblock %}
+

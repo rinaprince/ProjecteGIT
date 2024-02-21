@@ -172,6 +172,9 @@ function modalNewProvider() {
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
+
+        const form = myModal.querySelector('form');
+        form.action = '/providers/new';
       })
       .catch(error => {
         console.error('Error modal: ', error);

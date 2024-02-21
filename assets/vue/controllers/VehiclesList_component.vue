@@ -6,6 +6,7 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 
 
+
 //Tipus de filtració
 const filters = ref({
   global: {value: null, matchMode: 'CONTAINS'},
@@ -42,7 +43,7 @@ const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 function sweetAlertDelete(id) {
   Swal.fire({
     title: 'Estàs segur?',
-    text: "No podras desfer la teua decissió!",
+    text: "No podràs desfer la teua decissió!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#aa8e31ff',
@@ -50,7 +51,7 @@ function sweetAlertDelete(id) {
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {
     if (result.isConfirmed === true) {
-      axios.post(`/vehicles/${id}/delete`)
+      axios.post('/vehicles/'+vehicleId+'/delete')
           .then(response => {
             Swal.fire({
               title: "Eliminat!",
@@ -75,19 +76,15 @@ function sweetAlertDelete(id) {
 
 <template>
 
-  <div class="row d-flex justify-content-between align-items-center mb-2 px-3">
-    <form method="get" role="search" class="d-flex col-12 col-md-4 p-2 justify-content-center mb-3">
-      <div class="input-group">
-        <input type="search" class="form-control" placeholder="Matrícula, combustible, color..." name="q" aria-label="Matrícula, combustible, color..." aria-describedby="basic-addon1">
-        <span class="input-group-text" id="basic-addon1"><button type="submit" class="btn btn-sm"><i class="bi bi-search"></i></button></span>
-      </div>
+  <div class="d-flex justify-content-between align-items-center mb-2 px-3">
+    <form method="get" role="search" class="d-flex">
+      <input type="search" class="form-control" name="q" placeholder="Matrícula, combustible, color..."
+             aria-label="Search">
+      <button type="submit" class="btn btn-outline-dark">Search</button>
     </form>
-    <div class="mb-3 col-12 col-md-4 d-flex justify-content-center">
-      <input type="search" class="border border-0 rounded p-2 w-100" id="global-filter" v-model="filters.global.value"
-             @input="applyFilters" placeholder="Kilòmetres, data..."/>
-    </div>
-
-    <a :href="vehiclesCreatePath" class="col-12 col-md-4 p-2 mb-3 d-flex justify-content-center justify-content-md-end text-decoration-none">
+    <input type="search" class="border border-0 rounded p-1" id="global-filter" v-model="filters.global.value"
+           @input="applyFilters" placeholder="Kilòmetres, data..."/>
+    <a :href="vehiclesCreatePath">
       <button class="btn btn-warning">Crea nou</button>
     </a>
   </div>
@@ -96,37 +93,49 @@ function sweetAlertDelete(id) {
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 p-3" v-for="vehicle in vehicles">
-          <div class="card h-100">
-            <img :src="'/equip3/img/vehicles/' + vehicle.images[0].filename" :alt="'Imatge Vehicle' + vehicle.images[0].filename" class="card-img-top" :style="{ width: '100%', height: 'auto' }">
-            <div class="card-body">
-              <div class="d-flex justify-content-end">
-                <a :href="vehiclesShowPath(vehicle.id)" class="btn btn-sm btn-link">
-                  <i class="bi bi-eye"></i>
+        <div class="col-12 col-md-6 col-lg-4 p-3 vehicle" :key="vehicle.id" data-vehicle-id="{{ vehicle.id }}" v-for="vehicle in vehicles">
+          <div>
+            <img :src="'/equip3/img/vehicles/' + vehicle.images[0].filename" :alt="'Imatge Vehicle' + vehicle.images[0].filename" width="100%"
+            class="rounded-top-3 object-fit-container">
+            <div class="bg-white mt-1">
+              <div class="d-flex align-items-center justify-content-end">
+                <a :href="vehiclesShowPath(vehicle.id)">
+                  <button class="border-0 bg-transparent p-1">
+                    <i class="bi bi-eye fnt-tertiary-BHEC"></i>
+                  </button>
                 </a>
-                <a :href="vehiclesEditPath(vehicle.id)" class="btn btn-sm btn-link">
-                  <i class="bi bi-pencil-square"></i>
+                <a :href="vehiclesEditPath(vehicle.id)">
+                  <button class="border-0 bg-transparent p-1">
+                    <i class="bi bi-pencil-square fnt-tertiary-BHEC"></i>
+                  </button>
                 </a>
-                <button @click="sweetAlertDelete(vehicle.id)" class="btn btn-sm btn-link">
-                  <i class="bi bi-trash"></i>
-                </button>
-                <a :href="vehiclesAddImagePath(vehicle.id)" class="btn btn-sm btn-link">
-                  <i class="bi bi-image"></i>
+                <a @click="sweetAlertDelete(vehicle.id)"  class="delete">
+                  <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
+                    <i class="bi bi-trash"></i>
+                  </button>
                 </a>
+
+                <a :href="vehiclesAddImagePath(vehicle.id)">
+                  <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
+                    <i class="bi bi-image"></i>
+                  </button>
+                </a>
+
               </div>
-              <h5 class="card-title text-center fw-bold mt-2">{{ vehicle.model.brand.name }}</h5>
+              <p class="text-center fw-bold pt-1 m-0">{{ vehicle.model.brand.name }}</p>
               <div class="d-flex justify-content-between">
-                <p class="card-text text-center">{{ vehicle.model.name }}</p>
-                <p class="card-text text-center">{{ vehicle.fuel }}</p>
+                <p class="text-center ps-4">{{ vehicle.model.name }}</p>
+                <p class="text-center pe-4">{{ vehicle.fuel }}</p>
               </div>
-              <div class="d-flex justify-content-between">
-                <p class="card-text">{{ vehicle.plate }}</p>
-                <p class="card-text">{{ vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : '' }}</p>
-                <p class="card-text">{{ vehicle.kilometers }}</p>
+              <div class="d-flex justify-content-between px-4">
+                <p>{{ vehicle.plate }}</p>
+                <p>{{
+                    vehicle.registrationDate ? new Date(vehicle.registrationDate.date).toLocaleDateString() : ''
+                  }}</p>
+                <p>{{ vehicle.kilometers }}</p>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

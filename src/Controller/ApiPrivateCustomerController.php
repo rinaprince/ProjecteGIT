@@ -18,17 +18,44 @@ class ApiPrivateCustomerController extends AbstractController
     public function index(PrivateCustomerRepository $privateCustomerRepository) :JsonResponse
     {
         $private = $privateCustomerRepository->findAll();
+        if($private == "" || $private == null){
+            $privateJson = [
+                "status" => "fail",
+                "data" => $private,
+                "message" => "Private no te contingut"
+            ];
+        }
+        else{
+            $privateJson = [
+                "status" => "succes",
+                "data" => $private,
+                "message" => null
+            ];
+        }
 
-        return new JsonResponse($private, Response::HTTP_OK);
+        return new JsonResponse($privateJson, Response::HTTP_OK);
     }
 
     #[Route('/{id}', name: 'app_api_private_customer_show')]
     public function show(?PrivateCustomer $privateCustomer): JsonResponse
     {
-        if(!empty($privateCustomer))
-            return new JsonResponse($privateCustomer, Response::HTTP_OK);
-        else
-            return new JsonResponse("error", Response::HTTP_NOT_FOUND);
+        if(!empty($privateCustomer)){
+            $privateJson = [
+                "status" => "succes",
+                "data" => $privateCustomer,
+                "message" => null
+            ];
+            $status = Response::HTTP_OK;
+        }
+        else {
+            $privateJson = [
+                "status" => "error",
+                "data" => $privateCustomer,
+                "message" => "no se ha podido encontrar el usuari"
+            ];
+            $status = Response::HTTP_NOT_FOUND;
+        }
+        return new JsonResponse($privateJson, $status);
     }
 
     #[Route('/new', name: 'app_api_private_customer_new')]

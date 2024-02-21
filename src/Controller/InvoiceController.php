@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -102,17 +103,21 @@ class InvoiceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_invoice_delete', methods: ['POST', 'GET'])]
     #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
     {
-        // Marcar la factura como eliminada (soft delete)
-        $invoice->setDischarge(true);
-        $entityManager->persist($invoice);
-        $entityManager->flush();
+        try {
+            // Marcar la factura como eliminada (soft delete)
+            $invoice->setDischarge(true);
+            $entityManager->persist($invoice);
+            $entityManager->flush();
 
-        // Redirigir a la página de índice de facturas
-        return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
+            // Redirigir a la página de índice de facturas
+            return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
+        } catch (\Exception $e){
+            throw new BadRequestHttpException('Error al eliminar la factura: ' . $e->getMessage());
+        }
     }
 
     #[IsGranted('ROLE_PRIVATE', message: 'Accés restringit')]

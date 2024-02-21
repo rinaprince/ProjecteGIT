@@ -66,13 +66,16 @@
               </button>
             </td>
             <td>
-              <button class="btn btn-info mx-1" @click="modalEditProvider(provider.id)"><i
-                  class="fas fa-pencil-alt"></i>
-              </button>
+
+              <button class="btn btn-primary">
+              <a @click="modalEdit(provider.id)">
+                <i class="bi bi-pencil-square"></i>
+              </a></button>
+
             </td>
             <td>
-              <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)"><i
-                  class="bi bi-trash-fill"></i>
+              <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
+                <i class="bi bi-trash-fill"></i>
               </button>
             </td>
           </tr>
@@ -81,18 +84,16 @@
       </div>
     </div>
   </div>
-  <!-- Modal Mostrar-->
+  <!-- Modal -->
   <div class="modal" style="background-color: rgba(0,0,0,0.5)" ref="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Detalls:</h5>
+          <h5 class="modal-title fw-bold fs-3">Detalls:</h5>
           <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
                   aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <!-- Content goes here -->
-          <!-- You can add form elements, text, etc. -->
         </div>
       </div>
     </div>
@@ -138,7 +139,7 @@ const applyFilters = (data, filters) => {
   });
 };
 
-// Hacer la solicitud Axios aquí
+// Hacer la solicitud Axios aquí para mostrar los detalles de los proveedores
 function modalShow(id) {
   axios.get('/providers/' + id)
       .then(response => {
@@ -160,6 +161,7 @@ function hideModal() {
   myModal.style.display = 'none';
 }
 
+
 function modalNewProvider() {
   axios.get('/providers/new')
       .then(response => {
@@ -176,7 +178,7 @@ function modalNewProvider() {
       })
 }
 
-function modalEditProvider(id) {
+function modalEdit(id) {
   axios.get('/providers/' + id + '/edit')
       .then(response => {
         // Actualitzar el contingut del modal
@@ -186,6 +188,9 @@ function modalEditProvider(id) {
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
+
+        const form = myModal.querySelector('form');
+        form.action = '/providers/' + id + '/edit';
       })
       .catch(error => {
         console.error('Error modal: ', error);
@@ -219,7 +224,7 @@ function sweetAlertDelete(id) {
     confirmButtonText: 'Sí, elimina definitivament!'
   }).then((result) => {
     if (result.isConfirmed === true) {
-      axios.post('/providers/' + id + '/delete')
+      axios.post(`/providers/${id}/delete`)
           .then(response => {
             Swal.fire({
               title: "Eliminat!",

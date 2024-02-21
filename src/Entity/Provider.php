@@ -86,6 +86,9 @@ class Provider implements  JsonSerializable
     #[Assert\NotBlank]
     private ?string $businessName = null;
 
+    #[ORM\Column]
+    private ?bool $discharge = null;
+
     public function __construct()
     {
         $this->vehicles = new ArrayCollection();
@@ -309,6 +312,18 @@ class Provider implements  JsonSerializable
             'LOPDdoc' => $this->LOPDdoc,
             'constitutionArticle' => $this->constitutionArticle
         ];
+    }
+
+    public function isDischarge(): ?bool
+    {
+        return $this->discharge;
+    }
+
+    public function setDischarge(bool $discharge): static
+    {
+        $this->discharge = $discharge ?? false;
+
+        return $this;
     }
 
 

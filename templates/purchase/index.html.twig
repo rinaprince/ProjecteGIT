@@ -18,9 +18,15 @@
         <div class="col-md-6">
             {{ form_row(purchaseForm.emailInput) }}
             {{ form_row(purchaseForm.phoneInput) }}
-            {{ form_row(purchaseForm.paymentMethod) }}
-            {{ form_row(purchaseForm.nameInput) }}
-            {{ form_row(purchaseForm.lastNameInput) }}
+            <div class="row">
+                <div class="col-4">
+                    {{ form_row(purchaseForm.paymentMethod) }}
+                </div>
+                <div class="col-8">
+                    {{ form_row(purchaseForm.numberInput) }}
+                </div>
+            </div>
+            {{ form_row(purchaseForm.address) }}
             {{ form_row(purchaseForm.details) }}
         </div>
 
@@ -29,8 +35,9 @@
             {{ form_row(purchaseForm.provinceAddress) }}
             {{ form_row(purchaseForm.postalCode) }}
             {{ form_row(purchaseForm.city) }}
-            {{ form_row(purchaseForm.address) }}
-            {{ form_row(purchaseForm.termsCheckbox) }}
+            <div class="d-flex justify-content-center align-items-center mt-5">
+                {{ form_row(purchaseForm.termsCheckbox) }}
+            </div>
         </div>
     </div>
 

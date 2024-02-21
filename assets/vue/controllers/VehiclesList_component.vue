@@ -40,7 +40,88 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 
 const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 
-function sweetAlertDelete(id) {
+
+// Hacer la solicitud Axios aquí para mostrar los detalles de los proveedores
+function modalShow(id) {
+  axios.get('/vehicles/' + id)
+      .then(response => {
+        // Actualitzar el contingut del modal
+        const modalBody = document.querySelector('.modal-body');
+        modalBody.innerHTML = response.data;
+
+        // Mostrar el modal
+        const myModal = document.querySelector('.modal');
+        myModal.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Error fetching modal content:', error);
+      });
+}
+
+function hideModal() {
+  const myModal = document.querySelector('.modal');
+  myModal.style.display = 'none';
+}
+
+function modalNewVehicles() {
+  axios.get('/vehicles/new')
+      .then(response => {
+        // Actualitzar el contingut del modal
+        const modalBody = document.querySelector('.modal-body');
+        modalBody.innerHTML = response.data;
+
+        // Mostrar el modal
+        const myModal = document.querySelector('.modal');
+        myModal.style.display = 'block';
+
+        const form = myModal.querySelector('form');
+        form.action = '/vehicles/new';
+      })
+      .catch(error => {
+        console.error('Error modal: ', error);
+      })
+}
+
+function modalEditVehicles(id) {
+  axios.get('/vehicles/' + id + '/edit')
+      .then(response => {
+        // Actualitzar el contingut del modal
+        const modalBody = document.querySelector('.modal-body');
+        modalBody.innerHTML = response.data;
+
+        // Mostrar el modal
+        const myModal = document.querySelector('.modal');
+        myModal.style.display = 'block';
+
+        const form = myModal.querySelector('form');
+        form.action = '/vehicles/' + id + '/edit';
+      })
+      .catch(error => {
+        console.error('Error modal: ', error);
+      })
+}
+
+function modalMostrarImg(id) {
+  axios.get('/vehicles/'+id+'/images/add')
+      .then(response => {
+        // Actualitzar el contingut del modal
+        const modalBody = document.querySelector('.modal-body');
+        modalBody.innerHTML = response.data;
+
+        // Mostrar el modal
+        const myModal = document.querySelector('.modal');
+        myModal.style.display = 'block';
+
+        const form = myModal.querySelector('form');
+        form.action = '/vehicles/' + id + '/images/add';
+      })
+      .catch(error => {
+        console.error('Error modal: ', error);
+      })
+}
+
+
+function sweetAlertDelete(vehicleId) {
   Swal.fire({
     title: 'Estàs segur?',
     text: "No podràs desfer la teua decissió!",
@@ -84,7 +165,7 @@ function sweetAlertDelete(id) {
     </form>
     <input type="search" class="border border-0 rounded p-1" id="global-filter" v-model="filters.global.value"
            @input="applyFilters" placeholder="Kilòmetres, data..."/>
-    <a :href="vehiclesCreatePath">
+    <a @click="modalNewVehicles()">
       <button class="btn btn-warning">Crea nou</button>
     </a>
   </div>
@@ -99,12 +180,12 @@ function sweetAlertDelete(id) {
             class="rounded-top-3 object-fit-container">
             <div class="bg-white mt-1">
               <div class="d-flex align-items-center justify-content-end">
-                <a :href="vehiclesShowPath(vehicle.id)">
+                <a @click="modalShow(vehicle.id)">
                   <button class="border-0 bg-transparent p-1">
                     <i class="bi bi-eye fnt-tertiary-BHEC"></i>
                   </button>
                 </a>
-                <a :href="vehiclesEditPath(vehicle.id)">
+                <a @click="modalEditVehicles(vehicle.id)">
                   <button class="border-0 bg-transparent p-1">
                     <i class="bi bi-pencil-square fnt-tertiary-BHEC"></i>
                   </button>
@@ -115,7 +196,7 @@ function sweetAlertDelete(id) {
                   </button>
                 </a>
 
-                <a :href="vehiclesAddImagePath(vehicle.id)">
+                <a @click="modalMostrarImg(vehicle.id)">
                   <button class="border-0 bg-transparent p-1 fnt-tertiary-BHEC">
                     <i class="bi bi-image"></i>
                   </button>
@@ -135,6 +216,21 @@ function sweetAlertDelete(id) {
                 <p>{{ vehicle.kilometers }}</p>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" style="background-color: rgba(0,0,0,0.5)" ref="myModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold fs-3"></h5>
+            <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
           </div>
         </div>
       </div>

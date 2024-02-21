@@ -28,7 +28,8 @@
                                         que superen els estàndards.</span>
                         <div class="button d-flex justify-content-center">
                             <a href="/catalogue"
-                               class="btn border-0 bg-quaternary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover rounded-1 opacity-100">
+                                    class="btn border-0 bg-quaternary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover rounded-1 opacity-100" tabindex="1">
+
                                 Explorar
                             </a>
                         </div>
@@ -74,9 +75,9 @@
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
                             class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" tabindex="3"
                             aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" tabindex="5"
                             aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
@@ -90,8 +91,8 @@
                             <p class="bg-dark bg-opacity-50 py-2 px-4 d-none d-md-block">Explorar el vehícles de
                                 gamma d'entrada
                             </p>
-                            <a href="#"
-                               class="btn btn-tertiary-outline-BHEC fnt-tertiary-BHEC text-button-format-BHEC btn-tertiary-hover px-4 py-2 rounded-0">Explorar</a>
+                            <a href="/catalogue"
+                               class="btn btn-tertiary-outline-BHEC fnt-tertiary-BHEC text-button-format-BHEC btn-tertiary-hover px-4 py-2 rounded-0 opacity-100" tabindex="2">Explorar</a>
                         </div>
                     </div>
                     <div class="carousel-item">
@@ -101,8 +102,8 @@
                             <h2 class="bg-dark bg-opacity-50 py-2 px-4">Descobreix l'elegància en moviment</h2>
                             <p class="bg-dark bg-opacity-50 py-2 px-4 d-none d-md-block">Explorar el vehícles de
                                 gamma mitja</p>
-                            <a href="#"
-                               class="btn btn-tertiary-outline-BHEC fnt-tertiary-BHEC text-button-format-BHEC btn-tertiary-hover px-4 py-2 rounded-0">Explorar</a>
+                            <a href="/catalogue"
+                               class="btn btn-tertiary-outline-BHEC fnt-tertiary-BHEC text-button-format-BHEC btn-tertiary-hover px-4 py-2 rounded-0 opacity-100" tabindex="4">Explorar</a>
                         </div>
                     </div>
                     <div class="carousel-item">
@@ -114,8 +115,8 @@
                             <p class="bg-dark bg-opacity-50 py-2 px-4 d-none d-md-block">Explorar el vehícles de
                                 gamma d'èlit, on
                                 el luxe i el rendiment es fusionen</p>
-                            <a href="#"
-                               class="btn btn-tertiary-outline-BHEC fnt-tertiary-BHEC text-button-format-BHEC btn-tertiary-hover px-4 py-2 rounded-0">Explorar</a>
+                            <a href="/catalogue"
+                               class="btn btn-tertiary-outline-BHEC fnt-tertiary-BHEC text-button-format-BHEC btn-tertiary-hover px-4 py-2 rounded-0 opacity-100" tabindex="6">Explorar</a>
                         </div>
                     </div>
                 </div>
@@ -132,24 +133,25 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-4 py-3 my-auto">
+        <div class="col-12 col-md-4 py-3 my-auto" tabindex="7">
             <h2 class="fs-1 fm-primary-BHEC text-center d-md-none">Troba la teua marca preferida</h2>
             <h2 class="d-none fs-3 fm-primary-BHEC text-center d-md-block">Troba la teua marca preferida</h2>
             <div class="row">
-                <div class="col-6 d-flex flex-column justify-content-center">
+                <div class="col-6 d-flex flex-column justify-content-center" tabindex="8">
                     {% for brand in brands|slice(0, brands|length/2) %}
-                        <div class="p-1">
-                            <a href="{{ path('app_catalogue_index', {'q': brand.name}) }}" class="btn border-0 bg-secondary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover w-100 rounded-1 opacity-100">
+                    <div class="p-1">
+                            <a href="{{ path('app_catalogue_index', {'q': brand.name}) }}" class="btn border-0 bg-secondary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover w-100 rounded-1 opacity-100" tabindex="{{ loop.index }}">
+
                                 {{ brand.name }}
                             </a>
                         </div>
                     {% endfor %}
                 </div>
 
-                <div class="col-6 d-flex flex-column justify-content-center">
+                <div class="col-6 d-flex flex-column justify-content-center" tabindex="9">
                     {% for brand in brands|slice(brands|length/2) %}
                         <div class="p-1">
-                            <a href="{{ path('app_catalogue_index', {'q': brand.name}) }}" class="btn border-0 bg-secondary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover w-100 rounded-1 opacity-100">
+                            <a href="{{ path('app_catalogue_index', {'q': brand.name}) }}" class="btn border-0 bg-secondary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover w-100 rounded-1 opacity-100" tabindex="{{ loop.index }}">
                                 {{ brand.name }}
                             </a>
                         </div>
@@ -187,8 +189,8 @@
 
 
     <div class="row p-5">
-        <div class="col-12 col-md-4 zoom-on-hover pb-3">
-            <div class="card w-100 border-0 shadow h-100">
+        <div class="col-12 col-md-4 zoom-on-hover pb-3" tabindex="35">
+            <div class="card w-100 border-0 shadow h-100" aria-label="Assistència">
                 <div class="d-flex flex-column justify-content-center align-items-center p-2">
                     <i class="bi bi-person-circle fs-big-icons-BHEC"></i>
                     <h3 class="text-center">Assistència</h3>
@@ -196,15 +198,15 @@
                         satisfacció. Si tens algun problema, envia'ns un correu aquí.</p>
                 </div>
                 <div class="mt-auto mx-auto p-2">
-                    <a href="#" class="text-decoration-none fnt-tertiary-BHEC fs-5">
+                    <a href="/contact" class="text-decoration-none fnt-tertiary-BHEC fs-5" aria-label="Contacta'ns" tabindex="36">
                         <i class="bi bi-envelope"></i>
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 col-md-4 zoom-on-hover pb-3">
-            <div class="card w-100 border-0 shadow h-100">
+        <div class="col-12 col-md-4 zoom-on-hover pb-3" tabindex="37">
+            <div class="card w-100 border-0 shadow h-100" aria-label="Servei d'Entregues">
                 <div class="d-flex flex-column justify-content-center align-items-center p-2">
                     <i class="bi bi-truck fs-big-icons-BHEC"></i>
                     <h3 class="text-center">Servei d'Entregues</h3>
@@ -213,15 +215,15 @@
                         contactar-nos.</p>
                 </div>
                 <div class="mt-auto mx-auto p-2">
-                    <a href="#" class="text-decoration-none fnt-tertiary-BHEC fs-5">
+                    <a href="/contact" class="text-decoration-none fnt-tertiary-BHEC fs-5" aria-label="Contacta'ns" tabindex="38">
                         <i class="bi bi-envelope"></i>
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 col-md-4 zoom-on-hover pb-3">
-            <div class="card w-100 border-0 shadow h-100">
+        <div class="col-12 col-md-4 zoom-on-hover pb-3" tabindex="39">
+            <div class="card w-100 border-0 shadow h-100" aria-label="Confiança i Legitimitat">
                 <div class="d-flex flex-column justify-content-center align-items-center p-2">
                     <i class="bi bi-patch-check fs-big-icons-BHEC"></i>
                     <h3 class="text-center">Confiança i Legitimitat</h3>
@@ -230,7 +232,7 @@
                         compres amb total seguretat.</p>
                 </div>
                 <div class="mt-auto mx-auto p-2">
-                    <a href="#" class="text-decoration-none fnt-tertiary-BHEC fs-5 ">
+                    <a href="/contact" class="text-decoration-none fnt-tertiary-BHEC fs-5 " aria-label="Contacta'ns" tabindex="40">
                         <i class="bi bi-envelope "></i>
                     </a>
                 </div>
@@ -238,41 +240,4 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-    {# <div class="container mt-4 mb-4">
-        <h1 class="display-4 text-center">Benvingut a BHEC</h1>
-
-        <div class="row">
-            <div class="col-md-6">
-                <ul class="list-group">
-                    {% for brand in brands|slice(0, brands|length/2) %}
-                        <li class="list-group-item">
-                            <a href="{{ path('app_catalogue_index', {'q': brand.name}) }}" class="btn btn-light btn-block w-100">
-                                {{ brand.name }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <ul class="list-group">
-                    {% for brand in brands|slice(brands|length/2) %}
-                        <li class="list-group-item">
-                            <a href="{{ path('app_catalogue_index', {'q': brand.name}) }}" class="btn btn-light btn-block w-100">
-                                {{ brand.name }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div> #}
 {% endblock %}

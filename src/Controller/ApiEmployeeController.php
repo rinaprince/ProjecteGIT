@@ -72,6 +72,30 @@ class ApiEmployeeController extends AbstractController
             return new JsonResponse($employeesJson, $status);
     }
 
+    #[Route('/{id}', name: 'api_employee_delete', methods: ['DELETE'])]
+    public function delete(Request $request,  ?Employee $employee,EntityManagerInterface $em): JsonResponse
+    {
+        if(empty($employee)){
+            $employeesJson = [
+                "status" => "fail",
+                "data" => $employee,
+                "message" => "Employee is null or empty"
+            ];
+            $status = Response::HTTP_NOT_FOUND;
+        }
+        else{
+            $employeesJson = [
+                "status" => "success",
+                "data" => $employee,
+                "message" => ""
+            ];
+            $status = Response::HTTP_OK;
+            $em->remove($employee);
+            $em->flush();
+        }
+        return new JsonResponse($employeesJson, $status);
+    }
+
 
     #[Route('', name: 'api_employee_new', methods: ['POST'])]
     public function create(Request $request,EntityManagerInterface $em, ValidatorInterface $validator): JsonResponse
@@ -82,10 +106,73 @@ class ApiEmployeeController extends AbstractController
                 "data" => $request->getContent(),
                 "message" => "request data is null or empty"
             ];
-            $status = Response::HTTP_OK;
+            $status = Response::HTTP_NOT_FOUND;
         }
         else{
             $employee = new Employee();
+            $data = [];
+            if ($content = $request->getContent()) {
+                $data = json_decode($content, true);
+            }
+
+            try {
+                $employee->setName($data["name"]);
+                $employee->setLastname($data["lastname"]);
+                $employee->setType($data["type"]);
+                $employee->setDischarge(false);
+                $login = new Login();
+                $employee->setLogin($login);
+                $employee->getLogin()->setUsername($data["username"]);
+                $employee->getLogin()->setPassword($data["password"]);
+                $employee->getLogin()->setRole('ROLE_ADMINISTRATIVE');
+
+                $violations = $validator->validate($employee);
+                if (count($violations) > 0) {
+                    $employeesJson = [
+                        "status" => "error",
+                        "data" => $violations,
+                        "message" => ''
+                    ];
+                    $status = Response::HTTP_BAD_REQUEST;
+                    return new JsonResponse($employeesJson, $status);
+                }
+
+            } catch (\Exception $e) {
+                $employeesJson = [
+                    "status" => "error",
+                    "data" => $employee,
+                    "message" => $e
+                ];
+                $status = Response::HTTP_BAD_REQUEST;
+                return new JsonResponse($employeesJson, $status);
+            }
+            $employeesJson = [
+                "status" => "success",
+                "data" => $employee,
+                "message" => ""
+            ];
+
+            $em->persist($employee);
+            $em->flush();
+
+            $status = Response::HTTP_CREATED;
+        }
+
+        return new JsonResponse($employeesJson, $status);
+    }
+
+    #[Route('/{id}', name: 'api_employee_edit', methods: ['PUT'])]
+    public function edit(Request $request,EntityManagerInterface $em, ValidatorInterface $validator, Employee $employee): JsonResponse
+    {
+        if(empty($request->getContent())){
+            $employeesJson = [
+                "status" => "fail",
+                "data" => $request->getContent(),
+                "message" => "request data is null or empty"
+            ];
+            $status = Response::HTTP_OK;
+        }
+        else{
             $data = [];
             if ($content = $request->getContent()) {
                 $data = json_decode($content, true);

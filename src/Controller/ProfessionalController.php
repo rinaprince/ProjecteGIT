@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/professional/customers')]
+#[Route('/customers/professional')]
 class ProfessionalController extends AbstractController
 {
     #[Route('/', name: 'app_professional_index', methods: ['GET'])]
@@ -20,7 +20,7 @@ class ProfessionalController extends AbstractController
     public function index(ProfessionalRepository $professionalRepository): Response
     {
         return $this->render('professional/index.html.twig', [
-            'professionals' => $professionalRepository->findAll(),
+            'professionals' => $professionalRepository->findAllQuery(),
         ]);
     }
 
@@ -33,6 +33,7 @@ class ProfessionalController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $professional->setDischarge(false);
             $entityManager->persist($professional);
             $entityManager->flush();
 
@@ -74,14 +75,18 @@ class ProfessionalController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_professional_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_professional_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function delete(Request $request, Professional $professional, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$professional->getId(), $request->request->get('_token'))) {
+        /*if ($this->isCsrfTokenValid('delete'.$professional->getId(), $request->request->get('_token'))) {
             $entityManager->remove($professional);
             $entityManager->flush();
-        }
+        }*/
+
+        $professional->setDischarge(true);
+        $entityManager->persist($professional);
+        $entityManager->flush();
 
         return $this->redirectToRoute('app_professional_index', [], Response::HTTP_SEE_OTHER);
     }

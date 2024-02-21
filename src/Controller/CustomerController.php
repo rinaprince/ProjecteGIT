@@ -42,14 +42,6 @@ class CustomerController extends AbstractController
                 "phone" => "Telèfon",
                 "email" => "Correu Electrònic",
                 "customer_type" => "Tipus"
-            ],
-            'routes' => [
-                "private_show" => "Visualitzar",
-                "private_edit" => "Editar",
-                "private_delete" => "Eliminar",
-                "professional_show" => "Visualitzar",
-                "professional_edit" => "Editar",
-                "professional_delete" => "Cognoms",
             ]
         ];
 

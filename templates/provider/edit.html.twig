@@ -7,9 +7,6 @@
 
     {{ include('provider/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <button class="button-text-primary-BHEC btn button-primary-BHEC m-5" formaction="{{ path('app_provider_edit', {'id': provider.id}) }}">{{ button_label|default('Guardar') }}</button>
-
-
     <a href="{{ path('app_provider_index') }}">back to list</a>
 
   {{ include('provider/_delete_form.html.twig') }}

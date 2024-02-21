@@ -6,6 +6,7 @@
 
     {# <--- Estilos ---> #}
     <link href="{{ asset('equip2/css/variables.css') }}" rel="stylesheet">
+    <link href="{{ asset('equip3/css/custom-styles.css') }}" rel="stylesheet">
 
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
     {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
@@ -28,16 +29,14 @@
 {% endfor %}
 
 
-<main class="container-fluid container-xl">
+<main class="container-fluid m-0">
     {# MODAL #}
-    <article>
         <div {{ vue_component('Modal_component', {'user': app.user}) }}></div>
 
         {# CONTENT #}
         {% block body %}
 
         {% endblock %}
-    </article>
 </main>
 {# FOOTER #}
 <footer class="container-fluid bg-primary-BHEC" {{ vue_component('Footer_front_component') }} ></footer>

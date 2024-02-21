@@ -1,32 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap');
+
+
 /* ---------------------------- BACKGROUND COLOR STYLES ----------------------------*/
 
-.bg-primary-BHEC{
+.bg-primary-BHEC {
     background-color: var(--primary-color);
 }
 
-.bg-secundary-BHEC{
+.bg-secondary-BHEC {
     background-color: var(--secundary-color);
 }
 
-.bg-tertiary-BHEC{
+.bg-tertiary-BHEC {
     background-color: var(--tertiary-color);
 }
 
-.bg-quaternary-BHEC{
-    background-color: var(--quaternary-color) ;
+.bg-quaternary-BHEC {
+    background-color: var(--quaternary-color);
 }
 
 /* ---------------------------- FONT FAMILY STYLES ----------------------------*/
 
-.fm-primary-BHEC{
+.fm-primary-BHEC {
     font-family: var(--primary-fontFamily) !important;
 }
 
-.fm-secundary-BHEC{
+.fm-secondary-BHEC {
     font-family: var(--secundary-fontFamily) !important;
 }
 
-.fm-special-BHEC{
+.fm-special-BHEC {
     font-family: 'Herr Von Muellerhoff', cursive;
 }
 
@@ -34,44 +37,44 @@
 
 /* ---------------------------- FONT COLOR STYLES ----------------------------*/
 
-.fnt-primary-BHEC{
+.fnt-primary-BHEC {
     color: var(--primary-color);
 }
 
-.fnt-secundary-BHEC{
+.fnt-secondary-BHEC {
     color: var(--secundary-color);
 }
 
-.fnt-tertiary-BHEC{
+.fnt-tertiary-BHEC {
     color: var(--tertiary-color);
 }
 
-.fnt-quaternary-BHEC{
+.fnt-quaternary-BHEC {
     color: var(--quaternary-color);
 }
 
 /* ---------------------------- IMATGE LOGO BACK STYLES ----------------------------*/
 
-.img-back-logo-header-BHEC{
+.img-back-logo-header-BHEC {
     width: 3.1rem;
 }
 
 /* ---------------------------- IMATGES ICONES STYLES ----------------------------*/
 
-.img-icon-header-BHEC{
+.img-icon-header-BHEC {
     width: 1.8rem;
 }
 
 /* ---------------------------- BORDER STYLES ----------------------------*/
 
-.border-secundary-BHEC{
+.border-secondary-BHEC {
     border-color: var(--secundary-color);
 }
 
 /* ---------------------------- LINK HOVER STYLES ----------------------------*/
 
 .image-header-BHEC {
-    height: calc(91.4vh);
+    height: calc(92.4vh);
     background-image: url(../img/coches/5.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -81,25 +84,44 @@
     transition: background-image 3s ease-in-out, background-size 0s;
 }
 
+.image-body1-BHEC {
+    height: calc(25vh);
+    background-image: url(../img/countach_01.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding: 20px 0;
+    background-attachment: fixed;
+}
 
-.link:hover{
+.image-body2-BHEC {
+    height: calc(25vh);
+    background-image: url(../img/chiron.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding: 20px 70px;
+    background-attachment: fixed;
+}
+
+.link:hover {
     color: var(--tertiary-color);
     transition: .3s;
 }
 
-.nav-hover-menu-BHEC:hover{
+.nav-hover-menu-BHEC:hover {
     background-color: var(--quaternary-color);
 }
 
-.nav-hover-text-BHEC:hover{
+.nav-hover-text-BHEC:hover {
     color: black !important;
 }
 
-.link-modal-hover-BHEC:hover{
+.link-modal-hover-BHEC:hover {
     color: gray !important;
 }
 
-.w-400px{
+.w-400px {
     width: 400px;
 }
 
@@ -107,27 +129,27 @@
     left: 95% !important;
 }
 
-.header-link-BHEC:hover{
+.header-link-BHEC:hover {
     opacity: 45%;
 }
 
-.w-25-BHEC{
+.w-25-BHEC {
     width: 25%;
 }
 
-.text-button-format-BHEC{
+.text-button-format-BHEC {
     font-weight: 500;
     font-size: 14px;
     letter-spacing: 1.4px;
 }
 
-.btn-tertiary-hover:hover{
-    color: var(--quaternary-color);
-    background-color: #aa8e31ff;
+.btn-tertiary-hover:hover {
+    color: var(--quaternary-color) !important;
+    background-color: #aa8e31ff !important;
     transition: .75s;
 }
 
- .arrow-BHEC {
+.arrow-BHEC {
     position: relative;
     display: inline-block;
     margin-top: -20px;
@@ -135,131 +157,44 @@
 
 .arrow-BHEC span {
     display: inline-block;
-    width: 140px; 
-    height: 3px; 
+    width: 140px;
+    height: 3px;
     background-color: #fff;
     position: relative;
 }
 
-.arrow-BHEC .arrow-right-BHEC::before, .arrow-BHEC .arrow-left-BHEC::before {
+.arrow-BHEC .arrow-right-BHEC::before,
+.arrow-BHEC .arrow-left-BHEC::before {
     content: "";
     position: absolute;
-    width: 90px; 
-    height: 3px; 
+    width: 90px;
+    height: 3px;
     background-color: #fff;
-    top: -31px; 
+    top: -31px;
 }
 
 .arrow-BHEC .arrow-right-BHEC::before {
-    right: -75px; 
-    transform: rotate(-45deg); 
+    right: -75px;
+    transform: rotate(-45deg);
 }
 
 .arrow-BHEC .arrow-left-BHEC::before {
-    left: -75px; 
-    transform: rotate(45deg); 
+    left: -75px;
+    transform: rotate(45deg);
 }
 
 .fs-title-BHEC {
-    font-size: 8.75rem; 
+    font-size: 8.75rem;
     left: 25%;
     top: 40%;
 }
 
 .fs-subtitle-BHEC {
-    font-size: 17.5rem; 
+    font-size: 17.5rem;
 }
 
-@media (max-width: 768px) {
-    .fs-title-BHEC {
-        font-size: 6rem; 
-        left: 25%;
-        top: 40%;
-    }
-
-    .fs-subtitle-BHEC {
-        font-size: 12rem; 
-    }
-
-    .arrow-BHEC .arrow-right-BHEC::before, .arrow-BHEC .arrow-left-BHEC::before {
-        content: "";
-        position: absolute;
-        width: 60px; 
-        height: 3px; 
-        background-color: #fff;
-        top: -21.7px; 
-    }
-
-    .arrow-BHEC .arrow-right-BHEC::before {
-        right: -50px; 
-        transform: rotate(-45deg); 
-    }
-    
-    .arrow-BHEC .arrow-left-BHEC::before {
-        left: -50px; 
-        transform: rotate(45deg); 
-    }
-
-    .arrow-BHEC span {
-        display: inline-block;
-        width: 75px; 
-        height: 3px; 
-        background-color: #fff;
-        position: relative;
-    }
-}
-
-@media (max-width: 576px) {
-    .fs-title-BHEC {
-        font-size: 3.75rem; 
-        left: 25%;
-        top: 40%;
-    }
-
-    .fs-subtitle-BHEC {
-        font-size: 7.5rem; 
-    }
-
-    .arrow-BHEC .arrow-right-BHEC::before {
-        right: -50px; 
-        transform: rotate(-45deg); 
-    }
-    
-    .arrow-BHEC .arrow-left-BHEC::before {
-        left: -50px; 
-        transform: rotate(45deg); 
-    }
-
-    .arrow-BHEC .arrow-right-BHEC::before, .arrow-BHEC .arrow-left-BHEC::before {
-        content: "";
-        position: absolute;
-        width: 40px; 
-        height: 3px; 
-        background-color: #fff;
-        top: -14.1px; 
-    }
-
-    .arrow-BHEC .arrow-right-BHEC::before {
-        right: -33px; 
-        transform: rotate(-45deg); 
-    }
-    
-    .arrow-BHEC .arrow-left-BHEC::before {
-        left: -33px; 
-        transform: rotate(45deg); 
-    }
-
-    .arrow-BHEC span {
-        display: inline-block;
-        width: 60px; 
-        height: 3px; 
-        background-color: #fff;
-        position: relative;
-    }
-}
-
-header .svg-down {
-    bottom: -2.2%;
+.svg-down {
+    bottom: -1.8%;
     left: 50%;
     z-index: 5;
     margin-left: -96px;
@@ -267,11 +202,191 @@ header .svg-down {
     color: #fff;
 }
 
-header .arrow-down, header .svg-down{
+.arrow-down,
+.svg-down {
     position: absolute;
 }
 
+.carousel-inner>.item>img,
+.carousel-inner>.item>a>img {
+    width: 100%;
+    margin: auto;
+}
+
+.container {
+    width: 980px !important;
+}
+
+.btn-tertiary-outline-BHEC {
+    border: 2px solid var(--tertiary-color);
+}
+
+.fs-big-icons-BHEC {
+    font-size: 75px;
+}
+
+.zoom-on-hover {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.zoom-on-hover:hover {
+    transform: scale(1.05);
+}
+
+.fs-separator-title-BHEC {
+    font-size: 4.37rem;
+    left: 45%;
+    top: 40%;
+}
+
+.fs-separator-subtitle-BHEC {
+    font-size: 8.75rem;
+}
+
+@media (max-width: 768px) {
+    .fs-title-BHEC {
+        font-size: 6rem;
+        left: 25%;
+        top: 40%;
+    }
+
+    .fs-subtitle-BHEC {
+        font-size: 12rem;
+    }
+
+    .fs-separator-title-BHEC {
+        font-size: 3.15rem;
+        left: 25%;
+        top: 40%;
+    }
+
+    .fs-separator-subtitle-BHEC {
+        font-size: 6.35rem;
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before,
+    .arrow-BHEC .arrow-left-BHEC::before {
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        background-color: #fff;
+        top: -21.7px;
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before {
+        right: -50px;
+        transform: rotate(-45deg);
+    }
+
+    .arrow-BHEC .arrow-left-BHEC::before {
+        left: -50px;
+        transform: rotate(45deg);
+    }
+
+    .arrow-BHEC span {
+        display: inline-block;
+        width: 75px;
+        height: 3px;
+        background-color: #fff;
+        position: relative;
+    }
+
+    .svg-down {
+        bottom: -9.2%;
+        left: 50%;
+        z-index: 5;
+        margin-left: -96px;
+        margin-bottom: 0;
+        color: #fff;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .fs-title-BHEC {
+        font-size: 3.75rem;
+        left: 25%;
+        top: 40%;
+    }
+
+    .fs-subtitle-BHEC {
+        font-size: 7.5rem;
+    }
+
+    .fs-separator-title-BHEC {
+        font-size: 3.15rem;
+        left: 25%;
+        top: 40%;
+    }
+
+    .fs-separator-subtitle-BHEC {
+        font-size: 6.35rem;
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before {
+        right: -50px;
+        transform: rotate(-45deg);
+    }
+
+    .arrow-BHEC .arrow-left-BHEC::before {
+        left: -50px;
+        transform: rotate(45deg);
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before,
+    .arrow-BHEC .arrow-left-BHEC::before {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 3px;
+        background-color: #fff;
+        top: -14.1px;
+    }
+
+    .arrow-BHEC .arrow-right-BHEC::before {
+        right: -33px;
+        transform: rotate(-45deg);
+    }
+
+    .arrow-BHEC .arrow-left-BHEC::before {
+        left: -33px;
+        transform: rotate(45deg);
+    }
+
+    .arrow-BHEC span {
+        display: inline-block;
+        width: 60px;
+        height: 3px;
+        background-color: #fff;
+        position: relative;
+    }
+
+    header .svg-down {
+        bottom: -9.2%;
+        left: 50%;
+        z-index: 5;
+        margin-left: -96px;
+        margin-bottom: 0;
+        color: #fff;
+    }
+
+}
+
+/* ----------------------------------- TERMS AND CONDITIONS STYLES PAGE */
 
 
- 
+.divLine {
+    height: 50px;
+    width: 5px;
+    position: absolute;
+    top: 7px;
+    left: -13px;
+}
 
+.lineColorGold {
+    background-image: linear-gradient(to right bottom, #cca300, #996300);
+
+
+}

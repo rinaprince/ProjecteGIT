@@ -4,7 +4,6 @@
 
 {% block body %}
 
-
     <div class="row image-header-BHEC d-flex align-items-center justify-content-center">
         <div class="col">
             <div>
@@ -29,7 +28,7 @@
                                         que superen els estàndards.</span>
                         <div class="button d-flex justify-content-center">
                             <a href="/catalogue"
-                                    class="btn border-0 bg-quaternary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover rounded-1 opacity-100">
+                               class="btn border-0 bg-quaternary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover rounded-1 opacity-100">
                                 Explorar
                             </a>
                         </div>
@@ -50,6 +49,7 @@
             </div>
         </div>
     </div>
+
 
 
     <!-- START ROW SEPARATOR -->
@@ -138,7 +138,7 @@
             <div class="row">
                 <div class="col-6 d-flex flex-column justify-content-center">
                     {% for brand in brands|slice(0, brands|length/2) %}
-                    <div class="p-1">
+                        <div class="p-1">
                             <a href="{{ path('app_catalogue_index', {'q': brand.name}) }}" class="btn border-0 bg-secondary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover w-100 rounded-1 opacity-100">
                                 {{ brand.name }}
                             </a>
@@ -248,8 +248,8 @@
 
 
     {# <div class="container mt-4 mb-4">
-
         <h1 class="display-4 text-center">Benvingut a BHEC</h1>
+
         <div class="row">
             <div class="col-md-6">
                 <ul class="list-group">

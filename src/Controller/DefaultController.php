@@ -14,9 +14,12 @@ class DefaultController extends AbstractController
     public function index(BrandRepository $brandRepository): Response
     {
         $brands = $brandRepository->findBy([], ['name' => 'ASC']);
+        // Seleccionar 5 vehicles aleatoriament
+        shuffle($brands);
+        $randomBrands = array_slice($brands, 0, 28);
 
         return $this->render('front_office/index_front.html.twig', [
-            'brands' => $brands
+            'brands' => $randomBrands
         ]);
     }
 

@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Provider{% endblock %}
+{% block title %}Editar{% endblock %}
 
 {% block body %}
-    <h1>Edit Provider</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center">
+                    <h1>Editar Proveïdors</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('provider/_form.html.twig', {'button_label': 'Guardar'}) }}
 
-    {{ include('provider/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_provider_index') }}">back to list</a>
-
-  {{ include('provider/_delete_form.html.twig') }}
+    <!--{{ include('provider/_delete_form.html.twig') }}-->
 {% endblock %}

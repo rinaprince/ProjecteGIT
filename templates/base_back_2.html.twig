@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}
     <meta name="description"
           content="Encuentra una amplia selección de coches nuevos y usados en venta.
            Explora nuestro inventario de marcas populares y modelos, y encuentra el
            coche perfecto para ti. Ofrecemos opciones de financiamiento y entrega a domicilio.
            ¡Visítanos ahora para encontrar tu próximo coche!">
-
+    {% endblock %}
     <title>Back Office</title>
 
 
@@ -27,7 +28,7 @@
 <body class="bg-quaternary-BHEC">
 
 {# HEADER #}
-<header class="bg-primary-BHEC py-0" {{ vue_component('Header_back_component') }}></header>
+<header class="bg-primary-BHEC py-0" {{ vue_component('Header_back_component')}}></header>
 
 <main>
     <div {{ vue_component('Modal_component', {'user': app.user}) }}></div>
@@ -45,6 +46,6 @@
     </div>
 </main>
 
-<footer class="container-fluid p-3 bg-primary-BHEC" {{ vue_component('Footer_back_component') }}></footer>
+<footer class="container-fluid p-3 bg-primary-BHEC" {{ vue_component('Footer_back_component')}}></footer>
 </body>
 </html>

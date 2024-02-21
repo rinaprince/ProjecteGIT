@@ -5,9 +5,10 @@
 
 {% block body %}
 
-    <h1>Employee</h1>
-    {# <div {{ vue_component('EmployeesList_component', { 'employees': employees, 'e':e }) }}></div> #}
-
-    <div {{ vue_component('CustomerList_component', { 'elements': customs, 'config': config, "type": "employees"}) }}></div>
+    <h1 class="text-center">Employee</h1>
+    <div {{ vue_component('EmployeesList_component', { 'employees': employees, 'e':e }) }}></div>
+    <div class="navigation d-flex justify-content-center mt-3 mb-3">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 
 {% endblock %}

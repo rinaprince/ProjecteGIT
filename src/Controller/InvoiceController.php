@@ -24,6 +24,18 @@ class InvoiceController extends AbstractController
     public function index(InvoiceRepository $invoiceRepository, PaginatorInterface $paginator, Request $request): Response    {
 
        // $user = $this->getUser();
+
+        $q = $request->query->get('q', '');
+        if( empty($q))
+            $query = $invoiceRepository->findAllQuery();
+        else
+            $query = $invoiceRepository->findByTextQuery($q);
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            16
+        );
     
     //    $arrayInvoices = $invoiceRepository->findInvoicesForLoggedInUser($user);
         $invoicesQuery = $invoiceRepository->findAllActive();
@@ -44,6 +56,7 @@ class InvoiceController extends AbstractController
 
         return $this->render('invoice/index.html.twig', [
             'paginatedInvoices' => $paginatedInvoices,
+            'q' => $q
         ]);
     }
 

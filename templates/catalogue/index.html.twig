@@ -31,8 +31,8 @@
         <div class="row">
             {% for vehicle in vehicles %}
                 {% if vehicle.vehicleOrder is null or vehicle.vehicleOrder.state != 'Tancat' %}
-                    <div class="col-3 mb-2">
-                        <div class="mb-2 border border-1 border-light rounded-3 overflow-hidden ">
+                    <div class="col-xl-3 col-12 mb-xl-2">
+                        <div class="card mt-2 mb-2 border border-1 border-light rounded-3 overflow-hidden ">
                             <div class="rounded-2 w-100 overflow-hidden ">
 
                                 <div id="carouselImagesVehicles_{{ vehicle.id }}" class="carousel slide w-100">
@@ -107,7 +107,7 @@
                                     </div>
                                 {% else %}
                                     <div class="vehicle-add text-center pt-2 pb-2">
-                                        <a class="btn" href="{{ path('app_api_pending_orders', {'id': vehicle.id }) }}" data-controller="vehicle-add" data-action="click->vehicle-add#addVehicle" data-target="vehicle-add.button">
+                                        <a class="btn button-primary-BHEC" href="{{ path('app_api_pending_orders', {'id': vehicle.id }) }}" data-controller="vehicle-add" data-action="click->vehicle-add#addVehicle" data-target="vehicle-add.button">
                                             Afegir
                                         </a>
 

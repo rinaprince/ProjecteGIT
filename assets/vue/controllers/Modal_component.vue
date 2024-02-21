@@ -29,7 +29,7 @@ defineProps({
         <div class="row px-4 pb-4 pt-4" v-if="user">
 
           <div class="col-10">
-            <img class="rounded-5 float-start me-3" src="/equip2/img/usuari.png" alt="Icon d'Usuari">
+            <img class="rounded-5 float-start me-3" src="/equip2/img/usuari.png">
             <h5 class="offcanvas-title fw-bold" id="offcanvasExampleLabel">{{ user?.username }}</h5>
             <span v-if="user?.customer">{{ user?.customer.email }}</span>
           </div>
@@ -42,7 +42,7 @@ defineProps({
         <div class="row px-4 pb-4 pt-4" v-else>
           <div class="row px-4 pb-4 pt-4">
             <div class="col-10">
-              <img class="rounded-5 float-start me-3" src="/equip2/img/usuari.png" alt="Icon d'Usuari">
+              <img class="rounded-5 float-start me-3" src="/equip2/img/usuari.png">
               <h5 class="offcanvas-title fw-bold" id="offcanvasExampleLabel">nom Usuari</h5>
             </div>
             <div class="col-2">
@@ -78,7 +78,7 @@ defineProps({
               <div class="position-absolute bottom-0 mb-5 p-0 w-100">
                 <div class="bg-primary-BHEC py-0 text-white ps-1 fs-2">
                   <img class="mt-2 rounded-5 bg-light float-start me-3 p-1"
-                       src="/equip2/img/logoBHEC.png" alt="Logo BHEC"><span class="ps-0">BHEC</span>
+                       src="/equip2/img/logoBHEC.png"><span class="ps-0">BHEC</span>
                 </div>
                 <div class="m-0 p-0 w-100" v-if="user">
                   <a :href="Routes.logout"

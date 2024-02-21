@@ -31,6 +31,9 @@ class Order implements JsonSerializable
     #[ORM\JoinColumn(nullable: true)]
     private ?Invoice $invoice = null;
 
+    #[ORM\Column]
+    private ?bool $discharge = null;
+
     public function __construct()
     {
         $this->vehicles = new ArrayCollection();
@@ -117,8 +120,21 @@ class Order implements JsonSerializable
         return [
             'id' => $this->id,
             'state' => $this->state,
+            'discharge' =>$this->discharge,
             'customer' => $this->getCustomer(),
             'vehicles' => $this->getVehicles()->getIterator()
         ];
+    }
+
+    public function isDischarge(): ?bool
+    {
+        return $this->discharge;
+    }
+
+    public function setDischarge(bool $discharge): static
+    {
+        $this->discharge = $discharge;
+
+        return $this;
     }
 }

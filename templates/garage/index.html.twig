@@ -42,9 +42,7 @@
                                         <td class="align-middle d-none d-sm-table-cell" data-title="Matricula">{{ vehicle.plate }}</td>
                                         <td class="align-middle d-none d-sm-table-cell" data-title="Preu">{{ vehicle.sellPrice | number_format(2, ',', '.') }} €</td>
                                         <td class="align-middle d-none d-sm-table-cell">
-                                            <button class="btn btn-danger btn-sm delete-button " data-id="{{ vehicle.id }}">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
+                                            <a class="btn btn-danger btn-sm delete-buton" href="{{ path('app_garage_delete_vehicle', {'id': vehicle.id }) }}"><i class="fa-solid fa-trash"></i></a>
                                         </td>
 
                                     </tr>
@@ -53,14 +51,11 @@
                                             <div  class="card card-body ">
                                                 <ul class="list-unstyled">
                                                     <li class="text-end">
-                                                        <button class="btn btn-danger btn-sm delete-button mb-3 ms-2" data-id="{{ vehicle.id }}">
-                                                            <i class="fa-solid fa-trash"></i>
-                                                        </button>
+                                                        <a class="btn btn-danger btn-sm delete-buton" href="{{ path('app_garage_delete_vehicle', {'id': vehicle.id }) }}"><i class="fa-solid fa-trash"></i></a>
                                                     </li>
                                                     <li class="align-content-between" data-title="Model"><div class="d-flex flex-row justify-content-between"><strong>Model</strong><div>{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</div></div></li>
                                                     <li class="align-middle" data-title="Matricula"><div class="d-flex flex-row justify-content-between"><strong>Matricula</strong><div>{{ vehicle.plate }}</div></div></li>
                                                     <li class="align-middle" data-title="Preu"><div class="d-flex flex-row justify-content-between"><strong>Preu</strong><div>{{ vehicle.sellPrice | number_format(2, ',', '.') }}€</div></div></li>
-
                                                 </ul>
                                             </div>
                                         </td>
@@ -125,7 +120,6 @@
                                 <th>Invoice Number</th>
                                 <th>Invoice Date</th>
                                 <th>Price</th>
-                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -134,9 +128,6 @@
                                     <td>{{ invoice.number }}</td>
                                     <td>{{ invoice.date | date('d/m/Y') }}</td>
                                     <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
-                                    <td>
-                                        <a class="btn btn-primary btn-sm" href="#">Detalls</a>
-                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>

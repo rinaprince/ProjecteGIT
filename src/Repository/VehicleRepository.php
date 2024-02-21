@@ -26,10 +26,13 @@ class VehicleRepository extends ServiceEntityRepository
     public function findAllQuery() : Query
     {
         return $this->createQueryBuilder('p')
+            ->andWhere('p.discharge IS NULL OR p.discharge = :discharge')
+            ->setParameter('discharge', false)
             ->orderBy('p.id', 'ASC')
             ->getQuery()
             ;
     }
+
     /**
      * @return VehicleFixtures[] Returns an array of VehicleFixtures objects
      */
@@ -53,6 +56,7 @@ class VehicleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('v')
             ->andWhere('v.color LIKE :val')
+            ->andWhere('v.discharge IS NULL OR v.discharge = :discharge')
             ->orWhere('v.plate LIKE :val')
             ->orWhere('v.fuel LIKE :val')
             ->orWhere('v.gearShit LIKE :val')

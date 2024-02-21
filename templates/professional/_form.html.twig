@@ -114,8 +114,10 @@
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         <div class="py-2">
                             <label for="username" class="my-1">Usuari:</label>
-                            <div class="position-relative">
-                                {{ form_widget(professionalForm.login.username, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5','placeholder':"Nom d'usuari"} }) }}
+
+                            <div class="position-relative" data-controller="register-username-validation">
+                                {{ form_widget(professionalForm.login.username, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5', 'placeholder': "Nom d'usuari", 'data-register-username-validation-target':"username" } }) }}
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-person position-absolute top-50 translate-middle-y ms-3"
                                      viewBox="0 0 16 16">

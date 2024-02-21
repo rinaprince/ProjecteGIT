@@ -11,7 +11,7 @@
     <section class="contingut">
         <h1>Detalls de factura
         </h1>
-        <div id="invoice-table" class="d-sm-flex d-none">
+        <div id="invoice-table" class="d-sm-flex">
             <table class="border-0 table table-striped w-100 d-flex align-items-center">
                 <tbody class="w-100">
                 <tr class="d-flex">
@@ -37,8 +37,8 @@
                         {% for vehicle in invoice.customerOrder.vehicles %}
                         <td class="w-50">
                             {{ vehicle.model.brand.name }} {{ vehicle.model.name }}<br>
-                            <strong>Plate:</strong> {{ vehicle.plate }}<br>
-                            <strong>Buy Price:</strong> {{ vehicle.buyPrice }} €<br>
+                            <strong>Matrícula:</strong> {{ vehicle.plate }}<br>
+                            <strong>Preu de compra:</strong> {{ vehicle.buyPrice }} €<br>
                         </td>
                         {% endfor %}
                     </tr>

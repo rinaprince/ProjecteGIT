@@ -16,7 +16,6 @@
                                 <label for="username" class="my-1">Usuari:</label>
                                 <div class="position-relative">
                                     <input class="form-control border border-black border-opacity-25 ps-5" type="text"
-                                           id="username"
                                            name="_username" required autofocus>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-person position-absolute top-50 translate-middle-y ms-3"
@@ -28,10 +27,10 @@
 
                             <div class="my-2">
                                 <label for="password" class="my-1">Contrasenya:</label>
-                                <div class="position-relative" id="passwordController">
+                                <div class="position-relative" id="passwordController" data-controller="ocult-password">
                                     <input class="form-control border border-black border-opacity-25 ps-5"
-                                           type="password" id="password"
-
+                                           type="password"
+                                           data-ocult-password-target="password"
                                            name="_password" required>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -41,7 +40,7 @@
                                         <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                                     </svg>
                                     <div id="hideEye">
-                                        <i class='bi bi-eye position-absolute top-50 end-0 translate-middle-y me-3 small'></i>
+                                        <i class='bi bi-eye position-absolute top-50 end-0 translate-middle-y me-3 small' data-ocult-password-target="eye" data-action="click->ocult-password#ocultPassword"></i>
                                     </div>
                                 </div>
                             </div>

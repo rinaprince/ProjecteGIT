@@ -12,10 +12,12 @@
 
     {# <--- Estilos ---> #}
     <link href="{{ asset('equip2/css/variables.css') }}" rel="stylesheet">
-    <link href="{{ asset('equip3/css/custom-styles.css') }}" rel="stylesheet">
+
 
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
     {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
+
+    <link href="{{ asset('equip3/css/custom-styles.css') }}" rel="stylesheet">
 </head>
 
 

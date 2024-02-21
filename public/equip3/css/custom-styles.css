@@ -8,7 +8,7 @@
 }
 
 .bg-secondary-BHEC {
-    background-color: var(--secundary-color) !important;
+    background-color: var(--secondary-color) !important;
 }
 
 .bg-tertiary-BHEC {
@@ -26,7 +26,7 @@
 }
 
 .fm-secondary-BHEC {
-    font-family: var(--secundary-fontFamily) !important;
+    font-family: var(--secondary-fontFamily) !important;
 }
 
 .fm-special-BHEC {
@@ -42,7 +42,7 @@
 }
 
 .fnt-secondary-BHEC {
-    color: var(--secundary-color) !important;
+    color: var(--secondary-color) !important;
 }
 
 .fnt-tertiary-BHEC {

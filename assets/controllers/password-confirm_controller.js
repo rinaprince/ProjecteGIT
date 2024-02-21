@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import {isDisabled} from "bootstrap/js/src/util";
 export default class extends Controller {
     static targets = [ "password", "password2","message"];
     confirm() {
@@ -19,4 +20,6 @@ export default class extends Controller {
             this.messageTarget.classList.add('text-danger');
          }
     }
+
+
 }

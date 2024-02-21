@@ -21,13 +21,12 @@ import 'quill/dist/quill.snow.css';
 
 
 import './equip3/css/variables.css';
-import './equip3/css/modal.css';
 import './equip3/css/backend-skeleton.css';
 
+import './equip2/css/providers.css';
+import './equip2/css/catalogue.css';
 import './equip3/css/squeleton-frontend.css';
-import './equip3/js/menu-burguer';
-import './equip3/js/menu-aside';
-import "./equip3/js/modal";
+
 
 
 import { registerVueControllerComponents } from '@symfony/ux-vue';

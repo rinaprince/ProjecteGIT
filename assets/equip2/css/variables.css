@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap');
+
+:root{
+    --primary-BHEC: #181d33ff;
+    --secondary-BHEC :#e7d381ff;
+    --tertiary-BHEC :#aa8e31ff;
+    --quaternary-BHEC :#e7e7e9;
+    --hover-aside-BHEC: #6e5c20;
+
+    --primary-fontFamily :'DM Sans';
+
+    /** Hover aside color */
+    --hover-aside-color: rgb(194, 162, 56);
+
+    /*Table*/
+    --table-color:#d9d9da;
+
+    /* Botons de taules backoffice*/
+    --button-delete : #f44336;
+    --button-edit : #008CBA;
+    --button-details : #4CAF50;
+
+    /* Hovers en els botons */
+    --button-delete-hover : #8a1c24;
+    --button-edit-hover : #004080;
+    --button-details-hover : #388E3C;
+
+    /* Botons generals */
+    --button-normal: var(--secundary-color);
+    --button-text: white;
+
+    /* Botons generals hovers */
+    --button-normal-hover: var(--tertiary-color);
+}
+
+/*----- FUENTES -----*/
+.font{
+    font-family: 'DM Sans', 'Curier New';
+}
+.font-front{
+    font-family: 'Playfair Display', serif;
+}
+
+/*----- FONDO -----*/
+.bg-primary-BHEC{
+    background-color: var(--primary-BHEC);
+}
+
+.bg-secondary-BHEC {
+    background-color: var(--secondary-BHEC) !important;
+}
+
+.text-secondary-BHEC:hover {
+    color:  var(--secondary-BHEC);
+    opacity: 0.5;
+}
+
+.bg-tertiary-BHEC{
+    background-color: var(--tertiary-BHEC) !important;
+}
+
+.bg-tertiary-BHEC:hover {
+    color: black !important;
+    background-color:lightgray;
+    opacity: 0.9;
+}
+
+.bg-quaternary-BHEC{
+    background-color: var(--quaternary-BHEC);
+}
+
+.bg-mapa-BHEC{
+    background-image: url('../img/mapa-BHEC.png');
+    background-repeat: no-repeat;
+}
+
+.bg-Aside-BHEC{
+    background-color: var(--tertiary-BHEC) !important;
+}
+
+.bg-aside-BHEC:hover{
+    background-color: var(--hover-aside-BHEC) !important;
+}
+
+/*----- TEXTO -----*/
+
+.text-secondary.badge-garatge {
+    top:0.7rem !important;
+}
+
+.text-secondary-BHEC{
+    color:  var(--secondary-BHEC) !important;
+}
+
+.color-tertiary-BHEC{
+    color:  var(--tertiary-BHEC);
+}
+/*----- OTROS -----*/
+
+.border-secondary-BHEC{
+    border-color: var(--secondary-BHEC)
+}
+
+.nav-BHEC:hover{
+    color: gray;
+}
+.search-BHEC:hover{
+    background-color: gray !important;
+}
+.li-BHEC:hover{
+    color:  var(--secondary-BHEC);
+}
+
+.mapa-content{
+    top: 20%;
+    left: 20%;
+    right: 20%;
+    opacity: 85%;
+}

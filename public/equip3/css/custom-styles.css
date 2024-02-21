@@ -4,19 +4,19 @@
 /* ---------------------------- BACKGROUND COLOR STYLES ----------------------------*/
 
 .bg-primary-BHEC {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color) !important;
 }
 
 .bg-secondary-BHEC {
-    background-color: var(--secundary-color);
+    background-color: var(--secundary-color) !important;
 }
 
 .bg-tertiary-BHEC {
-    background-color: var(--tertiary-color);
+    background-color: var(--tertiary-color) !important;
 }
 
 .bg-quaternary-BHEC {
-    background-color: var(--quaternary-color);
+    background-color: var(--quaternary-color) !important;
 }
 
 /* ---------------------------- FONT FAMILY STYLES ----------------------------*/
@@ -30,7 +30,7 @@
 }
 
 .fm-special-BHEC {
-    font-family: 'Herr Von Muellerhoff', cursive;
+    font-family: 'Herr Von Muellerhoff', cursive !important;
 }
 
 
@@ -38,19 +38,19 @@
 /* ---------------------------- FONT COLOR STYLES ----------------------------*/
 
 .fnt-primary-BHEC {
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
 }
 
 .fnt-secondary-BHEC {
-    color: var(--secundary-color);
+    color: var(--secundary-color) !important;
 }
 
 .fnt-tertiary-BHEC {
-    color: var(--tertiary-color);
+    color: var(--tertiary-color) !important;
 }
 
 .fnt-quaternary-BHEC {
-    color: var(--quaternary-color);
+    color: var(--quaternary-color) !important;
 }
 
 /* ---------------------------- IMATGE LOGO BACK STYLES ----------------------------*/
@@ -68,7 +68,7 @@
 /* ---------------------------- BORDER STYLES ----------------------------*/
 
 .border-secondary-BHEC {
-    border-color: var(--secundary-color);
+    border-color: var(--secundary-color) !important;
 }
 
 /* ---------------------------- LINK HOVER STYLES ----------------------------*/
@@ -105,12 +105,12 @@
 }
 
 .link:hover {
-    color: var(--tertiary-color);
+    color: var(--tertiary-color) !important;
     transition: .3s;
 }
 
 .nav-hover-menu-BHEC:hover {
-    background-color: var(--quaternary-color);
+    background-color: var(--quaternary-color) !important;
 }
 
 .nav-hover-text-BHEC:hover {
@@ -194,7 +194,7 @@
 }
 
 .svg-down {
-    bottom: -1.8%;
+    bottom: -2.6%;
     left: 50%;
     z-index: 5;
     margin-left: -96px;
@@ -218,7 +218,7 @@
 }
 
 .btn-tertiary-outline-BHEC {
-    border: 2px solid var(--tertiary-color);
+    border: 2px solid var(--tertiary-color) !important;
 }
 
 .fs-big-icons-BHEC {

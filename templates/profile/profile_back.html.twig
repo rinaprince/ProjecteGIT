@@ -1,0 +1,80 @@
+{% extends 'base_back_2.html.twig' %}
+
+{% block body %}
+
+
+
+    {{ form_start(form) }}
+    <div class="container-fluid bg-light p-3 rounded-3 shadow mb-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="fs-1">El teu Perfil</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label class="py-1 my-2 fw-bold">Nom</label>
+                {{ form_widget(form.name, {'attr': {'class': ' border border-black border-opacity-25 ','placeholder':'El teu nom'} }) }}
+            </div>
+            <div class="col-6">
+                <label class="py-1 my-2 fw-bold">Cognom</label>
+                {{ form_widget(form.lastname, { 'attr': {'class': ' border border-black border-opacity-25 ','placeholder':'El teu cognom'} }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label class="py-1 my-2 fw-bold">Usuari</label>
+                {{ form_widget(form.login.username, {'attr': {'class': ' border border-black border-opacity-25 ','placeholder':'Usuari'} }) }}
+            </div>
+            <div class="col-6">
+                <label class="py-1 my-2 fw-bold">Contrasenya</label>
+                {{ form_widget(form.login.password, { 'attr': {'class': ' border border-black border-opacity-25 ','placeholder':'La teva contrasenya'} }) }}
+            </div>
+            <div class="col-6">
+                <label class="py-1 my-2 fw-bold">Tipus</label>
+                {{ form_widget(form.type, { 'attr': {'class': ' border border-black border-opacity-25', 'disabled':'true'} }) }}
+            </div>
+            <div class="col-2 d-flex align-items-end">
+                <div class="dropdown w-100">
+                    <button class="btn bg-tertiary-BHEC dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Idioma
+                    </button>
+                    <ul class="dropdown-menu bg-tertiary-BHEC">
+                        <li><a class="dropdown-item " href="#">Espanyol 🇪🇸</a></li>
+                        <li><a class="dropdown-item " href="#">Inglés 🇬🇧</a></li>
+                        <li><a class="dropdown-item " href="#">Alemà 🇩🇪</a></li>
+                        <li><a class="dropdown-item " href="#">Francés 🇫🇷</a></li>
+                        <li><a class="dropdown-item " href="#">Italià 🇮🇹</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-2 d-flex align-items-end">
+                <div class="dropdown w-100">
+                    <button class="btn bg-tertiary-BHEC dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Registres per taula
+                    </button>
+                    <ul class="dropdown-menu bg-tertiary-BHEC">
+                        <li><a class="dropdown-item " href="#">10</a></li>
+                        <li><a class="dropdown-item " href="#">25</a></li>
+                        <li><a class="dropdown-item " href="#">40</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-2 d-flex align-items-end">
+                <div class="bg-tertiary-BHEC py-1 px-2 rounded-2 d-flex align-items-end justify-content-between w-100">
+                    <label>Tema </label>
+                    <input type="color" name="tema" class="ms-3">
+                </div>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-12 d-flex justify-content-start align-items-center gap-2">
+                <button class="btn bg-tertiary-BHEC text-light" type="reset">Restaura</button>
+                <button class="btn btn-success" type="submit">Guardar</button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+
+{% endblock %}

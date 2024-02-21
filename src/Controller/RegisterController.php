@@ -81,6 +81,7 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute('app_front_office', [], Response::HTTP_SEE_OTHER);
         }
 
+
         return $this->render('professional/register.html.twig', [
             'professional' => $professional,
             'professionalForm' => $form,

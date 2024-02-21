@@ -9,31 +9,31 @@
 {% block body %}
 
     <section class="contingut">
-        <h1>Detalles de factura
+        <h1>Detalls de factura
         </h1>
         <div id="invoice-table" class="d-sm-flex d-none">
             <table class="border-0 table table-striped w-100 d-flex align-items-center">
                 <tbody class="w-100">
                 <tr class="d-flex">
-                    <th class="w-50">ID:</th>
+                    <th class="w-50 bg-tertiary-BHEC">ID:</th>
                     <td class="w-50" data-title="Id:">{{ invoice.id }}</td>
                 </tr>
                 <tr class="d-flex">
-                    <th class="w-50 ">Número</th>
+                    <th class="w-50 bg-tertiary-BHEC">Número</th>
                     <td class="w-50" data-title="Numero:">{{ invoice.number }}</td>
                 </tr>
                 <tr class="d-flex">
-                    <th class="w-50">Precio:</th>
+                    <th class="w-50 bg-tertiary-BHEC">Preu:</th>
                     <td class="w-50" data-title="Precio:">{{ invoice.price }}</td>
                 </tr>
                 <tr class="d-flex">
-                    <th class="w-50">Fecha:</th>
+                    <th class="w-50 bg-tertiary-BHEC">Data:</th>
                     <td class="w-50" data-title="Fecha:">{{ invoice.date ? invoice.date|date('Y-m-d') : '' }}</td>
 
                 </tr>
                 {% if invoice.customerOrder.vehicles is not empty %}
                     <tr>
-                        <th class="w-50">Vehicles</th>
+                        <th class="w-50 bg-tertiary-BHEC">Vehicles</th>
                         {% for vehicle in invoice.customerOrder.vehicles %}
                         <td class="w-50">
                             {{ vehicle.model.brand.name }} {{ vehicle.model.name }}<br>

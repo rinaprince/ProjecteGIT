@@ -7,7 +7,7 @@
     --tertiary-BHEC :#aa8e31ff;
     --quaternary-BHEC :#e7e7e9;
     --hover-aside-BHEC: #6e5c20;
-    
+
     --primary-fontFamily :'DM Sans';
 
     /** Hover aside color */
@@ -15,7 +15,7 @@
 
     /*Table*/
     --table-color:#d9d9da;
-    
+
     /* Botons de taules backoffice*/
     --button-delete : #f44336;
     --button-edit : #008CBA;
@@ -25,6 +25,13 @@
     --button-delete-hover : #8a1c24;
     --button-edit-hover : #004080;
     --button-details-hover : #388E3C;
+
+    /* Botons generals */
+    --button-normal: var(--secundary-color);
+    --button-text: white;
+
+    /* Botons generals hovers */
+    --button-normal-hover: var(--tertiary-color);
 }
 
 /*----- FUENTES -----*/

@@ -6,7 +6,7 @@
     <nav class="navbar navbar-expand-sm py-0">
       <div class="d-flex justify-content-between w-100 py-0 align-items-center">
         <div class>
-          <a class="navbar-brand px-3 d-inline-block" href="/back"><img src="/equip2/img/logoBHEC.png"
+          <a class="navbar-brand px-3 d-inline-block" href="/backoffice"><img src="/equip2/img/logoBHEC.png"
                                                                     alt="logo BHEC"></a>
         </div>
         <div class>

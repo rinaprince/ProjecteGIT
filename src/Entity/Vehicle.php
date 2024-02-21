@@ -77,6 +77,8 @@ class Vehicle implements JsonSerializable
     #[ORM\JoinColumn(nullable: true)]
     private ?Order $vehicleOrder = null;
 
+    #[ORM\Column]
+    private ?bool $discharge = null;
 
     public function __construct()
     {
@@ -351,6 +353,18 @@ class Vehicle implements JsonSerializable
     public function setVehicleOrder(?Order $vehicleOrder): static
     {
         $this->vehicleOrder = $vehicleOrder;
+
+        return $this;
+    }
+
+    public function isDischarge(): ?bool
+    {
+        return $this->discharge;
+    }
+
+    public function setDischarge(bool $discharge): static
+    {
+        $this->discharge = $discharge;
 
         return $this;
     }

@@ -23,14 +23,13 @@
 {# HEADER #}
 <header class="bg-primary-BHEC py-0" {{ vue_component('Header_back_component')}}></header>
 
-<main>
+<main class="m-0">
     <div {{ vue_component('Modal_component', {'user': app.user}) }}></div>
     <div class="container-fluid">
         <div class="row">
             {# ASIDE #}
             <aside class="col-sm-2 bg-Aside-BHEC text-white collapse d-sm-block p-0" id="collapseAside" {{ vue_component('Aside_back_component')}}></aside>
-            <section class="col-12 col-sm-10">
-
+            <section class="col-xl-10 col-12">
                 {% block body %}
 
                 {% endblock %}

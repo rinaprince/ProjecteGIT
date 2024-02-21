@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Login;
 use App\Entity\Professional;
 use App\Repository\LoginRepository;
@@ -19,6 +20,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[Route('/api/v1/professionals')]
 class ApiProfessionalController extends AbstractController
 {
+
     #[Route('', name: 'api_professional_index', methods: ['GET'])]
     public function index(ProfessionalRepository $professionalRepository): JsonResponse
     {
@@ -65,7 +67,6 @@ class ApiProfessionalController extends AbstractController
         }
         return new JsonResponse($professionalsJson, $status);
     }
-
     #[Route('', name: 'api_professional_new', methods: ['POST'])]
     public function create(Request $request,EntityManagerInterface $em, ValidatorInterface $validator): JsonResponse
     {

@@ -82,6 +82,7 @@ class VehicleFixtures extends Fixture implements DependentFixtureInterface
             $vehicle->setRegistrationDate(new DateTime());
             $vehicle->setIva(0);
             $vehicle->setTransportIncluded(true);
+            $vehicle->setDischarge(false);
 
             $providers = $this->providerRepository->findAll();
 

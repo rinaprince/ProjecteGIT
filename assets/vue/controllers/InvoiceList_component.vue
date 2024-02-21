@@ -1,4 +1,3 @@
-
 <script setup>
 const {invoices} = defineProps(['invoices']);
 //const q = props.q;
@@ -87,7 +86,7 @@ const closeModal = () => {
 function showDetailsModal(id) {
   axios.get(`/invoices/${id}`)
       .then(response => {
-        const modalBody = document.querySelector('.modal-body');
+        const modalBody = document.querySelector('.modal-content');
         const parsedHTML = new DOMParser().parseFromString(response.data, 'text/html');
         const detailsDiv = parsedHTML.querySelector('.contingut');
         console.log(detailsDiv);
@@ -134,18 +133,21 @@ function confirmDelete(id) {
     text: 'No podràs desfer aquesta acció',
     icon: 'warning',
     showCancelButton: true,
-    buttons: {
-      confirm: {
-        text: 'Sí, eliminar',
-        class: 'sweetConfirm',
-      }
+    customClass: {
+      confirmButton: 'sweetConfirm'
     },
     confirmButtonText: 'Sí, esborrar',
-    cancelButtonColor: '#d33',
   }).then((result) => {
     if (result.isConfirmed) {
       // Llama a la función deleteInvoice solo si el usuario confirma la eliminación
       deleteInvoice(id);
+
+      // Elimina el tr correspondiente al sweetAlert abierto
+      const rowId = '#row' + id;
+      const tableRow = document.querySelector(rowId);
+      if (tableRow) {
+        tableRow.remove();
+      }
     }
   });
 }
@@ -182,20 +184,15 @@ async function deleteInvoice(id) {
   }
 }
 
-
-
-$(document).ready( function () {
+$(document).ready(function () {
 
   //----------------------------------------------------------------------------
   $('.sweetConfirm').on('click', function () {
     let tr = this.closest('tr'); // Troba el 'Tr' de la taula més proper al botó prés(pulsado)
-    let employeeId = $(tr).find('td:eq(0)').text(); // Obté la id del registre a eliminar
     tr.remove(); // Elimina directament la fila de la taula
   })
   //-----------------------------------------------------------------------------
-} );
-
-
+});
 
 
 </script>
@@ -205,10 +202,11 @@ $(document).ready( function () {
     <div>
       <div class="d-flex justify-content-between align-items-center bg-quaternary-BHEC ">
         <form method="POST" role="search">
-          <div class="d-flex my-3 justify-content-right"><input name="q" type="search"
-                                           class="rounded-start-pill border border-secondary-subtle px-4 py-2 "
-                                           placeholder="Buscar..." aria-label="Search">
-            <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0 px-2"><i class="bi bi-search"></i>
+          <div class="d-flex my-3 justify-content-right mw-75"><input name="q" type="search"
+                                                                class="rounded-start-pill border border-secondary-subtle px-4 py-2 "
+                                                                placeholder="Buscar..." aria-label="Search">
+            <button type="submit" class="rounded-end-pill bg-tertiary-BHEC border border-0 px-2"><i
+                class="bi bi-search"></i>
             </button>
           </div>
         </form>
@@ -223,7 +221,7 @@ $(document).ready( function () {
     <table class="table table-striped table-responsive w-100 m-0 bg-tertiary-BHEC d-sm-table d-none ">
       <thead class="theadInvoices text-center">
       <tr>
-        <th class="py-1 bg-tertiary-BHEC d-none">ID</th>
+        <th class=" bg-tertiary-BHEC d-none">ID</th>
         <th class="bg-tertiary-BHEC">Número</th>
         <th class="bg-tertiary-BHEC">Usuari</th>
         <th class="bg-tertiary-BHEC">Preu</th>
@@ -232,7 +230,8 @@ $(document).ready( function () {
       </tr>
       </thead>
       <tbody class="text-center">
-      <tr v-for="invoice in filteredInvoices">
+      <tr v-for="invoice in filteredInvoices"  :id="'row' + invoice.id">
+
         <td data-title="ID:" class="d-none">{{ invoice.id }}</td>
         <td data-title="Numero:" class="p-auto">{{ invoice.number }}</td>
         <td data-title="Usuario:">{{ invoice.customer.name }}</td>
@@ -242,7 +241,8 @@ $(document).ready( function () {
           <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
           <button class="btn btn-primary mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i>
           </button>
-          <button class="btn btn-danger mx-1 delete" @click="confirmDelete(invoice.id)"><i class="fas fa-trash"></i></button>
+          <button class="btn btn-danger mx-1 delete" @click="confirmDelete(invoice.id)"><i class="fas fa-trash"></i>
+          </button>
         </td>
       </tr>
       </tbody>
@@ -253,21 +253,23 @@ $(document).ready( function () {
   <div id="accordion" class="accordion accordion-flush d-flex justify-content-center d-sm-none d-flex flex-wrap text-center">
     <div v-for="invoice in filteredInvoices" :key="invoice.id">
       <div class="card" style="width: 18rem;">
-        <div class="card-header" id="heading{{ invoice.id }}">
+        <div class="card-header" :id="'heading' + invoice.id">
           <h2 class="mb-0">
-            <button class="btn " type="button" data-bs-toggle="collapse"  :data-bs-target="'#collapse' + invoice.id" aria-expanded="false" :aria-controls="'collapse' + invoice.id">
+            <button class="btn" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + invoice.id" aria-expanded="false" :aria-controls="'collapse' + invoice.id">
               Nº: {{ invoice.number }}
             </button>
           </h2>
         </div>
-        <div :id="'collapse' + invoice.id" class="collapse" aria-labelledby="heading{{ invoice.id }}" data-parent="#accordion">
+        <div :id="'collapse' + invoice.id" class="collapse" :aria-labelledby="'heading' + invoice.id" data-parent="#accordion">
           <div class="card-body text-center">
             <p data-title="Usuario:">Nom: {{ invoice.customer.name }}</p>
             <p data-title="Precio:">Preu: {{ invoice.price }}</p>
             <p data-title="Fecha:">Data: {{ invoice.date.date.substring(0, 10) }}</p>
             <button class="btn btn-success mx-1" @click="openShowModal(invoice.id)"><i class="fas fa-eye"></i></button>
-            <button class="btn btn-info mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i></button>
-            <button class="btn btn-danger mx-1 delete"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-primary mx-1" @click="openEditModal(invoice.id)"><i class="fas fa-pencil-alt"></i>
+            </button>
+            <button class="btn btn-danger mx-1 delete" @click="confirmDelete(invoice.id)"><i class="fas fa-trash"></i>
+            </button>
           </div>
         </div>
       </div>

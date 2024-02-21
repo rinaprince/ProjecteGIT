@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center m-3">
+        <div class="d-flex justify-content-xl-between justify-content-center align-items-center m-3">
           <form method="GET" role="search">
             <div class="d-flex">
               <input name="q" type="search" class="rounded-start-pill border border-secondary-subtle ps-3"
@@ -12,8 +12,10 @@
               </button>
             </div>
           </form>
+          <div class="d-xl-flex">
           <a @click="modalNewProvider()" class="button-text-primary-BHEC btn button-primary-BHEC p-3 mb-3"><i
               class="bi bi-plus-square me-1"></i>Nou Proveïdor</a>
+          </div>
         </div>
         <!--<form class="mb-3 mb-lg-0 me-lg-3 mb-lg-1">
           <input v-model="filters.email.value" type="text" class="form-control" placeholder="Email...">
@@ -30,57 +32,82 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>Email</th>
-            <th>Telèfon</th>
-            <th class="d-sm-none">Dni</th>
-            <th class="d-sm-none">Cif</th>
-            <th>Nom de l'empresa</th>
-            <th class="d-sm-none d-md-none">Adreça</th>
-            <th class="d-sm-none d-md-none">Títol bancari</th>
-            <th class="d-sm-none">Nif del jerent</th>
-            <th class="d-sm-none d-md-none">document LOPD</th>
-            <th class="d-sm-none d-md-none">Article de la constitució</th>
-            <th colspan="3">Accions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="provider in filteredProviders" :key="provider.id">
-            <td>{{ provider.email }}</td>
-            <td>{{ provider.phone }}</td>
-            <td class="d-sm-none">{{ provider.dni }}</td>
-            <td class="d-sm-none">{{ provider.cif }}</td>
-            <td>{{ provider.businessName }}</td>
-            <td class="d-sm-none d-md-none">{{ provider.address }}</td>
-            <td class="d-sm-none d-md-none">{{ provider.bankTitle }}</td>
-            <td class="d-sm-none">{{ provider.managerNif }}</td>
-            <td class="d-sm-none d-md-none">{{ provider.LOPDdocFile }}</td>
-            <td class="d-sm-none d-md-none">{{ provider.constitutionArticle }}</td>
-            <td>
-              <button class="btn btn-success">
-                <a @click="modalShow(provider.id)">
-                  <i class="bi bi-eye-fill"></i>
-                </a>
-              </button>
-            </td>
-            <td>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover d-sm-table d-none">
+            <thead>
+            <tr>
+              <th>Email</th>
+              <th>Telèfon</th>
+              <th class="d-sm-none">Dni</th>
+              <th class="d-sm-none">Cif</th>
+              <th>Nom de l'empresa</th>
+              <th class="d-sm-none d-md-none">Adreça</th>
+              <th class="d-sm-none d-md-none">Títol bancari</th>
+              <th class="d-sm-none">Nif del jerent</th>
+              <th class="d-sm-none d-md-none">document LOPD</th>
+              <th class="d-sm-none d-md-none">Article de la constitució</th>
+              <th colspan="3">Accions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="provider in filteredProviders" :key="provider.id">
+              <td>{{ provider.email }}</td>
+              <td>{{ provider.phone }}</td>
+              <td class="d-sm-none">{{ provider.dni }}</td>
+              <td class="d-sm-none">{{ provider.cif }}</td>
+              <td>{{ provider.businessName }}</td>
+              <td class="d-sm-none d-md-none">{{ provider.address }}</td>
+              <td class="d-sm-none d-md-none">{{ provider.bankTitle }}</td>
+              <td class="d-sm-none">{{ provider.managerNif }}</td>
+              <td class="d-sm-none d-md-none">{{ provider.LOPDdocFile }}</td>
+              <td class="d-sm-none d-md-none">{{ provider.constitutionArticle }}</td>
+              <td>
+                <button class="btn btn-success">
+                  <a @click="modalShow(provider.id)">
+                    <i class="bi bi-eye-fill"></i>
+                  </a>
+                </button>
+              </td>
+              <td>
 
-              <button class="btn btn-primary">
-              <a @click="modalEdit(provider.id)">
-                <i class="bi bi-pencil-square"></i>
-              </a></button>
+                <button class="btn btn-primary">
+                  <a @click="modalEdit(provider.id)">
+                    <i class="bi bi-pencil-square"></i>
+                  </a></button>
 
-            </td>
-            <td>
-              <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
-                <i class="bi bi-trash-fill"></i>
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+              </td>
+              <td>
+                <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div id="accordion" class="accordion accordion-flush d-flex justify-content-center d-sm-none d-flex flex-wrap text-center">
+            <div v-for="provider in filteredProviders" :key="provider.id">
+              <div class="card" style="width: 18rem;">
+                <div class="card-header" id="heading{{ provider.id }}">
+                  <h2 class="mb-0">
+                    <button class="btn " type="button" data-bs-toggle="collapse"  :data-bs-target="'#collapse' + provider.id" aria-expanded="false" :aria-controls="'collapse' + provider.id">
+                      Nom de l'empresa: {{ provider.businessName }}
+                    </button>
+                  </h2>
+                </div>
+                <div :id="'collapse' + provider.id" class="collapse" aria-labelledby="heading{{ provider.id }}" data-parent="#accordion">
+                  <div class="card-body text-center">
+                    <p data-title="Email:">Correu: {{provider.email }}</p>
+                    <p data-title="Phone:">Telèfon: {{ provider.phone }}</p>
+                    <button class="btn btn-success mx-1" @click="modalShow(provider.id)"><i class="fas fa-eye"></i></button>
+                    <button class="btn btn-primary mx-1" @click="modalEditProvider(provider.id)"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-danger mx-1" @click="sweetAlertDelete(provider.id)"><i class="fas fa-trash"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -172,6 +199,9 @@ function modalNewProvider() {
         // Mostrar el modal
         const myModal = document.querySelector('.modal');
         myModal.style.display = 'block';
+
+        const form = myModal.querySelector('form');
+        form.action = '/providers/new';
       })
       .catch(error => {
         console.error('Error modal: ', error);

@@ -60,6 +60,15 @@ class OrderRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllActive(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.state', 'DESC')
+            ->andWhere('o.discharge = :discharge')
+            ->setParameter('discharge', false)
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Order[] Returns an array of Order objects
 //     */

@@ -1,5 +1,6 @@
 {{ form_start(form) }}
 <div class="container">
+    <div><h1 class="text-center">New order</h1></div>
     <div class="row">
         <div class="col-6">
             {{ form_row(form.state) }}
@@ -16,8 +17,7 @@
 </div>
 
 {{ form_widget(form) }}
-<div id="divBotons" class="d-flex justify-content-center gap-2">
+<div id="divBotons" class="d-flex justify-content-center gap-2 m-3">
     <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-    <button class="btn btn-secondary"><a class="text-decoration-none text-light" href="{{ path('app_order_index') }}">Back to list</a></button>
 </div>
 {{ form_end(form) }}

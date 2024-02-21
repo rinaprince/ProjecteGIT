@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}
+    <meta name="description"
+          content="Encuentra una amplia selección de coches nuevos y usados en venta.
+           Explora nuestro inventario de marcas populares y modelos, y encuentra el
+           coche perfecto para ti. Ofrecemos opciones de financiamiento y entrega a domicilio.
+           ¡Visítanos ahora para encontrar tu próximo coche!">
+    {% endblock %}
     <title>Back Office</title>
 
 
-    <link  href="{{ asset('equip2/css/variables.css') }}" rel="stylesheet">
+    <link href="{{ asset('equip2/css/variables.css') }}" rel="stylesheet">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -23,13 +30,14 @@
 {# HEADER #}
 <header class="bg-primary-BHEC py-0" {{ vue_component('Header_back_component')}}></header>
 
-<main class="m-0">
+<main>
     <div {{ vue_component('Modal_component', {'user': app.user}) }}></div>
     <div class="container-fluid">
         <div class="row">
             {# ASIDE #}
-            <aside class="col-sm-2 bg-Aside-BHEC text-white collapse d-sm-block p-0" id="collapseAside" {{ vue_component('Aside_back_component')}}></aside>
-            <section class="col-xl-10 col-12">
+            <aside class="col-sm-2 bg-Aside-BHEC text-white collapse d-sm-block p-0"
+                   id="collapseAside" {{ vue_component('Aside_back_component') }}></aside>
+            <section class="col-lg-10 col-md-12">
                 {% block body %}
 
                 {% endblock %}

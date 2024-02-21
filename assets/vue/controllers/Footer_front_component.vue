@@ -13,10 +13,10 @@
       <div class="col-12">
         <hr class="border-secundary-BHEC border-2 opacity-100 m-0">
         <ul
-            class="d-flex text-center justify-content-center flex-column flex-sm-row pt-3 list-unstyled">
-          <li class="px-2 py-1"><a href="/templates/terms/index.html.twig" class="text-decoration-none text-secondary-BHEC">FAQ</a></li>
-          <li class="px-2 py-1"><a href="/templates/terms/index.html.twig" class="text-decoration-none text-secondary-BHEC">Terminis i Condicions</a></li>
-          <li class="px-2 py-1"><a href="/privacy" class="text-decoration-none text-secondary-BHEC">Política de Privacitat</a></li>
+            class=" d-flex text-center justify-content-center flex-column flex-sm-row   pt-3 list-unstyled">
+          <li class="px-2 text-secondary-BHEC py-1"><a href="/templates/terms/index.html.twig" class="text-decoration-none text-secondary-BHEC">FAQ</a></li>
+          <li class="px-2 text-secondary-BHEC py-1"><a href="/templates/terms/index.html.twig" class="text-decoration-none text-secondary-BHEC">Terminis i Condicions</a></li>
+          <li class="px-2 text-secondary-BHEC py-1"><a href="/privacy" class="text-decoration-none text-secondary-BHEC">Política de Privacitat</a></li>
         </ul>
       </div>
     </div>

@@ -5,9 +5,8 @@ const Routes = {
   login: "login",
   logout: "/logout",
   comandes: "/",
-  novetats: "/back",
-  perfil: (id) => "/employees/"+id+"/profile"
-
+  news: "/news",
+  userProfile: "/profile"
 };
 defineProps({
   Routes: Object,
@@ -16,6 +15,7 @@ defineProps({
     default: false
   }
 });
+
 </script>
 
 <template>
@@ -59,18 +59,18 @@ defineProps({
                  class="w-100 d-inline-block link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Pagina Principal</a>
               <a :href="Routes.back"
                  class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Pagina de Administració</a>
+              <a :href="Routes.userProfile"
+                 class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Perfil de Usuari</a>
               <a href="#"
                  class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Configuració</a>
-              <a :href="Routes.perfil(user.employee.id)"
-                 class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Perfil</a>
             </div>
             <div class="px-4" v-else>
               <span v-if="!user"><a :href="Routes.login"
                  class="w-100 fs-3 mb-3 d-inline-block link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Iniciar Sesión</a></span>
               <a :href="Routes.comandes"
                  class="w-100 d-inline-block link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Comandes</a>
-              <a :href="Routes.novetats"
-                 class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Novetats</a>
+              <a :href="Routes.news"
+                 class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">news</a>
               <a href="#"
                  class="w-100 d-inline-block mt-1 link-dark link-underline link-underline-opacity-0 link-opacity-50-hover">Administració</a>
             </div>

@@ -1,0 +1,67 @@
+{% extends 'base_2.html.twig' %}
+{% block title %} Contacte {% endblock %}
+
+{% block body %}
+<div class="row g-0">
+    <h2 class="py-3 text-center text-black fw-bold">CONTACTE</h2>
+
+    <div class="col-sm-6">
+        <div class="position-relative rounded-start d-none d-lg-block">
+            <div class="bg-tertiary-BHEC p-3 position-absolute z-0 rounded mapa-content">
+                <p>O si ho preferix, ens pot contactar de les següents maneres:</p>
+                <p>+34 123 123 123</p>
+                <p>gestio@bhec</p>
+            </div>
+            <a href="https://maps.app.goo.gl/v7n3yhraJt5bujm69">
+                <img src="/equip2/img/mapa-BHEC.png" alt="mapa-BHEC">
+            </a>
+        </div>
+    </div>
+
+    <form class="col-lg-6 col-12 mb-5 py-4 rounded-end bg-white px-3">
+        <div class="container-fluid fw-bold">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="nom" class="form-label">Nom*</label>
+                    <input class="form-control mb-4 py-2 ps-2" id="nom" type="text" placeholder="Nom"
+                           maxlength="50">
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email*</label>
+                    <input class="form-control mb-4 py-2" id="email" type="email" placeholder="Email"
+                           maxlength="50">
+                </div>
+                <div class="col-md-3">
+                    <label for="nComanda" class="form-label">Nº de comanda</label>
+                    <input class="form-control mb-4 py-2" id="nComanda" type="number" placeholder="Comanda"
+                           size="11" maxlength="11">
+                </div>
+                <div class="col-md-9">
+                    <label for="consulta" class="form-label">Motiu de la consulta*</label>
+                    <select class="form-select mb-4 py-2" id="consulta">
+                        <option selected>Motiu de la consulta</option>
+                        <option value="1">Incidències transport</option>
+                        <option value="2">Ventes i/o altra informació</option>
+                        <option value="3">Garantia</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <label for="assumpte" class="form-label">Assumpte*</label>
+                    <input class="form-control mb-4 py-2" id="assumpte" type="text" placeholder="Assumpte"
+                           size="60" maxlength="90">
+                </div>
+                <div class="col-md-12">
+                    <label for="missatge" class="form-label">Missatge</label>
+
+                    <textarea class="form-control pb-5 mb-4" placeholder="Missatge"></textarea>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button"
+                            class=" mx-2 mb-1 py-2 btn rounded text-white bg-secondary-BHEC ">Enviar
+                        Consulta</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

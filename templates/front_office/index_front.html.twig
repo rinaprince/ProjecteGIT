@@ -29,6 +29,7 @@
                         <div class="button d-flex justify-content-center">
                             <a href="/catalogue"
                                     class="btn border-0 bg-quaternary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover rounded-1 opacity-100" tabindex="1">
+
                                 Explorar
                             </a>
                         </div>
@@ -140,6 +141,7 @@
                     {% for brand in brands|slice(0, brands|length/2) %}
                     <div class="p-1">
                             <a href="{{ path('app_catalogue_index', {'q': brand.name}) }}" class="btn border-0 bg-secondary-BHEC px-3 py-2 text-button-format-BHEC btn-tertiary-hover w-100 rounded-1 opacity-100" tabindex="{{ loop.index }}">
+
                                 {{ brand.name }}
                             </a>
                         </div>

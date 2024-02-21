@@ -10,24 +10,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('api/v1/private/customers')]
 class ApiPrivateCustomerController extends AbstractController
 {
-    #[Route('', name: 'app_api_private_customer')]
-    public function index(PrivateCustomerRepository $privateCustomerRepository) :JsonResponse
+    #[Route('', name: 'app_api_private_customers')]
+    public function index(PrivateCustomerRepository $privateCustomerRepository): JsonResponse
     {
         $private = $privateCustomerRepository->findAll();
         if($private == "" || $private == null){
             $privateJson = [
                 "status" => "fail",
                 "data" => $private,
-                "message" => "Private no te contingut"
+                "message" => "Private no té contingut"
+
             ];
         }
         else{
             $privateJson = [
-                "status" => "succes",
+               "status" => "success",
+
                 "data" => $private,
                 "message" => null
             ];
@@ -36,7 +39,7 @@ class ApiPrivateCustomerController extends AbstractController
         return new JsonResponse($privateJson, Response::HTTP_OK);
     }
 
-    #[Route('/{id}', name: 'app_api_private_customer_show')]
+    #[Route('/{id}', name: 'app_api_private_customers_show')]
     public function show(?PrivateCustomer $privateCustomer): JsonResponse
     {
         if(!empty($privateCustomer)){
@@ -51,15 +54,15 @@ class ApiPrivateCustomerController extends AbstractController
             $privateJson = [
                 "status" => "error",
                 "data" => $privateCustomer,
-                "message" => "no se ha podido encontrar el usuari"
+                "message" => "No s'ha pogut trobar l'usuari"
             ];
             $status = Response::HTTP_NOT_FOUND;
         }
         return new JsonResponse($privateJson, $status);
     }
 
-    #[Route('/new', name: 'app_api_private_customer_new')]
-    public function create(Request $request): JsonResponse
+    #[Route('/new', name: 'app_api_private_customers_new')]
+    public function create(Request $request, ValidatorInterface $validator, EntityManagerInterface $entityManager): JsonResponse
     {
         $privateCustomer = new PrivateCustomer();
         $data = $request->toArray();
@@ -70,12 +73,36 @@ class ApiPrivateCustomerController extends AbstractController
             $privateCustomer->setEmail($data["email"]);
             $privateCustomer->setAddress($data["address"]);
             $privateCustomer->setPhone($data["phone"]);
-        }catch (\Exception $e){
-            $error["code"] = $e->getCode();
-            $error["message"] = $e->getMessage();
-            return new JsonResponse($error, Response::HTTP_BAD_REQUEST);
+
+            $errors = $validator->validate($privateCustomer);
+            if (count($errors) > 0) {
+                $privateCustomerJson = [
+                    "status" => "error",
+                    "data" => ["privateCustomer" => $data],
+                    "message" => "El format dels camps no és correcte"
+                ];
+                $status = Response::HTTP_BAD_REQUEST;
+
+            }else{
+                $privateCustomerJson = [
+                    "status" => "error",
+                    "data" => ["privateCustomer" => $data],
+                    "message" => ""
+                ];
+                $status = Response::HTTP_CREATED;
+
+                $entityManager->persist($privateCustomer);
+                $entityManager->flush();
+            }
+        } catch (\Exception $e) {
+            $privateCustomerJson = [
+                "status" => "error",
+                "data" => ["provider" => $data],
+                "message" => $e
+            ];
+            $status = Response::HTTP_BAD_REQUEST;
+            return new JsonResponse($privateCustomerJson, $status);
         }
-        $status = Response::HTTP_BAD_REQUEST;
-        return new JsonResponse($privateCustomer, $status);
+        return new JsonResponse($privateCustomerJson, $status);
     }
 }

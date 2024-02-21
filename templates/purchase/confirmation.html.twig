@@ -12,39 +12,35 @@
             <div class="col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-3 order-1 order-xl-0 my-2 m-xxl-0">
                 <div id="order-info">
                     <div>
-                        <h3>Direcció d'enviament <a a href="#" class="link text-tertiary-BHEC">Canviar</a></h3>
-                        <p><span class="fw-bold text-decoration-underline link-offset-2">Carrer:</span> Nazareno nº 8
-                        </p>
-                        <p><span class="fw-bold text-decoration-underline link-offset-2">Localitat:</span> Oliva,
-                            Valencia 46780</p>
-                        <p><span class="fw-bold text-decoration-underline link-offset-2">País:</span> Espanya</p>
-                        <p>Oliva, Valencia 46780</p>
-                        <p><span class="fw-bold text-decoration-underline link-offset-2">Telèfon:</span> 688942055</p>
+                        <h3>Direcció d'enviament <a href="{{ path('app_purchase_index') }}" class="link text-tertiary-BHEC">Canviar</a></h3>
+                        <p><span class="fw-bold text-decoration-underline link-offset-2">Nom:</span> {{ formData.addressName }} </p>
+                        <p><span class="fw-bold text-decoration-underline link-offset-2">Carrer:</span> {{ formData.address }} </p>
+                        <p><span class="fw-bold text-decoration-underline link-offset-2">Localitat:</span> {{ formData.city }}, {{ formData.provinceAddress }} {{ formData.postalCode }}</p>
+                        <p><span class="fw-bold text-decoration-underline link-offset-2">Telèfon:</span> {{ formData.phoneInput }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-3 order-2 order-xl-2 order-xxl-1  my-2 m-xxl-0">
                 <div>
                     <div>
-                        <h3>Mètode de pagament <a href="#" class="link text-tertiary-BHEC">Canviar</a></h3>
+                        <h3>Mètode de pagament <a href="{{ path('app_purchase_index') }}" class="link text-tertiary-BHEC">Canviar</a></h3>
                         <div class="d-flex align-items-center">
-                            <i class="fa-brands fa-cc-visa fs-2"></i>
-                            <span class="mx-2">que acaba en 6048</span>
+                            <p><span class="badge text-bg-primary">{{ formData.paymentMethod }} </span> que acaba en 6048</p>
                         </div>
                     </div>
                     <div>
-                        <h3>Direcció de facturació <a a href="#" class="link text-tertiary-BHEC">Canviar</a></h3>
+                        <h3>Direcció de facturació <a href="{{ path('app_purchase_index') }}" class="link text-tertiary-BHEC">Canviar</a></h3>
                         <p>Igual a la direcció d'enviament</p>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-lg-4 col-xl-6 col-xxl-3 order-3 order-xl-3 order-xxl-2 my-2 m-xxl-0">
-                    <form action="" class="d-flex flex-column">
-                        <label for="promotional_code">Xecs regal i codis promocionals</label>
-                        <input type="text" id="promotional_code" name="promotional_code" pattern="^[A-Z0-9]{8}$"
-                               placeholder="Introdueix el codi" class="my-3 rounded-3 border-1 border-dark border-opacity-25 p-2">
-                        <button type="submit" value="" class="btn bg-secondary-BHEC">Aplicar</button>
-                    </form>
+                <form action="" class="d-flex flex-column">
+                    <label for="promotional_code">Xecs regal i codis promocionals</label>
+                    <input type="text" id="promotional_code" name="promotional_code" pattern="^[A-Z0-9]{8}$"
+                           placeholder="Introdueix el codi" class="my-3 rounded-3 border-1 border-dark border-opacity-25 p-2">
+                    <button type="submit" value="" class="btn bg-secondary-BHEC">Aplicar</button>
+                </form>
             </div>
             <div class="col-12 col-xl-6 col-xxl-3 order-0 order-xl-1 order-xxl-3 d-flex flex-column align-items-center my-2 m-xxl-0">
                 <div>
@@ -52,18 +48,18 @@
                         <h3 class="fs-4">Confirmació de la compra</h3>
                         <div class="d-flex justify-content-between">
                             <p class="m-0">Productes:</p>
-                            <p class="m-0">EUR 599,99</p>
+                            <p class="m-0">{{ totalPrice | number_format(2, ',', '.') }} €</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <p>Enviament:</p>
-                            <p>EUR 2,99</p>
+                            <p>2,99 €</p>
                         </div>
                         <hr class="border border-dark border-1 opacity-50 my-1">
                         <div class="d-flex justify-content-between">
-                            <p class="text-tertiary-BHEC fw-bold">Import Total:</p>
-                            <p class="text-tertiary-BHEC fw-bold">EUR 602,98</p>
+                            <p class="text-tertiary-BHEC fw-bold">{{ (totalPrice + 2.99) | number_format(2, ',', '.') }} €</p>
+                            <p class="text-tertiary-BHEC fw-bold"></p>
                         </div>
-                        <button class="py-2 my-1 btn bg-secondary-BHEC">Comprar Ara</button>
+                        <a href="{{ path('app_purchase_success') }}" class="py-2 my-1 btn bg-secondary-BHEC">Compra Ara</a>
                     </div>
                     <p>El total del preu inclou l'IVA. <a href="#" id="verDetalles" class="link text-tertiary-BHEC">Veure
                             Detalls</a></p>

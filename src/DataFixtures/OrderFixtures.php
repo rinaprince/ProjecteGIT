@@ -42,11 +42,12 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
             // Crear una nueva orden
             $order = new Order();
             $order->setState($this->faker->randomElement(['In process', 'Completed']));
-
+            $order->setDischarge(false);
             // Asignar un vehículo aleatorio a la orden
             $randomVehicleIndex = array_rand($vehicles);
             $vehicle = $vehicles[$randomVehicleIndex];
             $order->addVehicle($vehicle);
+            $order->setDischarge(false);
 
             // Eliminar el vehículo asignado de la lista de vehículos disponibles
             unset($vehicles[$randomVehicleIndex]);

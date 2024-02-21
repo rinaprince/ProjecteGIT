@@ -26,7 +26,7 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($vehicles as $vehicle) {
             // Crear tres imágenes para cada vehículo
-            for ($i = 0; $i < 3; $i++) {
+            for ($i = 0; $i < random_int(2,5); $i++) {
                 $image = new Image();
                 $image->setFilename($this->faker->file('resources/vehicles', 'public/equip3/img/vehicles', false));
                 $image->setVehicle($vehicle);

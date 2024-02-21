@@ -2,23 +2,23 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            {{ form_row(form.number) }}
+            {{ form_row(form.number, label='Número') }}
         </div>
         <div class="col-6">
-            {{ form_row(form.price) }}
+            {{ form_row(form.price, label='Preu') }}
         </div>
     </div>
     <div class="row">
         <div class="col d-flex justify-content-center">
-            {{ form_row(form.date) }}
+            {{ form_row(form.date, label='Data') }}
         </div>
     </div>
     <div class="row">
         <div class="col">
-            {{ form_row(form.customer) }}
+            {{ form_row(form.customer, label='Client') }}
         </div>
         <div class="col">
-            {{ form_row(form.customerOrder) }}
+            {{ form_row(form.customerOrder, label='Ordre del client') }}
         </div>
     </div>
 </div>
@@ -26,6 +26,6 @@
     {{ form_widget(form) }}
 <div id="divBotons" class="d-flex justify-content-center gap-2">
     <button class="btn btn-success ">{{ button_label|default('Save') }} </button>
-    <button class="btn btn-secondary "><a class="text-decoration-none text-light" href="{{ path('app_invoice_index') }}">Back to list</a></button>
+    <button class="btn btn-secondary "><a class="text-decoration-none text-light" href="{{ path('app_invoice_index') }}">Torna enrere</a></button>
 </div>
 {{ form_end(form) }}

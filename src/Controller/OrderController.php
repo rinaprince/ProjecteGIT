@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Invoice;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Repository\OrderRepository;
@@ -11,6 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -24,7 +26,7 @@ class OrderController extends AbstractController
         $q = $request->query->get('q', '');
 
         if (empty($q))
-            $query = $orderRepository->findAllQuery();
+            $query = $orderRepository->findAllActive();
         else
             $query = $orderRepository->findByTextQuery($q);
 
@@ -92,11 +94,20 @@ class OrderController extends AbstractController
     #[Route('/{id}/delete', name: 'app_order_delete', methods: ['POST'])]
     public function delete(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$order->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($order);
-            $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('app_order_index', [], Response::HTTP_SEE_OTHER);
+        try {
+            // Marcar la factura como eliminada (soft delete)
+            $order->setDischarge(true);
+            $entityManager->persist($order);
+            $entityManager->flush();
+
+            // Redirigir a la página de índice de facturas
+            return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
+        } catch (\Exception $e){
+            throw new BadRequestHttpException('Error al eliminar la factura: ' . $e->getMessage());
+        }
     }
+
+
+
 }

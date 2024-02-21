@@ -87,7 +87,6 @@ class ApiInvoiceController extends AbstractController
                 $invoice->setNumber($data["number"]);
                 $invoice->setPrice($data["price"]);
                 $invoice->setDate($data["date"]);
-
                 $customer = $customerRepository->find($data["customer_id"]);
                 $order = $orderRepository->find($data["order_id"]);
 

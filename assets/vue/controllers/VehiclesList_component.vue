@@ -4,7 +4,7 @@ const {vehicles} = defineProps(['vehicles']);
 import {ref, onMounted, computed} from 'vue';
 import axios from "axios";
 import Swal from 'sweetalert2';
-import $ from "jquery";
+
 
 
 //Tipus de filtració
@@ -40,7 +40,7 @@ const vehiclesEditPath = (id) => `/vehicles/${id}/edit`;
 
 const vehiclesAddImagePath = (id) => `/vehicles/${id}/images/add`;
 
-function sweetAlertDelete(vehicleId) {
+function sweetAlertDelete(id) {
   Swal.fire({
     title: 'Estàs segur?',
     text: "No podràs desfer la teua decissió!",

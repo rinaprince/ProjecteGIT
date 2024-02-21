@@ -4,90 +4,150 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 {% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
+    <div class="container-fluid mt-5 px-md-5 pt-5">
         <h1 class="text-center">Garatge</h1>
+        <div class="row">
+            <div class="col-lg-9  col-sm-12 mb-4">
+                <div>
+                    {% set pendingVehicles = vehicles|filter(vehicle => vehicle.vehicleOrder != null and vehicle.vehicleOrder.state == 'Pendent') %}
+                    {% if pendingVehicles %}
+                        <div class="align-content-center">
+                            <table class="table" id="garage-table">
+                                <thead>
+                                <tr class="d-none d-sm-table-row">
+                                    <th></th>
+                                    <th>Model</th>
+                                    <th>Màtricula</th>
+                                    <th>Preu</th>
+                                    <th></th> <!-- Botón Eliminar -->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% set totalPrice = 0 %}
+                                {% for vehicle in pendingVehicles %}
+                                    {% set totalPrice = totalPrice + vehicle.sellPrice %}
+                                    <tr>
+                                        <td class="align-middle" data-title="Imatge">
+                                            {% if vehicle.images|length > 0 %}
+                                                {% set firstImage = vehicle.images.first %}
 
-        <div class="text-center">
-            {% set pendingVehicles = vehicles|filter(vehicle => vehicle.vehicleOrder != null and vehicle.vehicleOrder.state == 'Pendent') %}
-            {% if pendingVehicles %}
-                <table class="table table-borderless">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Model</th>
-                        <th>Brand</th>
-                        <th>Plate</th>
-                        <th>Price</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% set totalPrice = 0 %}
-                    {% for vehicle in pendingVehicles %}
-                        {% set totalPrice = totalPrice + vehicle.sellPrice %}
-                        <tr>
-                            <td>
-                                <img class="rounded" src="{{ asset("/equip3/img/vehicles/0ac9b191-907e-3306-9833-318a85159dee.jpg") }}" alt="pepe" style="max-height: 50px;">
-                            </td>
-                            <td>{{ vehicle.model.brand.name }}</td>
-                            <td>{{ vehicle.model.name }}</td>
-                            <td>{{ vehicle.plate }}</td>
-                            <td>{{ vehicle.sellPrice | number_format(2, ',', '.') }} €</td>
-                            <td><a class="btn btn-danger btn-sm" href="{{ path('app_garage_delete_vehicle', {'id': vehicle.id }) }}">Eliminar</a></td>
-                        </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="3"></td>
-                        <td>Total price:</td>
-                        <td>{{ totalPrice | number_format(2, ',', '.') }} €</td>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
+                                                <img class="rounded p-0 " data-bs-toggle="collapse"   aria-expanded="true" aria-controls="vehicle-{{ vehicle.id }}" src="{{ asset('/equip3/img/vehicles/' ~ firstImage.filename) |imagine_filter('vehicle_thumb') }}" alt="Vehicle Image">
 
-                <div class="buttons-container text-center">
-                    <a class="btn btn-primary cancel-order-button btn-sm" href="{{ path('app_garage_cancel_order') }}">Cancel·lar</a>
-                    <a class="btn btn-warning close-order-button btn-sm" href="{{ path('app_garage_close_order') }}">Pagar</a>
+                                            {% else %}
+                                                <span>No Image</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="align-middle d-none d-sm-table-cell" data-title="Model">{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</td>
+                                        <td class="align-middle d-none d-sm-table-cell" data-title="Matricula">{{ vehicle.plate }}</td>
+                                        <td class="align-middle d-none d-sm-table-cell" data-title="Preu">{{ vehicle.sellPrice | number_format(2, ',', '.') }} €</td>
+                                        <td class="align-middle d-none d-sm-table-cell">
+                                            <button class="btn btn-danger btn-sm delete-button " href="{{ path("app_garage_delete_vehicle", {'id' : vehicle.id}) }}">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </td>
 
+                                    </tr>
+                                    <tr>
+                                        <td class="collapse show d-block d-sm-none"  href="{{ path("app_garage_delete_vehicle", {'id' : vehicle.id}) }}" >
+                                            <div  class="card card-body ">
+                                                <ul class="list-unstyled">
+                                                    <li class="text-end">
+                                                        <button class="btn btn-danger btn-sm delete-button mb-3 ms-2" data-id="{{ vehicle.id }}">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </li>
+                                                    <li class="align-content-between" data-title="Model"><div class="d-flex flex-row justify-content-between"><strong>Model</strong><div>{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</div></div></li>
+                                                    <li class="align-middle" data-title="Matricula"><div class="d-flex flex-row justify-content-between"><strong>Matrícula</strong><div>{{ vehicle.plate }}</div></div></li>
+                                                    <li class="align-middle" data-title="Preu"><div class="d-flex flex-row justify-content-between"><strong>Preu</strong><div>{{ vehicle.sellPrice | number_format(2, ',', '.') }}€</div></div></li>
+
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="row">
+                                            <div class="col text-sm-end">
+                                                <strong>Preu total:</strong>
+                                            </div>
+                                            <div class="col text-sm-end">
+                                                {{ totalPrice | number_format(2, ',', '.') }}€
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-warning close-order-button mx-1 btn-sm" href="{{ path('app_garage_close_order') }}">Pagar</a>
+                            <a class="btn btn-primary cancel-order-button mx-1 btn-sm" href="{{ path('app_garage_cancel_order') }}">Cancel·lar</a>
+                        </div>
+                    {% else %}
+                        <div class="no-order-message">
+                            <h3>No hi ha cap comanda pendent</h3>
+                        </div>
+                    {% endif %}
                 </div>
-            {% else %}
-                <div class="no-order-message">
-                    <h3>No hi ha cap comanda pendent</h3>
-                </div>
-            {% endif %}
-        </div>
+            </div>
 
-        <h1 class="pt-5 text-center">Comandes anteriors</h1>
-        <div class="text-center">
-            {% if invoices %}
-                <table class="table table-borderless">
-                    <thead>
-                    <tr>
-                        <th>Invoice Number</th>
-                        <th>Invoice Date</th>
-                        <th>Price</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for invoice in invoices %}
-                        <tr>
-                            <td>{{ invoice.number }}</td>
-                            <td>{{ invoice.date | date('d/m/Y') }}</td>
-                            <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
-                            <td>
-                            </td>
-                        </tr>
+
+            <div class="col-3  mb-4">
+                <h2 class="mb-3">Més vistos</h2>
+                <ul class="list-unstyled">
+                    {% for vehicle in vehicles|slice(0, 3) %}
+                        <li class="mb-3">
+                            <div class="text-center">
+                                {% if vehicle.images|length > 0 %}
+                                    {% set mainImage = vehicle.images.first %}
+                                    <img src="{{ asset('/equip3/img/vehicles/' ~ mainImage.filename) |imagine_filter('vehicle_thumb') }}"
+                                         alt="Imagen del vehículo" class=" rounded mb-2">
+                                {% else %}
+                                    <span class="d-block mb-2">No hi ha image disponible</span>
+                                {% endif %}
+                                <p class="mb-0">{{ vehicle.model.brand.name }} {{ vehicle.model.name }}</p>
+                            </div>
+                        </li>
                     {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p>No hay facturas disponibles.</p>
-            {% endif %}
+                </ul>
+            </div>
+            <div class="col-12">
+                <h1 class="pt-5 text-center">Comandes anteriors</h1>
+                <div class="table-responsive">
+                    {% if invoices %}
+                        <table class="table text-center">
+                            <thead>
+                            <tr>
+                                <th>Número de factura</th>
+                                <th>Data de factura</th>
+                                <th>Preu</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for invoice in invoices %}
+                                <tr>
+                                    <td>{{ invoice.number }}</td>
+                                    <td>{{ invoice.date | date('d/m/Y') }}</td>
+                                    <td>{{ invoice.price | number_format(2, ',', '.') }} €</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="#">Detalls</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="text-center">No hi ha facturas disponibles.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

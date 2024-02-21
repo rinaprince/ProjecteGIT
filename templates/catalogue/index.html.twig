@@ -26,7 +26,6 @@
             <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
         {% endif %}
 
-
     <div class=" container-fluid d-flex flex-xl-wrap gap-xl-3 justify-content-center p-5">
 
         <div class="row">
@@ -90,7 +89,7 @@
                                         <p class="km-vehicle mt-1 text-center fs-6"> {{ vehicle.kilometers }}km</p>
                                     </div>
                                 </div>
-                                <!--{% if vehicle.vehicleOrder is not null and vehicle.vehicleOrder.state == 'Pendent' %}
+{# {% if vehicle.vehicleOrder is not null and vehicle.vehicleOrder.state == 'Pendent' %}
                                     <div class="vehicle-add text-center pt-2 pb-2">
                                         <a class="vehicle-add-button-disabled px-3 py-2 rounded-2 text-decoration-none">Reservat</a>
                                     </div>
@@ -99,19 +98,19 @@
                                         <a class="vehicle-add-button px-3 py-2 rounded-2 text-decoration-none"
                                            href="{{ path('app_catalogue_add_vehicle', {'id': vehicle.id }) }}">Afegir</a>
                                     </div>
-                                {% endif %}-->
+                                {% endif %}#}
 
 
-                                {% if vehicle.vehicleOrder is not null and vehicle.vehicleOrder.state == 'Pendent' %}
+                               {% if vehicle.vehicleOrder is not null and vehicle.vehicleOrder.state == 'Pendent' %}
                                     <div class="vehicle-add text-center pt-2 pb-2">
                                         <p class="btn btn-secondary">Reservat</p>
                                     </div>
                                 {% else %}
                                     <div class="vehicle-add text-center pt-2 pb-2">
-                                        <a class="btn text-white button-primary-BHEC"
-                                           href="{{ path('app_api_pending_orders', {'id': vehicle.id }) }}"
-                                                {{ stimulus_controller('vehicle_add') }}
-                                           id="agregar" {{ stimulus_action('vehicle_add', 'addVehicle', 'click') }}>Afegir</a>
+                                        <a class="btn" href="{{ path('app_api_pending_orders', {'id': vehicle.id }) }}" data-controller="vehicle-add" data-action="click->vehicle-add#addVehicle" data-target="vehicle-add.button">
+                                            Afegir
+                                        </a>
+
                                     </div>
                                 {% endif %}
 

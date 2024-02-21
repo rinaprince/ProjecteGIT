@@ -70,6 +70,9 @@ abstract  class Customer implements  JsonSerializable
     #[ORM\JoinColumn(nullable: false)]
     private ?Login $login = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $discharge = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -238,6 +241,18 @@ abstract  class Customer implements  JsonSerializable
     public function setLogin(Login $login): static
     {
         $this->login = $login;
+
+        return $this;
+    }
+
+    public function isDischarge(): ?bool
+    {
+        return $this->discharge;
+    }
+
+    public function setDischarge(?bool $discharge): static
+    {
+        $this->discharge = $discharge;
 
         return $this;
     }

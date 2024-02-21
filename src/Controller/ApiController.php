@@ -11,6 +11,7 @@ use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,6 +71,15 @@ class ApiController extends AbstractController
     #[Route('/add/{id}', name: 'app_api_pending_orders', methods: ['POST'])]
     public function new($id, Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository, VehicleRepository $vehicleRepository): JsonResponse
     {
+        if (!$this->getUser()) {
+            return new JsonResponse(['error' => 'No Registrado'], 401);
+        }
+
+
+        if (!$this->isGranted('ROLE_PRIVATE') && !$this->isGranted('ROLE_PROFESSIONAL')) {
+
+            return new JsonResponse(['error' => 'Access denied'], 403);
+        }
         $userId = $this->getUser()->getId();
         $customer = $customerRepository->find($userId);
 
@@ -104,7 +114,7 @@ class ApiController extends AbstractController
             $entityManager->flush();
         }
 
-        return new JsonResponse(['success' => true]);
+        return new JsonResponse(['success' => true], 200);
     }
     #[Route('/models', name: 'app_api_models')]
     public function model(ModelRepository $modelRepository): Response

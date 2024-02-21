@@ -181,7 +181,7 @@ function modalNewProvider() {
       })
 }
 
-function modalEditProvider(id) {
+function modalEdit(id) {
   axios.get('/providers/' + id + '/edit')
       .then(response => {
         // Actualitzar el contingut del modal

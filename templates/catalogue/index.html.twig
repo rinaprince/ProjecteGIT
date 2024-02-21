@@ -36,18 +36,13 @@
 
                                 <div id="carouselImagesVehicles_{{ vehicle.id }}" class="carousel slide w-100">
                                     <div class="carousel-indicators">
-                                        <button type="button"
-                                                data-bs-target="#carouselImagesVehicles_{{ vehicle.id }}"
-                                                data-bs-slide-to="0"
-                                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                                        <button type="button"
-                                                data-bs-target="#carouselImagesVehicles_{{ vehicle.id }}"
-                                                data-bs-slide-to="1"
-                                                aria-label="Slide 2"></button>
-                                        <button type="button"
-                                                data-bs-target="#carouselImagesVehicles_{{ vehicle.id }}"
-                                                data-bs-slide-to="2"
-                                                aria-label="Slide 3"></button>
+                                        {% for key, image in vehicle.images %}
+                                            <button type="button"
+                                                    data-bs-target="#carouselImagesVehicles_{{ vehicle.id }}"
+                                                    data-bs-slide-to="{{ key }}"
+                                                    {% if loop.first %}class="active"{% endif %}
+                                                    aria-label="Slide {{ loop.index }}"></button>
+                                        {% endfor %}
                                     </div>
                                     <div class="carousel-inner">
                                         {% for image in vehicle.images %}

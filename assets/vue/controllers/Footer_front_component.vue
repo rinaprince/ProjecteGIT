@@ -16,7 +16,7 @@
             class="d-flex text-center justify-content-center flex-column flex-sm-row pt-3 list-unstyled">
           <li class="px-2 py-1"><a href="/templates/terms/index.html.twig" class="text-decoration-none text-secondary-BHEC">FAQ</a></li>
           <li class="px-2 py-1"><a href="/templates/terms/index.html.twig" class="text-decoration-none text-secondary-BHEC">Terminis i Condicions</a></li>
-          <li class="px-2 py-1"><a href="#" class="text-decoration-none text-secondary-BHEC">Política de Privacitat</a></li>
+          <li class="px-2 py-1"><a href="/privacy" class="text-decoration-none text-secondary-BHEC">Política de Privacitat</a></li>
         </ul>
       </div>
     </div>

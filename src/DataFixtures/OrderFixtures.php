@@ -47,6 +47,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
             $randomVehicleIndex = array_rand($vehicles);
             $vehicle = $vehicles[$randomVehicleIndex];
             $order->addVehicle($vehicle);
+            $order->setDischarge(false);
 
             // Eliminar el vehículo asignado de la lista de vehículos disponibles
             unset($vehicles[$randomVehicleIndex]);

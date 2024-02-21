@@ -13,6 +13,7 @@
                 <div id="order-info">
                     <div>
                         <h3>Direcció d'enviament <a href="{{ path('app_purchase_index') }}" class="link text-tertiary-BHEC">Canviar</a></h3>
+                        <p><span class="fw-bold text-decoration-underline link-offset-2">Nom:</span> {{ formData.addressName }} </p>
                         <p><span class="fw-bold text-decoration-underline link-offset-2">Carrer:</span> {{ formData.address }} </p>
                         <p><span class="fw-bold text-decoration-underline link-offset-2">Localitat:</span> {{ formData.city }}, {{ formData.provinceAddress }} {{ formData.postalCode }}</p>
                         <p><span class="fw-bold text-decoration-underline link-offset-2">Telèfon:</span> {{ formData.phoneInput }}</p>
@@ -22,13 +23,13 @@
             <div class="col-12 col-md-6 col-lg-4 col-xl-6 col-xxl-3 order-2 order-xl-2 order-xxl-1  my-2 m-xxl-0">
                 <div>
                     <div>
-                        <h3>Mètode de pagament <a href="#" class="link text-tertiary-BHEC">Canviar</a></h3>
+                        <h3>Mètode de pagament <a href="{{ path('app_purchase_index') }}" class="link text-tertiary-BHEC">Canviar</a></h3>
                         <div class="d-flex align-items-center">
                             <p><span class="badge text-bg-primary">{{ formData.paymentMethod }} </span> que acaba en 6048</p>
                         </div>
                     </div>
                     <div>
-                        <h3>Direcció de facturació <a href="#" class="link text-tertiary-BHEC">Canviar</a></h3>
+                        <h3>Direcció de facturació <a href="{{ path('app_purchase_index') }}" class="link text-tertiary-BHEC">Canviar</a></h3>
                         <p>Igual a la direcció d'enviament</p>
                     </div>
                 </div>

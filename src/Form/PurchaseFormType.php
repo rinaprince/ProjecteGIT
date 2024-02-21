@@ -5,6 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -39,13 +40,10 @@ class PurchaseFormType extends AbstractType
                     'Visa' => 'Visa',
                     'MasterCard' => 'MasterCard',
                 ],
-                'label' => 'Mètode de pagament'
+                'label' => 'Mètode'
             ])
-            ->add('nameInput', TextType::class, [
-                'label' => 'Nom'
-            ])
-            ->add('lastNameInput', TextType::class, [
-                'label' => 'Cognoms'
+            ->add('numberInput', TextType::class, [
+                'label' => 'Número de la targeta'
             ])
             ->add('termsCheckbox', CheckboxType::class, [
                 'label' => 'Acceptar termes i condicions d\'ús.',

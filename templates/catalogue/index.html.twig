@@ -26,9 +26,8 @@
             <h2>Mostrant el resultat de la cerca: {{ q }}</h2>
         {% endif %}
 
-    <div class=" container-fluid d-flex flex-xl-wrap gap-xl-3 justify-content-center p-5">
-
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
             {% for vehicle in vehicles %}
                 {% if vehicle.vehicleOrder is null or vehicle.vehicleOrder.state != 'Tancat' %}
                     <div class="col-xl-3 col-12 mb-xl-2">

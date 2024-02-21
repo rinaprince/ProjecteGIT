@@ -5,9 +5,9 @@ const Routes = {
   home: "/",
   back: "/backoffice",
   catalogue: "/catalogue",
-  contacte: "/contacte",
+  contact: "/contact",
   garage: "/garage",
-  preferits: "/preferits",
+  favorites: "/favorites",
   notifications: "/",
 };
 defineProps({
@@ -44,7 +44,7 @@ onMounted(() => {
           <a class="navbar-brand d-inline-block text-secondary-BHEC fs-2 font-front d-none d-sm-block"
              :href="Routes.catalogue">Catàleg</a>
           <a class="navbar-brand ps-3 d-inline-block text-secondary-BHEC fs-2 font-front d-none d-sm-block"
-             :href="Routes.contacte">Contacte</a>
+             :href="Routes.contact">Contacte</a>
         </div>
         <div class="d-none d-sm-block d-flex justify-content-center col col-sm-6">
           <div class="input-group w-50 d-flex justify-content-center mx-auto">
@@ -58,9 +58,9 @@ onMounted(() => {
         <div class="pe-md-4 d-flex justify-content-center col-8 col-sm-2">
 
           <div class="dropdown">
-            <a class="px-0 btn d-inline-block notificacion dropdown-toggle" type="button"
+            <span class="px-0 btn d-inline-block notificacion dropdown-toggle" type="button"
                data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="/equip2/img/icon/notificacio-Groc.png"></a>
+              <img src="/equip2/img/icon/notificacio-Groc.png" alt="Icono Notificacio"></span>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#"><i class="bi bi-bag-check text-success"></i> La compra de tu coche ha sido exitosa</a></li>
               <li>
@@ -78,11 +78,11 @@ onMounted(() => {
 
             </ul>
           </div>
-          <a class="btn d-inline-block px-2" :href="Routes.preferits">
-            <img src="/equip2/img/icon/llistaDeDesitjos-Groc.png">
+          <a class="btn d-inline-block px-2" :href="Routes.favorites">
+            <img src="/equip2/img/icon/llistaDeDesitjos-Groc.png" alt="Icono de Preferits">
           </a>
           <a class="btn d-inline-block d-flex align-items-center position-relative me-2" :href="Routes.garage">
-            <img src="/equip2/img/icon/garatge-Groc.png">
+            <img src="/equip2/img/icon/garatge-Groc.png" alt="Icono Garatge">
             <span v-if="counter > 0" class="position-absolute start-100 translate-middle badge rounded-pill bg-light text-secondary badge-garatge">
   {{ counter }}
   <span class="visually-hidden">cotxes al garatge</span>
@@ -108,7 +108,7 @@ onMounted(() => {
                 class="bi bi-book px-2 py-2"></i> Catàleg</a>
           </li>
           <li class="">
-            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" :href="Routes.contacte"><i
+            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" :href="Routes.contact"><i
                 class="bi-envelope px-2 py-2"></i> Contacte</a>
           </li>
         </ul>

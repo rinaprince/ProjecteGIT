@@ -10,8 +10,11 @@ class PrivateCustomer extends Customer
 {
 
 
+
     public function getType(): string
     {
         return "private";
     }
+
+
 }

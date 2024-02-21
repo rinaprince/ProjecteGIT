@@ -1,5 +1,5 @@
 {{ form_start(professionalForm, {attr:{ 'novalidate': 'novalidate'}}) }}
-    <div class="container">
+    <div class="container" data-controller="password-confirm">
         <div class="row">
             <div class="col-7 px-2 border-end border-black border-opacity-25">
                 <div class="row my-3">
@@ -7,7 +7,7 @@
                         <div class="m-2">
                             <fieldset>
                                 <legend class="fs-5">Nom</legend>
-                                {{ form_widget(professionalForm.name, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
+                                {{ form_widget(professionalForm.name, { 'attr': {'class': 'form-control border border-black border-opacity-25','placeholder':"Rodrigo"} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -15,7 +15,7 @@
                         <div class="m-2">
                             <fieldset>
                                 <legend class="fs-5">Cognom</legend>
-                                {{ form_widget(professionalForm.lastname, { 'attr': {'class': 'form-control border border-black border-opacity-25'} }) }}
+                                {{ form_widget(professionalForm.lastname, { 'attr': {'class': 'form-control border border-black border-opacity-25','placeholder':"Campos"} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                         <div class="m-2">
                             <fieldset class="w-100">
                                 <legend class="fs-5">DNI</legend>
-                                {{ form_widget(professionalForm.dni, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_widget(professionalForm.dni, { 'attr': {'class': 'form-control border border-black border-opacity-25 ','placeholder':"12345678Z"} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <div class="m-2">
                             <fieldset class="w-100">
                                 <legend class="fs-5">CIF</legend>
-                                {{ form_widget(professionalForm.cif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_widget(professionalForm.cif, { 'attr': {'class': 'form-control border border-black border-opacity-25 ','placeholder':"A2345678"} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -41,23 +41,23 @@
                         <div class="m-2">
                             <fieldset class="w-100">
                                 <legend class="fs-5">Correu electrònic</legend>
-                                {{ form_widget(professionalForm.email, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
-                            </fieldset>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-6">
-                        <div class="m-2">
-                            <fieldset class="w-100">
-                                <legend class="fs-5">Telèfon</legend>
-                                {{ form_widget(professionalForm.phone, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_widget(professionalForm.email, { 'attr': {'class': 'form-control border border-black border-opacity-25 ','placeholder':"exemple@gmail.com"} }) }}
                             </fieldset>
                         </div>
                     </div>
                     <div class="col-sm-4 col-6">
                         <div class="m-2">
                             <fieldset class="w-100">
-                                <legend class="fs-5">NIF del gerent</legend>
-                                {{ form_widget(professionalForm.managerNif, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                <legend class="fs-5">Telèfon</legend>
+                                {{ form_widget(professionalForm.phone, { 'attr': {'class': 'form-control border border-black border-opacity-25 ','placeholder':"333444666"} }) }}
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="m-2">
+                            <fieldset class="w-100">
+                                <legend class="fs-5">NIF gerent</legend>
+                                {{ form_widget(professionalForm.managerNif, { 'attr': {'class': 'form-control border border-black border-opacity-25 ','placeholder':"12345678Z"} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <div class="m-2">
                             <fieldset class="w-100">
                                 <legend class="fs-5">Nom d'empresa</legend>
-                                {{ form_widget(professionalForm.bussinessName, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_widget(professionalForm.bussinessName, { 'attr': {'class': 'form-control border border-black border-opacity-25 ','placeholder':"Nom d'empresa"} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         <div class="m-2">
                             <fieldset class="w-100">
                                 <legend class="fs-5">Adreça</legend>
-                                {{ form_widget(professionalForm.address, { 'attr': {'class': 'form-control border border-black border-opacity-25 '} }) }}
+                                {{ form_widget(professionalForm.address, { 'attr': {'class': 'form-control border border-black border-opacity-25 ','placeholder':'Carrer exemple, n12, Ondara, Alacant, Espanya'} }) }}
                             </fieldset>
                         </div>
                     </div>
@@ -107,15 +107,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-5 my-5 d-flex justify-content-center px-0"  data-controller="password-confirm">
-                <div class="border border-black border-opacity-25 py-5 rounded-2">
+            <div class="col-5 my-5 d-flex justify-content-center px-0" >
+                <div class="border border-black border-opacity-25 py-5 rounded-2 shadow">
                     <div class="p-3 d-flex flex-column align-items-center">
                         <h2 class="fs-4">Credencials d'inici de sessió</h2>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         <div class="py-2">
                             <label for="username" class="my-1">Usuari:</label>
-                            <div class="position-relative">
-                                {{ form_widget(professionalForm.login.username, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5'} }) }}
+
+                            <div class="position-relative" data-controller="register-username-validation">
+                                {{ form_widget(professionalForm.login.username, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5', 'placeholder': "Nom d'usuari", 'data-register-username-validation-target':"username" } }) }}
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-person position-absolute top-50 translate-middle-y ms-3"
                                      viewBox="0 0 16 16">
@@ -127,7 +129,7 @@
                         <div class="py-2">
                             <label for="password" class="my-1">Contrasenya:</label>
                             <div class="position-relative" id="passwordController">
-                                {{ form_widget(professionalForm.login.password, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5','data-password-confirm-target':"password", 'type':"text"} }) }}
+                                {{ form_widget(professionalForm.login.password, { 'attr': {'class': 'form-control border border-black border-opacity-25 ps-5','data-password-confirm-target':"password", 'type':"text",'placeholder':'Contrasenya'} }) }}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-key position-absolute top-50 translate-middle-y ms-3"
                                      viewBox="0 0 16 16">
@@ -138,14 +140,14 @@
                         </div>
                         <div class="py-3">
                             <label for="confirmPassword">Confirma contrasenya:</label>
-                            <div class="position-relative" id="passwordController">
+                            <div class="position-relative" id="passwordController" data-controller="ocult-password">
                                 <input class="form-control border border-black border-opacity-25 ps-5"
                                        type="password" id="confirmPassword"
                                        name="confitmPassword" required
-                                       placeholder="Confirma la contrasenya" data-password-confirm-target="password2" data-action="input->password-confirm#confirm">
+                                       placeholder="Confirma" data-password-confirm-target="password2" data-ocult-password-target="password" data-action="input->password-confirm#confirm">
                                 <i class="bi bi-person-lock position-absolute top-50 translate-middle-y ms-3"></i>
                                 <div id="hideEye">
-                                    <i class='bi bi-eye position-absolute top-50 end-0 translate-middle-y me-3 small'></i>
+                                    <i class='bi bi-eye position-absolute top-50 end-0 translate-middle-y me-3 small' data-ocult-password-target="eye" data-action="click->ocult-password#ocultPassword"></i>
                                 </div>
                             </div>
                             <span data-password-confirm-target="message" ></span>

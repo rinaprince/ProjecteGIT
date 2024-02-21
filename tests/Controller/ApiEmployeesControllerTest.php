@@ -7,7 +7,6 @@ use App\Entity\Employee;
 use App\Entity\Professional;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -66,14 +65,13 @@ class ApiEmployeesControllerTest extends ApiTestCase
             "headers" => ["Accept: application/json"],
             'json' => [
                 'name' => 'Manolo',
-                'lastname' => '',
+                'lastname' => 'manele',
                 'type' => 'administrative',
                 'username' => 'ManoloJ',
                 'password' => '1234',
             ]]);
 
         $employeeData = $response->toArray()["data"];
-
 
         self::assertResponseStatusCodeSame(201);
 
@@ -82,111 +80,42 @@ class ApiEmployeesControllerTest extends ApiTestCase
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
-        $fixture = new Employee();
-        $fixture->setName('My Title');
-        $fixture->setLastname('My Title');
-        $fixture->setAddress('My Title');
-        $fixture->setDni('My Title');
-        $fixture->setPhone('My Title');
-        $fixture->setEmail('My Title');
-        $fixture->setCif('My Title');
-        $fixture->setManagerNif('My Title');
-        $fixture->setLOPDdoc('My Title');
-        $fixture->setBussinessName('My Title');
-        $fixture->setConstitutionWriting('My Title');
-        $fixture->setSubscription('My Title');
+        //$this->markTestIncomplete();
+        $response = $this->client->request('GET', '/api/v1/employees/1', ["headers" => ["Accept: application/json"]]);
 
-        $this->manager->persist($fixture);
-        $this->manager->flush();
-
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Professional');
+        self::assertSame('Administrador', $response->toArray()['data']['name']);
+
+
 
         // Use assertions to check that the properties are properly displayed.
     }
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
-        $fixture = new Professional();
-        $fixture->setName('Value');
-        $fixture->setLastname('Value');
-        $fixture->setAddress('Value');
-        $fixture->setDni('Value');
-        $fixture->setPhone('Value');
-        $fixture->setEmail('Value');
-        $fixture->setCif('Value');
-        $fixture->setManagerNif('Value');
-        $fixture->setLOPDdoc('Value');
-        $fixture->setBussinessName('Value');
-        $fixture->setConstitutionWriting('Value');
-        $fixture->setSubscription('Value');
+        $response = $this->client->request('PUT', '/api/v1/employees/3', [
+            "headers" => ["Accept: application/json"],
+            'json' => [
+                'name' => 'Ornitorrinco',
+                'lastname' => 'Thompson',
+                'type' => 'administrator',
+                'username' => 'orni',
+                'password' => 'torrinco',
+            ]]);
 
-        $this->manager->persist($fixture);
-        $this->manager->flush();
+        $employeeData = $response->toArray()["data"];
 
-        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
+        self::assertResponseStatusCodeSame(201);
 
-        $this->client->submitForm('Update', [
-            'professional[name]' => 'Something New',
-            'professional[lastname]' => 'Something New',
-            'professional[address]' => 'Something New',
-            'professional[dni]' => 'Something New',
-            'professional[phone]' => 'Something New',
-            'professional[email]' => 'Something New',
-            'professional[cif]' => 'Something New',
-            'professional[managerNif]' => 'Something New',
-            'professional[LOPDdoc]' => 'Something New',
-            'professional[bussinessName]' => 'Something New',
-            'professional[constitutionWriting]' => 'Something New',
-            'professional[subscription]' => 'Something New',
-        ]);
+        self::assertSame("Ornitorrinco", $employeeData["name"]);
 
-        self::assertResponseRedirects('/professional/');
-
-        $fixture = $this->repository->findAll();
-
-        self::assertSame('Something New', $fixture[0]->getName());
-        self::assertSame('Something New', $fixture[0]->getLastname());
-        self::assertSame('Something New', $fixture[0]->getAddress());
-        self::assertSame('Something New', $fixture[0]->getDni());
-        self::assertSame('Something New', $fixture[0]->getPhone());
-        self::assertSame('Something New', $fixture[0]->getEmail());
-        self::assertSame('Something New', $fixture[0]->getCif());
-        self::assertSame('Something New', $fixture[0]->getManagerNif());
-        self::assertSame('Something New', $fixture[0]->getLOPDdoc());
-        self::assertSame('Something New', $fixture[0]->getBussinessName());
-        self::assertSame('Something New', $fixture[0]->getConstitutionWriting());
-        self::assertSame('Something New', $fixture[0]->getSubscription());
     }
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
-        $fixture = new Professional();
-        $fixture->setName('Value');
-        $fixture->setLastname('Value');
-        $fixture->setAddress('Value');
-        $fixture->setDni('Value');
-        $fixture->setPhone('Value');
-        $fixture->setEmail('Value');
-        $fixture->setCif('Value');
-        $fixture->setManagerNif('Value');
-        $fixture->setLOPDdoc('Value');
-        $fixture->setBussinessName('Value');
-        $fixture->setConstitutionWriting('Value');
-        $fixture->setSubscription('Value');
+        $response = $this->client->request('DELETE', '/api/v1/employees/1', ["headers" => ["Accept: application/json"]]);
 
-        $this->manager->remove($fixture);
-        $this->manager->flush();
-
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
-        $this->client->submitForm('Delete');
-
-        self::assertResponseRedirects('/professional/');
-        self::assertSame(0, $this->repository->count([]));
+        $this->assertCount(81, $this->repository->findAll());
     }
 }

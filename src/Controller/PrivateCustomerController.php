@@ -13,14 +13,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/private/customers')]
+#[Route('/customers/private')]
 class PrivateCustomerController extends AbstractController
 {
     #[Route('/', name: 'app_private_customer_index', methods: ['GET'])]
     public function index(PrivateCustomerRepository $privateCustomerRepository): Response
     {
         return $this->render('private_customer/index.html.twig', [
-            'private_customers' => $privateCustomerRepository->findAll(),
+            'private_customers' => $privateCustomerRepository->findAllQuery(),
         ]);
     }
 
@@ -74,6 +74,7 @@ class PrivateCustomerController extends AbstractController
             $login->setRole("ROLE_PRIVATE");
             $entityManager->persist($login);
             $privateCustomer->setLogin($login);
+            $privateCustomer->setDischarge(false);
             $entityManager->persist($privateCustomer);
             $entityManager->flush();
 
@@ -117,14 +118,18 @@ class PrivateCustomerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_private_customer_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_private_customer_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMINISTRATIVE')]
     public function delete(Request $request, PrivateCustomer $privateCustomer, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$privateCustomer->getId(), $request->request->get('_token'))) {
+        /*if ($this->isCsrfTokenValid('delete'.$privateCustomer->getId(), $request->request->get('_token'))) {
             $entityManager->remove($privateCustomer);
             $entityManager->flush();
-        }
+        }*/
+
+        $privateCustomer->setDischarge(true);
+        $entityManager->persist($privateCustomer);
+        $entityManager->flush();
 
         return $this->redirectToRoute('app_private_customer_index', [], Response::HTTP_SEE_OTHER);
     }

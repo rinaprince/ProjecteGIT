@@ -1,5 +1,15 @@
 <script setup>
-
+const Routes = {
+  factures: "/invoices",
+  clients: "/customers",
+  empleats: "/employees",
+  proveidors: "/providers",
+  comandes: "/orders",
+  vehicles: "/vehicles"
+};
+defineProps({
+  Routes: Object,
+});
 </script>
 
 <template>
@@ -10,9 +20,9 @@
                                                                     alt="logo BHEC"></a>
         </div>
         <div class>
-          <a class="btn d-inline-block" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+          <a class="btn d-inline-block px-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
              aria-controls="offcanvasExample">
-            <i class="fs-1 fs-md-2 bi bi-person-square text-secondary-BHEC"></i>
+            <i class="fs-3 fs-md-2 bi bi-person-square text-secondary-BHEC"></i>
           </a>
         </div>
         <!-- menú hamburguesa -->
@@ -25,28 +35,30 @@
       <!-- desplegable menú hamburguesa -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-lg-0 d-block d-sm-none bg-light p-0 m-0 fs-5 dropdown-menu w-100">
-          <li class>
-            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" href="#">
+          <li>
+            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" :href="Routes.factures">
               <i class="fas fa-file-invoice px-2 py-2 w-14 text-center"></i><span>Factures</span></a>
           </li>
-          <li class>
-            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" href="#">
+          <li>
+            <a class="dropdown-item bg-tertiary-BHEC text-white" aria-current="page" :href="Routes.clients">
               <i class="fas fa-users px-2 py-2 w-14 text-center"></i><span>Clients</span>
             </a>
           </li>
-          <li class="nav-item dropdown bg-tertiary-BHEC">
-            <a class="nav-link dropdown-toggle bg-tertiary-BHEC text-white ps-3" href="#" role="button"
-               data-bs-toggle="dropdown" aria-expanded="false">
+          <li>
+            <a class="dropdown-item bg-tertiary-BHEC text-white" :href="Routes.empleats">
               <i class="fas fa-user-tie px-2 py-2 w-14 text-center"></i><span>Empleats</span></a>
-            <ul class="dropdown-menu p-0 m-0">
-              <li class="ps-4 bg-tertiary-BHEC">
-                <a class="dropdown-item bg-tertiary-BHEC text-white ps-5" href="#">Alta Proveïdor</a>
-              </li>
-              <li class="ps-4 bg-tertiary-BHEC">
-                <a class="dropdown-item bg-tertiary-BHEC text-white ps-5 link-underline link-underline-opacity-0 link-opacity-50-hover"
-                   href="#">Visualitzar Proveïdors</a>
-              </li>
-            </ul>
+          </li>
+          <li>
+            <a class="dropdown-item bg-tertiary-BHEC text-white" :href="Routes.proveidors">
+              <i class="fas fa-truck px-2 py-2 w-14 text-center"></i><span>Proveidors</span></a>
+          </li>
+          <li>
+            <a class="dropdown-item bg-tertiary-BHEC text-white" :href="Routes.comandes">
+              <i class="fas fa-shopping-cart px-2 py-2 w-14 text-center"></i><span>Comandes</span></a>
+          </li>
+          <li>
+            <a class="dropdown-item bg-tertiary-BHEC text-white" :href="Routes.vehicles">
+              <i class="fas fa-car px-2 py-2 w-14 text-center"></i><span>Vehicles</span></a>
           </li>
         </ul>
       </div>

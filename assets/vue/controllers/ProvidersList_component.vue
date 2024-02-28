@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="d-flex justify-content-between align-items-center m-3 flex-column flex-sm-row">
@@ -29,7 +29,7 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="table-responsive">
@@ -52,36 +52,32 @@
             <tbody>
             <tr v-for="provider in filteredProviders" :key="provider.id">
               <td class="d-sm-none">{{ provider.id }}</td>
-              <td class="text-center">{{ provider.email }}</td>
-              <td class="text-center">{{ provider.phone }}</td>
+              <td class="text-center align-middle">{{ provider.email }}</td>
+              <td class="text-center align-middle">{{ provider.phone }}</td>
               <td class="d-sm-none">{{ provider.dni }}</td>
               <td class="d-sm-none">{{ provider.cif }}</td>
-              <td class="text-center">{{ provider.businessName }}</td>
+              <td class="text-center align-middle">{{ provider.businessName }}</td>
               <td class="d-sm-none d-md-none">{{ provider.address }}</td>
               <td class="d-sm-none d-md-none">{{ provider.bankTitle }}</td>
               <td class="d-sm-none d-md-none">{{ provider.managerNif }}</td>
               <td class="d-sm-none d-md-none">{{ provider.LOPDdocFile }}</td>
               <td class="d-sm-none d-md-none">{{ provider.constitutionArticle }}</td>
-              <td>
+              <td class="text-center align-middle">
                 <button class="btn btn-success">
                   <a @click="modalShow(provider.id)">
                     <i class="bi bi-eye-fill"></i>
                   </a>
                 </button>
-              </td>
-              <td>
 
-                <button class="btn btn-primary">
+                <button class="btn btn-primary mx-1">
                   <a @click="modalEdit(provider.id)">
-                    <i class="bi bi-pencil-fill"></i>
+                    <i class="fas fa-pencil-alt"></i>
                   </a></button>
 
-              </td>
-              <td>
-                <!--<button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
+                <button class="btn btn-danger delete" @click="sweetAlertDelete(provider.id)">
                   <i class="bi bi-trash-fill"></i>
-                </button>-->
-                <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
+                </button>
+                <!--<a class="btn btn-danger delete" ><i class="bi bi-trash-fill"></i></a>-->
               </td>
             </tr>
             </tbody>
@@ -105,12 +101,13 @@
                   <div class="card-body text-center">
                     <p data-title="Email:">Correu: {{ provider.email }}</p>
                     <p data-title="Phone:">Telèfon: {{ provider.phone }}</p>
-                    <button class="btn btn-success mx-1" @click="modalShow(provider.id)"><i class="fas fa-eye"></i>
+                    <button class="btn btn-success" @click="modalShow(provider.id)"><i class="fas fa-eye"></i>
                     </button>
                     <button class="btn btn-primary mx-1" @click="modalEditProvider(provider.id)"><i
                         class="fas fa-pencil-alt"></i></button>
-                    <!--<button class="btn btn-danger mx-1" @click="sweetAlertDelete(provider.id)"><i class="fas fa-trash"></i></button>-->
-                    <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
+                    <button class="btn btn-danger mx-1"><i
+                        class="fas fa-trash"></i></button>
+                    <!--<a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>-->
                   </div>
                 </div>
               </div>
@@ -125,7 +122,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title fw-bold fs-3">Detalls:</h5>
+          <h5 class="modal-title fw-bold fs-3"></h5>
           <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
                   aria-label="Close"></button>
         </div>
@@ -151,20 +148,6 @@ const providerEditPath = (id) => `/providers/${id}/edit`;
 
 const providerNewPath = `/providers/new`;
 const providerDeletePath = (id) => `/providers/${id}/delete`;
-
-$(document).ready(function () {
-  //----------------------------------------------------------------------------
-  $('.delete').on('click', function () {
-    let tr = this.closest('tr'); // Troba el 'Tr' de la taula més proper al botó prés(pulsado)
-    let providerId = $(tr).find('td:eq(0)').text(); // Obté la id del registre a eliminar
-    tr.remove(); // Elimina directament la fila de la taula
-
-    //No implementar anoser que es tinga implementat la funcionalitat de soft delete ...
-    // -> (el camp en la base de dades i el mètodo delete del controlador configurat)
-    softDeleteProvider(providerId);
-  })
-  //-----------------------------------------------------------------------------
-});
 
 /* Filtratge dels camps de la taula */
 
@@ -252,36 +235,39 @@ function modalEdit(id) {
 }
 
 /* Funció per a eliminar al proveïdor */
-function softDeleteProvider(providerId) {
-  axios.post('/providers/' + providerId + '/delete', {
-    providerId: providerId
-  })
-      .then(function (response) {
-        console.log(response)
-      })
-      .catch(function (error) {
-        console.log('Error: ' + error);
-        console.log('Id: ' + providerId);
-      });
-}
+/**function softDeleteProvider(providerId) {
+ axios.post('/providers/' + providerId + '/delete', {
+ providerId: providerId
+ })
+ .then(function (response) {
+ console.log(response)
+ })
+ .catch(function (error) {
+ console.log('Error: ' + error);
+ console.log('Id: ' + providerId);
+ });
+ }*/
 
 // Sweet Alert per a eliminar
-/*function sweetAlertDelete(id) {
+function sweetAlertDelete(id, tr) {
   Swal.fire({
-    title: 'Estàs segur?',
-    text: "No podras desfer la teua decissió!",
+    title: '¿Estás seguro?',
+    text: "¡No podrás deshacer esta decisión!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#aa8e31ff',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí, elimina definitivament!'
+    confirmButtonText: 'Sí, elimina definitivamente!'
   }).then((result) => {
     if (result.isConfirmed === true) {
       axios.post(`/providers/${id}/delete`)
           .then(response => {
+            tr.fadeOut(400, function() {
+              $(this).remove();
+            });
             Swal.fire({
-              title: "Eliminat!",
-              text: "El proveïdor ha sigut eliminat.",
+              title: "¡Eliminado!",
+              text: "El proveedor ha sido eliminado.",
               icon: "success"
             });
           })
@@ -289,12 +275,22 @@ function softDeleteProvider(providerId) {
             console.error(error);
             Swal.fire({
               title: "Error",
-              text: "S'ha produït un error en eliminar el proveïdor.",
+              text: "Se ha producido un error al eliminar el proveedor.",
               icon: "error"
             });
           });
     }
   });
-}*/
+}
+
+$(document).ready(function () {
+  $('.delete').on('click', function () {
+    let tr = $(this).closest('tr');
+    let providerId = tr.find('td:eq(0)').text();
+
+    sweetAlertDelete(providerId, tr);
+  });
+});
+
 
 </script>

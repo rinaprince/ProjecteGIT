@@ -2,9 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex justify-content-xl-between justify-content-center align-items-center m-3">
+        <div class="d-flex justify-content-between align-items-center m-3 flex-column flex-sm-row">
           <form method="GET" role="search">
-            <div class="d-flex">
+            <div class="d-flex my-3">
               <input name="q" type="search" class="rounded-start-pill border border-secondary-subtle ps-3"
                      placeholder="Buscar..." aria-label="Search">
               <button type="submit" class="border border-0 rounded-end-pill button-searcher-BHEC p-2"><i
@@ -36,26 +36,26 @@
           <table class="table table-striped table-hover d-sm-table d-none">
             <thead>
             <tr>
-              <th>Email</th>
+              <th class="text-center">Email</th>
               <th>Telèfon</th>
               <th class="d-sm-none">Dni</th>
               <th class="d-sm-none">Cif</th>
-              <th>Nom de l'empresa</th>
+              <th class="text-center">Nom de l'empresa</th>
               <th class="d-sm-none d-md-none">Adreça</th>
               <th class="d-sm-none d-md-none">Títol bancari</th>
               <th class="d-sm-none">Nif del jerent</th>
               <th class="d-sm-none d-md-none">document LOPD</th>
               <th class="d-sm-none d-md-none">Article de la constitució</th>
-              <th colspan="3">Accions</th>
+              <th colspan="3" class="text-center">Accions</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="provider in filteredProviders" :key="provider.id">
-              <td>{{ provider.email }}</td>
-              <td>{{ provider.phone }}</td>
+              <td class="text-center">{{ provider.email }}</td>
+              <td class="text-center">{{ provider.phone }}</td>
               <td class="d-sm-none">{{ provider.dni }}</td>
               <td class="d-sm-none">{{ provider.cif }}</td>
-              <td>{{ provider.businessName }}</td>
+              <td class="text-center">{{ provider.businessName }}</td>
               <td class="d-sm-none d-md-none">{{ provider.address }}</td>
               <td class="d-sm-none d-md-none">{{ provider.bankTitle }}</td>
               <td class="d-sm-none">{{ provider.managerNif }}</td>
@@ -72,7 +72,7 @@
 
                 <button class="btn btn-primary">
                   <a @click="modalEdit(provider.id)">
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil-fill"></i>
                   </a></button>
 
               </td>
@@ -99,9 +99,9 @@
                   <div class="card-body text-center">
                     <p data-title="Email:">Correu: {{provider.email }}</p>
                     <p data-title="Phone:">Telèfon: {{ provider.phone }}</p>
-                    <button class="btn btn-success mx-1" @click="modalShow(provider.id)"><i class="fas fa-eye"></i></button>
-                    <button class="btn btn-primary mx-1" @click="modalEditProvider(provider.id)"><i class="fas fa-pencil-alt"></i></button>
-                    <button class="btn btn-danger mx-1" @click="sweetAlertDelete(provider.id)"><i class="fas fa-trash"></i></button>
+                    <button class="btn btn-success mx-1" @click="modalShow(provider.id)"><i class="bi bi-eye-fill"></i></button>
+                    <button class="btn btn-primary mx-1" @click="modalEdit(provider.id)"><i class="bi bi-pencil-fill"></i></button>
+                    <button class="btn btn-danger mx-1" @click="sweetAlertDelete(provider.id)"><i class="bi bi-trash-fill"></i></button>
                   </div>
                 </div>
               </div>

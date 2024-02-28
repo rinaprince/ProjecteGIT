@@ -95,7 +95,8 @@ class ProviderController extends AbstractController
     #[Route('/{id}/delete', name: 'app_provider_delete', methods: ['POST'])]
     public function delete(Request $request, Provider $provider, EntityManagerInterface $entityManager): Response
     {
-        $entityManager->remove($provider);
+        $provider->setDischarge(true);
+        $entityManager->persist($provider);
         $entityManager->flush();
 
         /*if ($this->isCsrfTokenValid('delete'.$provider->getId(), $request->request->get('_token'))) {

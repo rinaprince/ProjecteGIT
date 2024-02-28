@@ -25,6 +25,7 @@ defineProps({
           <li class="px-2 text-secondary-BHEC py-1"><a :href="Routes.faq" class="text-decoration-none text-secondary-BHEC">FAQ</a></li>
           <li class="px-2 text-secondary-BHEC py-1"><a :href="Routes.terms" class="text-decoration-none text-secondary-BHEC">Terminis i Condicions</a></li>
           <li class="px-2 text-secondary-BHEC py-1"><a :href="Routes.privacy" class="text-decoration-none text-secondary-BHEC">Política de Privacitat</a></li>
+
         </ul>
       </div>
     </div>

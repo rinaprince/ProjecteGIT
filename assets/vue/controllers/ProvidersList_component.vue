@@ -36,6 +36,7 @@
           <table class="table table-striped table-hover d-sm-table d-none">
             <thead>
             <tr>
+              <th>Id</th>
               <th>Email</th>
               <th>Telèfon</th>
               <th class="d-sm-none">Dni</th>
@@ -51,6 +52,7 @@
             </thead>
             <tbody>
             <tr v-for="provider in filteredProviders" :key="provider.id">
+              <td class="d-none">{{ provider.id }}</td>
               <td>{{ provider.email }}</td>
               <td>{{ provider.phone }}</td>
               <td class="d-sm-none">{{ provider.dni }}</td>
@@ -77,9 +79,10 @@
 
               </td>
               <td>
-                <button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
+                <!--<button class="btn btn-danger" @click="sweetAlertDelete(provider.id)">
                   <i class="bi bi-trash-fill"></i>
-                </button>
+                </button>-->
+                <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
               </td>
             </tr>
             </tbody>
@@ -101,7 +104,8 @@
                     <p data-title="Phone:">Telèfon: {{ provider.phone }}</p>
                     <button class="btn btn-success mx-1" @click="modalShow(provider.id)"><i class="fas fa-eye"></i></button>
                     <button class="btn btn-primary mx-1" @click="modalEditProvider(provider.id)"><i class="fas fa-pencil-alt"></i></button>
-                    <button class="btn btn-danger mx-1" @click="sweetAlertDelete(provider.id)"><i class="fas fa-trash"></i></button>
+                    <!--<button class="btn btn-danger mx-1" @click="sweetAlertDelete(provider.id)"><i class="fas fa-trash"></i></button>-->
+                    <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
                   </div>
                 </div>
               </div>
@@ -131,6 +135,7 @@
 import axios from 'axios';
 import {ref, computed, watch} from 'vue';
 import Swal from 'sweetalert2';
+import $ from "jquery";
 import vehicle from "primevue/menu";
 
 const props = defineProps(['providers', 'q']);
@@ -141,6 +146,20 @@ const providerEditPath = (id) => `/providers/${id}/edit`;
 
 const providerNewPath = `/providers/new`;
 const providerDeletePath = (id) => `/providers/${id}/delete`;
+
+$(document).ready( function () {
+  //----------------------------------------------------------------------------
+  $('.delete').on('click', function () {
+    let tr = this.closest('tr'); // Troba el 'Tr' de la taula més proper al botó prés(pulsado)
+    let providerId = $(tr).find('td:eq(0)').text(); // Obté la id del registre a eliminar
+    tr.remove(); // Elimina directament la fila de la taula
+
+    //No implementar anoser que es tinga implementat la funcionalitat de soft delete ...
+    // -> (el camp en la base de dades i el mètodo delete del controlador configurat)
+    softDeleteProvider(providerId);
+  })
+  //-----------------------------------------------------------------------------
+} );
 
 /* Filtratge dels camps de la taula */
 
@@ -228,22 +247,21 @@ function modalEdit(id) {
 }
 
 /* Funció per a eliminar al proveïdor */
-/*function deleteProvider(providerId, token) {
-  axios.post(`/providers/${providerId}/delete`, {
-    id: providerId,
-    token: token
+function softDeleteProvider(providerId){
+  axios.post('/providers/'+providerId+'/delete',{
+    providerId: providerId
   })
       .then(function (response) {
-        console.log('id: ' + providerId)
-        console.log(token);
+        console.log(response)
       })
       .catch(function (error) {
-        console.error('Error deleting provider:', error);
+        console.log('Error: '+error);
+        console.log('Id: '+providerId);
       });
-}*/
+}
 
 // Sweet Alert per a eliminar
-function sweetAlertDelete(id) {
+/*function sweetAlertDelete(id) {
   Swal.fire({
     title: 'Estàs segur?',
     text: "No podras desfer la teua decissió!",
@@ -272,6 +290,6 @@ function sweetAlertDelete(id) {
           });
     }
   });
-}
+}*/
 
 </script>

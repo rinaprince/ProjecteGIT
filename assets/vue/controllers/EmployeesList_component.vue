@@ -1,66 +1,99 @@
 <template>
+  <div>
+      <div class="d-flex justify-content-between align-items-center m-3 flex-column flex-sm-row">
+        <form method="POST" role="search">
+          <div class="d-flex my-3 justify-content-right mw-75"><input name="q" type="search"
+                                                                      class="rounded-start-pill border border-secondary-subtle px-4 py-2 "
+                                                                      placeholder="Buscar..." aria-label="Search">
 
-  <div class="d-flex justify-content-between align-items-center m-3">
-    <form method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 mb-lg-1" role="search">
-    <input name="q" type="search" class="form-control form-control-light text-dark"
-           placeholder="Buscar..." aria-label="Search">
-  </form>
-    <a @click="modalNewEmployee()"  class="text-white btn bg-secondary-BHEC p-3 mb-3"><i
-        class="bi bi-plus-square me-1"></i>Nou Employee</a>
-  </div>
+            <button id="searcher" class="btn bg-tertiary-BHEC rounded-end-5 px-4" aria-label="Buscar"><i
+                class="bi bi-search"></i></button>
+            <span id="searcher-label" class="sr-only">Buscar</span>
+          </div>
+        </form>
+      <a @click="modalNewEmployee()" class="text-white btn bg-secondary-BHEC p-3 mb-3" href="#"><i
+          class="bi bi-plus-square me-1"></i>Nou Employee</a>
+    </div>
+    <div>
+      <table class="table table-striped table-hover table-responsive w-100 m-0 d-sm-table d-none" id="employeesTable">
+        <thead>
+        <tr>
+          <th class="d-none text-center">Id</th>
+          <th class="bg-tertiary-BHEC text-center">Nom</th>
+          <th class="bg-tertiary-BHEC text-center">Cognom</th>
+          <th class="bg-tertiary-BHEC text-center">Tipus</th>
+          <th colspan="3" class="bg-tertiary-BHEC text-center">Accions</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        <tr v-for="employee in employees">
+          <td class="d-none">{{ employee.id }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.lastname }}</td>
+          <td>{{ employee.type }}</td>
+          <td>
+            <a @click="showModal(employee.id)" class="btn btn-success" href="#"><i class="bi bi-eye-fill"></i></a>
+          </td>
+          <td>
+            <a :href="employeeEditPath(employee.id)" class="btn btn-primary" aria-label="Editar empleat"><i
+                class="bi bi-pencil-fill"></i></a>
+          </td>
+          <td>
+            <a class="btn btn-danger delete" href="#"><i class="bi bi-trash-fill"></i></a>
+          </td>
 
-  <table class="table table-striped table-hover" id="employeesTable">
-    <thead>
-    <tr>
-      <th class="d-none">Id</th>
-      <th class="bg-tertiary-BHEC">Nom</th>
-      <th class="bg-tertiary-BHEC">Cognom</th>
-      <th class="bg-tertiary-BHEC">Tipus</th>
-      <th class="bg-tertiary-BHEC">Accions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="employee in employees">
-      <td class="d-none">{{employee.id}}</td>
-      <td>{{ employee.name }}</td>
-      <td>{{ employee.lastname }}</td>
-      <td>{{ employee.type }}</td>
-      <td>
-        <a @click="showModal(employee.id)" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
-        <a :href="employeeEditPath(employee.id)" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-        <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
-      </td>
-      <!--
-      <td>
-        <a @click="showModal(employee.id)" class="btn btn-success"><i class="bi bi-eye-fill"></i></a>
-      </td>
-      <td>
-        <a :href="employeeEditPath(employee.id)" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-      </td>
-      <td>
-        <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
-      </td>
-      -->
-    </tr>
-    </tbody>
-  </table>
-  <!-- Modal -->
-  <div class="modal" style="background-color: rgba(0,0,0,0.5)" ref="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Empleat</h5>
-          <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal" aria-label="Close"></button>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="accordion"
+         class="accordion accordion-flush d-flex justify-content-center d-sm-none d-flex flex-wrap text-center">
+      <div v-for="employee in employees" :key="employee.id">
+        <div class="card" style="width: 18rem;">
+          <div class="card-header" :id="'heading' + employee.id">
+            <h2 class="mb-0">
+              <button class="btn" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + employee.id"
+                      aria-expanded="false" :aria-controls="'collapse' + employee.id">
+                Empleat: {{ employee.name }}
+              </button>
+            </h2>
+          </div>
+          <div :id="'collapse' + employee.id" class="collapse" :aria-labelledby="'heading' + employee.id"
+               data-parent="#accordion">
+            <div class="card-body text-center">
+              <p data-title="Usuario:">Nom: {{ employee.name }}</p>
+              <p data-title="Precio:">Cognom: {{ employee.lastname }}</p>
+              <p data-title="Fecha:">Tipus: {{ employee.type }}</p>
+              <button class="btn btn-success mx-1" @click="showModal(employee.id)"><i class="fas fa-eye"></i></button>
+              <button class="btn btn-primary mx-1" :href="employeeEditPath(employee.id)"><i
+                  class="fas fa-pencil-alt"></i>
+              </button>
+              <button class="btn btn-danger mx-1 delete"><i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
+      </div>
+    </div>
 
-          <!-- Content goes here -->
-          <!-- You can add form elements, text, etc. -->
+    <!-- Modal -->
+    <div class="modal" style="background-color: rgba(0,0,0,0.5)" ref="myModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Empleat</h5>
+            <button type="button" class="btn-close" @click="hideModal" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <!-- Content goes here -->
+            <!-- You can add form elements, text, etc. -->
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script setup>
@@ -76,12 +109,12 @@ import $ from "jquery"; //Importació de jquery NECESSARIA per poder fer funcion
  */
 
 //Datatables
-let table = new DataTable('#employeesTable', {
+/*let table = new DataTable('#employeesTable', {
     searching: true, // Activar la funcionalidad de búsqueda
     paging: false, // Desactivar paginación
     info: false, // Desactivar información de la tabla
     autoWidth: false, // Desactivar auto-ancho de columnas
-});
+});*/
 
 defineProps({
   employees: Array,
@@ -98,7 +131,7 @@ const employeeDeletePath = (id) => `/employees/${id}`;
  *
  *
  */
-$(document).ready( function () {
+$(document).ready(function () {
   $('#employeesTable').DataTable(); // NO IMPLEMENTAR MENYS QUE VULGES IMPLEMENTAR DataTables
 
   //----------------------------------------------------------------------------
@@ -112,12 +145,12 @@ $(document).ready( function () {
     softDeleteEmployee(employeeId);
   })
   //-----------------------------------------------------------------------------
-} );
+});
 
 // ... (resto del código)
 // Hacer la solicitud Axios aquí
 function showModal(id) {
-  axios.get('/employees/'+id+'/details')
+  axios.get('/employees/' + id + '/details')
       .then(response => {
         // Actualizar el contenido del modal
         const modalBody = document.querySelector('.modal-body');
@@ -138,12 +171,13 @@ function showModal(id) {
         console.error('Error fetching modal content:', error);
       });
 }
-function hideModal(){
+
+function hideModal() {
   const myModal = document.querySelector('.modal');
   myModal.style.display = 'none';
 }
 
-function modalNewEmployee(){
+function modalNewEmployee() {
   axios.get('/employees/new')
       .then(response => {
         // Actualizar el contenido del modal
@@ -160,17 +194,17 @@ function modalNewEmployee(){
 }
 
 
-function softDeleteEmployee(employeeId){
-  axios.post('/employees/'+employeeId+'/delete',{
+function softDeleteEmployee(employeeId) {
+  axios.post('/employees/' + employeeId + '/delete', {
     employeeId: employeeId
   })
-.then(function (response) {
-    console.log(response)
-  })
-  .catch(function (error) {
-    console.log('Error: '+error);
-    console.log('Id: '+employeeId);
-  });
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log('Error: ' + error);
+        console.log('Id: ' + employeeId);
+      });
 }
 
 /**

@@ -1,8 +1,15 @@
 {% extends 'base_2.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('equip2/css/catalogue.css') }}">
+{% endblock %}
+
+
 {% block title %} Catàleg {% endblock %}
 
 {% block body %}
-    <div class="container-xl container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-center mt-3 mb-3">

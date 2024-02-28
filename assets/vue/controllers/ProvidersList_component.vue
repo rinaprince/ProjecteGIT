@@ -2,9 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex justify-content-xl-between justify-content-center align-items-center m-3">
+        <div class="d-flex justify-content-between align-items-center m-3 flex-column flex-sm-row">
           <form method="GET" role="search">
-            <div class="d-flex">
+            <div class="d-flex my-3">
               <input name="q" type="search" class="rounded-start-pill border border-secondary-subtle ps-3"
                      placeholder="Buscar..." aria-label="Search">
               <button type="submit" class="border border-0 rounded-end-pill button-searcher-BHEC p-2"><i
@@ -13,8 +13,8 @@
             </div>
           </form>
           <div class="d-xl-flex">
-          <a @click="modalNewProvider()" class="button-text-primary-BHEC btn button-primary-BHEC p-3 mb-3"><i
-              class="bi bi-plus-square me-1"></i>Nou Proveïdor</a>
+            <a @click="modalNewProvider()" class="button-text-primary-BHEC btn button-primary-BHEC p-3 mb-3"><i
+                class="bi bi-plus-square me-1"></i>Nou Proveïdor</a>
           </div>
         </div>
         <!--<form class="mb-3 mb-lg-0 me-lg-3 mb-lg-1">
@@ -36,31 +36,30 @@
           <table class="table table-striped table-hover d-sm-table d-none">
             <thead>
             <tr>
-              <th>Id</th>
-              <th>Email</th>
-              <th>Telèfon</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">Telèfon</th>
               <th class="d-sm-none">Dni</th>
               <th class="d-sm-none">Cif</th>
-              <th>Nom de l'empresa</th>
+              <th class="text-center">Nom de l'empresa</th>
               <th class="d-sm-none d-md-none">Adreça</th>
               <th class="d-sm-none d-md-none">Títol bancari</th>
               <th class="d-sm-none">Nif del jerent</th>
               <th class="d-sm-none d-md-none">document LOPD</th>
               <th class="d-sm-none d-md-none">Article de la constitució</th>
-              <th colspan="3">Accions</th>
+              <th colspan="3" class="text-center">Accions</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="provider in filteredProviders" :key="provider.id">
-              <td class="d-none">{{ provider.id }}</td>
-              <td>{{ provider.email }}</td>
-              <td>{{ provider.phone }}</td>
+              <td class="d-sm-none">{{ provider.id }}</td>
+              <td class="text-center">{{ provider.email }}</td>
+              <td class="text-center">{{ provider.phone }}</td>
               <td class="d-sm-none">{{ provider.dni }}</td>
               <td class="d-sm-none">{{ provider.cif }}</td>
-              <td>{{ provider.businessName }}</td>
+              <td class="text-center">{{ provider.businessName }}</td>
               <td class="d-sm-none d-md-none">{{ provider.address }}</td>
               <td class="d-sm-none d-md-none">{{ provider.bankTitle }}</td>
-              <td class="d-sm-none">{{ provider.managerNif }}</td>
+              <td class="d-sm-none d-md-none">{{ provider.managerNif }}</td>
               <td class="d-sm-none d-md-none">{{ provider.LOPDdocFile }}</td>
               <td class="d-sm-none d-md-none">{{ provider.constitutionArticle }}</td>
               <td>
@@ -74,7 +73,7 @@
 
                 <button class="btn btn-primary">
                   <a @click="modalEdit(provider.id)">
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil-fill"></i>
                   </a></button>
 
               </td>
@@ -88,22 +87,28 @@
             </tbody>
           </table>
 
-          <div id="accordion" class="accordion accordion-flush d-flex justify-content-center d-sm-none d-flex flex-wrap text-center">
+          <div id="accordion"
+               class="accordion accordion-flush d-flex justify-content-center d-sm-none d-flex flex-wrap text-center">
             <div v-for="provider in filteredProviders" :key="provider.id">
               <div class="card" style="width: 18rem;">
                 <div class="card-header" id="heading{{ provider.id }}">
                   <h2 class="mb-0">
-                    <button class="btn " type="button" data-bs-toggle="collapse"  :data-bs-target="'#collapse' + provider.id" aria-expanded="false" :aria-controls="'collapse' + provider.id">
+                    <button class="btn " type="button" data-bs-toggle="collapse"
+                            :data-bs-target="'#collapse' + provider.id" aria-expanded="false"
+                            :aria-controls="'collapse' + provider.id">
                       Nom de l'empresa: {{ provider.businessName }}
                     </button>
                   </h2>
                 </div>
-                <div :id="'collapse' + provider.id" class="collapse" aria-labelledby="heading{{ provider.id }}" data-parent="#accordion">
+                <div :id="'collapse' + provider.id" class="collapse" aria-labelledby="heading{{ provider.id }}"
+                     data-parent="#accordion">
                   <div class="card-body text-center">
-                    <p data-title="Email:">Correu: {{provider.email }}</p>
+                    <p data-title="Email:">Correu: {{ provider.email }}</p>
                     <p data-title="Phone:">Telèfon: {{ provider.phone }}</p>
-                    <button class="btn btn-success mx-1" @click="modalShow(provider.id)"><i class="fas fa-eye"></i></button>
-                    <button class="btn btn-primary mx-1" @click="modalEditProvider(provider.id)"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-success mx-1" @click="modalShow(provider.id)"><i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-primary mx-1" @click="modalEditProvider(provider.id)"><i
+                        class="fas fa-pencil-alt"></i></button>
                     <!--<button class="btn btn-danger mx-1" @click="sweetAlertDelete(provider.id)"><i class="fas fa-trash"></i></button>-->
                     <a class="btn btn-danger delete"><i class="bi bi-trash-fill"></i></a>
                   </div>
@@ -147,7 +152,7 @@ const providerEditPath = (id) => `/providers/${id}/edit`;
 const providerNewPath = `/providers/new`;
 const providerDeletePath = (id) => `/providers/${id}/delete`;
 
-$(document).ready( function () {
+$(document).ready(function () {
   //----------------------------------------------------------------------------
   $('.delete').on('click', function () {
     let tr = this.closest('tr'); // Troba el 'Tr' de la taula més proper al botó prés(pulsado)
@@ -159,7 +164,7 @@ $(document).ready( function () {
     softDeleteProvider(providerId);
   })
   //-----------------------------------------------------------------------------
-} );
+});
 
 /* Filtratge dels camps de la taula */
 
@@ -247,16 +252,16 @@ function modalEdit(id) {
 }
 
 /* Funció per a eliminar al proveïdor */
-function softDeleteProvider(providerId){
-  axios.post('/providers/'+providerId+'/delete',{
+function softDeleteProvider(providerId) {
+  axios.post('/providers/' + providerId + '/delete', {
     providerId: providerId
   })
       .then(function (response) {
         console.log(response)
       })
       .catch(function (error) {
-        console.log('Error: '+error);
-        console.log('Id: '+providerId);
+        console.log('Error: ' + error);
+        console.log('Id: ' + providerId);
       });
 }
 

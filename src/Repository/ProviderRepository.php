@@ -67,6 +67,7 @@ class ProviderRepository extends ServiceEntityRepository
 
     public function findAllQuery(): Query{
         return $this->createQueryBuilder('p')
+            ->where('p.discharge = false') //This line set a filter to the query to get all the employees that are not discharge.
             ->orderBy('p.id', 'ASC')
             ->getQuery();}
 }

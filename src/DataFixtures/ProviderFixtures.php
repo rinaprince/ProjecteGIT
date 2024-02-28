@@ -34,6 +34,7 @@ class ProviderFixtures extends Fixture
             $provider->setManagerNif($this->faker->dni());
             $provider->setConstitutionArticle($this->faker->mimeType());
             $provider->setLOPDdoc($this->faker->mimeType());
+            $provider->setDischarge(false);
 
             $providers[] = $provider;
             $manager->persist($provider);
